@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent, Tag, Button } from "@/components/ui";
+import { Card, CardContent, Tag, Button, CopyEmailButton } from "@/components/ui";
 import { ExternalLink } from "lucide-react";
 
 const principles = [
@@ -78,9 +78,7 @@ export default function HomePage() {
             <Link href="/portfolio">
               <Button variant="primary">View portfolio</Button>
             </Link>
-            <a href="mailto:jason@jsnfx.com">
-              <Button variant="ghost">Get in touch</Button>
-            </a>
+            <CopyEmailButton variant="ghost">Get in touch</CopyEmailButton>
           </div>
         </div>
         <div className="w-full md:w-64 lg:w-80 flex-shrink-0">
@@ -184,11 +182,7 @@ export default function HomePage() {
           Looking for a content designer who cares deeply about craft and
           systems? I'd love to chat.
         </p>
-        <a href="mailto:jason@jsnfx.com">
-          <Button variant="primary" size="lg">
-            jason@jsnfx.com
-          </Button>
-        </a>
+        <CopyEmailButton variant="primary" size="lg" />
       </section>
     </div>
   );
