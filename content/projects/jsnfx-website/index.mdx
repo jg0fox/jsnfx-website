@@ -1,0 +1,100 @@
+---
+title: "jsnfx.com"
+slug: "jsnfx-website"
+description: "A personal portfolio website built with Next.js and MDX, plus an LLM-powered crawler for migrating content from the old Webflow site."
+category: "Website"
+status: "Active"
+date: "2024-12"
+technologies: ["Next.js 14", "TypeScript", "Tailwind CSS", "MDX", "Framer Motion", "Vercel", "Python", "Playwright", "Claude API"]
+github: "https://github.com/jsnfx/jsnfx-website"
+liveUrl: "https://jsnfx.com"
+---
+
+## The challenge
+
+As a senior content designer, I needed a portfolio that would do more than just list projects — it needed to reflect my craft and attention to detail while remaining easy to maintain and extend.
+
+Most portfolio templates felt either too corporate and sterile, or too flashy and distracting from the work itself. I wanted something that felt **grounded, approachable, and crafted** — like a well-curated study filled with plants and natural light.
+
+## Design direction
+
+The aesthetic draws from organic, natural themes:
+
+- **Grounded** — earthy greens and warm linens, natural textures, thoughtful typography
+- **Approachable** — warm without being casual, professional without being cold
+- **Crafted** — attention to detail that suggests care and intentionality
+- **Distinctive** — memorable without being flashy
+
+The color palette centers on Palm Leaf greens against a Soft Linen background, with Bronze Spice as an accent for calls-to-action and highlights.
+
+## Technical approach
+
+The site is built with **Next.js 14+** using the App Router for excellent Vercel integration and React Server Components. Styling uses **Tailwind CSS v4** for utility-first development and easy theming. All content lives in **MDX** files — Markdown with React components — making it easy to author and maintain. **TypeScript** in strict mode catches errors early, and the whole thing deploys to **Vercel** with zero configuration.
+
+### Content architecture
+
+Portfolio and project content lives in MDX files with frontmatter metadata. This structure makes it easy to add new portfolio pieces — just create a folder, add an `index.mdx` with the right frontmatter, and the site handles the rest.
+
+### Mobile-first responsive design
+
+Every component was built mobile-first, with breakpoint modifiers for larger screens. The sidebar transforms into a slide-out drawer on mobile, and portfolio grids adapt from 1 column on phones to 2-3 columns on desktop.
+
+## Content migration with an LLM-powered crawler
+
+Before building the new site, I needed to migrate content from my existing Webflow portfolio. Rather than manually copying and reformatting everything, I built a custom web crawler that uses Claude to intelligently extract and transform the content.
+
+![Crawler architecture diagram](/projects/jsnfx-website/crawler-architecture.png)
+
+The crawler uses **Playwright** (a headless browser) to handle JavaScript-rendered content, then sends each page to **Claude** for intelligent extraction.
+
+### How it works
+
+Claude's tool use feature enables structured output. Two tools work together:
+
+1. **extract_page_content** — Returns clean markdown, title, page type, summary, and tags
+2. **name_images** — Generates descriptive, contextual filenames for each image
+
+The system transforms generic CDN URLs like `cdn.prod.website-files.com/abc123.png` into meaningful names like `robinhood-trading-dashboard.png`.
+
+### Filtering decorative images
+
+A key challenge was filtering out decorative images (icons, checkmarks, navigation elements) while preserving meaningful content. The solution combines multiple signals: URL pattern matching, dimension checking (skip images under 100×100px), accessibility hints, and alt text analysis.
+
+### Results
+
+The final crawl processed **12 pages** and downloaded **87 images** with contextual names. Total API cost was about **$0.80** and processing took roughly **7 minutes**. Each page produced clean markdown with images embedded at their correct positions — ready to drop into the new MDX content system.
+
+### Lessons learned
+
+- **LLMs are inconsistent with multi-tool calls** — Always implement fallback mechanisms when expecting multiple tool responses
+- **Decorative filtering requires multiple signals** — URL patterns alone aren't sufficient
+- **Playwright over requests** — For modern JavaScript-heavy sites, headless browsers are more reliable
+- **Prompt for inclusion, not exclusion** — "Include content images, skip only tiny icons" works better than "skip decorative images"
+
+## Building with Claude Code
+
+This project was built collaboratively using [Claude Code](https://claude.com/code), Anthropic's AI-powered CLI tool. The workflow enabled rapid iteration across four phases: foundation setup, component building, content system implementation, and polish.
+
+The AI pair-programming approach was particularly valuable for quickly scaffolding new components matching existing patterns, debugging tricky issues (like MDX hydration errors), and iterating on visual details through rapid feedback cycles.
+
+## Key features
+
+- **Component-driven architecture** — Reusable UI components ensure consistency
+- **MDX content** — Write portfolio pieces in Markdown with embedded React components
+- **Automatic portfolio navigation** — Previous/next links generated from content
+- **Responsive images** — Next.js Image component with proper sizing hints
+- **Accessible** — Keyboard navigable, proper heading hierarchy, focus states
+- **Performance optimized** — Static generation where possible, optimized images
+
+## What I learned
+
+Building my own portfolio from scratch reinforced a few principles:
+
+1. **Content-first design** — The best portfolio sites get out of the way of the work
+2. **Componentization pays off** — Time spent on reusable components saves time later
+3. **Mobile is not an afterthought** — Designing mobile-first leads to better decisions
+4. **Iteration beats perfection** — Ship early, refine continuously
+
+## Status and roadmap
+
+The site is live and actively maintained. Planned improvements include adding more portfolio case studies, a writing section for articles and thoughts, dark mode support, and animation refinements with reduced motion support.

@@ -1,0 +1,139 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  /* Primary greens - organic, grounded */
+  --palm-leaf: #90955e;
+  --palm-leaf-2: #9e9658;
+  --palm-leaf-3: #818751;
+
+  /* Background - warm, soft */
+  --soft-linen: #f5f1e8;
+  --soft-linen-light: #faf8f3;
+  --soft-linen-dark: #e8e2d5;
+
+  /* Accent - warm contrast */
+  --bronze-spice: #c25a28;
+  --bronze-spice-light: #d4784a;
+
+  /* Text hierarchy */
+  --text-primary: #2d3a2e;
+  --text-secondary: #5a6b5c;
+  --text-muted: #8a9a8c;
+
+  /* Utility */
+  --white: #ffffff;
+  --shadow: rgba(45, 58, 46, 0.08);
+
+  /* Animation tokens */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+@theme inline {
+  /* Colors */
+  --color-palm-leaf: var(--palm-leaf);
+  --color-palm-leaf-2: var(--palm-leaf-2);
+  --color-palm-leaf-3: var(--palm-leaf-3);
+
+  --color-soft-linen: var(--soft-linen);
+  --color-soft-linen-light: var(--soft-linen-light);
+  --color-soft-linen-dark: var(--soft-linen-dark);
+
+  --color-bronze-spice: var(--bronze-spice);
+  --color-bronze-spice-light: var(--bronze-spice-light);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  /* Fonts */
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-source-sans);
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background-color: var(--soft-linen);
+  color: var(--text-primary);
+  font-family: var(--font-source-sans), system-ui, sans-serif;
+}
+
+/* Typography defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--palm-leaf);
+  outline-offset: 2px;
+}
+
+/* Selection styles */
+::selection {
+  background-color: var(--palm-leaf);
+  color: var(--white);
+}
+
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 1rem;
+  background-color: var(--palm-leaf);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+}
+
+/* Prose/MDX content styling */
+.prose {
+  --tw-prose-body: var(--text-secondary);
+  --tw-prose-headings: var(--text-primary);
+  --tw-prose-links: var(--palm-leaf-3);
+  --tw-prose-bold: var(--text-primary);
+  --tw-prose-quotes: var(--text-secondary);
+  --tw-prose-quote-borders: var(--palm-leaf);
+  --tw-prose-captions: var(--text-muted);
+  --tw-prose-hr: var(--soft-linen-dark);
+}
+
+.prose a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.prose a:hover {
+  color: var(--bronze-spice);
+}

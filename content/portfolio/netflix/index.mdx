@@ -1,0 +1,82 @@
+---
+title: "Content design considerations for Netflix payments"
+slug: "netflix"
+description: "Content design hypotheses, guidelines, and content elements for Netflix payments experiments."
+category: "Streaming"
+company: "Netflix"
+date: "2023-06"
+role: "UX Research Analyst & Content Designer"
+timeline: "External case study"
+tools: ["Figma", "Baymard Research", "18F Hypothesis Framework"]
+featured: false
+thumbnail: "/portfolio/netflix/netflix-logo.png"
+heroImage: "/portfolio/netflix/netflix-logo.png"
+order: 4
+---
+
+In this case study, I draw from my roles as a content designer and UX research analyst to craft a set of content design hypotheses, guidelines, and content elements that might serve as the foundation for Netflix payments experiments.
+
+*This is an external case study — I am not currently an employee of Netflix.*
+
+[See Figma project files](https://www.figma.com/file/yMKK14OjzvgOVFRUVpkJ9p/Content-opportunities-for-Netflix-payments?type=design&node-id=1%3A615&mode=design&t=hyqGe3QYPkKXntHk-1)
+
+At Baymard, we conducted in-depth usability research. With a team, I authored a report stemming from feedback of 185 participants using the "Think Aloud" protocol. From this comprehensive study, I want to highlight six recommendations that could be of value to Netflix.
+
+![Third-party payment flow diagram](/portfolio/netflix/third-party-data-export-insights.png)
+
+All insights here were drawn from my work at The Baymard Institute and Chime.
+
+## Six recommendations
+
+1. **Clarifying Third-Party Payments:** Some participants were hesitant about third-party payment methods due to uncertainty—like being redirected to an external site. To boost confidence, consider explaining upfront how these payments integrate into your flow.
+2. **Security Badge Placement:** A strategic position for the security badge, closer to the credit card field, might enhance trust when users are inputting sensitive details.
+3. **Visual Reinforcement:** Use design cues like borders or shading on the credit card field. These subtle visual hints can often convey security more effectively than verbose explanations.
+4. **Actionable Payment Options:** Rather than labels like "Credit Card", consider actionable prompts such as "Pay with a Credit or Debit card". It doesn't just convey the method but sets the stage for what's next, guiding user behavior.
+5. **Left-Aligning Text:** Users consistently found left-aligned content more digestible than centered. It's a recognized usability pattern that Netflix might benefit from, especially in the payment flow.
+6. **Tone Matters:** Especially in payment scenarios, a neutral tone is crucial. Overly playful or emotional tones can diminish trust. We need to strike a balance in tone, especially when dealing with sensitive data submission.
+
+## Four hypotheses
+
+I've created a set of four content hypotheses to accompany my content guidelines. I used 18F's hypothesis structure to clarify goals and facilitate learning during the experimentation phase.
+
+![Content hypothesis cards for Netflix payments](/portfolio/netflix/netflix-payment-content-hypotheses.svg)
+
+Here's an example of what the hypothesis content cards look like.
+
+**We believe** that doing/building/creating **[this]** for **[this user]**
+
+**will result** in **[this outcome]**.
+
+**We'll know we're right** when we see **[this metric/signal]**.
+
+[The 18F Design Hypothesis](https://methods.18f.gov/decide/design-hypothesis/)
+
+**Hypothesis 1:** Explaining third-party payment options we believe that clearly explaining how third-party payment options function will resolve ambiguity about the subsequent flow and can reduce hesitation to take action for prospective Netflix customers. We'll know we're right when we see higher clickthrough and completion rates on step 3 of payment setup.
+
+**Hypothesis 2:** Enhancing the perception of security we believe that visually reinforcing text input fields at the moment of sensitive data input and relocating the security badge will result in a heightened perception of security for Netflix customers. We'll know we're right when we see a decrease in abandonments or a decrease in time spent on payment details entry screens.
+
+**Hypothesis 3:** Framing payment options as actions we believe that framing payment options as actions will more thoroughly prepare customers for the upcoming task flow. We'll know we're right when we see increased clickthrough on payment selection screens and decreased bounce rate during payment data input.
+
+**Hypothesis 4:** Using a neutral tone of voice we believe that using a more neutral tone of voice in the payment experience will create an experience that's more closely aligned with what some customers feel is appropriate, which will result in heightened trust of the payment flow.
+
+## The hypothesis card components in Figma
+
+![Figma component variants for hypothesis cards](/portfolio/netflix/figma-hypothesis-card-components.png)
+
+Each hypothesis card exists as a Figma component in the complementary design file.
+
+![Hypothesis card aligned state](/portfolio/netflix/figma-design-screenshot-1.png)
+
+![Hypothesis card misaligned state](/portfolio/netflix/figma-design-screenshot-2.png)
+
+Within the Figma design file for this project, I built a component set with four hypothesis variants. Each hypothesis is paired with content guidelines and includes relevant examples. You'll also find that there is an "aligned" and "misaligned" state so you can annotate your design files accordingly.
+
+## Figma content matrix
+
+![Netflix payments content matrix in Figma](/portfolio/netflix/figma-content-matrix.png)
+
+The matrix is organized by content element type and hypothesis.
+
+Finally, this project's Figma design file also includes a content matrix. This matrix is organized along two axes. The Y axis identifies the content element type, like heading, body, button text, etc. The X axis indicates which hypothesis the content aligns with, including all 4, plus an option that combines all hypotheses.
+
+You might find this component handy because with a single component instance, you can create all the text layers you might need to populate a payment method selector screen.
