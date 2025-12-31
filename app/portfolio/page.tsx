@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Portfolio",
   description:
     "Content design case studies from Atlassian, Robinhood, Chime, Netflix, and Oracle.",
+  alternates: {
+    canonical: "/portfolio",
+  },
 };
 
 export default async function PortfolioPage() {

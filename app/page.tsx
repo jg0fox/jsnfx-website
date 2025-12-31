@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, Tag, Button, CopyEmailButton } from "@/components/ui";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { generatePersonSchema } from "@/lib/schema";
 import { ExternalLink } from "lucide-react";
 
 const principles = [
@@ -62,8 +64,12 @@ const talks = [
 ];
 
 export default function HomePage() {
+  const personSchema = generatePersonSchema();
+
   return (
-    <div className="space-y-16">
+    <>
+      <JsonLd schema={personSchema} />
+      <div className="space-y-16">
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row gap-8 items-center">
         <div className="flex-1">
@@ -184,6 +190,7 @@ export default function HomePage() {
         </p>
         <CopyEmailButton variant="primary" size="lg" />
       </section>
-    </div>
+      </div>
+    </>
   );
 }

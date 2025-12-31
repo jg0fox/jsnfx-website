@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Source_Sans_3 } from "next/font/google";
 import { Sidebar, MobileNav } from "@/components/layout";
+import { siteConfig } from "@/lib/seo";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -16,12 +17,12 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Jason Fox - Content Designer",
-    template: "%s | Jason Fox",
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "Senior content designer with 10+ years of experience. Portfolio showcasing UX content design work at Atlassian, Robinhood, Netflix, Chime, and Oracle.",
+  description: siteConfig.description,
   keywords: [
     "content designer",
     "UX writer",
@@ -29,14 +30,30 @@ export const metadata: Metadata = {
     "UX content",
     "portfolio",
   ],
-  authors: [{ name: "Jason Fox" }],
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
   openGraph: {
     type: "website",
-    locale: "en_US",
-    siteName: "Jason Fox - Content Designer",
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    siteName: siteConfig.title,
   },
   twitter: {
     card: "summary_large_image",
+  },
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

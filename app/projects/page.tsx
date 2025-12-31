@@ -8,6 +8,9 @@ import { getProjectItems } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Side projects",
   description: "Personal projects and experiments in content design tooling.",
+  alternates: {
+    canonical: "/projects",
+  },
 };
 
 // Hardcoded projects that don't have detail pages yet

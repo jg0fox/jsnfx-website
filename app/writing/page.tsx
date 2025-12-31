@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Creative writing",
   description:
     "Fiction and nonfiction publications in literary magazines and journals.",
+  alternates: {
+    canonical: "/writing",
+  },
 };
 
 const fictionWorks = [

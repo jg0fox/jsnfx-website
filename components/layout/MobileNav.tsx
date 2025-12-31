@@ -15,13 +15,39 @@ import {
   Github,
   Mail,
   ChevronDown,
+  Check,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+// Medium icon (not available in Lucide)
+function MediumIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
+    </svg>
+  );
+}
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
+  const [emailCopied, setEmailCopied] = useState(false);
   const pathname = usePathname();
+
+  const handleEmailCopy = async () => {
+    try {
+      await navigator.clipboard.writeText("jasongfox@gmail.com");
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy email:", err);
+    }
+  };
 
   // Close menu on route change
   useEffect(() => {
@@ -84,19 +110,19 @@ export function MobileNav() {
 
   const socialLinks = [
     {
-      href: "https://www.linkedin.com/in/jasonfox/",
+      href: "https://www.linkedin.com/in/jasongfox/",
       icon: <Linkedin className="w-5 h-5" />,
       label: "LinkedIn",
     },
     {
-      href: "https://github.com/jsnfx",
+      href: "https://github.com/jg0fox",
       icon: <Github className="w-5 h-5" />,
       label: "GitHub",
     },
     {
-      href: "mailto:jason@jsnfx.com",
-      icon: <Mail className="w-5 h-5" />,
-      label: "Email",
+      href: "https://medium.com/@jjfoxbox",
+      icon: <MediumIcon className="w-5 h-5" />,
+      label: "Medium",
     },
   ];
 
@@ -251,6 +277,21 @@ export function MobileNav() {
                     {link.icon}
                   </a>
                 ))}
+                <button
+                  onClick={handleEmailCopy}
+                  className={cn(
+                    "flex items-center justify-center w-12 h-12 rounded-lg",
+                    "bg-soft-linen text-text-secondary",
+                    "hover:bg-palm-leaf hover:text-white transition-colors"
+                  )}
+                  aria-label="Copy email address"
+                >
+                  {emailCopied ? (
+                    <Check className="w-5 h-5" />
+                  ) : (
+                    <Mail className="w-5 h-5" />
+                  )}
+                </button>
               </div>
             </div>
           </nav>

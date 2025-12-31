@@ -37,7 +37,10 @@ export function CopyEmailButton({
           Copied!
         </>
       ) : (
-        children || email
+        <>
+          <Copy className="w-4 h-4 mr-2" />
+          {children || email}
+        </>
       )}
     </Button>
   );

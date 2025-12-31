@@ -3,8 +3,13 @@ import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/layout";
 import { SideProjectMeta } from "@/components/projects";
 import { Tag } from "@/components/ui";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getProjectBySlug, getAllProjectSlugs } from "@/lib/content";
 import { processMDX } from "@/lib/mdx";
+import {
+  generateProjectSchema,
+  generateBreadcrumbSchema,
+} from "@/lib/schema";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -35,6 +40,9 @@ export async function generateMetadata({
       description: project.description,
       type: "article",
     },
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
   };
 }
 
@@ -48,42 +56,52 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
   const content = await processMDX(project.content);
 
+  const projectSchema = generateProjectSchema(project);
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Projects", url: "/projects" },
+    { name: project.title },
+  ]);
+
   return (
-    <article>
-      {/* Header */}
-      <PageHeader
-        title={project.title}
-        description={project.description}
-        breadcrumbs={[
-          { label: "Side projects", href: "/projects" },
-          { label: project.title },
-        ]}
-      >
-        <div className="flex flex-wrap gap-2 mt-2">
-          <Tag>{project.category}</Tag>
-        </div>
-      </PageHeader>
+    <>
+      <JsonLd schema={[projectSchema, breadcrumbSchema]} />
+      <article>
+        {/* Header */}
+        <PageHeader
+          title={project.title}
+          description={project.description}
+          breadcrumbs={[
+            { label: "Side projects", href: "/projects" },
+            { label: project.title },
+          ]}
+        >
+          <div className="flex flex-wrap gap-2 mt-2">
+            <Tag>{project.category}</Tag>
+          </div>
+        </PageHeader>
 
-      {/* Two-column layout on desktop */}
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Main Content */}
-        <div className="flex-1 min-w-0">
-          <div className="prose prose-lg max-w-none">{content}</div>
-        </div>
+        {/* Two-column layout on desktop */}
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Main Content */}
+          <div className="flex-1 min-w-0">
+            <div className="prose prose-lg max-w-none">{content}</div>
+          </div>
 
-        {/* Sidebar */}
-        <div className="lg:w-72 flex-shrink-0">
-          <div className="lg:sticky lg:top-8">
-            <SideProjectMeta
-              status={project.status}
-              category={project.category}
-              technologies={project.technologies}
-              github={project.github}
-              liveUrl={project.liveUrl}
-            />
+          {/* Sidebar */}
+          <div className="lg:w-72 flex-shrink-0">
+            <div className="lg:sticky lg:top-8">
+              <SideProjectMeta
+                status={project.status}
+                category={project.category}
+                technologies={project.technologies}
+                github={project.github}
+                liveUrl={project.liveUrl}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </>
   );
 }

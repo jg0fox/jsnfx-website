@@ -12,6 +12,8 @@ import {
   Github,
   Mail,
   ChevronDown,
+  Copy,
+  Check,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -109,6 +111,58 @@ function SocialLink({ href, icon, label }: SocialLinkProps) {
   );
 }
 
+function EmailCopyButton() {
+  const [copied, setCopied] = useState(false);
+  const email = "jasongfox@gmail.com";
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy email:", err);
+    }
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      className={cn(
+        "flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors duration-200 w-full text-left",
+        "text-text-secondary hover:text-text-primary hover:bg-soft-linen-dark/50"
+      )}
+      aria-label="Copy email address"
+    >
+      {copied ? (
+        <>
+          <Check className="w-4 h-4" />
+          <span>Copied!</span>
+        </>
+      ) : (
+        <>
+          <Mail className="w-4 h-4" />
+          <span>Email</span>
+        </>
+      )}
+    </button>
+  );
+}
+
+// Medium icon (not available in Lucide)
+function MediumIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
+    </svg>
+  );
+}
+
 export function Sidebar() {
   const pathname = usePathname();
 
@@ -147,19 +201,19 @@ export function Sidebar() {
 
   const socialLinks = [
     {
-      href: "https://www.linkedin.com/in/jasonfox/",
+      href: "https://www.linkedin.com/in/jasongfox/",
       icon: <Linkedin className="w-4 h-4" />,
       label: "LinkedIn",
     },
     {
-      href: "https://github.com/jsnfx",
+      href: "https://github.com/jg0fox",
       icon: <Github className="w-4 h-4" />,
       label: "GitHub",
     },
     {
-      href: "mailto:jason@jsnfx.com",
-      icon: <Mail className="w-4 h-4" />,
-      label: "Email",
+      href: "https://medium.com/@jjfoxbox",
+      icon: <MediumIcon className="w-4 h-4" />,
+      label: "Medium",
     },
   ];
 
@@ -218,6 +272,7 @@ export function Sidebar() {
               label={link.label}
             />
           ))}
+          <EmailCopyButton />
         </div>
       </div>
     </aside>
