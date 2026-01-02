@@ -35,9 +35,8 @@ function NavItem({ href, label, icon, isActive, children }: NavItemProps) {
     pathname.startsWith(child.href)
   );
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = () => {
     if (hasChildren) {
-      e.preventDefault();
       setIsExpanded(!isExpanded);
     }
   };

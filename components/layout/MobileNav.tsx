@@ -204,9 +204,8 @@ export function MobileNav() {
                 const isExpanded = expandedItem === item.href;
                 const hasChildren = item.children && item.children.length > 0;
 
-                const handleItemClick = (e: React.MouseEvent) => {
+                const handleItemClick = () => {
                   if (hasChildren) {
-                    e.preventDefault();
                     setExpandedItem(isExpanded ? null : item.href);
                   }
                 };
