@@ -229,6 +229,7 @@ export function Sidebar() {
               fill
               className="object-contain"
               priority
+              unoptimized
             />
           </div>
           <div>

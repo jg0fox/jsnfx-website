@@ -139,6 +139,7 @@ export function MobileNav() {
                 fill
                 className="object-contain"
                 priority
+                unoptimized
               />
             </div>
             <span className="font-display font-bold text-text-primary">

@@ -46,6 +46,7 @@ export interface ProjectItem extends ProjectMeta {
   technologies: string[];
   github?: string;
   liveUrl?: string;
+  heroImage?: string;
   content: string;
 }
 
@@ -98,4 +99,5 @@ export interface ProjectFrontmatter {
   github?: string;
   liveUrl?: string;
   thumbnail?: string;
+  heroImage?: string;
 }

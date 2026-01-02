@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { PageHeader } from "@/components/layout";
 import { SideProjectMeta } from "@/components/projects";
 import { Tag } from "@/components/ui";
@@ -80,6 +81,20 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             <Tag>{project.category}</Tag>
           </div>
         </PageHeader>
+
+        {/* Hero Image */}
+        {project.heroImage && (
+          <div className="relative aspect-video mb-8 rounded-lg overflow-hidden bg-soft-linen-light">
+            <Image
+              src={project.heroImage}
+              alt={project.title}
+              fill
+              className="object-contain p-8"
+              sizes="(max-width: 768px) 100vw, 800px"
+              priority
+            />
+          </div>
+        )}
 
         {/* Two-column layout on desktop */}
         <div className="flex flex-col lg:flex-row gap-8">
