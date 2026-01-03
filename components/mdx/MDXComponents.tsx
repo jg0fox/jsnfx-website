@@ -141,6 +141,54 @@ function Callout({
 }
 
 /**
+ * Video embed component for Loom, YouTube, Vimeo, etc.
+ */
+function Video({
+  src,
+  title = "Embedded video",
+}: {
+  src: string;
+  title?: string;
+}) {
+  // Convert watch URLs to embed URLs if needed
+  let embedSrc = src;
+
+  // YouTube: convert watch?v= to embed/
+  if (src.includes("youtube.com/watch?v=")) {
+    const videoId = new URL(src).searchParams.get("v");
+    embedSrc = `https://www.youtube.com/embed/${videoId}`;
+  } else if (src.includes("youtu.be/")) {
+    const videoId = src.split("youtu.be/")[1]?.split("?")[0];
+    embedSrc = `https://www.youtube.com/embed/${videoId}`;
+  }
+
+  // Loom: convert share/ to embed/
+  if (src.includes("loom.com/share/")) {
+    embedSrc = src.replace("/share/", "/embed/");
+  }
+
+  // Vimeo: convert vimeo.com/123 to player.vimeo.com/video/123
+  if (src.includes("vimeo.com/") && !src.includes("player.vimeo.com")) {
+    const videoId = src.split("vimeo.com/")[1]?.split("?")[0];
+    embedSrc = `https://player.vimeo.com/video/${videoId}`;
+  }
+
+  return (
+    <figure className="my-8 overflow-hidden rounded-lg border border-soft-linen-dark">
+      <div className="relative aspect-video bg-soft-linen-light">
+        <iframe
+          src={embedSrc}
+          title={title}
+          className="absolute inset-0 w-full h-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    </figure>
+  );
+}
+
+/**
  * All MDX component mappings
  */
 export const MDXComponents: MDXComponentsType = {
@@ -234,4 +282,5 @@ export const MDXComponents: MDXComponentsType = {
 
   // Custom components that can be used in MDX
   Callout,
+  Video,
 };

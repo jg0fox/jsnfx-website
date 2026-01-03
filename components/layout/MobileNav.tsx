@@ -98,6 +98,7 @@ export function MobileNav() {
       label: "Side projects",
       icon: <FolderOpen className="w-5 h-5" />,
       children: [
+        { href: "/projects/check-content", label: "check-content" },
         { href: "/projects/jsnfx-website", label: "jsnfx.com" },
       ],
     },

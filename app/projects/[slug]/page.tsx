@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout";
 import { SideProjectMeta } from "@/components/projects";
 import { Tag } from "@/components/ui";
@@ -11,6 +12,12 @@ import {
   generateProjectSchema,
   generateBreadcrumbSchema,
 } from "@/lib/schema";
+
+function getCtaLabel(url: string): string {
+  if (url.includes("npmjs.com")) return "View on NPM";
+  if (url.includes("github.com")) return "View on GitHub";
+  return "View project";
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -93,6 +100,21 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               sizes="(max-width: 768px) 100vw, 800px"
               priority
             />
+          </div>
+        )}
+
+        {/* CTA Button */}
+        {project.liveUrl && (
+          <div className="mb-8">
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-palm-leaf text-white font-medium rounded-lg hover:bg-palm-leaf-3 transition-colors"
+            >
+              <ExternalLink className="w-5 h-5" />
+              {getCtaLabel(project.liveUrl)}
+            </a>
           </div>
         )}
 
