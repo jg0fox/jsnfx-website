@@ -204,34 +204,43 @@ export function MobileNav() {
                 const isExpanded = expandedItem === item.href;
                 const hasChildren = item.children && item.children.length > 0;
 
-                const handleItemClick = () => {
-                  if (hasChildren) {
-                    setExpandedItem(isExpanded ? null : item.href);
-                  }
+                const toggleExpand = (e: React.MouseEvent) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setExpandedItem(isExpanded ? null : item.href);
                 };
 
                 return (
                   <div key={item.href}>
-                    <Link
-                      href={item.href}
-                      onClick={handleItemClick}
+                    <div
                       className={cn(
-                        "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
+                        "flex items-center rounded-lg transition-colors",
                         "hover:bg-soft-linen-dark/50",
                         isActive && "bg-soft-linen-dark font-medium"
                       )}
                     >
-                      <span className="text-text-secondary">{item.icon}</span>
-                      <span className="flex-1 text-text-primary">{item.label}</span>
+                      <Link
+                        href={item.href}
+                        className="flex items-center gap-3 flex-1 px-4 py-3"
+                      >
+                        <span className="text-text-secondary">{item.icon}</span>
+                        <span className="text-text-primary">{item.label}</span>
+                      </Link>
                       {hasChildren && (
-                        <ChevronDown
-                          className={cn(
-                            "w-5 h-5 text-text-muted transition-transform duration-200",
-                            isExpanded && "rotate-180"
-                          )}
-                        />
+                        <button
+                          onClick={toggleExpand}
+                          className="p-3 text-text-muted hover:text-text-secondary transition-colors"
+                          aria-label={isExpanded ? "Collapse menu" : "Expand menu"}
+                        >
+                          <ChevronDown
+                            className={cn(
+                              "w-5 h-5 transition-transform duration-200",
+                              isExpanded && "rotate-180"
+                            )}
+                          />
+                        </button>
                       )}
-                    </Link>
+                    </div>
                     {hasChildren && isExpanded && (
                       <div className="ml-8 mt-1 space-y-1">
                         {item.children?.map((child) => (

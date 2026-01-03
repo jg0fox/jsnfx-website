@@ -35,36 +35,45 @@ function NavItem({ href, label, icon, isActive, children }: NavItemProps) {
     pathname.startsWith(child.href)
   );
 
-  const handleClick = () => {
-    if (hasChildren) {
-      setIsExpanded(!isExpanded);
-    }
+  const toggleExpand = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsExpanded(!isExpanded);
   };
 
   return (
     <div>
-      <Link
-        href={href}
-        onClick={handleClick}
+      <div
         className={cn(
-          "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors duration-200",
+          "flex items-center rounded-lg transition-colors duration-200",
           "hover:bg-soft-linen-dark/50",
           (isActive || isChildActive) && "bg-soft-linen-dark/70 font-medium",
           (isActive || isChildActive) &&
-            "border-l-3 border-palm-leaf -ml-[3px] pl-[calc(1rem+3px)]"
+            "border-l-3 border-palm-leaf -ml-[3px] pl-[3px]"
         )}
       >
-        <span className="text-text-secondary">{icon}</span>
-        <span className="flex-1 text-text-primary">{label}</span>
+        <Link
+          href={href}
+          className="flex items-center gap-3 flex-1 px-4 py-3"
+        >
+          <span className="text-text-secondary">{icon}</span>
+          <span className="text-text-primary">{label}</span>
+        </Link>
         {hasChildren && (
-          <ChevronDown
-            className={cn(
-              "w-4 h-4 text-text-muted transition-transform duration-200",
-              isExpanded && "rotate-180"
-            )}
-          />
+          <button
+            onClick={toggleExpand}
+            className="p-3 text-text-muted hover:text-text-secondary transition-colors"
+            aria-label={isExpanded ? "Collapse menu" : "Expand menu"}
+          >
+            <ChevronDown
+              className={cn(
+                "w-4 h-4 transition-transform duration-200",
+                isExpanded && "rotate-180"
+              )}
+            />
+          </button>
         )}
-      </Link>
+      </div>
       {hasChildren && isExpanded && (
         <div className="ml-8 mt-1 space-y-1">
           {children.map((child) => (
