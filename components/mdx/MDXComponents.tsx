@@ -239,6 +239,50 @@ export const MDXComponents: MDXComponentsType = {
     </li>
   ),
 
+  table: ({ children, ...props }) => (
+    <div className="my-6 overflow-x-auto">
+      <table
+        className="w-full border-collapse text-sm"
+        {...props}
+      >
+        {children}
+      </table>
+    </div>
+  ),
+
+  thead: ({ children, ...props }) => (
+    <thead className="bg-soft-linen-dark" {...props}>
+      {children}
+    </thead>
+  ),
+
+  tbody: ({ children, ...props }) => (
+    <tbody className="divide-y divide-soft-linen-dark" {...props}>
+      {children}
+    </tbody>
+  ),
+
+  tr: ({ children, ...props }) => (
+    <tr className="border-b border-soft-linen-dark" {...props}>
+      {children}
+    </tr>
+  ),
+
+  th: ({ children, ...props }) => (
+    <th
+      className="px-4 py-3 text-left font-semibold text-text-primary"
+      {...props}
+    >
+      {children}
+    </th>
+  ),
+
+  td: ({ children, ...props }) => (
+    <td className="px-4 py-3 text-text-secondary" {...props}>
+      {children}
+    </td>
+  ),
+
   blockquote: ({ children, ...props }) => (
     <blockquote
       className="my-6 pl-4 border-l-4 border-palm-leaf italic text-text-secondary"
