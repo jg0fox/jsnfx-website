@@ -1,4 +1,5 @@
 import { compileMDX } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import { MDXComponents } from "@/components/mdx/MDXComponents";
 
 /**
@@ -10,6 +11,9 @@ export async function processMDX(source: string) {
     components: MDXComponents,
     options: {
       parseFrontmatter: false,
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+      },
     },
   });
 
