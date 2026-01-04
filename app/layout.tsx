@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Source_Sans_3 } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Sidebar, MobileNav } from "@/components/layout";
 import { siteConfig } from "@/lib/seo";
 import "./globals.css";
@@ -84,6 +85,8 @@ export default function RootLayout({
             {children}
           </div>
         </main>
+
+        <Analytics />
       </body>
     </html>
   );
