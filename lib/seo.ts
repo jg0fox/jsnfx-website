@@ -5,9 +5,9 @@
 
 export const siteConfig = {
   name: "Jason Fox",
-  title: "Jason Fox - Content Designer",
+  title: "Jason Fox, Content Designer",
   description:
-    "Senior content designer with 10+ years of experience. Portfolio showcasing UX content design work at Atlassian, Robinhood, Netflix, Chime, and Oracle.",
+    "Content designer by day, Content Designer by night. Portfolio showcasing UX content design work at Atlassian, Robinhood, Netflix, Chime, and Oracle.",
   url: "https://jsnfx.com",
   locale: "en_US",
   social: {
