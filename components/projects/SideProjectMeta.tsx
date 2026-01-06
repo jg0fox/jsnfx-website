@@ -1,13 +1,10 @@
 import { Tag } from "@/components/ui";
 import { cn } from "@/lib/utils";
-import { Github, ExternalLink } from "lucide-react";
 
 interface SideProjectMetaProps {
   status: string;
   category: string;
   technologies: string[];
-  github?: string;
-  liveUrl?: string;
   className?: string;
 }
 
@@ -22,8 +19,6 @@ export function SideProjectMeta({
   status,
   category,
   technologies,
-  github,
-  liveUrl,
   className,
 }: SideProjectMetaProps) {
   return (
@@ -72,38 +67,6 @@ export function SideProjectMeta({
             ))}
           </dd>
         </div>
-
-        {(github || liveUrl) && (
-          <div>
-            <dt className="text-xs font-medium uppercase tracking-wider text-text-muted mb-2">
-              Links
-            </dt>
-            <dd className="flex flex-col gap-2">
-              {github && (
-                <a
-                  href={github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-palm-leaf hover:text-palm-leaf-3 transition-colors"
-                >
-                  <Github className="w-4 h-4" />
-                  <span>View source</span>
-                </a>
-              )}
-              {liveUrl && (
-                <a
-                  href={liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-palm-leaf hover:text-palm-leaf-3 transition-colors"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  <span>Visit site</span>
-                </a>
-              )}
-            </dd>
-          </div>
-        )}
       </dl>
     </aside>
   );

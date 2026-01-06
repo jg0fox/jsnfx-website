@@ -1,4 +1,18 @@
 /**
+ * Button icon options for project action buttons
+ */
+export type ButtonIcon =
+  | "none"
+  | "github"
+  | "npm"
+  | "external"
+  | "play"
+  | "download"
+  | "code"
+  | "globe"
+  | "package";
+
+/**
  * Base metadata shared across content types
  */
 export interface ContentMeta {
@@ -44,9 +58,13 @@ export interface ProjectMeta extends ContentMeta {
  */
 export interface ProjectItem extends ProjectMeta {
   technologies: string[];
-  github?: string;
-  liveUrl?: string;
   heroImage?: string;
+  button1Label?: string;
+  button1Url?: string;
+  button1Icon?: ButtonIcon;
+  button2Label?: string;
+  button2Url?: string;
+  button2Icon?: ButtonIcon;
   content: string;
 }
 
@@ -97,9 +115,13 @@ export interface ProjectFrontmatter {
   status: "Active" | "Complete" | "In development" | "Archived";
   date: string;
   technologies: string[];
-  github?: string;
-  liveUrl?: string;
   thumbnail?: string;
   heroImage?: string;
+  button1Label?: string;
+  button1Url?: string;
+  button1Icon?: ButtonIcon;
+  button2Label?: string;
+  button2Url?: string;
+  button2Icon?: ButtonIcon;
   published?: boolean;
 }

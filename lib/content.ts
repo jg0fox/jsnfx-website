@@ -191,8 +191,13 @@ export async function getProjectBySlug(
     status: frontmatter.status,
     thumbnail: frontmatter.thumbnail,
     technologies: frontmatter.technologies,
-    github: frontmatter.github,
-    liveUrl: frontmatter.liveUrl,
+    heroImage: frontmatter.heroImage,
+    button1Label: frontmatter.button1Label,
+    button1Url: frontmatter.button1Url,
+    button1Icon: frontmatter.button1Icon,
+    button2Label: frontmatter.button2Label,
+    button2Url: frontmatter.button2Url,
+    button2Icon: frontmatter.button2Icon,
     content,
   };
 }
