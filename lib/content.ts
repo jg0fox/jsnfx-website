@@ -41,6 +41,12 @@ export async function getPortfolioItems(): Promise<PortfolioMeta[]> {
     const { data } = matter(fileContents);
     const frontmatter = data as PortfolioFrontmatter;
 
+    // Skip unpublished items (published === false)
+    // Items without published field or with published: true are shown
+    if (frontmatter.published === false) {
+      continue;
+    }
+
     items.push({
       slug: frontmatter.slug || slug,
       title: frontmatter.title,
@@ -80,6 +86,11 @@ export async function getPortfolioBySlug(
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContents);
   const frontmatter = data as PortfolioFrontmatter;
+
+  // Return null for unpublished items (triggers 404)
+  if (frontmatter.published === false) {
+    return null;
+  }
 
   return {
     slug: frontmatter.slug || slug,
@@ -127,6 +138,12 @@ export async function getProjectItems(): Promise<ProjectMeta[]> {
     const { data } = matter(fileContents);
     const frontmatter = data as ProjectFrontmatter;
 
+    // Skip unpublished items (published === false)
+    // Items without published field or with published: true are shown
+    if (frontmatter.published === false) {
+      continue;
+    }
+
     items.push({
       slug: frontmatter.slug || slug,
       title: frontmatter.title,
@@ -159,6 +176,11 @@ export async function getProjectBySlug(
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContents);
   const frontmatter = data as ProjectFrontmatter;
+
+  // Return null for unpublished items (triggers 404)
+  if (frontmatter.published === false) {
+    return null;
+  }
 
   return {
     slug: frontmatter.slug || slug,

@@ -86,6 +86,7 @@ export interface PortfolioFrontmatter {
   thumbnail: string;
   heroImage?: string;
   order?: number;
+  published?: boolean;
 }
 
 export interface ProjectFrontmatter {
@@ -100,4 +101,5 @@ export interface ProjectFrontmatter {
   liveUrl?: string;
   thumbnail?: string;
   heroImage?: string;
+  published?: boolean;
 }
