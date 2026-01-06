@@ -58,7 +58,7 @@ function MDXImage({
   const imageSrc = src.startsWith("./") ? src.replace("./", "/images/") : src;
 
   return (
-    <figure className="my-8 overflow-hidden rounded-lg border border-soft-linen-dark">
+    <figure className="my-8 max-w-full overflow-hidden rounded-lg border border-soft-linen-dark">
       <div className="relative aspect-[4/3] bg-soft-linen-light">
         <Image
           src={imageSrc}
@@ -174,7 +174,7 @@ function Video({
   }
 
   return (
-    <figure className="my-8 overflow-hidden rounded-lg border border-soft-linen-dark">
+    <figure className="my-8 max-w-full overflow-hidden rounded-lg border border-soft-linen-dark">
       <div className="relative aspect-video bg-soft-linen-light">
         <iframe
           src={embedSrc}
