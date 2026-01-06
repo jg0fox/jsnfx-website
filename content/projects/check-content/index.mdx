@@ -4,23 +4,24 @@ slug: check-content
 description: Helping cross-functional teams achieve content design approval earlier
 category: Content tools
 status: Active
-date: 2024-01-15
-technologies: [TypeScript, Regex, AI]
-liveUrl: https://www.npmjs.com/package/check-content
-heroImage: /projects/check-content/hero.png
+date: '2024-01-15T00:00:00.000Z'
+technologies:
+  - TypeScript
+  - Regex
+  - AI
+liveUrl: 'https://www.npmjs.com/package/check-content'
+heroImage: >-
+  /projects/check-content/diagram-of-the-architecture-for-the-check-content-cli-tool.jpg
+published: true
 ---
 
-*Check content* is a command line interface (CLI) tool that scans code bases for content issues. It extracts text from HTML, JSX, or TSX files using regular expression matching, auto-detects industry, and sends content to a GPT-4o API. The API evaluates the text against best-practice content standards, inclusive language, plain language, and accessibility standards, returning violations with suggestions. Standards cover 50+ prohibited terms (gendered language, ableist terms, jargon) as well as accessibility checks like missing alt text.
+*Check content* is a command line interface (CLI) tool that scans code bases for content issues. First it extracts text from HTML, JSX, or TSX files, then it auto-detects industry, and finally it sends extracted content paired with a system prompt to a GPT-4o API. The API evaluates the text against industry best-practice content standards, inclusive language, plain language, and accessibility standards, returning violations with suggestions.
 
-## How it works
+It's one of my answers to the decline in cross-functional consultation.
+
+## Go on, have a demo
 
 <Video src="https://www.loom.com/share/7d9d1426273245daae76ee2eec309e23" title="Check content walkthrough" />
-
-Over the last 2 years I've spent about as much time in tools like Cursor, Visual Studio Code, and Replit as I have in Figma or Confluence. This seems to be the case for many of my collaborators as well.
-
-This is great, but as we collectively spend more time building things in our own little corners, I've begun to notice that we unintentionally spend less time in cross-functional consultation.
-
-My goal with this content standards checker is to bridge the gap that's growing between content designers and their fellow builders.
 
 ## Pattern matching industry detection
 
@@ -53,7 +54,7 @@ function detectIndustry(codebaseData) {
 
 The tool currently supports six industries, each with specialized rules. Healthcare apps get HIPAA compliance content standards and person-first language checks. Finance gets regulatory compliance and risk disclosure rules. E-commerce apps get product clarity and conversion optimization guidance.
 
-### Case study: fintech trading platform
+### Refinement: fintech trading platform
 
 I tested *Check content* with a friend's cryptocurrency trading prototype. I was intrigued to see that the industry detection algorithm consistently classified it as a gaming app with 70% confidence even though there was clear financial terminology.
 
@@ -75,7 +76,7 @@ I used Claude Code and some common sense to enhance the definitive indicator sys
 
 ## Standards and analysis
 
-![Check content architecture](/projects/check-content/diagram.png)
+![Check content architecture](/projects/check-content/diagram-of-the-architecture-for-the-check-content-cli-tool.jpg)
 
 The standards are based on three authoritative sources:
 
