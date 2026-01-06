@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { PageHeader } from "@/components/layout";
-import { Card, CardContent } from "@/components/ui";
 import { FolderOpen } from "lucide-react";
 import { getProjectItems } from "@/lib/content";
 
@@ -35,32 +35,44 @@ export default async function ProjectsPage() {
           <Link
             key={project.slug}
             href={`/projects/${project.slug}`}
-            className="block transition-transform hover:-translate-y-0.5"
+            className="group block rounded-lg overflow-hidden bg-soft-linen-light border border-soft-linen-dark transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
           >
-            <Card className="flex flex-col h-full">
-              <CardContent className="flex-1">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="p-2 rounded-lg bg-soft-linen">
-                    <FolderOpen className="w-5 h-5 text-palm-leaf" />
-                  </div>
-                  <span
-                    className={`px-2 py-0.5 text-xs font-medium rounded-full ${
-                      statusStyles[project.status] || statusStyles["Active"]
-                    }`}
-                  >
-                    {project.status}
-                  </span>
+            {/* Thumbnail or Placeholder */}
+            <div className="relative aspect-video bg-soft-linen overflow-hidden">
+              {project.thumbnail ? (
+                <Image
+                  src={project.thumbnail}
+                  alt={`${project.title} thumbnail`}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <FolderOpen className="w-12 h-12 text-text-muted/30" />
                 </div>
+              )}
+              {/* Status overlay */}
+              <div className="absolute top-3 left-3">
+                <span
+                  className={`px-2 py-0.5 text-xs font-medium rounded-full ${
+                    statusStyles[project.status] || statusStyles["Active"]
+                  }`}
+                >
+                  {project.status}
+                </span>
+              </div>
+            </div>
 
-                <h3 className="font-display font-bold text-lg text-text-primary mb-2">
-                  {project.title}
-                </h3>
-
-                <p className="text-sm text-text-secondary mb-4">
-                  {project.description}
-                </p>
-              </CardContent>
-            </Card>
+            {/* Content */}
+            <div className="p-4">
+              <h3 className="font-display font-bold text-lg text-text-primary group-hover:text-palm-leaf transition-colors">
+                {project.title}
+              </h3>
+              <p className="mt-2 text-sm text-text-secondary line-clamp-2">
+                {project.description}
+              </p>
+            </div>
           </Link>
         ))}
       </div>
