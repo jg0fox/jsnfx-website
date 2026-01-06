@@ -171,7 +171,12 @@ function MediumIcon({ className }: { className?: string }) {
   );
 }
 
-export function Sidebar() {
+interface SidebarProps {
+  portfolioItems?: { href: string; label: string }[];
+  projectItems?: { href: string; label: string }[];
+}
+
+export function Sidebar({ portfolioItems = [], projectItems = [] }: SidebarProps) {
   const pathname = usePathname();
 
   const navigation = [
@@ -184,22 +189,13 @@ export function Sidebar() {
       href: "/portfolio",
       label: "Portfolio",
       icon: <Briefcase className="w-5 h-5" />,
-      children: [
-        { href: "/portfolio/atlassian", label: "Atlassian" },
-        { href: "/portfolio/chime", label: "Chime" },
-        { href: "/portfolio/robinhood", label: "Robinhood" },
-        { href: "/portfolio/netflix", label: "Netflix" },
-        { href: "/portfolio/oracle", label: "Oracle" },
-      ],
+      children: portfolioItems,
     },
     {
       href: "/projects",
       label: "Side projects",
       icon: <FolderOpen className="w-5 h-5" />,
-      children: [
-        { href: "/projects/check-content", label: "check-content" },
-        { href: "/projects/jsnfx-website", label: "jsnfx.com" },
-      ],
+      children: projectItems,
     },
     {
       href: "/writing",

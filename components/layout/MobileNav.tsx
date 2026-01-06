@@ -33,7 +33,12 @@ function MediumIcon({ className }: { className?: string }) {
   );
 }
 
-export function MobileNav() {
+interface MobileNavProps {
+  portfolioItems?: { href: string; label: string }[];
+  projectItems?: { href: string; label: string }[];
+}
+
+export function MobileNav({ portfolioItems = [], projectItems = [] }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
   const [emailCopied, setEmailCopied] = useState(false);
@@ -85,22 +90,13 @@ export function MobileNav() {
       href: "/portfolio",
       label: "Portfolio",
       icon: <Briefcase className="w-5 h-5" />,
-      children: [
-        { href: "/portfolio/atlassian", label: "Atlassian" },
-        { href: "/portfolio/chime", label: "Chime" },
-        { href: "/portfolio/robinhood", label: "Robinhood" },
-        { href: "/portfolio/netflix", label: "Netflix" },
-        { href: "/portfolio/oracle", label: "Oracle" },
-      ],
+      children: portfolioItems,
     },
     {
       href: "/projects",
       label: "Side projects",
       icon: <FolderOpen className="w-5 h-5" />,
-      children: [
-        { href: "/projects/check-content", label: "check-content" },
-        { href: "/projects/jsnfx-website", label: "jsnfx.com" },
-      ],
+      children: projectItems,
     },
     {
       href: "/writing",

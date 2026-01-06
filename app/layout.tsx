@@ -3,6 +3,7 @@ import { Fraunces, Source_Sans_3 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Sidebar, MobileNav } from "@/components/layout";
 import { siteConfig } from "@/lib/seo";
+import { getPortfolioItems, getProjectItems } from "@/lib/content";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -58,11 +59,28 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Fetch published items for navigation
+  const [portfolioItems, projectItems] = await Promise.all([
+    getPortfolioItems(),
+    getProjectItems(),
+  ]);
+
+  // Transform to navigation format
+  const portfolioNavItems = portfolioItems.map((item) => ({
+    href: `/portfolio/${item.slug}`,
+    label: item.company,
+  }));
+
+  const projectNavItems = projectItems.map((item) => ({
+    href: `/projects/${item.slug}`,
+    label: item.title,
+  }));
+
   return (
     <html lang="en" className={`${fraunces.variable} ${sourceSans.variable}`}>
       <body className="antialiased min-h-screen">
@@ -71,10 +89,16 @@ export default function RootLayout({
         </a>
 
         {/* Desktop Sidebar */}
-        <Sidebar />
+        <Sidebar
+          portfolioItems={portfolioNavItems}
+          projectItems={projectNavItems}
+        />
 
         {/* Mobile Navigation */}
-        <MobileNav />
+        <MobileNav
+          portfolioItems={portfolioNavItems}
+          projectItems={projectNavItems}
+        />
 
         {/* Main Content Area */}
         <main
