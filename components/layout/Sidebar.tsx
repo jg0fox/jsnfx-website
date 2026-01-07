@@ -14,6 +14,7 @@ import {
   ChevronDown,
   Copy,
   Check,
+  Library,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -196,6 +197,16 @@ export function Sidebar({ portfolioItems = [], projectItems = [] }: SidebarProps
       label: "Side projects",
       icon: <FolderOpen className="w-5 h-5" />,
       children: projectItems,
+    },
+    {
+      href: "/resources",
+      label: "Resources",
+      icon: <Library className="w-5 h-5" />,
+      children: [
+        { href: "/resources#videos", label: "Videos" },
+        { href: "/resources#tools", label: "Tools" },
+        { href: "/resources#articles", label: "Articles" },
+      ],
     },
     {
       href: "/writing",
