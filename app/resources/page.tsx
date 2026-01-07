@@ -101,19 +101,33 @@ export default function ResourcesPage() {
 
   // Handle URL hash to set active tab
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.slice(1) as Tab;
-      if (hash && ["videos", "tools", "articles"].includes(hash)) {
-        setActiveTab(hash);
+    let lastHash = "";
+
+    const checkHash = () => {
+      const hash = window.location.hash.slice(1);
+      if (hash !== lastHash && ["videos", "tools", "articles"].includes(hash)) {
+        lastHash = hash;
+        setActiveTab(hash as Tab);
       }
     };
 
     // Check on mount
-    handleHashChange();
+    checkHash();
 
-    // Listen for hash changes
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
+    // Listen for hash changes (direct hash changes)
+    window.addEventListener("hashchange", checkHash);
+
+    // Listen for popstate (browser back/forward)
+    window.addEventListener("popstate", checkHash);
+
+    // Poll for hash changes as Next.js client navigation doesn't trigger hashchange
+    const interval = setInterval(checkHash, 50);
+
+    return () => {
+      window.removeEventListener("hashchange", checkHash);
+      window.removeEventListener("popstate", checkHash);
+      clearInterval(interval);
+    };
   }, []);
 
   // Close modal on escape
