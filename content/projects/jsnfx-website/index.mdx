@@ -51,10 +51,9 @@ After a few hours of iterating, my site was done. I published it to Vercel, whic
 ![Goodbye, Webflow.](/projects/jsnfx-website/goodbye-webflow-.png)
 
 
-
 ## The stack (and why)
 
-**Next.js 14+** with App Router — React Server Components play well with content-heavy sites, and Vercel deployment is effectively zero-config.
+**Next.js 14+** with App Router. React Server Components play well with content-heavy sites, and Vercel deployment is effectively zero-config.
 
 **Tailwind CSS v4** — Utility-first means I can iterate on visual details without context-switching between files. Theming is straightforward.
 
@@ -64,7 +63,7 @@ After a few hours of iterating, my site was done. I published it to Vercel, whic
 
 ## Content migration: building a smarter crawler
 
-I had an existing Webflow portfolio with a dozen pages and nearly 90 images. The manual approach — copy, reformat, rename, organize — would have taken hours and introduced errors.
+I had an existing Webflow site with a dozen pages and nearly 90 images. The manual approach to copy, reformat, rename, organize would have taken hours that I don't have would have introduced a sea of typos and confusion.
 
 So I built a crawler that thinks.
 
@@ -85,7 +84,7 @@ The solution layers multiple signals: dimension thresholds (skip anything under 
 
 12 pages processed. 87 images downloaded with meaningful names. ~$0.80 in API costs. 7 minutes total.
 
-Each page produced clean markdown with images positioned correctly — ready to drop into the MDX system without manual cleanup.
+Each page produced clean markdown with images positioned correctly, ready to drop into the MDX system without manual cleanup.
 
 ### What actually worked
 
@@ -96,22 +95,15 @@ Each page produced clean markdown with images positioned correctly — ready to 
 ## The CMS: GitHub as a database (hear me out)
 ![Content management system built for this website.](/projects/jsnfx-website/content-management-system-built-for-this-website-.png)
 
+I needed a way to manage content without spinning up a database, paying for a headless CMS, or editing raw MDX files like a coffeeshop laptop lurker.
 
-I needed a way to manage content without spinning up a database, paying for a headless CMS, or editing raw MDX files like a caveman.
-
-The solution: a custom CMS that uses GitHub as the backend. Content lives in the repo. Edits commit directly via the GitHub API. No database, no sync issues, no monthly invoice.
+The solution was a custom CMS that uses GitHub as the backend. Content lives in the repo. Edits commit directly via the GitHub API. No database, no sync issues, no monthly invoice. GOODBYE WEBFLOW.
 
 **The stack:** Next.js + TypeScript, JWT auth via `jose`, GitHub Contents API for CRUD operations. Images get compressed client-side before committing to the repo.
 
 **The workflow:** Log in → edit in a real UI → hit save → changes commit and deploy automatically via Vercel. Draft/publish flow included.
 
 It's not clever infrastructure. It's *no* infrastructure. That's the point.
-
-## Building with Claude Code
-
-This project was a collaboration with [Claude Code](https://claude.com/code). The AI pair-programming model shines in specific contexts: scaffolding components that match existing patterns, debugging hydration errors, rapid iteration on visual details through fast feedback loops.
-
-It's not magic — you still need to know what you're building. But it compresses the tedious parts.
 
 ## Architecture decisions that paid off
 
@@ -125,6 +117,4 @@ It's not magic — you still need to know what you're building. But it compresse
 
 ## What's next
 
-The site is live. Ongoing work includes additional case studies, a writing section, dark mode, and refined animations with reduced-motion support.
-
-The foundation is solid. Now it's about filling it with work worth showing.
+The site is live. Ongoing work includes additional case studies, personal projects, and probably a blowing the entire thing to smithereens when I inevitably try to implement maze-style gamificaiton of the content.
