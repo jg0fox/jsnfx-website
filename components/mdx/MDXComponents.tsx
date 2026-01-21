@@ -200,14 +200,32 @@ export const MDXComponents: MDXComponentsType = {
   h6: createHeading(6),
 
   p: ({ children, ...props }) => {
-    // Check if children contains only an image (MDX wraps images in <p> tags)
-    // If so, render the image directly without the <p> wrapper to avoid hydration errors
+    // Check if children contains block-level elements that can't be inside <p>
+    // MDX sometimes wraps images/figures in <p> tags which causes hydration errors
     const childArray = React.Children.toArray(children);
-    if (
-      childArray.length === 1 &&
-      React.isValidElement(childArray[0]) &&
-      (childArray[0].type === "img" || childArray[0].type === MDXImage)
-    ) {
+
+    const hasBlockChild = childArray.some((child) => {
+      if (!React.isValidElement(child)) return false;
+
+      // Check for elements that would render as block-level
+      const type = child.type;
+
+      // Direct img tag or MDXImage component
+      if (type === "img" || type === MDXImage) return true;
+
+      // Any element with a className containing figure-like patterns
+      if (typeof type === 'function' && type.name === 'MDXImage') return true;
+
+      // Check for figure, div, or other block elements
+      if (typeof type === 'string' && ['figure', 'div', 'section', 'article'].includes(type)) {
+        return true;
+      }
+
+      return false;
+    });
+
+    // If block content detected, render without <p> wrapper
+    if (hasBlockChild) {
       return <>{children}</>;
     }
 

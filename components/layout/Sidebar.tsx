@@ -15,6 +15,7 @@ import {
   Copy,
   Check,
   Library,
+  FlaskConical,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -212,6 +213,11 @@ export function Sidebar({ portfolioItems = [], projectItems = [] }: SidebarProps
       href: "/writing",
       label: "Creative writing",
       icon: <PenTool className="w-5 h-5" />,
+    },
+    {
+      href: "/evaluation",
+      label: "Evaluation",
+      icon: <FlaskConical className="w-5 h-5" />,
     },
   ];
 

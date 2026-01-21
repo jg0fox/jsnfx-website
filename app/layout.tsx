@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Source_Sans_3 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Sidebar, MobileNav } from "@/components/layout";
+import { AdversarialProvider } from "@/components/adversarial";
 import { siteConfig } from "@/lib/seo";
 import { getPortfolioItems, getProjectItems } from "@/lib/content";
 import "./globals.css";
@@ -84,31 +85,33 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${sourceSans.variable}`}>
       <body className="antialiased min-h-screen">
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
+        <AdversarialProvider>
+          <a href="#main-content" className="skip-link">
+            Skip to main content
+          </a>
 
-        {/* Desktop Sidebar */}
-        <Sidebar
-          portfolioItems={portfolioNavItems}
-          projectItems={projectNavItems}
-        />
+          {/* Desktop Sidebar */}
+          <Sidebar
+            portfolioItems={portfolioNavItems}
+            projectItems={projectNavItems}
+          />
 
-        {/* Mobile Navigation */}
-        <MobileNav
-          portfolioItems={portfolioNavItems}
-          projectItems={projectNavItems}
-        />
+          {/* Mobile Navigation */}
+          <MobileNav
+            portfolioItems={portfolioNavItems}
+            projectItems={projectNavItems}
+          />
 
-        {/* Main Content Area */}
-        <main
-          id="main-content"
-          className="lg:ml-72 min-h-screen pt-16 lg:pt-0"
-        >
-          <div className="px-4 py-6 md:px-6 md:py-8 lg:px-10 lg:py-12 max-w-5xl">
-            {children}
-          </div>
-        </main>
+          {/* Main Content Area */}
+          <main
+            id="main-content"
+            className="lg:ml-72 min-h-screen pt-16 lg:pt-0"
+          >
+            <div className="px-4 py-6 md:px-6 md:py-8 lg:px-10 lg:py-12 max-w-5xl">
+              {children}
+            </div>
+          </main>
+        </AdversarialProvider>
         <Analytics />
       </body>
     </html>

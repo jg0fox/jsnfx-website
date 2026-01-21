@@ -137,3 +137,210 @@ h1, h2, h3, h4, h5, h6 {
 .prose a:hover {
   color: var(--bronze-spice);
 }
+
+/* ===========================================
+   Text Morphing Animation Styles
+   =========================================== */
+
+.text-morpher {
+  display: inline;
+}
+
+.text-morpher[data-animating="true"] {
+  /* Subtle indication that text is changing */
+}
+
+.morph-word {
+  display: inline;
+  transition: opacity 100ms ease-out;
+}
+
+.morph-word.morphing {
+  /* Active morphing state */
+}
+
+/* Intensity levels */
+.text-morph-subtle .morph-word.morphing {
+  opacity: 0.95;
+}
+
+.text-morph-moderate .morph-word.morphing {
+  opacity: 0.9;
+  text-shadow: 0 0 1px rgba(144, 149, 94, 0.3);
+}
+
+.text-morph-intense .morph-word.morphing {
+  opacity: 0.85;
+  text-shadow: 0 0 2px rgba(194, 90, 40, 0.4);
+  animation: glitch-subtle 100ms ease-in-out infinite;
+}
+
+/* Glitch animation for L3 hostile mode */
+@keyframes glitch-subtle {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-0.5px);
+  }
+  75% {
+    transform: translateX(0.5px);
+  }
+}
+
+/* Diff type indicators (for debugging, can be removed in production) */
+.morph-word[data-diff-type="added"] {
+  /* New content appearing */
+}
+
+.morph-word[data-diff-type="removed"] {
+  /* Content being removed */
+  opacity: 0.6;
+}
+
+.morph-word[data-diff-type="changed"] {
+  /* Content being changed */
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .text-morpher,
+  .morph-word {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .text-morph-intense .morph-word.morphing {
+    text-shadow: none;
+  }
+}
+
+/* ===========================================
+   Adversarial Content Container Styles
+   =========================================== */
+
+.adversarial-chunk {
+  transition: background-color 300ms ease-out, box-shadow 300ms ease-out;
+  border-radius: 2px;
+  margin: -2px;
+  padding: 2px;
+}
+
+.adversarial-chunk[data-transforming="true"] {
+  background-color: rgba(144, 149, 94, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(144, 149, 94, 0.1);
+}
+
+/* Intensity-based styling */
+.adversarial-chunk[data-intensity] {
+  /* Base transforming state */
+}
+
+.adversarial-chunk[data-transforming="true"][data-intensity="1"] {
+  background-color: rgba(144, 149, 94, 0.03);
+}
+
+.adversarial-chunk[data-transforming="true"][data-intensity="0.6"] {
+  background-color: rgba(144, 149, 94, 0.06);
+}
+
+.adversarial-chunk[data-transforming="true"][data-intensity="0.8"],
+.adversarial-chunk[data-transforming="true"][data-intensity="0.9"],
+.adversarial-chunk[data-transforming="true"][data-intensity="1"] {
+  background-color: rgba(194, 90, 40, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(194, 90, 40, 0.1);
+}
+
+/* Loading state - shown immediately while waiting for API */
+.adversarial-chunk.adversarial-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.adversarial-chunk.adversarial-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(144, 149, 94, 0.08) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+.adversarial-chunk.adversarial-loading[data-transform-type="rewrite"]::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(194, 90, 40, 0.08) 50%,
+    transparent 100%
+  );
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .adversarial-chunk {
+    transition: none !important;
+  }
+
+  .adversarial-chunk.adversarial-loading::after {
+    animation: none;
+  }
+}
+
+/* ===========================================
+   Debug Panel Mobile Styles
+   =========================================== */
+
+@media (max-width: 640px) {
+  /* Make debug panel more compact on mobile */
+  .fixed.top-2.right-2 {
+    top: auto;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    left: 0.5rem;
+    max-width: none;
+  }
+
+  /* Ensure touch targets are large enough */
+  .fixed.top-2.right-2 button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ===========================================
+   Evaluation Page Styles
+   =========================================== */
+
+.evaluation-score-bar {
+  transition: width 500ms ease-out;
+}
+
+/* Smooth loading states */
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.loading-pulse {
+  animation: pulse-subtle 1.5s ease-in-out infinite;
+}
