@@ -411,30 +411,36 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
   );
 
   /**
-   * Select a chunk to transform
+   * Number of chunks to transform simultaneously
    */
-  const selectChunkToTransform = useCallback((): ContentChunk | null => {
+  const CHUNKS_PER_TRANSFORM = 2;
+
+  /**
+   * Select chunks to transform (returns up to CHUNKS_PER_TRANSFORM)
+   */
+  const selectChunksToTransform = useCallback((count: number = CHUNKS_PER_TRANSFORM): ContentChunk[] => {
     const chunks = getTransformableChunks();
 
     if (chunks.length === 0) {
-      return null;
+      return [];
     }
 
     // Filter out chunks we've already transformed this cycle
-    const availableChunks = chunks.filter(
+    let availableChunks = chunks.filter(
       (c) => !transformedChunksThisCycleRef.current.has(c.id)
     );
 
     if (availableChunks.length === 0) {
       // Reset cycle and start fresh
       transformedChunksThisCycleRef.current.clear();
-      return chunks[0];
+      availableChunks = chunks;
     }
 
     // Prefer chunks with fewer transformations
     availableChunks.sort((a, b) => a.transformCount - b.transformCount);
 
-    return availableChunks[0];
+    // Return up to 'count' chunks
+    return availableChunks.slice(0, Math.min(count, availableChunks.length));
   }, [getTransformableChunks]);
 
   /**
@@ -443,18 +449,19 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
   const handleExpandMode = useCallback(async () => {
     if (isTransforming) return;
 
-    const chunk = selectChunkToTransform();
-    if (!chunk) return;
+    const chunks = selectChunksToTransform(CHUNKS_PER_TRANSFORM);
+    if (chunks.length === 0) return;
 
     setIsTransforming(true);
-    transformedChunksThisCycleRef.current.add(chunk.id);
+    chunks.forEach(c => transformedChunksThisCycleRef.current.add(c.id));
 
     try {
-      await applyTransformation(chunk, 'expand');
+      // Transform chunks in parallel
+      await Promise.all(chunks.map(chunk => applyTransformation(chunk, 'expand')));
     } finally {
       setIsTransforming(false);
     }
-  }, [isTransforming, selectChunkToTransform, applyTransformation]);
+  }, [isTransforming, selectChunksToTransform, applyTransformation]);
 
   /**
    * Handle REWRITE mode - transform with escalating levels
@@ -470,21 +477,24 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
       return;
     }
 
-    const chunk = selectChunkToTransform();
-    if (!chunk) return;
+    const chunks = selectChunksToTransform(CHUNKS_PER_TRANSFORM);
+    if (chunks.length === 0) return;
 
     setIsTransforming(true);
     lastRewriteTimeRef.current = now;
-    transformedChunksThisCycleRef.current.add(chunk.id);
+    chunks.forEach(c => transformedChunksThisCycleRef.current.add(c.id));
 
     try {
-      await applyTransformation(chunk, 'rewrite', state.rewriteLevel);
+      // Transform chunks in parallel
+      await Promise.all(
+        chunks.map(chunk => applyTransformation(chunk, 'rewrite', state.rewriteLevel))
+      );
     } finally {
       setIsTransforming(false);
     }
   }, [
     isTransforming,
-    selectChunkToTransform,
+    selectChunksToTransform,
     applyTransformation,
     state.rewriteLevel,
     thresholds.rewriteInterval,

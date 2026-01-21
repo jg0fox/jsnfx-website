@@ -44,13 +44,13 @@ export interface BehaviorThresholds {
  * Default thresholds as specified in CLAUDE.md
  */
 export const DEFAULT_THRESHOLDS: BehaviorThresholds = {
-  fastScrollVelocity: 600,      // px/s (raised from 500 to filter casual fast scrollers)
-  fastScrollDuration: 2000,     // 2s sustained (raised from 1s for more intentional scrolling)
-  expandMinDuration: 3000,      // 3s minimum in EXPAND (allows transform to complete)
-  idleStart: 5000,              // 5s to enter REWRITE
-  rewriteInterval: 8000,        // 8s between rewrites
-  rewriteLevel2: 30000,         // 30s idle for L2 (was 15s) - L1 lasts ~25s = 3 transforms
-  rewriteLevel3: 60000,         // 60s idle for L3 (was 30s) - L2 lasts ~30s = 4 transforms
+  fastScrollVelocity: 600,      // px/s - filters casual scrollers
+  fastScrollDuration: 1500,     // 1.5s sustained to trigger EXPAND (lowered from 2s)
+  expandMinDuration: 2000,      // 2s minimum in EXPAND (lowered from 3s)
+  idleStart: 4000,              // 4s to enter REWRITE (lowered from 5s)
+  rewriteInterval: 5000,        // 5s between rewrites (lowered from 8s) - ~12/min
+  rewriteLevel2: 20000,         // 20s idle for L2 (lowered from 30s) - ~3 L1 transforms
+  rewriteLevel3: 40000,         // 40s idle for L3 (lowered from 60s) - ~4 L2 transforms
   cursorMoveThreshold: 100,     // 100px movement resets idle
 };
 
