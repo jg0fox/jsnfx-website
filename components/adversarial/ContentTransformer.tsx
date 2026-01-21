@@ -168,6 +168,38 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
   }, [enabled, checkAndTriggerBatch]);
 
   /**
+   * Cleanup orphaned loading states periodically
+   * This catches edge cases where loading state wasn't properly cleared
+   */
+  useEffect(() => {
+    if (!enabled) return;
+
+    const cleanupOrphanedLoadingStates = () => {
+      const loadingElements = document.querySelectorAll('.adversarial-loading');
+      loadingElements.forEach((el) => {
+        if (el instanceof HTMLElement) {
+          // If element has been loading for more than 15 seconds, clear it
+          const transformingAttr = el.getAttribute('data-transforming');
+          if (transformingAttr === 'true') {
+            console.warn('[Transform] Clearing orphaned loading state');
+            el.classList.remove('adversarial-loading');
+            el.removeAttribute('data-transforming');
+            el.removeAttribute('data-transform-type');
+            el.style.opacity = '1';
+          }
+        }
+      });
+    };
+
+    // Run cleanup every 10 seconds
+    const cleanupInterval = setInterval(cleanupOrphanedLoadingStates, 10000);
+
+    return () => {
+      clearInterval(cleanupInterval);
+    };
+  }, [enabled]);
+
+  /**
    * Handle session end (page unload)
    */
   useEffect(() => {
@@ -268,9 +300,18 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
   );
 
   /**
+   * Check if element is still connected to DOM
+   */
+  const isElementConnected = useCallback((element: HTMLElement): boolean => {
+    return element.isConnected && document.body.contains(element);
+  }, []);
+
+  /**
    * Show immediate loading state on element (before API returns)
    */
   const showLoadingState = useCallback((element: HTMLElement, type: 'expand' | 'rewrite') => {
+    if (!isElementConnected(element)) return;
+
     element.classList.add('adversarial-chunk', 'adversarial-loading');
     element.setAttribute('data-transforming', 'true');
     element.setAttribute('data-transform-type', type);
@@ -278,15 +319,19 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
     // Add subtle pulse/shimmer effect immediately
     element.style.transition = 'opacity 200ms ease-out';
     element.style.opacity = '0.85';
-  }, []);
+  }, [isElementConnected]);
 
   /**
    * Clear loading state from element
    */
   const clearLoadingState = useCallback((element: HTMLElement) => {
+    if (!isElementConnected(element)) return;
+
     element.classList.remove('adversarial-loading');
+    element.removeAttribute('data-transforming');
+    element.removeAttribute('data-transform-type');
     element.style.opacity = '1';
-  }, []);
+  }, [isElementConnected]);
 
   /**
    * Apply transformation with animation
@@ -299,61 +344,79 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
     ) => {
       const startTime = Date.now();
 
+      // Validate element is still in DOM before starting
+      if (!isElementConnected(chunk.element)) {
+        console.warn(`[Transform] Skipped: element no longer in DOM (${chunk.id})`);
+        return;
+      }
+
       // IMMEDIATE: Show loading state before API call
       showLoadingState(chunk.element, type);
 
       // Store previous content before API call
       const previousContent = chunk.currentContent;
 
-      // Call API
-      const result = await callTransformAPI(chunk, type, level);
+      try {
+        // Call API
+        const result = await callTransformAPI(chunk, type, level);
 
-      // Clear loading state
-      clearLoadingState(chunk.element);
+        // Clear loading state (always, even on failure)
+        clearLoadingState(chunk.element);
 
-      // Handle gate failures or API errors - silently skip
-      if (!result.transformedContent || result.gateFailed) {
-        if (result.gateFailed) {
-          console.log(`[Transform] Skipped due to gate failure: ${result.gateReason}`);
+        // Handle gate failures or API errors - silently skip
+        if (!result.transformedContent || result.gateFailed) {
+          if (result.gateFailed) {
+            console.log(`[Transform] Skipped due to gate failure: ${result.gateReason}`);
+          }
+          return;
         }
-        return;
+
+        // Validate element is still in DOM before applying
+        if (!isElementConnected(chunk.element)) {
+          console.warn(`[Transform] Skipped DOM update: element no longer connected (${chunk.id})`);
+          return;
+        }
+
+        const transformedContent = result.transformedContent;
+        const latency = result.latency || (Date.now() - startTime);
+
+        // Update chunk state
+        updateChunkContent(chunk.id, transformedContent, type, level);
+
+        // Register transform for debug panel
+        registerTransform({
+          chunkId: chunk.id,
+          type,
+          level,
+          latency,
+        });
+
+        // Record transformation for batch evaluation
+        const record: TransformationRecord = {
+          chunkId: chunk.id,
+          type,
+          level,
+          trigger: type === 'expand' ? 'fast_scroll' : `idle_${state.idleTime}ms`,
+          originalContent: previousContent,
+          transformedContent,
+          latency,
+          timestamp: Date.now(),
+        };
+        transformationRecordsRef.current.push(record);
+
+        // Check if we should trigger a batch
+        checkAndTriggerBatch();
+
+        // Apply to DOM with animation
+        const config = getAnimationConfig(type, level);
+        applyToDOMWithAnimation(chunk.element, previousContent, transformedContent, config);
+      } catch (error) {
+        // Always clear loading state on any error
+        clearLoadingState(chunk.element);
+        console.error(`[Transform] Error transforming ${chunk.id}:`, error);
       }
-
-      const transformedContent = result.transformedContent;
-      const latency = result.latency || (Date.now() - startTime);
-
-      // Update chunk state
-      updateChunkContent(chunk.id, transformedContent, type, level);
-
-      // Register transform for debug panel
-      registerTransform({
-        chunkId: chunk.id,
-        type,
-        level,
-        latency,
-      });
-
-      // Record transformation for batch evaluation
-      const record: TransformationRecord = {
-        chunkId: chunk.id,
-        type,
-        level,
-        trigger: type === 'expand' ? 'fast_scroll' : `idle_${state.idleTime}ms`,
-        originalContent: previousContent,
-        transformedContent,
-        latency,
-        timestamp: Date.now(),
-      };
-      transformationRecordsRef.current.push(record);
-
-      // Check if we should trigger a batch
-      checkAndTriggerBatch();
-
-      // Apply to DOM with animation
-      const config = getAnimationConfig(type, level);
-      applyToDOMWithAnimation(chunk.element, previousContent, transformedContent, config);
     },
-    [callTransformAPI, updateChunkContent, registerTransform, state.idleTime, checkAndTriggerBatch, showLoadingState, clearLoadingState]
+    [callTransformAPI, updateChunkContent, registerTransform, state.idleTime, checkAndTriggerBatch, showLoadingState, clearLoadingState, isElementConnected]
   );
 
   /**
