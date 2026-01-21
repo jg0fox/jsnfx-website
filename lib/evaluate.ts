@@ -65,13 +65,23 @@ function truncateContent(content: string, maxLength: number = MAX_CONTENT_LENGTH
  * Prepare batch for evaluation by truncating content
  */
 function prepareBatchForEvaluation(batch: EvaluationBatch): object {
-  // Create a summary of behavior instead of sending all events
-  const behaviorSummary = {
-    totalEvents: batch.behaviorSequence.length,
-    scrollEvents: batch.behaviorSequence.filter(e => e.event === 'scroll').length,
-    modeChanges: batch.behaviorSequence.filter(e => e.event === 'mode_change').length,
-    rewriteLevelChanges: batch.behaviorSequence.filter(e => e.event === 'rewrite_level_change').length,
-  };
+  // Use the pre-summarized behavior if available (new format)
+  // Otherwise create a simple summary from legacy behaviorSequence
+  let behaviorSummary;
+  if (batch.behaviorSummary) {
+    // Use the efficient pre-summarized format
+    behaviorSummary = batch.behaviorSummary;
+  } else if (batch.behaviorSequence) {
+    // Legacy: create summary from raw events
+    behaviorSummary = {
+      totalEvents: batch.behaviorSequence.length,
+      scrollEvents: batch.behaviorSequence.filter(e => e.event === 'scroll').length,
+      modeChanges: batch.behaviorSequence.filter(e => e.event === 'mode_change').length,
+      rewriteLevelChanges: batch.behaviorSequence.filter(e => e.event === 'rewrite_level_change').length,
+    };
+  } else {
+    behaviorSummary = { totalEvents: 0 };
+  }
 
   return {
     sessionId: batch.sessionId,
@@ -82,7 +92,7 @@ function prepareBatchForEvaluation(batch: EvaluationBatch): object {
       device: batch.visitor.device.type,
       browser: batch.visitor.device.browser,
     },
-    // Replace full sequence with summary
+    // Use summarized behavior
     behaviorSummary,
     // Truncate transformation content
     transformations: batch.transformations.map(t => ({
@@ -259,13 +269,19 @@ export async function evaluateBatch(
       `(avg: ${batchSummary.averageScore.toFixed(2)}, ${batchSummary.totalTransformations} transforms)`
   );
 
+  // Create a clean version of the batch for storage (no raw behavior events)
+  const cleanBatch: EvaluationBatch = {
+    ...batch,
+    behaviorSequence: undefined, // Remove raw events to save storage
+  };
+
   return {
     batchId: batch.batchId,
     sessionId: batch.sessionId,
     evaluatedAt: new Date().toISOString(),
     transformationScores,
     batchSummary,
-    originalBatch: batch,
+    originalBatch: cleanBatch,
   };
 }
 

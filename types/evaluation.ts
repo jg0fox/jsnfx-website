@@ -6,6 +6,44 @@ import type { BehaviorEvent, RewriteLevel } from './behavior';
 import type { TransformationType } from './transformation';
 
 /**
+ * Summarized behavior sequence for evaluation
+ * Much more token-efficient than raw events
+ */
+export interface SummarizedBehavior {
+  /** Total duration of behavior captured (ms) */
+  durationMs: number;
+  /** Mode changes with timestamps */
+  modeChanges: Array<{
+    timestamp: number;
+    mode: string;
+  }>;
+  /** Rewrite level changes with timestamps */
+  levelChanges: Array<{
+    timestamp: number;
+    level: number;
+  }>;
+  /** Interaction summary */
+  interactions: {
+    clicks: number;
+    keypresses: number;
+    significantMouseMoves: number;
+  };
+  /** Scroll behavior summary */
+  scrollSessions: Array<{
+    startTimestamp: number;
+    endTimestamp: number;
+    peakVelocity: number;
+    averageVelocity: number;
+  }>;
+  /** Brief list of key events (capped) */
+  keyEvents: Array<{
+    timestamp: number;
+    event: string;
+    data?: Record<string, unknown>;
+  }>;
+}
+
+/**
  * Visitor device information
  */
 export interface VisitorDevice {
@@ -81,8 +119,10 @@ export interface EvaluationBatch {
   timestamp: string;
   /** Visitor metadata */
   visitor: VisitorMetadata;
-  /** Sequence of behavior events */
-  behaviorSequence: BehaviorEvent[];
+  /** Sequence of behavior events (legacy, deprecated - use behaviorSummary) */
+  behaviorSequence?: BehaviorEvent[];
+  /** Summarized behavior data (token-efficient) */
+  behaviorSummary?: SummarizedBehavior;
   /** Transformations to evaluate */
   transformations: TransformationRecord[];
 }

@@ -10,6 +10,7 @@ import type {
   VisitorDevice,
   TransformationRecord,
   EvaluationBatch,
+  SummarizedBehavior,
 } from '@/types/evaluation';
 import type { BehaviorEvent } from '@/types/behavior';
 
@@ -219,6 +220,166 @@ export function endSession(session: SessionState): SessionState {
     ...session,
     isEnded: true,
   };
+}
+
+// ==========================================
+// Behavior Event Summarization (Token Efficiency)
+// ==========================================
+
+/**
+ * Summarize behavior events for token-efficient evaluation
+ * Reduces hundreds/thousands of raw events to ~20-50 summary items
+ */
+export function summarizeBehaviorSequence(
+  events: Array<{
+    timestamp: number;
+    event: string;
+    data?: Record<string, unknown>;
+  }>
+): SummarizedBehavior {
+  if (events.length === 0) {
+    return {
+      durationMs: 0,
+      modeChanges: [],
+      levelChanges: [],
+      interactions: { clicks: 0, keypresses: 0, significantMouseMoves: 0 },
+      scrollSessions: [],
+      keyEvents: [],
+    };
+  }
+
+  const summary: SummarizedBehavior = {
+    durationMs: events[events.length - 1].timestamp - events[0].timestamp,
+    modeChanges: [],
+    levelChanges: [],
+    interactions: { clicks: 0, keypresses: 0, significantMouseMoves: 0 },
+    scrollSessions: [],
+    keyEvents: [],
+  };
+
+  // Track scroll sessions (consecutive scroll events with velocity > 0)
+  let currentScrollSession: {
+    startTimestamp: number;
+    endTimestamp: number;
+    velocities: number[];
+  } | null = null;
+  const SCROLL_GAP_THRESHOLD = 500; // ms gap to consider new session
+  let lastScrollTimestamp = 0;
+
+  for (const event of events) {
+    switch (event.event) {
+      case 'mode_change':
+        summary.modeChanges.push({
+          timestamp: event.timestamp,
+          mode: (event.data?.mode as string) || 'unknown',
+        });
+        // Also add to key events
+        summary.keyEvents.push({
+          timestamp: event.timestamp,
+          event: 'mode_change',
+          data: { mode: event.data?.mode },
+        });
+        break;
+
+      case 'rewrite_level_change':
+        summary.levelChanges.push({
+          timestamp: event.timestamp,
+          level: (event.data?.rewriteLevel as number) || 1,
+        });
+        summary.keyEvents.push({
+          timestamp: event.timestamp,
+          event: 'level_change',
+          data: { level: event.data?.rewriteLevel },
+        });
+        break;
+
+      case 'click':
+        summary.interactions.clicks++;
+        break;
+
+      case 'keypress':
+        summary.interactions.keypresses++;
+        break;
+
+      case 'mousemove':
+        // Only count significant moves (> 100px delta)
+        if (event.data?.cursorDelta && (event.data.cursorDelta as number) > 100) {
+          summary.interactions.significantMouseMoves++;
+        }
+        break;
+
+      case 'scroll': {
+        const velocity = (event.data?.scrollVelocity as number) || 0;
+        const timeSinceLastScroll = event.timestamp - lastScrollTimestamp;
+
+        // Start new session if gap is large or no current session
+        if (!currentScrollSession || timeSinceLastScroll > SCROLL_GAP_THRESHOLD) {
+          // Save previous session if it had meaningful scrolling
+          if (currentScrollSession && currentScrollSession.velocities.length > 5) {
+            const avgVelocity =
+              currentScrollSession.velocities.reduce((a, b) => a + b, 0) /
+              currentScrollSession.velocities.length;
+            summary.scrollSessions.push({
+              startTimestamp: currentScrollSession.startTimestamp,
+              endTimestamp: currentScrollSession.endTimestamp,
+              peakVelocity: Math.max(...currentScrollSession.velocities),
+              averageVelocity: Math.round(avgVelocity),
+            });
+          }
+          currentScrollSession = {
+            startTimestamp: event.timestamp,
+            endTimestamp: event.timestamp,
+            velocities: [],
+          };
+        }
+
+        // Update current session
+        if (currentScrollSession) {
+          currentScrollSession.endTimestamp = event.timestamp;
+          if (velocity > 0) {
+            currentScrollSession.velocities.push(velocity);
+          }
+        }
+        lastScrollTimestamp = event.timestamp;
+        break;
+      }
+
+      case 'visibility_change':
+        summary.keyEvents.push({
+          timestamp: event.timestamp,
+          event: 'visibility_change',
+          data: { visible: event.data?.visible },
+        });
+        break;
+    }
+  }
+
+  // Don't forget the last scroll session
+  if (currentScrollSession && currentScrollSession.velocities.length > 5) {
+    const avgVelocity =
+      currentScrollSession.velocities.reduce((a, b) => a + b, 0) /
+      currentScrollSession.velocities.length;
+    summary.scrollSessions.push({
+      startTimestamp: currentScrollSession.startTimestamp,
+      endTimestamp: currentScrollSession.endTimestamp,
+      peakVelocity: Math.max(...currentScrollSession.velocities),
+      averageVelocity: Math.round(avgVelocity),
+    });
+  }
+
+  // Limit scroll sessions to most significant ones (max 10)
+  if (summary.scrollSessions.length > 10) {
+    summary.scrollSessions.sort((a, b) => b.peakVelocity - a.peakVelocity);
+    summary.scrollSessions = summary.scrollSessions.slice(0, 10);
+    summary.scrollSessions.sort((a, b) => a.startTimestamp - b.startTimestamp);
+  }
+
+  // Limit key events (max 20)
+  if (summary.keyEvents.length > 20) {
+    summary.keyEvents = summary.keyEvents.slice(-20);
+  }
+
+  return summary;
 }
 
 // ==========================================

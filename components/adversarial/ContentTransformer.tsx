@@ -17,6 +17,7 @@ import {
   generateBatchId,
   createVisitorMetadata,
   checkBatchTrigger,
+  summarizeBehaviorSequence,
 } from '@/lib/session';
 import type { ContentChunk } from '@/types/transformation';
 import type { Mode, RewriteLevel } from '@/types/behavior';
@@ -79,7 +80,11 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
       const eventsSinceLastBatch = events.slice(lastEventIndexRef.current);
       lastEventIndexRef.current = events.length;
 
-      const batch: EvaluationBatch = {
+      // Summarize behavior events for token efficiency
+      // This reduces hundreds of scroll events to ~20-50 summary items
+      const behaviorSummary = summarizeBehaviorSequence(eventsSinceLastBatch);
+
+      const batch = {
         sessionId,
         batchId: generateBatchId(),
         timestamp: new Date().toISOString(),
@@ -90,11 +95,12 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
           referrer: null,
           localTime: new Date().toISOString(),
         },
-        behaviorSequence: eventsSinceLastBatch,
+        // Send summarized behavior instead of raw events
+        behaviorSummary,
         transformations: records,
       };
 
-      console.log(`[Batch] Submitting batch (${trigger}): ${records.length} transformations`);
+      console.log(`[Batch] Submitting batch (${trigger}): ${records.length} transforms, ${eventsSinceLastBatch.length} events -> summarized`);
 
       try {
         const response = await fetch('/api/evaluate', {
@@ -169,8 +175,11 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
 
     const handleBeforeUnload = () => {
       if (transformationRecordsRef.current.length > 0) {
+        // Summarize behavior events for token efficiency
+        const behaviorSummary = summarizeBehaviorSequence(events);
+
         // Use sendBeacon for reliable delivery on page unload
-        const batch: EvaluationBatch = {
+        const batch = {
           sessionId,
           batchId: generateBatchId(),
           timestamp: new Date().toISOString(),
@@ -181,7 +190,7 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
             referrer: null,
             localTime: new Date().toISOString(),
           },
-          behaviorSequence: events,
+          behaviorSummary,
           transformations: transformationRecordsRef.current,
         };
 
