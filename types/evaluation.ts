@@ -138,7 +138,7 @@ export interface EvaluationReport {
  * Batch trigger reasons
  */
 export type BatchTrigger =
-  | 'time_elapsed'    // 60 seconds since last evaluation
+  | 'time_elapsed'    // 1 minute since last evaluation
   | 'transform_count' // 5 transformations since last evaluation
   | 'session_end';    // Page unload or extended idle
 

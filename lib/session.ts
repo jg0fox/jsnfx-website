@@ -167,8 +167,8 @@ export interface BatchTriggerCheck {
 }
 
 // Batch trigger thresholds (optimized for token efficiency)
-const BATCH_TRANSFORM_THRESHOLD = 10; // Was 5
-const BATCH_TIME_THRESHOLD_MS = 300000; // 5 minutes (was 60 seconds)
+const BATCH_TRANSFORM_THRESHOLD = 5; // Trigger after 5 transformations
+const BATCH_TIME_THRESHOLD_MS = 60000; // 1 minute
 
 export function checkBatchTrigger(
   transformsSinceLastEval: number,
