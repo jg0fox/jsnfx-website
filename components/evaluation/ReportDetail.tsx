@@ -324,17 +324,42 @@ export function ReportDetail({ report }: ReportDetailProps) {
         <div className="text-sm font-medium text-text-muted mb-3">
           Visitor information
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+          {/* IP Address */}
+          <div>
+            <div className="text-text-muted">IP address</div>
+            <div className="text-text-primary font-mono text-xs">
+              {originalBatch.visitor.ip || 'Unknown'}
+            </div>
+          </div>
+          {/* Location */}
+          <div>
+            <div className="text-text-muted">Location</div>
+            <div className="text-text-primary">
+              {originalBatch.visitor.location?.city !== 'Unknown' ? (
+                <>
+                  {originalBatch.visitor.location.city}
+                  {originalBatch.visitor.location.region !== 'Unknown' && `, ${originalBatch.visitor.location.region}`}
+                  {originalBatch.visitor.location.country !== 'Unknown' && ` (${originalBatch.visitor.location.country})`}
+                </>
+              ) : (
+                'Unknown'
+              )}
+            </div>
+          </div>
+          {/* Device */}
           <div>
             <div className="text-text-muted">Device</div>
             <div className="text-text-primary">
               {originalBatch.visitor.device.type} / {originalBatch.visitor.device.browser}
             </div>
           </div>
+          {/* OS */}
           <div>
             <div className="text-text-muted">OS</div>
             <div className="text-text-primary">{originalBatch.visitor.device.os}</div>
           </div>
+          {/* Viewport */}
           <div>
             <div className="text-text-muted">Viewport</div>
             <div className="text-text-primary">
@@ -342,9 +367,10 @@ export function ReportDetail({ report }: ReportDetailProps) {
               {originalBatch.visitor.device.viewport.height}
             </div>
           </div>
+          {/* Referrer */}
           <div>
             <div className="text-text-muted">Referrer</div>
-            <div className="text-text-primary truncate">
+            <div className="text-text-primary truncate" title={originalBatch.visitor.referrer || 'Direct'}>
               {originalBatch.visitor.referrer || 'Direct'}
             </div>
           </div>
