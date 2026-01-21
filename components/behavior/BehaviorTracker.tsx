@@ -65,6 +65,7 @@ const defaultDebugInfo: DebugInfo = {
   lastTransformChunk: null,
   lastTransformLatency: null,
   nextRewriteIn: null,
+  nextModeInfo: null,
   batchTransforms: 0,
   batchTimeRemaining: 60,
   sessionTransforms: 0,
@@ -174,6 +175,51 @@ export function BehaviorTracker({
         const lastTransform = lastTransformInfoRef.current;
         const thresholds = engineRef.current.getThresholds();
 
+        // Calculate next mode info
+        let nextModeInfo: DebugInfo['nextModeInfo'] = null;
+        if (newState.mode === 'NEUTRAL') {
+          // Show time until REWRITE mode
+          const timeUntilRewrite = Math.max(0, (thresholds.idleStart - newState.idleTime) / 1000);
+          nextModeInfo = {
+            label: 'REWRITE L1',
+            secondsUntil: timeUntilRewrite,
+            trigger: 'time',
+          };
+        } else if (newState.mode === 'EXPAND') {
+          // Show time until can exit EXPAND
+          const timeInExpand = now - newState.lastModeChangeTime;
+          const timeRemaining = Math.max(0, (thresholds.expandMinDuration - timeInExpand) / 1000);
+          nextModeInfo = {
+            label: 'NEUTRAL',
+            secondsUntil: timeRemaining,
+            trigger: 'time',
+          };
+        } else if (newState.mode === 'REWRITE') {
+          // Show time until next level
+          if (newState.rewriteLevel === 1) {
+            const timeUntilL2 = Math.max(0, (thresholds.rewriteLevel2 - newState.idleTime) / 1000);
+            nextModeInfo = {
+              label: 'REWRITE L2',
+              secondsUntil: timeUntilL2,
+              trigger: 'time',
+            };
+          } else if (newState.rewriteLevel === 2) {
+            const timeUntilL3 = Math.max(0, (thresholds.rewriteLevel3 - newState.idleTime) / 1000);
+            nextModeInfo = {
+              label: 'REWRITE L3',
+              secondsUntil: timeUntilL3,
+              trigger: 'time',
+            };
+          } else {
+            // Already at L3, show that interaction will reset
+            nextModeInfo = {
+              label: 'NEUTRAL',
+              secondsUntil: null,
+              trigger: 'action',
+            };
+          }
+        }
+
         setDebugInfo((prev) => ({
           ...prev,
           state: newState,
@@ -193,6 +239,7 @@ export function BehaviorTracker({
                     1000
                 )
               : null,
+          nextModeInfo,
           sessionTransforms: sessionTransformsRef.current,
         }));
       }

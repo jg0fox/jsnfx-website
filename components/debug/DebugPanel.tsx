@@ -132,6 +132,28 @@ export function DebugPanel() {
               </div>
             </div>
 
+            {/* Next Mode Timer */}
+            {info.nextModeInfo && (
+              <div className="flex items-center gap-2 text-[11px] p-2 rounded"
+                style={{ backgroundColor: 'rgba(144, 149, 94, 0.1)' }}>
+                <span className="text-[10px] uppercase tracking-wider opacity-60">
+                  Next:
+                </span>
+                <span className="font-medium" style={{ color: '#90955e' }}>
+                  {info.nextModeInfo.label}
+                </span>
+                {info.nextModeInfo.trigger === 'time' && info.nextModeInfo.secondsUntil !== null ? (
+                  <span className="tabular-nums opacity-75">
+                    in {info.nextModeInfo.secondsUntil.toFixed(1)}s
+                  </span>
+                ) : (
+                  <span className="opacity-75 italic">
+                    on interaction
+                  </span>
+                )}
+              </div>
+            )}
+
             {/* Scroll & Viewport Row */}
             <div className="flex items-center justify-between text-[11px]">
               <div className="flex items-center gap-1">

@@ -41,14 +41,31 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     const limit = limitParam ? parseInt(limitParam, 10) : 50;
 
     // Get recent batch IDs
-    const batchIds = await getRecentReports(Math.min(limit, 100));
+    let batchIds: string[] = [];
+    try {
+      batchIds = await getRecentReports(Math.min(limit, 100));
+    } catch (redisError) {
+      console.error('[Reports] Redis error fetching batch IDs:', redisError);
+      // Return empty array if Redis fails (e.g., key doesn't exist)
+      batchIds = [];
+    }
+
+    // If no reports, return empty array
+    if (!batchIds || batchIds.length === 0) {
+      return NextResponse.json({ reports: [] });
+    }
 
     // Fetch each report
     const reports: EvaluationReport[] = [];
     for (const id of batchIds) {
-      const report = await getReport(id);
-      if (report) {
-        reports.push(report as EvaluationReport);
+      try {
+        const report = await getReport(id);
+        if (report) {
+          reports.push(report as EvaluationReport);
+        }
+      } catch (reportError) {
+        console.error(`[Reports] Error fetching report ${id}:`, reportError);
+        // Continue with other reports
       }
     }
 
@@ -57,8 +74,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   } catch (error) {
     console.error('[Reports] Error:', error);
 
+    // Return more detailed error for debugging
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { error: 'Failed to fetch reports' },
+      { error: 'Failed to fetch reports', details: errorMessage },
       { status: 500 }
     );
   }

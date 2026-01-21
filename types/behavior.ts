@@ -124,6 +124,18 @@ export interface BehaviorEvent {
 }
 
 /**
+ * Information about upcoming mode/level change
+ */
+export interface NextModeInfo {
+  /** Description of what's next */
+  label: string;
+  /** Seconds until it activates (null if action-based, not time-based) */
+  secondsUntil: number | null;
+  /** What triggers it */
+  trigger: 'time' | 'action';
+}
+
+/**
  * Debug information for the debug panel
  */
 export interface DebugInfo {
@@ -144,6 +156,8 @@ export interface DebugInfo {
   lastTransformLatency: number | null;
   /** Seconds until next rewrite (in REWRITE mode) */
   nextRewriteIn: number | null;
+  /** Information about the next mode/level change */
+  nextModeInfo: NextModeInfo | null;
   /** Transforms in current batch */
   batchTransforms: number;
   /** Seconds until time-based batch trigger */

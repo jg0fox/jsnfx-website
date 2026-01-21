@@ -51,3 +51,4 @@ site structure and content/
 /*.svg
 !public/**/*.png
 !public/**/*.svg
+.env*.local
