@@ -158,6 +158,7 @@ function prepareBatchForEvaluation(
 /**
  * Compact evaluation prompt - much shorter, saves ~60% tokens
  * Used when we just need a quick adversarial effectiveness score
+ * Still requests batch-level summary for meaningful evaluator notes
  */
 const COMPACT_EVAL_PROMPT = `Score adversarial effectiveness 1-10 for each transformation.
 EXPAND: Did it meaningfully increase length and create obstruction?
@@ -169,7 +170,7 @@ BATCH:
 {batch}
 
 JSON response (no markdown):
-{"scores":[{"chunkId":"...","score":N,"note":"brief"}],"avg":N}`;
+{"scores":[{"chunkId":"...","score":N,"note":"specific observation"}],"summary":"1-2 sentence pattern/insight across all transformations","avg":N}`;
 
 /**
  * Build the evaluation prompt
@@ -306,7 +307,7 @@ function parseEvaluationResponse(response: string, compact: boolean = false): {
     };
   }
 
-  // Handle compact format: {"scores":[{"chunkId":"...","score":N,"note":"brief"}],"avg":N}
+  // Handle compact format: {"scores":[{"chunkId":"...","score":N,"note":"..."}],"summary":"...","avg":N}
   if (compact && Array.isArray(parsed.scores)) {
     const scores: TransformationScore[] = (parsed.scores as Array<{ chunkId: string; score: number; note?: string }>).map((s) => ({
       chunkId: s.chunkId,
@@ -318,6 +319,11 @@ function parseEvaluationResponse(response: string, compact: boolean = false): {
       (scores.length > 0 ? scores.reduce((sum, s) => sum + s.adversarialEffectiveness, 0) / scores.length : 0);
     const failedCount = scores.filter(s => s.adversarialEffectiveness < 6).length;
 
+    // Use Claude's summary if provided, otherwise fall back to generic message
+    const summaryNote = typeof parsed.summary === 'string' && parsed.summary.trim()
+      ? parsed.summary.trim()
+      : `${scores.length} transformations evaluated, avg ${avg.toFixed(1)}`;
+
     return {
       transformationScores: scores,
       batchSummary: {
@@ -325,7 +331,7 @@ function parseEvaluationResponse(response: string, compact: boolean = false): {
         passed: avg >= 6,
         totalTransformations: scores.length,
         failedTransformations: failedCount,
-        notes: `Compact eval: ${scores.length} scored, avg ${avg.toFixed(1)}`,
+        notes: summaryNote,
       },
     };
   }
