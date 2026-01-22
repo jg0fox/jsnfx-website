@@ -113,29 +113,26 @@ Return only the noticeably rewritten content. Core meaning must be preserved.`;
 }
 
 function getRewriteL3Prompt(content: string, duration: number): string {
-  return `The user has been idle for ${duration}ms. Make this content actively difficult to read and comprehend. The text should resist easy understanding.
+  return `The user has been idle for ${duration}ms. Make this content difficult to read while PRESERVING the core meaning.
 
 HOSTILE REWRITE TECHNIQUES:
-- Fragment syntax — break sentences into unusual structures
-- Use unusual or archaic word choices
-- Make meaning slippery and indirect
-- Employ abstract or oblique phrasing
-- Create semantic drift — meaning slides sideways
-- Interrupt flow with parenthetical asides
-- Use nominalization (verb → noun forms)
-- Employ passive constructions excessively
+- Use passive voice and nominalizations
+- Add parenthetical asides that interrupt flow
+- Use formal/archaic word choices (but real words, not invented)
+- Create convoluted sentence structures
+- Add qualifying clauses that obscure the point
 
-THE RESULT SHOULD:
-- Be grammatically valid (not word salad)
-- Require effort to parse
-- Feel evasive or elusive
-- Make the reader work to extract meaning
-- Retain a ghostly echo of the original content
+CRITICAL CONSTRAINTS:
+- MUST preserve the actual meaning and facts from the original
+- MUST use real English words (no invented jargon)
+- MUST be roughly the same length as original (not longer)
+- The reader should be able to extract the original meaning with effort
+- Do NOT generate abstract nonsense or word salad
 
 ORIGINAL CONTENT:
 ${content}
 
-Return only the hostile rewritten content. Clarity may be degraded.`;
+Return only the hostile rewritten content. Keep it the same length.`;
 }
 
 /**

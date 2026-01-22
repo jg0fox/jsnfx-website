@@ -131,12 +131,13 @@ function checkLengthRatio(original: string, transformed: string, type: 'expand' 
       return { passed: false, reason: `Expansion ratio too high: ${ratio.toFixed(2)}x (expected 1.2x-4.0x)` };
     }
   } else {
-    // Rewrite should stay roughly same length: 0.4x-2.0x
-    if (ratio < 0.4) {
-      return { passed: false, reason: `Rewrite too short: ${ratio.toFixed(2)}x original (expected 0.4x-2.0x)` };
+    // Rewrite should stay close to original length: 0.5x-1.4x
+    // Tighter bounds prevent hostile rewrites from bloating
+    if (ratio < 0.5) {
+      return { passed: false, reason: `Rewrite too short: ${ratio.toFixed(2)}x original (expected 0.5x-1.4x)` };
     }
-    if (ratio > 2.0) {
-      return { passed: false, reason: `Rewrite too long: ${ratio.toFixed(2)}x original (expected 0.4x-2.0x)` };
+    if (ratio > 1.4) {
+      return { passed: false, reason: `Rewrite too long: ${ratio.toFixed(2)}x original (expected 0.5x-1.4x)` };
     }
   }
 
@@ -204,20 +205,22 @@ const LLM_GATE_MODEL = 'claude-3-5-haiku-20241022';
 const LLM_GATE_PROMPT = `You are a quality gate for transformed content on a portfolio website.
 
 The content was intentionally transformed as part of an adversarial UX experiment.
-Your job is NOT to judge whether the transformation is "nice" — only whether it's coherent.
+Your job is to check if the transformation maintains connection to the original meaning.
 
 Respond with exactly one word: PASS or FAIL
 
 FAIL if:
-- The text is gibberish or nonsensical
-- Sentences are grammatically broken
-- The content contradicts itself incoherently
-- It reads like obvious AI malfunction (random lists, hallucinated formatting, sudden topic changes)
+- The text is gibberish, word salad, or nonsensical jargon
+- The transformed text has NO connection to the original meaning
+- It uses invented/fake technical terms not in the original
+- It reads like AI hallucination (random academic-sounding nonsense)
+- The core facts/meaning from the original are completely lost
 
 PASS if:
-- The text is readable English, even if strange or difficult
-- Grammar is functional, even if unconventional
-- The content has internal consistency
+- The original meaning is still recoverable (even if obscured)
+- The same facts/concepts from the original are present
+- Grammar is functional
+- It uses real English words
 
 ---
 
