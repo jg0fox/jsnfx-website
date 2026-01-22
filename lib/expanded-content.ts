@@ -87,10 +87,29 @@ const expansionCache = new Map<string, ChunkExpansions>();
 
 /**
  * Generate hash from content (matches scanner logic)
+ * Normalizes both HTML and Markdown syntax to produce consistent hashes
  */
 export function hashContent(content: string): string {
   const normalized = content
+    // Strip HTML tags
     .replace(/<[^>]*>/g, '')
+    // Strip markdown formatting (bold, italic, etc.)
+    .replace(/\*\*([^*]+)\*\*/g, '$1')  // **bold**
+    .replace(/\*([^*]+)\*/g, '$1')       // *italic*
+    .replace(/__([^_]+)__/g, '$1')       // __bold__
+    .replace(/_([^_]+)_/g, '$1')         // _italic_
+    .replace(/`([^`]+)`/g, '$1')         // `code`
+    .replace(/~~([^~]+)~~/g, '$1')       // ~~strikethrough~~
+    // Strip markdown links [text](url) → text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // Strip markdown images ![alt](url) → alt
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+    // Strip heading markers
+    .replace(/^#{1,6}\s+/gm, '')
+    // Strip list markers
+    .replace(/^[\s]*[-*+]\s+/gm, '')
+    .replace(/^\s*\d+\.\s+/gm, '')
+    // Lowercase and normalize whitespace
     .toLowerCase()
     .replace(/\s+/g, ' ')
     .trim();
@@ -211,10 +230,24 @@ export function getExpansionForContent(content: string): { content: string; vers
   const hash = hashContent(content);
   const chunkId = findChunkByHash(hash);
 
-  if (!chunkId) return null;
+  if (!chunkId) {
+    // Debug logging for hash mismatches - helps diagnose why pre-generated content isn't found
+    console.log('[PREGEN-MISS]', {
+      hash,
+      contentLength: content.length,
+      contentPreview: content.slice(0, 100).replace(/\n/g, ' '),
+      availableHashes: Array.from(hashIndex.keys()).slice(0, 5), // Show first 5 available hashes
+    });
+    return null;
+  }
 
   const expansion = getRandomExpansion(chunkId);
-  if (!expansion) return null;
+  if (!expansion) {
+    console.log('[PREGEN-EMPTY]', { chunkId, hash });
+    return null;
+  }
+
+  console.log('[PREGEN-HIT]', { chunkId, hash, version: expansion.version });
 
   return {
     ...expansion,

@@ -33,6 +33,7 @@ export class ModeEngine {
   private lastCursorPosition: { x: number; y: number } | null = null;
   private lastTouchPosition: { x: number; y: number } | null = null;
   private fastScrollStartTime: number | null = null;
+  private lastExpandExitTime: number | null = null; // Track cooldown after exiting EXPAND
   private config: ModeEngineConfig;
 
   constructor(config: ModeEngineConfig = {}) {
@@ -212,6 +213,7 @@ export class ModeEngine {
     this.lastCursorPosition = null;
     this.lastTouchPosition = null;
     this.fastScrollStartTime = null;
+    this.lastExpandExitTime = null;
     this.state = {
       ...INITIAL_BEHAVIOR_STATE,
       lastInteractionTime: this.sessionStartTime,
@@ -258,8 +260,14 @@ export class ModeEngine {
   }
 
   private updateFastScrollSustained(now: number): void {
-    const isFastScrolling =
-      this.state.scrollVelocity > this.thresholds.fastScrollVelocity;
+    // Use hysteresis: different thresholds for entering vs exiting EXPAND mode
+    // This prevents rapid toggling when scroll velocity hovers near the threshold
+    const currentMode = this.state.mode;
+    const velocityThreshold = currentMode === 'EXPAND'
+      ? this.thresholds.fastScrollExitVelocity  // Lower threshold to exit (250 px/s)
+      : this.thresholds.fastScrollVelocity;     // Higher threshold to enter (400 px/s)
+
+    const isFastScrolling = this.state.scrollVelocity > velocityThreshold;
 
     if (isFastScrolling) {
       if (this.fastScrollStartTime === null) {
@@ -279,8 +287,13 @@ export class ModeEngine {
 
     switch (mode) {
       case 'NEUTRAL':
-        // Check for EXPAND trigger
-        if (fastScrollSustained) {
+        // Check cooldown before allowing EXPAND entry
+        // This prevents rapid re-entry after exiting EXPAND mode
+        const cooldownMet = !this.lastExpandExitTime ||
+          (now - this.lastExpandExitTime) >= this.thresholds.expandCooldown;
+
+        // Check for EXPAND trigger (with cooldown)
+        if (fastScrollSustained && cooldownMet) {
           this.transitionTo('EXPAND', now);
         }
         // Check for REWRITE trigger
@@ -296,6 +309,8 @@ export class ModeEngine {
         const minDurationMet = timeInExpandMode >= this.thresholds.expandMinDuration;
 
         if (!fastScrollSustained && minDurationMet) {
+          // Track exit time for cooldown
+          this.lastExpandExitTime = now;
           this.transitionTo('NEUTRAL', now);
         }
         break;
@@ -328,6 +343,18 @@ export class ModeEngine {
   private transitionTo(newMode: Mode, now: number): void {
     const prevMode = this.state.mode;
     if (newMode === prevMode) return;
+
+    // Diagnostic logging for mode transitions
+    console.log('[MODE-TRANSITION]', {
+      from: prevMode,
+      to: newMode,
+      scrollVelocity: Math.round(this.state.scrollVelocity),
+      fastScrollSustained: this.state.fastScrollSustained,
+      idleTime: this.state.idleTime,
+      cooldownRemaining: this.lastExpandExitTime
+        ? Math.max(0, this.thresholds.expandCooldown - (now - this.lastExpandExitTime))
+        : null,
+    });
 
     this.state.mode = newMode;
     this.state.lastModeChangeTime = now;

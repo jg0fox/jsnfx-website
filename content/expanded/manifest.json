@@ -652,7 +652,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 8,
-      "originalHash": "1d56ccf6",
+      "originalHash": "03b16f30",
       "context": "Our working hypothesis",
       "versions": [
         {
@@ -743,7 +743,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 10,
-      "originalHash": "dc85a818",
+      "originalHash": "59dfbcd1",
       "context": "Our working hypothesis",
       "versions": [
         {
@@ -3179,7 +3179,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 33,
-      "originalHash": "f1308be9",
+      "originalHash": "f32f17bb",
       "context": "Six recommendations",
       "versions": [
         {
@@ -3239,7 +3239,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 25,
-      "originalHash": "7d652ae6",
+      "originalHash": "a4af8712",
       "context": "Six recommendations",
       "versions": [
         {
@@ -3299,7 +3299,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 27,
-      "originalHash": "84c51999",
+      "originalHash": "4044b994",
       "context": "Six recommendations",
       "versions": [
         {
@@ -3359,7 +3359,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 37,
-      "originalHash": "b7f4c554",
+      "originalHash": "19654a69",
       "context": "Six recommendations",
       "versions": [
         {
@@ -3419,7 +3419,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 26,
-      "originalHash": "3b36bb48",
+      "originalHash": "0066ea0f",
       "context": "Six recommendations",
       "versions": [
         {
@@ -3479,7 +3479,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 34,
-      "originalHash": "36826bc2",
+      "originalHash": "9602d854",
       "context": "Six recommendations",
       "versions": [
         {
@@ -3659,7 +3659,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 52,
-      "originalHash": "c086af14",
+      "originalHash": "276cb70f",
       "context": "Four hypotheses",
       "versions": [
         {
@@ -3719,7 +3719,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 60,
-      "originalHash": "5996c755",
+      "originalHash": "fe7b0a53",
       "context": "Four hypotheses",
       "versions": [
         {
@@ -3779,7 +3779,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 46,
-      "originalHash": "4a902379",
+      "originalHash": "bc567ee3",
       "context": "Four hypotheses",
       "versions": [
         {
@@ -3839,7 +3839,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 47,
-      "originalHash": "a03c00d8",
+      "originalHash": "85f8c7cc",
       "context": "Four hypotheses",
       "versions": [
         {
@@ -5175,7 +5175,7 @@
       "sourceType": "mdx",
       "elementType": "p",
       "originalWordCount": 23,
-      "originalHash": "1d6115a2",
+      "originalHash": "0340502a",
       "context": "Setting expectations by modulating tone",
       "versions": [],
       "originalContent": "In finance, we have words like *portfolio* and *execute*. These terms play a large role in shaping the Robinhood tone of voice."
@@ -5186,7 +5186,7 @@
       "sourceType": "mdx",
       "elementType": "p",
       "originalWordCount": 12,
-      "originalHash": "35aa1244",
+      "originalHash": "39a6f77f",
       "context": "Setting expectations by modulating tone",
       "versions": [],
       "originalContent": "Let's talk about the word *execute* because I know you want to."
@@ -5219,7 +5219,7 @@
       "sourceType": "mdx",
       "elementType": "p",
       "originalWordCount": 28,
-      "originalHash": "2d88c80b",
+      "originalHash": "a4c13e2e",
       "context": "Setting expectations by modulating tone",
       "versions": [],
       "originalContent": "My rationale for inclusion of *execute* is that it's a moment of good friction and that the domain expertise it imparts to Robinhood customers outweighs the negative associations."
@@ -5431,7 +5431,7 @@
       "sourceType": "mdx",
       "elementType": "p",
       "originalWordCount": 37,
-      "originalHash": "740b2acb",
+      "originalHash": "9282aa31",
       "context": "Refinement: fintech trading platform",
       "versions": [],
       "originalContent": "I tested *Check content* with a friend's cryptocurrency trading prototype. I was intrigued to see that the industry detection algorithm consistently classified it as a gaming app with 70% confidence even though there was clear financial terminology."
@@ -5485,7 +5485,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 11,
-      "originalHash": "9791b501",
+      "originalHash": "8951ca35",
       "context": "Standards and analysis",
       "versions": [],
       "originalContent": "**Atlassian Design System** - Bold, optimistic, practical voice with inclusive language"
@@ -5496,7 +5496,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 10,
-      "originalHash": "b6756d51",
+      "originalHash": "7c6630ae",
       "context": "Standards and analysis",
       "versions": [],
       "originalContent": "**Atlassian Inclusive Writing Guidelines** - Gender-neutral pronouns, avoiding exclusionary terms"
@@ -5507,7 +5507,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 14,
-      "originalHash": "1fbe56ad",
+      "originalHash": "4e8a7a85",
       "context": "Standards and analysis",
       "versions": [],
       "originalContent": "**California Innovation Hub Principles** - Plain language (8th grade reading level), conversational tone"
@@ -5539,7 +5539,7 @@
       "sourceType": "mdx",
       "elementType": "p",
       "originalWordCount": 71,
-      "originalHash": "3904be3b",
+      "originalHash": "78f00999",
       "context": "Key Standards Categories",
       "versions": [],
       "originalContent": "| Category | Severity | Examples | |----------|----------|----------| | **Inclusive Language** | error | guys→everyone, blacklist→blocklist, manpower→workforce | | **Pronoun Guidelines** | warning | he/she→they, his/her→their | | **Plain Language** | warning | utilize→use, facilitate→help, paradigm→model | | **Active Voice** | warning | \"was created\"→\"created\", \"is being processed\"→\"processes\" | | **Missing Alt Text** | error | Images without alt attributes | | **Non-descriptive Links** | warning | \"click here\"→descriptive text |"
@@ -5657,7 +5657,7 @@
       "sourceType": "mdx",
       "elementType": "p",
       "originalWordCount": 17,
-      "originalHash": "4c31c0f4",
+      "originalHash": "c704e7a6",
       "context": "My process",
       "versions": [],
       "originalContent": "Then I used [Coolors](https://coolors.com) to generate a color palette based on the logo that Gemini created."
@@ -5722,7 +5722,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 19,
-      "originalHash": "1286dbbf",
+      "originalHash": "1fdd497e",
       "context": "The stack (and why)",
       "versions": [],
       "originalContent": "*Next.js 14+** with App Router. React Server Components play well with content-heavy sites, and Vercel deployment is effectively zero-config."
@@ -5733,7 +5733,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 19,
-      "originalHash": "a7f72598",
+      "originalHash": "47b620fe",
       "context": "The stack (and why)",
       "versions": [],
       "originalContent": "*Tailwind CSS v4** — Utility-first means I can iterate on visual details without context-switching between files. Theming is straightforward."
@@ -5744,7 +5744,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 46,
-      "originalHash": "07c15aed",
+      "originalHash": "b5267e3c",
       "context": "The stack (and why)",
       "versions": [],
       "originalContent": "*MDX for content** — Markdown with embedded React components. This is the key architectural decision. Content lives in `.mdx` files with frontmatter metadata, which means adding a new portfolio piece is just: create folder, add `index.mdx`, done. The system handles routing, navigation, and metadata automatically."
@@ -5755,7 +5755,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "b7391f32",
+      "originalHash": "08e12706",
       "context": "The stack (and why)",
       "versions": [],
       "originalContent": "*TypeScript in strict mode** — Catches entire categories of bugs before they ship."
@@ -5787,7 +5787,7 @@
       "sourceType": "mdx",
       "elementType": "p",
       "originalWordCount": 21,
-      "originalHash": "6cabb586",
+      "originalHash": "8afe899c",
       "context": "Content migration: building a smarter crawler",
       "versions": [],
       "originalContent": "The system uses **Playwright** to render JavaScript-heavy pages, then passes each page to **Claude** for intelligent extraction. Two tools work together:"
@@ -5798,7 +5798,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 14,
-      "originalHash": "cb18edca",
+      "originalHash": "1a717724",
       "context": "Content migration: building a smarter crawler",
       "versions": [],
       "originalContent": "**extract_page_content** — Returns structured output: clean markdown, title, page type, summary, tags"
@@ -5809,7 +5809,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 12,
-      "originalHash": "3bcece4f",
+      "originalHash": "06d70740",
       "context": "Content migration: building a smarter crawler",
       "versions": [],
       "originalContent": "**name_images** — Transforms meaningless CDN URLs (`cdn.prod.website-files.com/abc123.png`) into contextual filenames (`robinhood-trading-dashboard.png`)"
@@ -5884,7 +5884,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 17,
-      "originalHash": "acce630f",
+      "originalHash": "0aa21c61",
       "context": "What actually worked",
       "versions": [],
       "originalContent": "**Prompt for inclusion, not exclusion** — \"Include content images, skip only tiny icons\" outperformed \"skip decorative images\""
@@ -5895,7 +5895,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 12,
-      "originalHash": "95190620",
+      "originalHash": "3c011fdc",
       "context": "What actually worked",
       "versions": [],
       "originalContent": "**Playwright over requests** — Headless browsers are non-negotiable for modern JavaScript-rendered sites"
@@ -5906,7 +5906,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 17,
-      "originalHash": "4b7fe0b5",
+      "originalHash": "b42492ea",
       "context": "What actually worked",
       "versions": [],
       "originalContent": "**Build fallbacks into multi-tool flows** — LLMs are inconsistent with parallel tool calls; design for graceful degradation"
@@ -5949,7 +5949,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 25,
-      "originalHash": "83ff4441",
+      "originalHash": "b6874aa6",
       "context": "The CMS: GitHub as a database (hear me out)",
       "versions": [],
       "originalContent": "*The stack:** Next.js + TypeScript, JWT auth via `jose`, GitHub Contents API for CRUD operations. Images get compressed client-side before committing to the repo."
@@ -5960,7 +5960,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 24,
-      "originalHash": "22e9c693",
+      "originalHash": "b8f64085",
       "context": "The CMS: GitHub as a database (hear me out)",
       "versions": [],
       "originalContent": "*The workflow:** Log in → edit in a real UI → hit save → changes commit and deploy automatically via Vercel. Draft/publish flow included."
@@ -5971,7 +5971,7 @@
       "sourceType": "mdx",
       "elementType": "p",
       "originalWordCount": 10,
-      "originalHash": "b70dff2d",
+      "originalHash": "2a2605e1",
       "context": "The CMS: GitHub as a database (hear me out)",
       "versions": [],
       "originalContent": "It's not clever infrastructure. It's *no* infrastructure. That's the point."
@@ -5992,7 +5992,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 17,
-      "originalHash": "614be82a",
+      "originalHash": "56ffe4aa",
       "context": "Architecture decisions that paid off",
       "versions": [],
       "originalContent": "*Component-driven UI** — Reusable components enforce consistency without requiring discipline. The system makes the right thing easy."
@@ -6003,7 +6003,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 18,
-      "originalHash": "140c8446",
+      "originalHash": "7b6bfa04",
       "context": "Architecture decisions that paid off",
       "versions": [],
       "originalContent": "*Automatic navigation** — Previous/next links generate from content metadata. Adding a portfolio piece doesn't require touching navigation code."
@@ -6014,7 +6014,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 23,
-      "originalHash": "daed056a",
+      "originalHash": "40dfae77",
       "context": "Architecture decisions that paid off",
       "versions": [],
       "originalContent": "*Mobile-first, always** — Every component starts at the smallest breakpoint and scales up. This constraint produces better decisions than \"desktop-first, then fix mobile.\""
@@ -6025,7 +6025,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 18,
-      "originalHash": "0d6df3bd",
+      "originalHash": "8e586470",
       "context": "Architecture decisions that paid off",
       "versions": [],
       "originalContent": "*Static where possible** — Pre-rendered pages, optimized images, no unnecessary JavaScript. Performance isn't a feature; it's table stakes."
@@ -6057,7 +6057,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 15,
-      "originalHash": "09aa95b1",
+      "originalHash": "637d4481",
       "versions": [],
       "originalContent": "**Define and explore tone of voice positioning** across 5 distinct tone spectrums using interactive sliders"
     },
@@ -6067,7 +6067,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 9,
-      "originalHash": "9a3d04d7",
+      "originalHash": "c1a3a078",
       "versions": [],
       "originalContent": "**Analyze sub-dimensions** of tone (4 unique sub-dimensions per spectrum)"
     },
@@ -6077,7 +6077,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 10,
-      "originalHash": "a36831f6",
+      "originalHash": "60f0f03b",
       "versions": [],
       "originalContent": "**Explore 50+ linguistic devices** with definitions, examples, and UX impact"
     },
@@ -6087,7 +6087,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 8,
-      "originalHash": "077fd0be",
+      "originalHash": "d6e72d9d",
       "versions": [],
       "originalContent": "**Generate comprehensive content standards** following a structured schema"
     },
@@ -6097,7 +6097,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 9,
-      "originalHash": "6ac7722f",
+      "originalHash": "29a0eea8",
       "versions": [],
       "originalContent": "**Export standards** as markdown files or copy to clipboard"
     },
@@ -6129,7 +6129,7 @@
       "sourceType": "mdx",
       "elementType": "p",
       "originalWordCount": 16,
-      "originalHash": "c960f7be",
+      "originalHash": "61debc66",
       "context": "Inspiration",
       "versions": [],
       "originalContent": "## It's a starting point ![Content standard creation modal](/projects/tone-spectrum/content-standard-creation-modal.png) ![A generated content standard](/projects/tone-spectrum/a-generated-content-standard.png)"
@@ -6162,7 +6162,7 @@
       "sourceType": "mdx",
       "elementType": "h1",
       "originalWordCount": 16,
-      "originalHash": "edccbca0",
+      "originalHash": "40b7b26a",
       "versions": [],
       "originalContent": "Tone of voice standards for *Spectrum: Playful vs. Serious | Position: 9/100 | Configuration: Strongly Playful*"
     },
@@ -6172,7 +6172,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 12,
-      "originalHash": "cf5506af",
+      "originalHash": "23d74531",
       "context": "2. Context",
       "versions": [],
       "originalContent": "**Scope boundaries**: Applies to interface text, notifications across ux writing contexts"
@@ -6183,7 +6183,7 @@
       "sourceType": "mdx",
       "elementType": "h2",
       "originalWordCount": 3,
-      "originalHash": "96f487e5",
+      "originalHash": "f2185880",
       "versions": [],
       "originalContent": "3. Tone Configuration"
     },
@@ -6203,7 +6203,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 8,
-      "originalHash": "c05c7851",
+      "originalHash": "d193e146",
       "context": "3.1 Primary Positioning",
       "versions": [],
       "originalContent": "**Position**: 9 out of 100 (Strongly Playful)"
@@ -6214,7 +6214,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 26,
-      "originalHash": "3b06ea0b",
+      "originalHash": "b4c08208",
       "context": "3.1 Primary Positioning",
       "versions": [],
       "originalContent": "**Rationale**: This positioning creates highly engaging, expressive content that prioritizes connection and personality that aligns with user needs and brand voice requirements for ux writing."
@@ -6245,7 +6245,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 11,
-      "originalHash": "3e38a8ef",
+      "originalHash": "d7121dd1",
       "context": "Sub-Dimension: Creative Expression",
       "versions": [],
       "originalContent": "**Metaphorical language**: Apply in creative expression to achieve imaginative quality"
@@ -6256,7 +6256,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 10,
-      "originalHash": "ad679fa9",
+      "originalHash": "4ff09794",
       "context": "Sub-Dimension: Creative Expression",
       "versions": [],
       "originalContent": "**Wordplay**: Apply in creative expression to achieve imaginative quality"
@@ -6267,7 +6267,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 10,
-      "originalHash": "3d092f79",
+      "originalHash": "db46a24b",
       "context": "Sub-Dimension: Creative Expression",
       "versions": [],
       "originalContent": "**Anthropomorphism**: Apply in creative expression to achieve imaginative quality"
@@ -6278,7 +6278,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 12,
-      "originalHash": "2c51ffd5",
+      "originalHash": "698f1138",
       "context": "Sub-Dimension: Creative Expression",
       "versions": [],
       "originalContent": "**Manifestation**: Content creative expression demonstrates strongly imaginative characteristics through metaphorical language"
@@ -6299,7 +6299,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 12,
-      "originalHash": "d1e06faa",
+      "originalHash": "392d5536",
       "context": "Sub-Dimension: Rhythmic Quality",
       "versions": [],
       "originalContent": "**Dynamic sentence length**: Apply in rhythmic quality to achieve varied quality"
@@ -6310,7 +6310,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 10,
-      "originalHash": "9945614b",
+      "originalHash": "448b96e1",
       "context": "Sub-Dimension: Rhythmic Quality",
       "versions": [],
       "originalContent": "**Alliteration**: Apply in rhythmic quality to achieve varied quality"
@@ -6321,7 +6321,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 11,
-      "originalHash": "0ef2ffc3",
+      "originalHash": "4252a103",
       "context": "Sub-Dimension: Rhythmic Quality",
       "versions": [],
       "originalContent": "**Tempo variation**: Apply in rhythmic quality to achieve varied quality"
@@ -6332,7 +6332,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "07d695ef",
+      "originalHash": "f4f91a71",
       "context": "Sub-Dimension: Rhythmic Quality",
       "versions": [],
       "originalContent": "**Manifestation**: Content rhythmic quality demonstrates strongly varied characteristics through dynamic sentence length"
@@ -6353,7 +6353,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 12,
-      "originalHash": "e8f3f2e6",
+      "originalHash": "9b801483",
       "context": "Sub-Dimension: Structural Approach",
       "versions": [],
       "originalContent": "**Unexpected information hierarchy**: Apply in structural approach to achieve non-linear quality"
@@ -6364,7 +6364,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 11,
-      "originalHash": "fbe92596",
+      "originalHash": "e51d12e0",
       "context": "Sub-Dimension: Structural Approach",
       "versions": [],
       "originalContent": "**Narrative flow**: Apply in structural approach to achieve non-linear quality"
@@ -6375,7 +6375,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 11,
-      "originalHash": "759d8654",
+      "originalHash": "d724a61a",
       "context": "Sub-Dimension: Structural Approach",
       "versions": [],
       "originalContent": "**Interrupt patterns**: Apply in structural approach to achieve non-linear quality"
@@ -6386,7 +6386,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "9b062199",
+      "originalHash": "5e4d14ad",
       "context": "Sub-Dimension: Structural Approach",
       "versions": [],
       "originalContent": "**Manifestation**: Content structural approach demonstrates strongly non-linear characteristics through unexpected information hierarchy"
@@ -6407,7 +6407,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 11,
-      "originalHash": "85ed8a87",
+      "originalHash": "96b22bb6",
       "context": "Sub-Dimension: Information Density",
       "versions": [],
       "originalContent": "**Elaborative details**: Apply in information density to achieve spacious quality"
@@ -6418,7 +6418,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 11,
-      "originalHash": "fa8c1ce0",
+      "originalHash": "60bfc31d",
       "context": "Sub-Dimension: Information Density",
       "versions": [],
       "originalContent": "**Breathing room**: Apply in information density to achieve spacious quality"
@@ -6429,7 +6429,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 11,
-      "originalHash": "3c55b8d4",
+      "originalHash": "0788b18d",
       "context": "Sub-Dimension: Information Density",
       "versions": [],
       "originalContent": "**Contextual storytelling**: Apply in information density to achieve spacious quality"
@@ -6440,7 +6440,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 12,
-      "originalHash": "760e7de8",
+      "originalHash": "248bec93",
       "context": "Sub-Dimension: Information Density",
       "versions": [
         {
@@ -6500,7 +6500,7 @@
       "sourceType": "mdx",
       "elementType": "h2",
       "originalWordCount": 3,
-      "originalHash": "464d2c66",
+      "originalHash": "e579c513",
       "versions": [
         {
           "version": 1,
@@ -6618,7 +6618,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "af43c36b",
+      "originalHash": "41bceb9b",
       "context": "4.1 Primary Devices (DO Use)",
       "versions": [
         {
@@ -6678,7 +6678,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 14,
-      "originalHash": "782deb1d",
+      "originalHash": "6837ace6",
       "context": "4.1 Primary Devices (DO Use)",
       "versions": [
         {
@@ -6738,7 +6738,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "c634e11e",
+      "originalHash": "90b4ca52",
       "context": "4.1 Primary Devices (DO Use)",
       "versions": [
         {
@@ -6798,7 +6798,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "6959d2ae",
+      "originalHash": "f096ce3b",
       "context": "4.1 Primary Devices (DO Use)",
       "versions": [
         {
@@ -6858,7 +6858,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 15,
-      "originalHash": "10137266",
+      "originalHash": "ae5113c5",
       "context": "4.1 Primary Devices (DO Use)",
       "versions": [
         {
@@ -6918,7 +6918,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "ceec60ff",
+      "originalHash": "dc068719",
       "context": "4.1 Primary Devices (DO Use)",
       "versions": [
         {
@@ -6978,7 +6978,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "2d536f59",
+      "originalHash": "22cdbfc0",
       "context": "4.1 Primary Devices (DO Use)",
       "versions": [
         {
@@ -7038,7 +7038,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 15,
-      "originalHash": "d316e2d0",
+      "originalHash": "db8abb79",
       "context": "4.1 Primary Devices (DO Use)",
       "versions": [
         {
@@ -7098,7 +7098,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 14,
-      "originalHash": "fe1694fd",
+      "originalHash": "1e7d6ca4",
       "context": "4.1 Primary Devices (DO Use)",
       "versions": [
         {
@@ -7158,7 +7158,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "98996920",
+      "originalHash": "fcb66fa3",
       "context": "4.1 Primary Devices (DO Use)",
       "versions": [
         {
@@ -7218,7 +7218,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 14,
-      "originalHash": "263b7593",
+      "originalHash": "355bc093",
       "context": "4.1 Primary Devices (DO Use)",
       "versions": [
         {
@@ -7278,7 +7278,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 14,
-      "originalHash": "236997f6",
+      "originalHash": "b9e618bf",
       "context": "4.1 Primary Devices (DO Use)",
       "versions": [
         {
@@ -7456,7 +7456,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "efc1451b",
+      "originalHash": "460f8f20",
       "context": "4.3 Avoid (Anti-Patterns)",
       "versions": [
         {
@@ -7516,7 +7516,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "32bd9f14",
+      "originalHash": "bd5c5fb3",
       "context": "4.3 Avoid (Anti-Patterns)",
       "versions": [
         {
@@ -7576,7 +7576,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 14,
-      "originalHash": "9b68ab28",
+      "originalHash": "9c210ad8",
       "context": "4.3 Avoid (Anti-Patterns)",
       "versions": [
         {
@@ -7636,7 +7636,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "6294e8e9",
+      "originalHash": "bcda8586",
       "context": "4.3 Avoid (Anti-Patterns)",
       "versions": [
         {
@@ -7696,7 +7696,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 14,
-      "originalHash": "2bdf23ef",
+      "originalHash": "d1360413",
       "context": "4.3 Avoid (Anti-Patterns)",
       "versions": [
         {
@@ -7756,7 +7756,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 14,
-      "originalHash": "b7862348",
+      "originalHash": "00eb7b78",
       "context": "4.3 Avoid (Anti-Patterns)",
       "versions": [
         {
@@ -7816,7 +7816,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 14,
-      "originalHash": "1f3dfa19",
+      "originalHash": "86e4393b",
       "context": "4.3 Avoid (Anti-Patterns)",
       "versions": [
         {
@@ -7876,7 +7876,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 13,
-      "originalHash": "25e4a150",
+      "originalHash": "28fd7558",
       "context": "4.3 Avoid (Anti-Patterns)",
       "versions": [
         {
@@ -7995,7 +7995,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 9,
-      "originalHash": "6c0ad581",
+      "originalHash": "2956b7e7",
       "context": "4.4 Content Patterns",
       "versions": [
         {
@@ -8052,7 +8052,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 14,
-      "originalHash": "6a23c91a",
+      "originalHash": "daef896c",
       "context": "4.4 Content Patterns",
       "versions": [
         {
@@ -8112,7 +8112,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 9,
-      "originalHash": "cb5038db",
+      "originalHash": "7993aaf8",
       "context": "4.4 Content Patterns",
       "versions": [
         {
@@ -8172,7 +8172,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 8,
-      "originalHash": "1b225ede",
+      "originalHash": "5464563e",
       "context": "4.4 Content Patterns",
       "versions": [
         {
@@ -8334,7 +8334,7 @@
       "sourceType": "mdx",
       "elementType": "h2",
       "originalWordCount": 3,
-      "originalHash": "036f1bdb",
+      "originalHash": "eb27e86f",
       "versions": [
         {
           "version": 1,
@@ -8571,7 +8571,7 @@
       "sourceType": "mdx",
       "elementType": "h2",
       "originalWordCount": 3,
-      "originalHash": "f763c21c",
+      "originalHash": "4533ef09",
       "versions": [
         {
           "version": 1,
@@ -8810,7 +8810,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 9,
-      "originalHash": "df39c615",
+      "originalHash": "fe9bb199",
       "context": "9. Maintenance",
       "versions": [
         {
@@ -8870,7 +8870,7 @@
       "sourceType": "mdx",
       "elementType": "li",
       "originalWordCount": 10,
-      "originalHash": "be21de2f",
+      "originalHash": "43436f4f",
       "context": "9. Maintenance",
       "versions": [
         {
@@ -9584,7 +9584,7 @@
       "sourceType": "mdx",
       "elementType": "p",
       "originalWordCount": 13,
-      "originalHash": "1714f472",
+      "originalHash": "79564213",
       "context": "3 Round begins active",
       "versions": [
         {
@@ -9823,7 +9823,7 @@
       "sourceType": "mdx",
       "elementType": "p",
       "originalWordCount": 15,
-      "originalHash": "989b5059",
+      "originalHash": "a882c63d",
       "context": "7 Reflection end",
       "versions": [
         {
@@ -14495,5 +14495,7 @@
       ],
       "originalContent": "Fiction and nonfiction publications in literary magazines and journals."
     }
-  ]
+  ],
+  "hashMigrationAt": "2026-01-22T17:54:57.261Z",
+  "hashAlgorithm": "md5-normalized-v2"
 }

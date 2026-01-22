@@ -24,10 +24,14 @@ export type RewriteLevel = 1 | 2 | 3;
 export interface BehaviorThresholds {
   /** Pixels per second to trigger EXPAND mode */
   fastScrollVelocity: number;
+  /** Pixels per second to exit EXPAND mode (lower for hysteresis) */
+  fastScrollExitVelocity: number;
   /** Milliseconds of sustained fast scroll to trigger EXPAND */
   fastScrollDuration: number;
   /** Minimum milliseconds to stay in EXPAND mode (ensures transform can complete) */
   expandMinDuration: number;
+  /** Milliseconds after exiting EXPAND before re-entry is allowed */
+  expandCooldown: number;
   /** Milliseconds idle to enter REWRITE mode */
   idleStart: number;
   /** Milliseconds between rewrites while idle */
@@ -45,8 +49,10 @@ export interface BehaviorThresholds {
  */
 export const DEFAULT_THRESHOLDS: BehaviorThresholds = {
   fastScrollVelocity: 400,      // px/s - lowered from 600 for easier triggering
+  fastScrollExitVelocity: 250,  // px/s - hysteresis: lower threshold to exit EXPAND
   fastScrollDuration: 800,      // 0.8s sustained to trigger EXPAND (lowered from 1.5s)
   expandMinDuration: 2000,      // 2s minimum in EXPAND
+  expandCooldown: 3000,         // 3s cooldown after exiting EXPAND before re-entry
   idleStart: 4000,              // 4s to enter REWRITE (lowered from 5s)
   rewriteInterval: 5000,        // 5s between rewrites (lowered from 8s) - ~12/min
   rewriteLevel2: 20000,         // 20s idle for L2 (lowered from 30s) - ~3 L1 transforms

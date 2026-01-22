@@ -72,10 +72,30 @@ const MIN_WORD_COUNT = 8;
 
 /**
  * Generate a short hash from content
+ * Normalizes both HTML and Markdown syntax to produce consistent hashes
+ * IMPORTANT: This must match lib/expanded-content.ts hashContent()
  */
 function hashContent(content: string): string {
   const normalized = content
+    // Strip HTML tags
     .replace(/<[^>]*>/g, '')
+    // Strip markdown formatting (bold, italic, etc.)
+    .replace(/\*\*([^*]+)\*\*/g, '$1')  // **bold**
+    .replace(/\*([^*]+)\*/g, '$1')       // *italic*
+    .replace(/__([^_]+)__/g, '$1')       // __bold__
+    .replace(/_([^_]+)_/g, '$1')         // _italic_
+    .replace(/`([^`]+)`/g, '$1')         // `code`
+    .replace(/~~([^~]+)~~/g, '$1')       // ~~strikethrough~~
+    // Strip markdown links [text](url) → text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // Strip markdown images ![alt](url) → alt
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+    // Strip heading markers
+    .replace(/^#{1,6}\s+/gm, '')
+    // Strip list markers
+    .replace(/^[\s]*[-*+]\s+/gm, '')
+    .replace(/^\s*\d+\.\s+/gm, '')
+    // Lowercase and normalize whitespace
     .toLowerCase()
     .replace(/\s+/g, ' ')
     .trim();
