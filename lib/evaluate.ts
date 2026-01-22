@@ -106,9 +106,13 @@ function truncateContent(content: string, maxLength: number = MAX_CONTENT_LENGTH
 }
 
 /**
- * Prepare batch for evaluation by truncating content and filtering by type sampling
+ * Prepare batch for evaluation by truncating content
+ * Note: Filtering should be done BEFORE calling this function to avoid duplicate random sampling
  */
-function prepareBatchForEvaluation(batch: EvaluationBatch): { prepared: object; skippedCount: number; originalCount: number } {
+function prepareBatchForEvaluation(
+  batch: EvaluationBatch,
+  filteredTransformations: EvaluationBatch['transformations']
+): object {
   // Use the pre-summarized behavior if available (new format)
   // Otherwise create a simple summary from legacy behaviorSequence
   let behaviorSummary;
@@ -127,37 +131,27 @@ function prepareBatchForEvaluation(batch: EvaluationBatch): { prepared: object; 
     behaviorSummary = { totalEvents: 0 };
   }
 
-  const originalCount = batch.transformations.length;
-
-  // Apply type-based sampling to filter transformations
-  const filteredTransformations = filterTransformationsBySampling(batch.transformations);
-  const skippedCount = originalCount - filteredTransformations.length;
-
   return {
-    prepared: {
-      sessionId: batch.sessionId,
-      batchId: batch.batchId,
-      timestamp: batch.timestamp,
-      // Only include essential visitor info
-      visitor: {
-        device: batch.visitor.device.type,
-        browser: batch.visitor.device.browser,
-      },
-      // Use summarized behavior
-      behaviorSummary,
-      // Truncate transformation content (already filtered)
-      transformations: filteredTransformations.map(t => ({
-        chunkId: t.chunkId,
-        type: t.type,
-        level: t.level,
-        trigger: t.trigger,
-        latency: t.latency,
-        originalContent: truncateContent(t.originalContent),
-        transformedContent: truncateContent(t.transformedContent),
-      })),
+    sessionId: batch.sessionId,
+    batchId: batch.batchId,
+    timestamp: batch.timestamp,
+    // Only include essential visitor info
+    visitor: {
+      device: batch.visitor.device.type,
+      browser: batch.visitor.device.browser,
     },
-    skippedCount,
-    originalCount,
+    // Use summarized behavior
+    behaviorSummary,
+    // Truncate transformation content (already filtered externally)
+    transformations: filteredTransformations.map(t => ({
+      chunkId: t.chunkId,
+      type: t.type,
+      level: t.level,
+      trigger: t.trigger,
+      latency: t.latency,
+      originalContent: truncateContent(t.originalContent),
+      transformedContent: truncateContent(t.transformedContent),
+    })),
   };
 }
 
@@ -179,15 +173,15 @@ JSON response (no markdown):
 
 /**
  * Build the evaluation prompt
+ * Note: filteredTransformations should be pre-filtered to avoid duplicate random sampling
  */
-function buildEvaluationPrompt(batch: EvaluationBatch, compact: boolean = false): string {
-  // Prepare batch with truncated content and type-based filtering
-  const { prepared: preparedBatch, skippedCount, originalCount } = prepareBatchForEvaluation(batch);
-
-  // Log filtering stats
-  if (skippedCount > 0) {
-    console.log(`[Evaluate] Filtered ${skippedCount}/${originalCount} transformations (type-based sampling)`);
-  }
+function buildEvaluationPrompt(
+  batch: EvaluationBatch,
+  filteredTransformations: EvaluationBatch['transformations'],
+  compact: boolean = false
+): string {
+  // Prepare batch with truncated content (filtering already done)
+  const preparedBatch = prepareBatchForEvaluation(batch, filteredTransformations);
 
   // Use compact prompt for quick evaluations
   if (compact) {
@@ -361,9 +355,15 @@ export async function evaluateBatch(
     };
   }
 
-  // Check how many will remain after type-based filtering
-  const filteredCount = filterTransformationsBySampling(batch.transformations).length;
-  if (filteredCount === 0) {
+  // Filter ONCE at the start to avoid duplicate random sampling
+  const filteredTransformations = filterTransformationsBySampling(batch.transformations);
+  const skippedCount = batch.transformations.length - filteredTransformations.length;
+
+  if (skippedCount > 0) {
+    console.log(`[Evaluate] Filtered ${skippedCount}/${batch.transformations.length} transformations (type-based sampling)`);
+  }
+
+  if (filteredTransformations.length === 0) {
     console.log(`[Evaluate] All ${batch.transformations.length} transformations filtered out (type-based sampling)`);
     return {
       batchId: batch.batchId,
@@ -391,7 +391,7 @@ export async function evaluateBatch(
     messages: [
       {
         role: 'user',
-        content: buildEvaluationPrompt(batch, useCompact),
+        content: buildEvaluationPrompt(batch, filteredTransformations, useCompact),
       },
     ],
   });
