@@ -44,10 +44,16 @@ function getVisitorInfoFromRequest(request: NextRequest): {
 
 /**
  * Evaluation sampling rate (0.0 - 1.0)
- * Set EVAL_SAMPLE_RATE env var to override (e.g., "0.15" for 15%)
- * Default: 15% - provides statistical insight while cutting 85% of eval costs
+ * Set EVAL_SAMPLE_RATE env var to override (e.g., "0.02" for 2%)
+ * Default: 2% - minimal sampling to demonstrate quality rubric while minimizing costs
  */
-const EVAL_SAMPLE_RATE = parseFloat(process.env.EVAL_SAMPLE_RATE || '0.15');
+const EVAL_SAMPLE_RATE = parseFloat(process.env.EVAL_SAMPLE_RATE || '0.02');
+
+/**
+ * Maximum transformations to evaluate per batch
+ * Caps data to reduce token usage even when a batch is selected
+ */
+const MAX_TRANSFORMS_PER_BATCH = 5;
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   // Check if evaluation is enabled (defaults to true if not set)
@@ -131,6 +137,24 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       ip: serverVisitorInfo.ip,
       location: serverVisitorInfo.location,
     };
+
+    // Limit transformations per batch to reduce token usage
+    if (batch.transformations.length > MAX_TRANSFORMS_PER_BATCH) {
+      console.log(`[Evaluate] Limiting batch from ${batch.transformations.length} to ${MAX_TRANSFORMS_PER_BATCH} transformations`);
+      // Keep a mix: prioritize L3 (highest stakes), then sample randomly
+      const l3Transforms = batch.transformations.filter(t => t.level === 3);
+      const otherTransforms = batch.transformations.filter(t => t.level !== 3);
+
+      // Shuffle other transforms to get random sample
+      otherTransforms.sort(() => Math.random() - 0.5);
+
+      // Take all L3 up to max, fill rest with others
+      const selectedL3 = l3Transforms.slice(0, MAX_TRANSFORMS_PER_BATCH);
+      const remainingSlots = MAX_TRANSFORMS_PER_BATCH - selectedL3.length;
+      const selectedOthers = otherTransforms.slice(0, remainingSlots);
+
+      batch.transformations = [...selectedL3, ...selectedOthers];
+    }
 
     // Perform evaluation
     const report = await evaluateBatch(batch);

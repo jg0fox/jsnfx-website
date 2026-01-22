@@ -392,9 +392,9 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
       // Store previous content before any operations
       const previousContent = chunk.currentContent;
 
-      // For REWRITE L3 (hostile), use pre-generated expanded content 30% of the time
-      // This provides variety and reduces LLM costs for hostile rewrites
-      if (type === 'rewrite' && level === 3 && Math.random() < 0.3) {
+      // For REWRITE L3 (hostile), use pre-generated expanded content 70% of the time
+      // This significantly reduces LLM costs while maintaining variety in hostile rewrites
+      if (type === 'rewrite' && level === 3 && Math.random() < 0.7) {
         const preGenResult = await getPreGeneratedExpansion(previousContent);
 
         if (preGenResult?.transformedContent) {
