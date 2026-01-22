@@ -42,6 +42,13 @@ function getVisitorInfoFromRequest(request: NextRequest): {
   };
 }
 
+/**
+ * Evaluation sampling rate (0.0 - 1.0)
+ * Set EVAL_SAMPLE_RATE env var to override (e.g., "0.15" for 15%)
+ * Default: 15% - provides statistical insight while cutting 85% of eval costs
+ */
+const EVAL_SAMPLE_RATE = parseFloat(process.env.EVAL_SAMPLE_RATE || '0.15');
+
 export async function POST(request: NextRequest): Promise<NextResponse> {
   // Check if evaluation is enabled (defaults to true if not set)
   const evaluationEnabled = process.env.ENABLE_EVALUATION !== 'false';
@@ -63,6 +70,28 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           notes: 'Evaluation disabled via environment variable',
         },
         originalBatch: null,
+      },
+    });
+  }
+
+  // Sampling: Only evaluate a percentage of batches to reduce costs
+  if (Math.random() > EVAL_SAMPLE_RATE) {
+    console.log(`[Evaluate] Skipped (sampling at ${EVAL_SAMPLE_RATE * 100}% rate)`);
+    return NextResponse.json({
+      report: {
+        batchId: 'sampled-skip',
+        sessionId: 'sampled-skip',
+        evaluatedAt: new Date().toISOString(),
+        transformationScores: [],
+        batchSummary: {
+          averageScore: 0,
+          passed: true,
+          totalTransformations: 0,
+          failedTransformations: 0,
+          notes: `Skipped evaluation (sampling at ${EVAL_SAMPLE_RATE * 100}% rate)`,
+        },
+        originalBatch: null,
+        sampled: false,
       },
     });
   }

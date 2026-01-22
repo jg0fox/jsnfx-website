@@ -54,6 +54,50 @@ Focus on: Did this transformation achieve its artistic/adversarial goal of obstr
 const MAX_CONTENT_LENGTH = 500;
 
 /**
+ * Type-based sampling rates for tiered evaluation
+ * Pre-generated expansions are skipped entirely (already evaluated at generation)
+ * Rewrite L1 has lower stakes, L3 has highest stakes
+ */
+const TYPE_SAMPLE_RATES: Record<string, number> = {
+  'expand_pregen': 0.0,   // Skip - already evaluated during generation
+  'expand': 1.0,          // Always eval real-time expansions (rare fallback)
+  'rewrite_l1': 0.3,      // Sample 30% of L1 (subtle changes, lower stakes)
+  'rewrite_l2': 0.5,      // Sample 50% of L2
+  'rewrite_l3': 1.0,      // Always eval L3 (hostile, highest stakes)
+};
+
+/**
+ * Get the type key for sampling lookup
+ */
+function getTransformTypeKey(t: { type: string; level?: number; trigger?: string }): string {
+  if (t.type === 'expand') {
+    return t.trigger?.includes('pregen') ? 'expand_pregen' : 'expand';
+  }
+  return `rewrite_l${t.level || 1}`;
+}
+
+/**
+ * Filter transformations based on type-specific sampling rates
+ * Uses generics to preserve the full transformation record type
+ */
+function filterTransformationsBySampling<T extends { type: string; level?: number; trigger?: string }>(
+  transformations: T[]
+): T[] {
+  return transformations.filter(t => {
+    const typeKey = getTransformTypeKey(t);
+    const sampleRate = TYPE_SAMPLE_RATES[typeKey] ?? 1.0;
+
+    // Skip pre-generated expansions entirely
+    if (sampleRate === 0) {
+      return false;
+    }
+
+    // Apply sampling for other types
+    return Math.random() < sampleRate;
+  });
+}
+
+/**
  * Truncate content for evaluation to reduce token usage
  */
 function truncateContent(content: string, maxLength: number = MAX_CONTENT_LENGTH): string {
@@ -62,9 +106,9 @@ function truncateContent(content: string, maxLength: number = MAX_CONTENT_LENGTH
 }
 
 /**
- * Prepare batch for evaluation by truncating content
+ * Prepare batch for evaluation by truncating content and filtering by type sampling
  */
-function prepareBatchForEvaluation(batch: EvaluationBatch): object {
+function prepareBatchForEvaluation(batch: EvaluationBatch): { prepared: object; skippedCount: number; originalCount: number } {
   // Use the pre-summarized behavior if available (new format)
   // Otherwise create a simple summary from legacy behaviorSequence
   let behaviorSummary;
@@ -83,36 +127,72 @@ function prepareBatchForEvaluation(batch: EvaluationBatch): object {
     behaviorSummary = { totalEvents: 0 };
   }
 
+  const originalCount = batch.transformations.length;
+
+  // Apply type-based sampling to filter transformations
+  const filteredTransformations = filterTransformationsBySampling(batch.transformations);
+  const skippedCount = originalCount - filteredTransformations.length;
+
   return {
-    sessionId: batch.sessionId,
-    batchId: batch.batchId,
-    timestamp: batch.timestamp,
-    // Only include essential visitor info
-    visitor: {
-      device: batch.visitor.device.type,
-      browser: batch.visitor.device.browser,
+    prepared: {
+      sessionId: batch.sessionId,
+      batchId: batch.batchId,
+      timestamp: batch.timestamp,
+      // Only include essential visitor info
+      visitor: {
+        device: batch.visitor.device.type,
+        browser: batch.visitor.device.browser,
+      },
+      // Use summarized behavior
+      behaviorSummary,
+      // Truncate transformation content (already filtered)
+      transformations: filteredTransformations.map(t => ({
+        chunkId: t.chunkId,
+        type: t.type,
+        level: t.level,
+        trigger: t.trigger,
+        latency: t.latency,
+        originalContent: truncateContent(t.originalContent),
+        transformedContent: truncateContent(t.transformedContent),
+      })),
     },
-    // Use summarized behavior
-    behaviorSummary,
-    // Truncate transformation content
-    transformations: batch.transformations.map(t => ({
-      chunkId: t.chunkId,
-      type: t.type,
-      level: t.level,
-      trigger: t.trigger,
-      latency: t.latency,
-      originalContent: truncateContent(t.originalContent),
-      transformedContent: truncateContent(t.transformedContent),
-    })),
+    skippedCount,
+    originalCount,
   };
 }
 
 /**
+ * Compact evaluation prompt - much shorter, saves ~60% tokens
+ * Used when we just need a quick adversarial effectiveness score
+ */
+const COMPACT_EVAL_PROMPT = `Score adversarial effectiveness 1-10 for each transformation.
+EXPAND: Did it meaningfully increase length and create obstruction?
+REWRITE L1: Are changes subtle enough to cause doubt?
+REWRITE L2: Noticeable but comprehensible changes?
+REWRITE L3: Actively difficult to read?
+
+BATCH:
+{batch}
+
+JSON response (no markdown):
+{"scores":[{"chunkId":"...","score":N,"note":"brief"}],"avg":N}`;
+
+/**
  * Build the evaluation prompt
  */
-function buildEvaluationPrompt(batch: EvaluationBatch): string {
-  // Prepare batch with truncated content
-  const preparedBatch = prepareBatchForEvaluation(batch);
+function buildEvaluationPrompt(batch: EvaluationBatch, compact: boolean = false): string {
+  // Prepare batch with truncated content and type-based filtering
+  const { prepared: preparedBatch, skippedCount, originalCount } = prepareBatchForEvaluation(batch);
+
+  // Log filtering stats
+  if (skippedCount > 0) {
+    console.log(`[Evaluate] Filtered ${skippedCount}/${originalCount} transformations (type-based sampling)`);
+  }
+
+  // Use compact prompt for quick evaluations
+  if (compact) {
+    return COMPACT_EVAL_PROMPT.replace('{batch}', JSON.stringify(preparedBatch, null, 2));
+  }
 
   return `Evaluate this batch of adversarial transformations.
 
@@ -179,8 +259,9 @@ RESPOND IN THIS EXACT JSON FORMAT (no markdown, just raw JSON):
 
 /**
  * Parse the evaluation response from Claude
+ * Handles both full format and compact format responses
  */
-function parseEvaluationResponse(response: string): {
+function parseEvaluationResponse(response: string, compact: boolean = false): {
   transformationScores: TransformationScore[];
   batchSummary: BatchSummary;
 } {
@@ -197,6 +278,31 @@ function parseEvaluationResponse(response: string): {
 
   try {
     const parsed = JSON.parse(jsonStr);
+
+    // Handle compact format: {"scores":[{"chunkId":"...","score":N,"note":"brief"}],"avg":N}
+    if (compact && parsed.scores) {
+      const scores: TransformationScore[] = parsed.scores.map((s: { chunkId: string; score: number; note?: string }) => ({
+        chunkId: s.chunkId,
+        adversarialEffectiveness: s.score,
+        notes: s.note || '',
+      }));
+
+      const avg = parsed.avg || (scores.reduce((sum, s) => sum + s.adversarialEffectiveness, 0) / scores.length);
+      const failedCount = scores.filter(s => s.adversarialEffectiveness < 6).length;
+
+      return {
+        transformationScores: scores,
+        batchSummary: {
+          averageScore: avg,
+          passed: avg >= 6,
+          totalTransformations: scores.length,
+          failedTransformations: failedCount,
+          notes: `Compact eval: ${scores.length} scored, avg ${avg.toFixed(1)}`,
+        },
+      };
+    }
+
+    // Handle full format
     return {
       transformationScores: parsed.transformationScores || [],
       batchSummary: parsed.batchSummary || {
@@ -226,6 +332,12 @@ function parseEvaluationResponse(response: string): {
 }
 
 /**
+ * Use compact evaluation prompt by default for cost savings
+ * Set EVAL_COMPACT=false to use verbose prompts
+ */
+const USE_COMPACT_EVAL = process.env.EVAL_COMPACT !== 'false';
+
+/**
  * Evaluate a batch of transformations
  */
 export async function evaluateBatch(
@@ -249,16 +361,37 @@ export async function evaluateBatch(
     };
   }
 
+  // Check how many will remain after type-based filtering
+  const filteredCount = filterTransformationsBySampling(batch.transformations).length;
+  if (filteredCount === 0) {
+    console.log(`[Evaluate] All ${batch.transformations.length} transformations filtered out (type-based sampling)`);
+    return {
+      batchId: batch.batchId,
+      sessionId: batch.sessionId,
+      evaluatedAt: new Date().toISOString(),
+      transformationScores: [],
+      batchSummary: {
+        averageScore: 0,
+        passed: true,
+        totalTransformations: 0,
+        failedTransformations: 0,
+        notes: `All ${batch.transformations.length} transformations skipped (pre-generated or sampled out)`,
+      },
+      originalBatch: batch,
+    };
+  }
+
   const client = getAnthropicClient();
+  const useCompact = USE_COMPACT_EVAL;
 
   const response = await client.messages.create({
     model: EVALUATION_MODEL,
-    max_tokens: 4096,
-    system: EVALUATION_SYSTEM_PROMPT,
+    max_tokens: useCompact ? 1024 : 4096, // Smaller limit for compact
+    system: useCompact ? '' : EVALUATION_SYSTEM_PROMPT, // Skip system prompt for compact
     messages: [
       {
         role: 'user',
-        content: buildEvaluationPrompt(batch),
+        content: buildEvaluationPrompt(batch, useCompact),
       },
     ],
   });
@@ -267,8 +400,8 @@ export async function evaluateBatch(
   const textContent = response.content.find((block) => block.type === 'text');
   const responseText = textContent?.type === 'text' ? textContent.text : '';
 
-  // Parse the evaluation
-  const { transformationScores, batchSummary } = parseEvaluationResponse(responseText);
+  // Parse the evaluation (pass compact flag for correct parsing)
+  const { transformationScores, batchSummary } = parseEvaluationResponse(responseText, useCompact);
 
   // Log evaluation result
   console.log(
