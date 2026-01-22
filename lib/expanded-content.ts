@@ -3,11 +3,14 @@
  *
  * Provides functions to load and retrieve pre-generated content expansions
  * for the EXPAND mode feature.
+ *
+ * Content is embedded directly in the manifest for serverless compatibility.
  */
 
-import * as fs from 'fs';
-import * as path from 'path';
 import * as crypto from 'crypto';
+
+// Import manifest as a module (bundled at build time)
+import manifestData from '@/content/expanded/manifest.json';
 
 // Types
 interface ManifestVersion {
@@ -24,6 +27,7 @@ interface ManifestVersion {
   };
   generatedAt: string;
   retryCount: number;
+  content?: string;
 }
 
 interface ManifestChunk {
@@ -33,6 +37,7 @@ interface ManifestChunk {
   elementType: string;
   originalWordCount: number;
   originalHash: string;
+  originalContent?: string;
   context?: string;
   versions: ManifestVersion[];
 }
@@ -68,51 +73,17 @@ export interface ExpansionStats {
   avgExpansionRatio: number;
 }
 
-// Paths
-const EXPANDED_DIR = path.join(process.cwd(), 'content', 'expanded');
-const CHUNKS_DIR = path.join(EXPANDED_DIR, 'chunks');
-const MANIFEST_PATH = path.join(EXPANDED_DIR, 'manifest.json');
+// Cast manifest to proper type
+const manifest = manifestData as unknown as Manifest;
 
-// Caches
-let manifestCache: Manifest | null = null;
-let hashIndex: Map<string, string> | null = null;
+// Build hash index for fast lookups
+const hashIndex = new Map<string, string>();
+for (const chunk of manifest.chunks) {
+  hashIndex.set(chunk.originalHash, chunk.chunkId);
+}
+
+// Cache for loaded expansions
 const expansionCache = new Map<string, ChunkExpansions>();
-
-/**
- * Load the manifest (cached)
- */
-function loadManifest(): Manifest | null {
-  if (manifestCache) return manifestCache;
-
-  try {
-    if (fs.existsSync(MANIFEST_PATH)) {
-      manifestCache = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf-8'));
-      return manifestCache;
-    }
-  } catch (error) {
-    console.error('[ExpandedContent] Failed to load manifest:', error);
-  }
-
-  return null;
-}
-
-/**
- * Build hash index for fast lookups
- */
-function buildHashIndex(): Map<string, string> {
-  if (hashIndex) return hashIndex;
-
-  hashIndex = new Map();
-  const manifest = loadManifest();
-
-  if (manifest) {
-    for (const chunk of manifest.chunks) {
-      hashIndex.set(chunk.originalHash, chunk.chunkId);
-    }
-  }
-
-  return hashIndex;
-}
 
 /**
  * Generate hash from content (matches scanner logic)
@@ -130,8 +101,7 @@ export function hashContent(content: string): string {
  * Find chunk ID by content hash
  */
 export function findChunkByHash(contentHash: string): string | null {
-  const index = buildHashIndex();
-  return index.get(contentHash) ?? null;
+  return hashIndex.get(contentHash) ?? null;
 }
 
 /**
@@ -143,7 +113,7 @@ export function hasPreGeneratedExpansion(content: string): boolean {
 }
 
 /**
- * Load all versions for a chunk
+ * Load all versions for a chunk (from embedded manifest)
  */
 export function loadChunkExpansions(chunkId: string): ChunkExpansions | null {
   // Check cache first
@@ -151,57 +121,39 @@ export function loadChunkExpansions(chunkId: string): ChunkExpansions | null {
     return expansionCache.get(chunkId)!;
   }
 
-  const manifest = loadManifest();
-  if (!manifest) return null;
-
   const chunkMeta = manifest.chunks.find(c => c.chunkId === chunkId);
   if (!chunkMeta) return null;
 
-  const chunkDir = path.join(CHUNKS_DIR, chunkId);
+  // Get original content from embedded manifest
+  const original = chunkMeta.originalContent;
+  if (!original) return null;
 
-  // Check if chunk directory exists
-  if (!fs.existsSync(chunkDir)) return null;
-
-  try {
-    const originalPath = path.join(chunkDir, 'original.md');
-    if (!fs.existsSync(originalPath)) return null;
-
-    const original = fs.readFileSync(originalPath, 'utf-8');
-    const versions: ExpansionVersion[] = [];
-
-    // Load only passing versions
-    for (const v of chunkMeta.versions) {
-      if (v.evaluation.passed) {
-        const versionPath = path.join(chunkDir, `v${v.version}.md`);
-        if (fs.existsSync(versionPath)) {
-          const content = fs.readFileSync(versionPath, 'utf-8');
-          versions.push({
-            version: v.version,
-            content,
-            wordCount: v.wordCount,
-            evalScore: v.evaluation.average,
-            strategy: v.strategy,
-          });
-        }
-      }
+  // Get passing versions with embedded content
+  const versions: ExpansionVersion[] = [];
+  for (const v of chunkMeta.versions) {
+    if (v.evaluation.passed && v.content) {
+      versions.push({
+        version: v.version,
+        content: v.content,
+        wordCount: v.wordCount,
+        evalScore: v.evaluation.average,
+        strategy: v.strategy,
+      });
     }
-
-    if (versions.length === 0) return null;
-
-    const expansions: ChunkExpansions = {
-      chunkId,
-      originalContent: original,
-      originalWordCount: chunkMeta.originalWordCount,
-      versions,
-    };
-
-    // Cache it
-    expansionCache.set(chunkId, expansions);
-    return expansions;
-  } catch (error) {
-    console.error(`[ExpandedContent] Failed to load chunk ${chunkId}:`, error);
-    return null;
   }
+
+  if (versions.length === 0) return null;
+
+  const expansions: ChunkExpansions = {
+    chunkId,
+    originalContent: original,
+    originalWordCount: chunkMeta.originalWordCount,
+    versions,
+  };
+
+  // Cache it
+  expansionCache.set(chunkId, expansions);
+  return expansions;
 }
 
 /**
@@ -235,9 +187,6 @@ export function getExpandedContent(chunkId: string, version: number): string | n
  * Get expansion statistics for a chunk
  */
 export function getExpansionStats(chunkId: string): ExpansionStats | null {
-  const manifest = loadManifest();
-  if (!manifest) return null;
-
   const chunkMeta = manifest.chunks.find(c => c.chunkId === chunkId);
   if (!chunkMeta) return null;
 
@@ -282,15 +231,12 @@ export function getTotalStats(): {
   totalVersions: number;
   avgVersionsPerChunk: number;
 } | null {
-  const manifest = loadManifest();
-  if (!manifest) return null;
-
   const chunksWithExpansions = manifest.chunks.filter(
-    c => c.versions.some(v => v.evaluation.passed)
+    c => c.versions.some(v => v.evaluation.passed && v.content)
   ).length;
 
   const totalVersions = manifest.chunks.reduce(
-    (sum, c) => sum + c.versions.filter(v => v.evaluation.passed).length,
+    (sum, c) => sum + c.versions.filter(v => v.evaluation.passed && v.content).length,
     0
   );
 
@@ -306,7 +252,5 @@ export function getTotalStats(): {
  * Clear caches (useful for development/testing)
  */
 export function clearCaches(): void {
-  manifestCache = null;
-  hashIndex = null;
   expansionCache.clear();
 }
