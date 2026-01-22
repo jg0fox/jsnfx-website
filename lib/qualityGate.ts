@@ -327,9 +327,8 @@ export function isQualityGateEnabled(): boolean {
 
 /**
  * Check if LLM gate specifically is enabled
- * Default: DISABLED for cost savings (heuristics catch most issues)
- * Set ENABLE_LLM_GATE=true to enable
+ * Default: ENABLED (set ENABLE_LLM_GATE=false to disable)
  */
 export function isLLMGateEnabled(): boolean {
-  return process.env.ENABLE_LLM_GATE === 'true';
+  return process.env.ENABLE_LLM_GATE !== 'false';
 }
