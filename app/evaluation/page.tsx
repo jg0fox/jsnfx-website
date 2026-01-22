@@ -6,7 +6,7 @@
  * Displays evaluation reports for adversarial transformations.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ReportAccordion } from '@/components/evaluation';
 import type { EvaluationReport } from '@/types/evaluation';
 
@@ -60,6 +60,11 @@ export default function EvaluationPage() {
     return () => clearInterval(interval);
   }, []);
 
+  // Filter out empty batches (pre-generated content that was skipped)
+  const filteredReports = useMemo(() => {
+    return reports.filter(r => r.batchSummary.totalTransformations > 0);
+  }, [reports]);
+
   return (
     <div className="min-h-screen">
       {/* Page Header */}
@@ -112,7 +117,7 @@ export default function EvaluationPage() {
       )}
 
       {/* Stats Summary */}
-      {!loading && !error && reports.length > 0 && (
+      {!loading && !error && filteredReports.length > 0 && (
         <div className="mt-12 pt-8 border-t border-soft-linen-dark max-w-4xl">
           <h2 className="text-lg font-bold text-text-primary mb-4">
             Overall statistics
@@ -120,16 +125,16 @@ export default function EvaluationPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <StatCard
               label="Total reports"
-              value={reports.length}
+              value={filteredReports.length}
             />
             <StatCard
               label="Pass rate"
               value={`${Math.round(
-                (reports.filter((r) => r.batchSummary.passed).length / reports.length) *
+                (filteredReports.filter((r) => r.batchSummary.passed).length / filteredReports.length) *
                   100
               )}%`}
               color={
-                reports.filter((r) => r.batchSummary.passed).length / reports.length >=
+                filteredReports.filter((r) => r.batchSummary.passed).length / filteredReports.length >=
                 0.8
                   ? 'palm-leaf'
                   : 'bronze-spice'
@@ -139,14 +144,14 @@ export default function EvaluationPage() {
               label="Avg score"
               value={
                 (
-                  reports.reduce((sum, r) => sum + r.batchSummary.averageScore, 0) /
-                  reports.length
+                  filteredReports.reduce((sum, r) => sum + r.batchSummary.averageScore, 0) /
+                  filteredReports.length
                 ).toFixed(1)
               }
             />
             <StatCard
               label="Total transforms"
-              value={reports.reduce(
+              value={filteredReports.reduce(
                 (sum, r) => sum + r.batchSummary.totalTransformations,
                 0
               )}
