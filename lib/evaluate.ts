@@ -254,6 +254,7 @@ RESPOND IN THIS EXACT JSON FORMAT (no markdown, just raw JSON):
 /**
  * Parse the evaluation response from Claude
  * Handles both full format and compact format responses
+ * Also handles cases where Claude includes explanatory text around the JSON
  */
 function parseEvaluationResponse(response: string, compact: boolean = false): {
   transformationScores: TransformationScore[];
@@ -263,55 +264,36 @@ function parseEvaluationResponse(response: string, compact: boolean = false): {
   let jsonStr = response.trim();
 
   // Handle markdown code blocks if present
-  if (jsonStr.startsWith('```')) {
+  if (jsonStr.includes('```')) {
     const match = jsonStr.match(/```(?:json)?\s*([\s\S]*?)```/);
     if (match) {
       jsonStr = match[1].trim();
     }
   }
 
+  // First, try to parse the entire response as JSON
+  let parsed: Record<string, unknown> | null = null;
+
   try {
-    const parsed = JSON.parse(jsonStr);
-
-    // Handle compact format: {"scores":[{"chunkId":"...","score":N,"note":"brief"}],"avg":N}
-    if (compact && parsed.scores) {
-      const scores: TransformationScore[] = parsed.scores.map((s: { chunkId: string; score: number; note?: string }) => ({
-        chunkId: s.chunkId,
-        adversarialEffectiveness: s.score,
-        notes: s.note || '',
-      }));
-
-      const avg = parsed.avg || (scores.reduce((sum, s) => sum + s.adversarialEffectiveness, 0) / scores.length);
-      const failedCount = scores.filter(s => s.adversarialEffectiveness < 6).length;
-
-      return {
-        transformationScores: scores,
-        batchSummary: {
-          averageScore: avg,
-          passed: avg >= 6,
-          totalTransformations: scores.length,
-          failedTransformations: failedCount,
-          notes: `Compact eval: ${scores.length} scored, avg ${avg.toFixed(1)}`,
-        },
-      };
+    parsed = JSON.parse(jsonStr);
+  } catch {
+    // If direct parse fails, try to extract JSON object from the response
+    // Claude sometimes includes explanatory text before/after the JSON
+    const jsonMatch = jsonStr.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      try {
+        parsed = JSON.parse(jsonMatch[0]);
+      } catch {
+        // Will be handled by the null check below
+      }
     }
+  }
 
-    // Handle full format
-    return {
-      transformationScores: parsed.transformationScores || [],
-      batchSummary: parsed.batchSummary || {
-        averageScore: 0,
-        passed: false,
-        totalTransformations: 0,
-        failedTransformations: 0,
-        notes: 'Failed to parse evaluation response',
-      },
-    };
-  } catch (error) {
-    console.error('[Evaluate] Failed to parse response:', error);
+  // If we couldn't parse the JSON, return failure
+  if (!parsed) {
+    console.error('[Evaluate] Failed to parse response - no valid JSON found');
     console.error('[Evaluate] Raw response:', response);
 
-    // Return a failure result
     return {
       transformationScores: [],
       batchSummary: {
@@ -323,6 +305,42 @@ function parseEvaluationResponse(response: string, compact: boolean = false): {
       },
     };
   }
+
+  // Handle compact format: {"scores":[{"chunkId":"...","score":N,"note":"brief"}],"avg":N}
+  if (compact && Array.isArray(parsed.scores)) {
+    const scores: TransformationScore[] = (parsed.scores as Array<{ chunkId: string; score: number; note?: string }>).map((s) => ({
+      chunkId: s.chunkId,
+      adversarialEffectiveness: s.score,
+      notes: s.note || '',
+    }));
+
+    const avg = (typeof parsed.avg === 'number' ? parsed.avg : null) ??
+      (scores.length > 0 ? scores.reduce((sum, s) => sum + s.adversarialEffectiveness, 0) / scores.length : 0);
+    const failedCount = scores.filter(s => s.adversarialEffectiveness < 6).length;
+
+    return {
+      transformationScores: scores,
+      batchSummary: {
+        averageScore: avg,
+        passed: avg >= 6,
+        totalTransformations: scores.length,
+        failedTransformations: failedCount,
+        notes: `Compact eval: ${scores.length} scored, avg ${avg.toFixed(1)}`,
+      },
+    };
+  }
+
+  // Handle full format
+  return {
+    transformationScores: (parsed.transformationScores as TransformationScore[]) || [],
+    batchSummary: (parsed.batchSummary as BatchSummary) || {
+      averageScore: 0,
+      passed: false,
+      totalTransformations: 0,
+      failedTransformations: 0,
+      notes: 'Failed to parse evaluation response',
+    },
+  };
 }
 
 /**
