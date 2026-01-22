@@ -34,14 +34,19 @@ function getScoreColor(score: number): string {
 export function ReportList({ reports, selectedId, onSelect }: ReportListProps) {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(reports.length / REPORTS_PER_PAGE);
+  // Filter out empty batches (pre-generated content that was skipped)
+  const filteredReports = useMemo(() => {
+    return reports.filter(r => r.batchSummary.totalTransformations > 0);
+  }, [reports]);
+
+  const totalPages = Math.ceil(filteredReports.length / REPORTS_PER_PAGE);
 
   const paginatedReports = useMemo(() => {
     const start = (currentPage - 1) * REPORTS_PER_PAGE;
-    return reports.slice(start, start + REPORTS_PER_PAGE);
-  }, [reports, currentPage]);
+    return filteredReports.slice(start, start + REPORTS_PER_PAGE);
+  }, [filteredReports, currentPage]);
 
-  if (reports.length === 0) {
+  if (filteredReports.length === 0) {
     return (
       <div className="text-center py-12 text-text-muted">
         <p>No evaluation reports yet.</p>
@@ -56,7 +61,7 @@ export function ReportList({ reports, selectedId, onSelect }: ReportListProps) {
     <div className="space-y-4">
       {/* Report count */}
       <div className="text-sm text-text-muted">
-        {reports.length} report{reports.length !== 1 ? 's' : ''} total
+        {filteredReports.length} report{filteredReports.length !== 1 ? 's' : ''} total
       </div>
 
       {/* Report list */}
