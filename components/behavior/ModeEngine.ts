@@ -283,36 +283,22 @@ export class ModeEngine {
   }
 
   private checkModeTransitions(now: number): void {
-    const { mode, idleTime, fastScrollSustained } = this.state;
+    const { mode, idleTime } = this.state;
 
     switch (mode) {
       case 'NEUTRAL':
-        // Check cooldown before allowing EXPAND entry
-        // This prevents rapid re-entry after exiting EXPAND mode
-        const cooldownMet = !this.lastExpandExitTime ||
-          (now - this.lastExpandExitTime) >= this.thresholds.expandCooldown;
+        // EXPAND mode disabled - focusing on REWRITE modes only
+        // Pre-generated expanded content is now used for L3 hostile rewrites instead
 
-        // Check for EXPAND trigger (with cooldown)
-        if (fastScrollSustained && cooldownMet) {
-          this.transitionTo('EXPAND', now);
-        }
         // Check for REWRITE trigger
-        else if (idleTime >= this.thresholds.idleStart) {
+        if (idleTime >= this.thresholds.idleStart) {
           this.transitionTo('REWRITE', now);
         }
         break;
 
       case 'EXPAND':
-        // Exit EXPAND when scroll velocity drops AND minimum duration has passed
-        // This ensures at least one transform has a chance to complete
-        const timeInExpandMode = now - this.state.lastModeChangeTime;
-        const minDurationMet = timeInExpandMode >= this.thresholds.expandMinDuration;
-
-        if (!fastScrollSustained && minDurationMet) {
-          // Track exit time for cooldown
-          this.lastExpandExitTime = now;
-          this.transitionTo('NEUTRAL', now);
-        }
+        // EXPAND mode disabled - immediately exit to NEUTRAL if somehow entered
+        this.transitionTo('NEUTRAL', now);
         break;
 
       case 'REWRITE':

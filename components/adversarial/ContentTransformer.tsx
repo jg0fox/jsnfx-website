@@ -392,12 +392,13 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
       // Store previous content before any operations
       const previousContent = chunk.currentContent;
 
-      // For EXPAND mode, try pre-generated content first (instant!)
-      if (type === 'expand') {
+      // For REWRITE L3 (hostile), use pre-generated expanded content 30% of the time
+      // This provides variety and reduces LLM costs for hostile rewrites
+      if (type === 'rewrite' && level === 3 && Math.random() < 0.3) {
         const preGenResult = await getPreGeneratedExpansion(previousContent);
 
         if (preGenResult?.transformedContent) {
-          console.log(`[Transform] Using pre-generated expansion (v${preGenResult.preGenVersion})`);
+          console.log(`[Transform] Using pre-generated content for L3 hostile rewrite (v${preGenResult.preGenVersion})`);
 
           // Validate element is still in DOM
           if (!isElementConnected(chunk.element)) {
@@ -423,7 +424,7 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
             chunkId: chunk.id,
             type,
             level,
-            trigger: 'fast_scroll_pregen',
+            trigger: 'idle_pregen_l3',
             originalContent: previousContent,
             transformedContent,
             latency: 0,
@@ -440,6 +441,7 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
 
           return; // Done! No API call needed
         }
+        // If no pre-generated content found, fall through to LLM generation
       }
 
       // IMMEDIATE: Show loading state before API call (only for real-time transforms)
@@ -485,7 +487,7 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
           chunkId: chunk.id,
           type,
           level,
-          trigger: type === 'expand' ? 'fast_scroll' : `idle_${state.idleTime}ms`,
+          trigger: `idle_${state.idleTime}ms`,
           originalContent: previousContent,
           transformedContent,
           latency,
@@ -596,24 +598,15 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
   }, [getTransformableChunks]);
 
   /**
-   * Handle EXPAND mode - transform visible chunks
+   * Handle EXPAND mode - DISABLED
+   * Pre-generated expanded content is now used for L3 hostile rewrites instead.
+   * Keeping this stub in case we want to re-enable EXPAND mode in the future.
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleExpandMode = useCallback(async () => {
-    if (isTransforming) return;
-
-    const chunks = selectChunksToTransform(CHUNKS_PER_TRANSFORM);
-    if (chunks.length === 0) return;
-
-    setIsTransforming(true);
-    chunks.forEach(c => transformedChunksThisCycleRef.current.add(c.id));
-
-    try {
-      // Transform chunks in parallel
-      await Promise.all(chunks.map(chunk => applyTransformation(chunk, 'expand')));
-    } finally {
-      setIsTransforming(false);
-    }
-  }, [isTransforming, selectChunksToTransform, applyTransformation]);
+    // EXPAND mode is disabled - do nothing
+    console.log('[ContentTransformer] EXPAND mode is disabled');
+  }, []);
 
   /**
    * Handle REWRITE mode - transform with escalating levels
@@ -677,11 +670,8 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
       lastModeRef.current = currentMode;
     }
 
-    // Handle current mode
-    if (currentMode === 'EXPAND') {
-      // Trigger expansion for fast scrolling
-      handleExpandMode();
-    } else if (currentMode === 'REWRITE') {
+    // Handle current mode (EXPAND mode is disabled, only REWRITE is active)
+    if (currentMode === 'REWRITE') {
       // Set up rewrite interval
       if (!rewriteIntervalRef.current) {
         // Initial rewrite
@@ -703,7 +693,6 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
   }, [
     enabled,
     state.mode,
-    handleExpandMode,
     handleRewriteMode,
     thresholds.rewriteInterval,
   ]);
