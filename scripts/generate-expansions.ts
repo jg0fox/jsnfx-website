@@ -69,14 +69,14 @@ const CHUNKS_DIR = path.join(EXPANDED_DIR, 'chunks');
 const MANIFEST_PATH = path.join(EXPANDED_DIR, 'manifest.json');
 const PROGRESS_PATH = path.join(EXPANDED_DIR, 'progress.json');
 
-const GENERATION_MODEL = 'claude-opus-4-5-20251101';
+const GENERATION_MODEL = 'claude-sonnet-4-20250514';
 const EVALUATION_MODEL = 'claude-3-5-haiku-20241022';
 
 const PASS_THRESHOLD = 7.0;
 const MAX_RETRIES = 2;
 const BATCH_DELAY_MS = 1000; // Delay between chunks to avoid rate limits
 
-// Expansion strategies
+// Expansion strategies (reduced to 3 for faster generation)
 const STRATEGIES: Record<number, { name: string; description: string }> = {
   1: {
     name: 'examples',
@@ -87,18 +87,12 @@ const STRATEGIES: Record<number, { name: string; description: string }> = {
     description: 'Heavy on historical context, background information, foundational concepts, and the "why" behind statements',
   },
   3: {
-    name: 'tangents',
-    description: 'Heavy on tangential observations, cross-domain connections, related ideas, and interesting asides',
-  },
-  4: {
-    name: 'nuance',
-    description: 'Heavy on caveats, edge cases, nuanced distinctions, balanced perspectives, and acknowledging complexity',
-  },
-  5: {
-    name: 'maximum',
-    description: 'Combine all approaches — examples, context, tangents, and nuance — for maximum elaboration while maintaining coherence',
+    name: 'mixed',
+    description: 'Combine examples, context, tangents, and nuance for well-rounded elaboration while maintaining coherence',
   },
 };
+
+const MAX_VERSIONS = 3;
 
 // Initialize Anthropic client
 const anthropic = new Anthropic();
@@ -165,11 +159,7 @@ Return ONLY the expanded content. No explanations, no meta-commentary, no markdo
 
   const response = await anthropic.messages.create({
     model: GENERATION_MODEL,
-    max_tokens: 16000,
-    thinking: {
-      type: 'enabled',
-      budget_tokens: 8000,
-    },
+    max_tokens: 8000,
     messages: [
       {
         role: 'user',
@@ -316,7 +306,7 @@ async function processChunk(
   console.log(`\n  Processing chunk: ${chunk.chunkId}`);
   console.log(`    Original: ${chunk.originalWordCount} words, type: ${chunk.elementType}`);
 
-  for (let version = 1; version <= 5; version++) {
+  for (let version = 1; version <= MAX_VERSIONS; version++) {
     // Skip if version already exists and passed
     const existingVersion = chunk.versions.find(v => v.version === version);
     if (existingVersion?.evaluation.passed) {
