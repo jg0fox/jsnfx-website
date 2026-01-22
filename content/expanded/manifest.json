@@ -1,0 +1,3398 @@
+{
+  "generatedAt": "2026-01-22T03:16:50.289Z",
+  "model": "claude-opus-4-5-20251101",
+  "thinkingEnabled": true,
+  "expansionTarget": "5x",
+  "totalChunks": 337,
+  "totalVersions": 10,
+  "chunks": [
+    {
+      "chunkId": "portfolio-atlassian-h2-4b91c944",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 6,
+      "originalHash": "4b91c944",
+      "versions": [
+        {
+          "version": 1,
+          "strategy": "examples",
+          "wordCount": 62,
+          "expansionRatio": 10.33,
+          "evaluation": {
+            "adversarialEffectiveness": 8,
+            "contentIntegrity": 9,
+            "technicalQuality": 9,
+            "average": 8.6,
+            "passed": true
+          },
+          "generatedAt": "2026-01-22T03:20:55.705Z",
+          "retryCount": 0
+        },
+        {
+          "version": 2,
+          "strategy": "context",
+          "wordCount": 52,
+          "expansionRatio": 8.67,
+          "evaluation": {
+            "adversarialEffectiveness": 8,
+            "contentIntegrity": 9,
+            "technicalQuality": 9,
+            "average": 8.6,
+            "passed": true
+          },
+          "generatedAt": "2026-01-22T03:21:18.844Z",
+          "retryCount": 0
+        },
+        {
+          "version": 3,
+          "strategy": "tangents",
+          "wordCount": 72,
+          "expansionRatio": 12,
+          "evaluation": {
+            "adversarialEffectiveness": 8,
+            "contentIntegrity": 9,
+            "technicalQuality": 9,
+            "average": 8.6,
+            "passed": true
+          },
+          "generatedAt": "2026-01-22T03:22:06.589Z",
+          "retryCount": 2
+        },
+        {
+          "version": 4,
+          "strategy": "nuance",
+          "wordCount": 78,
+          "expansionRatio": 13,
+          "evaluation": {
+            "adversarialEffectiveness": 8,
+            "contentIntegrity": 9,
+            "technicalQuality": 9,
+            "average": 8.6,
+            "passed": true
+          },
+          "generatedAt": "2026-01-22T03:22:25.616Z",
+          "retryCount": 0
+        },
+        {
+          "version": 5,
+          "strategy": "maximum",
+          "wordCount": 50,
+          "expansionRatio": 8.33,
+          "evaluation": {
+            "adversarialEffectiveness": 8,
+            "contentIntegrity": 9,
+            "technicalQuality": 9,
+            "average": 8.6,
+            "passed": true
+          },
+          "generatedAt": "2026-01-22T03:23:04.192Z",
+          "retryCount": 0
+        }
+      ]
+    },
+    {
+      "chunkId": "portfolio-atlassian-p-3f340f44",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 64,
+      "originalHash": "3f340f44",
+      "context": "A large project with many stakeholders",
+      "versions": [
+        {
+          "version": 1,
+          "strategy": "examples",
+          "wordCount": 313,
+          "expansionRatio": 4.89,
+          "evaluation": {
+            "adversarialEffectiveness": 9,
+            "contentIntegrity": 8,
+            "technicalQuality": 9,
+            "average": 8.6,
+            "passed": true
+          },
+          "generatedAt": "2026-01-22T03:23:42.470Z",
+          "retryCount": 0
+        },
+        {
+          "version": 2,
+          "strategy": "context",
+          "wordCount": 310,
+          "expansionRatio": 4.84,
+          "evaluation": {
+            "adversarialEffectiveness": 9,
+            "contentIntegrity": 10,
+            "technicalQuality": 9,
+            "average": 9.4,
+            "passed": true
+          },
+          "generatedAt": "2026-01-22T03:23:58.901Z",
+          "retryCount": 0
+        },
+        {
+          "version": 3,
+          "strategy": "tangents",
+          "wordCount": 300,
+          "expansionRatio": 4.69,
+          "evaluation": {
+            "adversarialEffectiveness": 8,
+            "contentIntegrity": 9,
+            "technicalQuality": 9,
+            "average": 8.6,
+            "passed": true
+          },
+          "generatedAt": "2026-01-22T03:24:20.995Z",
+          "retryCount": 0
+        },
+        {
+          "version": 4,
+          "strategy": "nuance",
+          "wordCount": 297,
+          "expansionRatio": 4.64,
+          "evaluation": {
+            "adversarialEffectiveness": 8,
+            "contentIntegrity": 9,
+            "technicalQuality": 9,
+            "average": 8.6,
+            "passed": true
+          },
+          "generatedAt": "2026-01-22T03:24:40.071Z",
+          "retryCount": 0
+        },
+        {
+          "version": 5,
+          "strategy": "maximum",
+          "wordCount": 295,
+          "expansionRatio": 4.61,
+          "evaluation": {
+            "adversarialEffectiveness": 9,
+            "contentIntegrity": 10,
+            "technicalQuality": 10,
+            "average": 9.6,
+            "passed": true
+          },
+          "generatedAt": "2026-01-22T03:24:58.962Z",
+          "retryCount": 0
+        }
+      ]
+    },
+    {
+      "chunkId": "portfolio-atlassian-p-f40c199a",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 19,
+      "originalHash": "f40c199a",
+      "context": "A large project with many stakeholders",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-h2-de39ac03",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "de39ac03",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-p-d2f2407a",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 23,
+      "originalHash": "d2f2407a",
+      "context": "Our working hypothesis",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-blockquote-19b401d2",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "blockquote",
+      "originalWordCount": 55,
+      "originalHash": "19b401d2",
+      "context": "Our working hypothesis",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-blockquote-b96344d9",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "blockquote",
+      "originalWordCount": 22,
+      "originalHash": "b96344d9",
+      "context": "Our working hypothesis",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-li-1d56ccf6",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 8,
+      "originalHash": "1d56ccf6",
+      "context": "Our working hypothesis",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-li-dc85a818",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 10,
+      "originalHash": "dc85a818",
+      "context": "Our working hypothesis",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-h2-2c4de2be",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "2c4de2be",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-p-9ff91deb",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 43,
+      "originalHash": "9ff91deb",
+      "context": "My role in the project",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-li-58cd51f9",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 11,
+      "originalHash": "58cd51f9",
+      "context": "My role in the project",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-li-bd134044",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 10,
+      "originalHash": "bd134044",
+      "context": "My role in the project",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-h2-afb7a150",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "afb7a150",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-p-b7d7b9ed",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 19,
+      "originalHash": "b7d7b9ed",
+      "context": "Narrative design explorations",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-p-b5aff563",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 15,
+      "originalHash": "b5aff563",
+      "context": "Narrative design explorations",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-h2-69e01c97",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "69e01c97",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-p-40f5eeaf",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 29,
+      "originalHash": "40f5eeaf",
+      "context": "Quick and simple content iterations",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-h2-0effd2d1",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "0effd2d1",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-p-98cc4b9a",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 26,
+      "originalHash": "98cc4b9a",
+      "context": "Results, takeaways, and final copy",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-h2-0b907fb8",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "0b907fb8",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-atlassian-p-6063451c",
+      "sourcePath": "content/portfolio/atlassian/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 10,
+      "originalHash": "6063451c",
+      "context": "Want the full portfolio presentation?",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-h2-b4d62a7a",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "b4d62a7a",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-p-6f597a4e",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 27,
+      "originalHash": "6f597a4e",
+      "context": "One interesting thing",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-h2-ab8f84e7",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 4,
+      "originalHash": "ab8f84e7",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-li-d794bc9b",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 20,
+      "originalHash": "d794bc9b",
+      "context": "Customer and team goals",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-li-1a273ff0",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 9,
+      "originalHash": "1a273ff0",
+      "context": "Customer and team goals",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-li-a790dc92",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 9,
+      "originalHash": "a790dc92",
+      "context": "Customer and team goals",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-h2-e98a5e80",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 9,
+      "originalHash": "e98a5e80",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-p-197025dc",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 32,
+      "originalHash": "197025dc",
+      "context": "This is my process, this is not my process!",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-li-7ff2f623",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 11,
+      "originalHash": "7ff2f623",
+      "context": "This is my process, this is not my process!",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-h2-caf849ea",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "caf849ea",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-p-414a0438",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 30,
+      "originalHash": "414a0438",
+      "context": "A 16% improvement",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-h2-3fda5a78",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 4,
+      "originalHash": "3fda5a78",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-p-7855ab0e",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 33,
+      "originalHash": "7855ab0e",
+      "context": "Sharing our team's insights",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-h2-74ce020c",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "74ce020c",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-p-46a47f63",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 45,
+      "originalHash": "46a47f63",
+      "context": "The initial experience",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-chime-p-221edab5",
+      "sourcePath": "content/portfolio/chime/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 9,
+      "originalHash": "221edab5",
+      "context": "Want the full portfolio presentation?",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-p-fc3e47bd",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 39,
+      "originalHash": "fc3e47bd",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-li-670dd4be",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 15,
+      "originalHash": "670dd4be",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-p-2148c752",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 42,
+      "originalHash": "2148c752",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-p-f5293b71",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 14,
+      "originalHash": "f5293b71",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-li-f1308be9",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 33,
+      "originalHash": "f1308be9",
+      "context": "Six recommendations",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-li-7d652ae6",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 25,
+      "originalHash": "7d652ae6",
+      "context": "Six recommendations",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-li-84c51999",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 27,
+      "originalHash": "84c51999",
+      "context": "Six recommendations",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-li-b7f4c554",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 37,
+      "originalHash": "b7f4c554",
+      "context": "Six recommendations",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-li-3b36bb48",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 26,
+      "originalHash": "3b36bb48",
+      "context": "Six recommendations",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-li-36826bc2",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 34,
+      "originalHash": "36826bc2",
+      "context": "Six recommendations",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-p-e4e058e4",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 28,
+      "originalHash": "e4e058e4",
+      "context": "Four hypotheses",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-p-e1f742fe",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 11,
+      "originalHash": "e1f742fe",
+      "context": "Four hypotheses",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-li-c086af14",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 52,
+      "originalHash": "c086af14",
+      "context": "Four hypotheses",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-li-5996c755",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 60,
+      "originalHash": "5996c755",
+      "context": "Four hypotheses",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-li-4a902379",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 46,
+      "originalHash": "4a902379",
+      "context": "Four hypotheses",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-li-a03c00d8",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 47,
+      "originalHash": "a03c00d8",
+      "context": "Four hypotheses",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-h2-ed456603",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 6,
+      "originalHash": "ed456603",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-p-8645e0d4",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 13,
+      "originalHash": "8645e0d4",
+      "context": "The hypothesis card components in Figma",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-p-d1fe6f1e",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 47,
+      "originalHash": "d1fe6f1e",
+      "context": "The hypothesis card components in Figma",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-h2-90379923",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "90379923",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-p-f470839d",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 10,
+      "originalHash": "f470839d",
+      "context": "Figma content matrix",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-p-0f347375",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 52,
+      "originalHash": "0f347375",
+      "context": "Figma content matrix",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-netflix-p-c30b7d37",
+      "sourcePath": "content/portfolio/netflix/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 29,
+      "originalHash": "c30b7d37",
+      "context": "Figma content matrix",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-oracle-p-912af0ff",
+      "sourcePath": "content/portfolio/oracle/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 20,
+      "originalHash": "912af0ff",
+      "context": "Goals",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-oracle-p-5d8abbc2",
+      "sourcePath": "content/portfolio/oracle/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 30,
+      "originalHash": "5d8abbc2",
+      "context": "My role",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-oracle-h2-23e33448",
+      "sourcePath": "content/portfolio/oracle/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 4,
+      "originalHash": "23e33448",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-h2-3b77e112",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "3b77e112",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-ef22350b",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 30,
+      "originalHash": "ef22350b",
+      "context": "Beth Dunn, and then some",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-f0daa4ab",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 30,
+      "originalHash": "f0daa4ab",
+      "context": "Beth Dunn, and then some",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-2245cc8c",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 23,
+      "originalHash": "2245cc8c",
+      "context": "Beth Dunn, and then some",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-a1e71e2f",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 24,
+      "originalHash": "a1e71e2f",
+      "context": "Problem definition",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-6e98ee04",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 49,
+      "originalHash": "6e98ee04",
+      "context": "Problem definition",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-686bbf4e",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 24,
+      "originalHash": "686bbf4e",
+      "context": "Problem definition",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-h2-f47d8089",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "f47d8089",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-e31064f5",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 29,
+      "originalHash": "e31064f5",
+      "context": "Experimenting within constraints",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-6c330592",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 32,
+      "originalHash": "6c330592",
+      "context": "Experimenting within constraints",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-9e8a0878",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 13,
+      "originalHash": "9e8a0878",
+      "context": "Experimenting within constraints",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-a04fe643",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 13,
+      "originalHash": "a04fe643",
+      "context": "Experimenting within constraints",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-h2-4f7145bd",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 7,
+      "originalHash": "4f7145bd",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-2316a6b1",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 58,
+      "originalHash": "2316a6b1",
+      "context": "Clarity and cohesion through Object Oriented UX",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-df1a2487",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 50,
+      "originalHash": "df1a2487",
+      "context": "Clarity and cohesion through Object Oriented UX",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-h2-183e0b74",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "183e0b74",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-59e8eacf",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 13,
+      "originalHash": "59e8eacf",
+      "context": "Setting expectations by modulating tone",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-2314320d",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 20,
+      "originalHash": "2314320d",
+      "context": "Setting expectations by modulating tone",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-566c1655",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 41,
+      "originalHash": "566c1655",
+      "context": "Setting expectations by modulating tone",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-1d6115a2",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 23,
+      "originalHash": "1d6115a2",
+      "context": "Setting expectations by modulating tone",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-35aa1244",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 12,
+      "originalHash": "35aa1244",
+      "context": "Setting expectations by modulating tone",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-85813f2b",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 37,
+      "originalHash": "85813f2b",
+      "context": "Setting expectations by modulating tone",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-99297eae",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 38,
+      "originalHash": "99297eae",
+      "context": "Setting expectations by modulating tone",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-2d88c80b",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 28,
+      "originalHash": "2d88c80b",
+      "context": "Setting expectations by modulating tone",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-li-6b212596",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 8,
+      "originalHash": "6b212596",
+      "context": "Setting expectations by modulating tone",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-h2-2c64a4e8",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "2c64a4e8",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-c543768e",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 20,
+      "originalHash": "c543768e",
+      "context": "Collaborating with legal and compliance",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-855fdc36",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 23,
+      "originalHash": "855fdc36",
+      "context": "Collaborating with legal and compliance",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-936b0a50",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 46,
+      "originalHash": "936b0a50",
+      "context": "Collaborating with legal and compliance",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-h2-b1cc9273",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 9,
+      "originalHash": "b1cc9273",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-2a4b77e8",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 27,
+      "originalHash": "2a4b77e8",
+      "context": "Governing content in development and for the long haul",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-f98e78da",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 39,
+      "originalHash": "f98e78da",
+      "context": "Governing content in development and for the long haul",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-li-5008127a",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 8,
+      "originalHash": "5008127a",
+      "context": "Governing content in development and for the long haul",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-h2-934e94ff",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 6,
+      "originalHash": "934e94ff",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-robinhood-p-60149a00",
+      "sourcePath": "content/portfolio/robinhood/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 39,
+      "originalHash": "60149a00",
+      "context": "The before, after, and sweet hereafter",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-li-a9a57cc4",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 66,
+      "originalHash": "a9a57cc4",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-p-3b23c06e",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 11,
+      "originalHash": "3b23c06e",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-h2-e68ee554",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "e68ee554",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-h2-cf4b9e74",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 4,
+      "originalHash": "cf4b9e74",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-li-218bdd28",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 17,
+      "originalHash": "218bdd28",
+      "context": "Pattern matching industry detection",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-p-582e42d1",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 35,
+      "originalHash": "582e42d1",
+      "context": "Pattern matching industry detection",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-p-42ccf072",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 38,
+      "originalHash": "42ccf072",
+      "context": "Pattern matching industry detection",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-h3-7e335f46",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 4,
+      "originalHash": "7e335f46",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-p-740b2acb",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 37,
+      "originalHash": "740b2acb",
+      "context": "Refinement: fintech trading platform",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-p-d640b287",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 36,
+      "originalHash": "d640b287",
+      "context": "Refinement: fintech trading platform",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-p-0ae257d0",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 25,
+      "originalHash": "0ae257d0",
+      "context": "Refinement: fintech trading platform",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-h2-62538e9a",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "62538e9a",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-p-fa62226e",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 8,
+      "originalHash": "fa62226e",
+      "context": "Standards and analysis",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-li-9791b501",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 11,
+      "originalHash": "9791b501",
+      "context": "Standards and analysis",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-li-b6756d51",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 10,
+      "originalHash": "b6756d51",
+      "context": "Standards and analysis",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-li-1fbe56ad",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 14,
+      "originalHash": "1fbe56ad",
+      "context": "Standards and analysis",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-p-efa14ee7",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 22,
+      "originalHash": "efa14ee7",
+      "context": "Standards and analysis",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-h3-b197ccc3",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 3,
+      "originalHash": "b197ccc3",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-p-3904be3b",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 71,
+      "originalHash": "3904be3b",
+      "context": "Key Standards Categories",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-check-content-h3-e31ef4ed",
+      "sourcePath": "content/projects/check-content/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 4,
+      "originalHash": "e31ef4ed",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-content-journey-p-82d1d72b",
+      "sourcePath": "content/projects/content-journey/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 33,
+      "originalHash": "82d1d72b",
+      "context": "Content Journey",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-content-journey-h2-613b7034",
+      "sourcePath": "content/projects/content-journey/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "613b7034",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-content-journey-p-2981d4d8",
+      "sourcePath": "content/projects/content-journey/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 48,
+      "originalHash": "2981d4d8",
+      "context": "How it works",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-content-journey-p-8703c90c",
+      "sourcePath": "content/projects/content-journey/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 68,
+      "originalHash": "8703c90c",
+      "context": "How it works",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-content-journey-p-dec7673d",
+      "sourcePath": "content/projects/content-journey/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 28,
+      "originalHash": "dec7673d",
+      "context": "The output",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-content-journey-p-0f195244",
+      "sourcePath": "content/projects/content-journey/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 28,
+      "originalHash": "0f195244",
+      "context": "The output",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-h2-1a6beac4",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "1a6beac4",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-6496ed9e",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 39,
+      "originalHash": "6496ed9e",
+      "context": "The problem with portfolio sites",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-fd1cd017",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 15,
+      "originalHash": "fd1cd017",
+      "context": "My process",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-4c31c0f4",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 17,
+      "originalHash": "4c31c0f4",
+      "context": "My process",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-b17bce69",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 13,
+      "originalHash": "b17bce69",
+      "context": "My process",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-49c77538",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 37,
+      "originalHash": "49c77538",
+      "context": "My process",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-7c50b572",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 25,
+      "originalHash": "7c50b572",
+      "context": "My process",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-7734a923",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 27,
+      "originalHash": "7734a923",
+      "context": "My process",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-h2-b6d658ec",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 4,
+      "originalHash": "b6d658ec",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-1286dbbf",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 19,
+      "originalHash": "1286dbbf",
+      "context": "The stack (and why)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-a7f72598",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 19,
+      "originalHash": "a7f72598",
+      "context": "The stack (and why)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-07c15aed",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 46,
+      "originalHash": "07c15aed",
+      "context": "The stack (and why)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-b7391f32",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "b7391f32",
+      "context": "The stack (and why)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-h2-d95b844f",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 6,
+      "originalHash": "d95b844f",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-24cb0259",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 39,
+      "originalHash": "24cb0259",
+      "context": "Content migration: building a smarter crawler",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-6cabb586",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 21,
+      "originalHash": "6cabb586",
+      "context": "Content migration: building a smarter crawler",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-cb18edca",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 14,
+      "originalHash": "cb18edca",
+      "context": "Content migration: building a smarter crawler",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-3bcece4f",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 12,
+      "originalHash": "3bcece4f",
+      "context": "Content migration: building a smarter crawler",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-h3-04cde978",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 4,
+      "originalHash": "04cde978",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-e23d20a4",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 27,
+      "originalHash": "e23d20a4",
+      "context": "The decorative image problem",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-7957bbe5",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 29,
+      "originalHash": "7957bbe5",
+      "context": "The decorative image problem",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-c5f89a4f",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 16,
+      "originalHash": "c5f89a4f",
+      "context": "Results",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-18852073",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 19,
+      "originalHash": "18852073",
+      "context": "Results",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-h3-8e3ed42f",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 3,
+      "originalHash": "8e3ed42f",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-acce630f",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 17,
+      "originalHash": "acce630f",
+      "context": "What actually worked",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-95190620",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 12,
+      "originalHash": "95190620",
+      "context": "What actually worked",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-4b7fe0b5",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 17,
+      "originalHash": "4b7fe0b5",
+      "context": "What actually worked",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-h2-a9da46a0",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 9,
+      "originalHash": "a9da46a0",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-4d27dbc1",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 27,
+      "originalHash": "4d27dbc1",
+      "context": "The CMS: GitHub as a database (hear me out)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-b168ed41",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 34,
+      "originalHash": "b168ed41",
+      "context": "The CMS: GitHub as a database (hear me out)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-83ff4441",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 25,
+      "originalHash": "83ff4441",
+      "context": "The CMS: GitHub as a database (hear me out)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-22e9c693",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 24,
+      "originalHash": "22e9c693",
+      "context": "The CMS: GitHub as a database (hear me out)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-b70dff2d",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 10,
+      "originalHash": "b70dff2d",
+      "context": "The CMS: GitHub as a database (hear me out)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-h2-4a37a0fe",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "4a37a0fe",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-614be82a",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 17,
+      "originalHash": "614be82a",
+      "context": "Architecture decisions that paid off",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-140c8446",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 18,
+      "originalHash": "140c8446",
+      "context": "Architecture decisions that paid off",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-daed056a",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 23,
+      "originalHash": "daed056a",
+      "context": "Architecture decisions that paid off",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-li-0d6df3bd",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 18,
+      "originalHash": "0d6df3bd",
+      "context": "Architecture decisions that paid off",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-jsnfx-website-p-d2c6a078",
+      "sourcePath": "content/projects/jsnfx-website/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 32,
+      "originalHash": "d2c6a078",
+      "context": "What's next",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-p-78ab5029",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 17,
+      "originalHash": "78ab5029",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-09aa95b1",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 15,
+      "originalHash": "09aa95b1",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-9a3d04d7",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 9,
+      "originalHash": "9a3d04d7",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-a36831f6",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 10,
+      "originalHash": "a36831f6",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-077fd0be",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 8,
+      "originalHash": "077fd0be",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-6ac7722f",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 9,
+      "originalHash": "6ac7722f",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-p-cca6ddf2",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 62,
+      "originalHash": "cca6ddf2",
+      "context": "Inspiration",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-p-a78d94c8",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 88,
+      "originalHash": "a78d94c8",
+      "context": "Inspiration",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-p-c960f7be",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 16,
+      "originalHash": "c960f7be",
+      "context": "Inspiration",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-p-01cfb893",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 86,
+      "originalHash": "01cfb893",
+      "context": "Inspiration",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-p-4646c825",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 12,
+      "originalHash": "4646c825",
+      "context": "Inspiration",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h1-edccbca0",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h1",
+      "originalWordCount": 16,
+      "originalHash": "edccbca0",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-cf5506af",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 12,
+      "originalHash": "cf5506af",
+      "context": "2. Context",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h2-96f487e5",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "96f487e5",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h3-02e06a52",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 3,
+      "originalHash": "02e06a52",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-c05c7851",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 8,
+      "originalHash": "c05c7851",
+      "context": "3.1 Primary Positioning",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-3b06ea0b",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 26,
+      "originalHash": "3b06ea0b",
+      "context": "3.1 Primary Positioning",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h3-a386ca57",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 3,
+      "originalHash": "a386ca57",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h4-6a080526",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h4",
+      "originalWordCount": 3,
+      "originalHash": "6a080526",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-3e38a8ef",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 11,
+      "originalHash": "3e38a8ef",
+      "context": "Sub-Dimension: Creative Expression",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-ad679fa9",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 10,
+      "originalHash": "ad679fa9",
+      "context": "Sub-Dimension: Creative Expression",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-3d092f79",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 10,
+      "originalHash": "3d092f79",
+      "context": "Sub-Dimension: Creative Expression",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-2c51ffd5",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 12,
+      "originalHash": "2c51ffd5",
+      "context": "Sub-Dimension: Creative Expression",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h4-778979a0",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h4",
+      "originalWordCount": 3,
+      "originalHash": "778979a0",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-d1e06faa",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 12,
+      "originalHash": "d1e06faa",
+      "context": "Sub-Dimension: Rhythmic Quality",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-9945614b",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 10,
+      "originalHash": "9945614b",
+      "context": "Sub-Dimension: Rhythmic Quality",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-0ef2ffc3",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 11,
+      "originalHash": "0ef2ffc3",
+      "context": "Sub-Dimension: Rhythmic Quality",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-07d695ef",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "07d695ef",
+      "context": "Sub-Dimension: Rhythmic Quality",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h4-58444c24",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h4",
+      "originalWordCount": 3,
+      "originalHash": "58444c24",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-e8f3f2e6",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 12,
+      "originalHash": "e8f3f2e6",
+      "context": "Sub-Dimension: Structural Approach",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-fbe92596",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 11,
+      "originalHash": "fbe92596",
+      "context": "Sub-Dimension: Structural Approach",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-759d8654",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 11,
+      "originalHash": "759d8654",
+      "context": "Sub-Dimension: Structural Approach",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-9b062199",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "9b062199",
+      "context": "Sub-Dimension: Structural Approach",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h4-39ac17dd",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h4",
+      "originalWordCount": 3,
+      "originalHash": "39ac17dd",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-85ed8a87",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 11,
+      "originalHash": "85ed8a87",
+      "context": "Sub-Dimension: Information Density",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-fa8c1ce0",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 11,
+      "originalHash": "fa8c1ce0",
+      "context": "Sub-Dimension: Information Density",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-3c55b8d4",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 11,
+      "originalHash": "3c55b8d4",
+      "context": "Sub-Dimension: Information Density",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-760e7de8",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 12,
+      "originalHash": "760e7de8",
+      "context": "Sub-Dimension: Information Density",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h2-464d2c66",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "464d2c66",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h3-bf6859f7",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 5,
+      "originalHash": "bf6859f7",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-af43c36b",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "af43c36b",
+      "context": "4.1 Primary Devices (DO Use)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-782deb1d",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 14,
+      "originalHash": "782deb1d",
+      "context": "4.1 Primary Devices (DO Use)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-c634e11e",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "c634e11e",
+      "context": "4.1 Primary Devices (DO Use)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-6959d2ae",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "6959d2ae",
+      "context": "4.1 Primary Devices (DO Use)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-10137266",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 15,
+      "originalHash": "10137266",
+      "context": "4.1 Primary Devices (DO Use)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-ceec60ff",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "ceec60ff",
+      "context": "4.1 Primary Devices (DO Use)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-2d536f59",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "2d536f59",
+      "context": "4.1 Primary Devices (DO Use)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-d316e2d0",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 15,
+      "originalHash": "d316e2d0",
+      "context": "4.1 Primary Devices (DO Use)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-fe1694fd",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 14,
+      "originalHash": "fe1694fd",
+      "context": "4.1 Primary Devices (DO Use)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-98996920",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "98996920",
+      "context": "4.1 Primary Devices (DO Use)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-263b7593",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 14,
+      "originalHash": "263b7593",
+      "context": "4.1 Primary Devices (DO Use)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-236997f6",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 14,
+      "originalHash": "236997f6",
+      "context": "4.1 Primary Devices (DO Use)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h3-de535dc5",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 5,
+      "originalHash": "de535dc5",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h3-f88b2a11",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 3,
+      "originalHash": "f88b2a11",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-efc1451b",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "efc1451b",
+      "context": "4.3 Avoid (Anti-Patterns)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-32bd9f14",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "32bd9f14",
+      "context": "4.3 Avoid (Anti-Patterns)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-9b68ab28",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 14,
+      "originalHash": "9b68ab28",
+      "context": "4.3 Avoid (Anti-Patterns)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-6294e8e9",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "6294e8e9",
+      "context": "4.3 Avoid (Anti-Patterns)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-2bdf23ef",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 14,
+      "originalHash": "2bdf23ef",
+      "context": "4.3 Avoid (Anti-Patterns)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-b7862348",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 14,
+      "originalHash": "b7862348",
+      "context": "4.3 Avoid (Anti-Patterns)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-1f3dfa19",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 14,
+      "originalHash": "1f3dfa19",
+      "context": "4.3 Avoid (Anti-Patterns)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-25e4a150",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 13,
+      "originalHash": "25e4a150",
+      "context": "4.3 Avoid (Anti-Patterns)",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h3-ee92c7f6",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 3,
+      "originalHash": "ee92c7f6",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-6c0ad581",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 9,
+      "originalHash": "6c0ad581",
+      "context": "4.4 Content Patterns",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-6a23c91a",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 14,
+      "originalHash": "6a23c91a",
+      "context": "4.4 Content Patterns",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-cb5038db",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 9,
+      "originalHash": "cb5038db",
+      "context": "4.4 Content Patterns",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-1b225ede",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 8,
+      "originalHash": "1b225ede",
+      "context": "4.4 Content Patterns",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h3-99be034b",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 3,
+      "originalHash": "99be034b",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h3-3cd50456",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 5,
+      "originalHash": "3cd50456",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h2-036f1bdb",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "036f1bdb",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-p-b52f9515",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 96,
+      "originalHash": "b52f9515",
+      "context": "6. Sub-Dimension Matrix",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h3-2976a97f",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 3,
+      "originalHash": "2976a97f",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h3-59964880",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 3,
+      "originalHash": "59964880",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-h2-f763c21c",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "f763c21c",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-80a75b1b",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 8,
+      "originalHash": "80a75b1b",
+      "context": "8. Testing Criteria",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-be4e6c31",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 8,
+      "originalHash": "be4e6c31",
+      "context": "8. Testing Criteria",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-5f498fc6",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 8,
+      "originalHash": "5f498fc6",
+      "context": "8. Testing Criteria",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-df39c615",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 9,
+      "originalHash": "df39c615",
+      "context": "9. Maintenance",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-be21de2f",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 10,
+      "originalHash": "be21de2f",
+      "context": "9. Maintenance",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-1f3a8c06",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 8,
+      "originalHash": "1f3a8c06",
+      "context": "9. Maintenance",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-tone-spectrum-li-39b39235",
+      "sourcePath": "content/projects/tone-spectrum/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 11,
+      "originalHash": "39b39235",
+      "context": "9. Maintenance",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-9efef641",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 45,
+      "originalHash": "9efef641",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-31218c20",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 65,
+      "originalHash": "31218c20",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-43d1d203",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 33,
+      "originalHash": "43d1d203",
+      "context": "Game overview",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h3-edfd96fa",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 3,
+      "originalHash": "edfd96fa",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-a8d09b8b",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 12,
+      "originalHash": "a8d09b8b",
+      "context": "1 Setup lobby",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h3-b1af85f4",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 4,
+      "originalHash": "b1af85f4",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-aba73a31",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 11,
+      "originalHash": "aba73a31",
+      "context": "2 Team assignment lobby",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h3-280600cd",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 4,
+      "originalHash": "280600cd",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-84d782fc",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 13,
+      "originalHash": "84d782fc",
+      "context": "3 Round begins active",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-1714f472",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 13,
+      "originalHash": "1714f472",
+      "context": "3 Round begins active",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-220d463d",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 9,
+      "originalHash": "220d463d",
+      "context": "5 Judging",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-eb2026d4",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 11,
+      "originalHash": "eb2026d4",
+      "context": "6 Leaderboard",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h3-b0aa7873",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h3",
+      "originalWordCount": 3,
+      "originalHash": "b0aa7873",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-989b5059",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 15,
+      "originalHash": "989b5059",
+      "context": "7 Reflection end",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-f36ee645",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 3,
+      "originalHash": "f36ee645",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-157da68b",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 7,
+      "originalHash": "157da68b",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-4bd7c724",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 32,
+      "originalHash": "4bd7c724",
+      "context": "Task 1: The Most Patronizing Error Message",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-6ddb0f1a",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "6ddb0f1a",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-d2f1f514",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 23,
+      "originalHash": "d2f1f514",
+      "context": "Task 2: Forbidden Words Challenge",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-li-2a22b271",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "li",
+      "originalWordCount": 8,
+      "originalHash": "2a22b271",
+      "context": "Task 2: Forbidden Words Challenge",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-2f8f0bc0",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "2f8f0bc0",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-ecd0ffc8",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 31,
+      "originalHash": "ecd0ffc8",
+      "context": "Task 3: The Anti-Dark Pattern",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-ac78c452",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "ac78c452",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-ff30c4ab",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 17,
+      "originalHash": "ff30c4ab",
+      "context": "Task 4: Empty State Poetry",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-6e1fd6db",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 6,
+      "originalHash": "6e1fd6db",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-f2d07764",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 24,
+      "originalHash": "f2d07764",
+      "context": "Task 5: The Legal-Approved Love Letter",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-ba010511",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "ba010511",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-c98e96d1",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 25,
+      "originalHash": "c98e96d1",
+      "context": "Task 6: Overly Honest CTA",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-5abafdb9",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "5abafdb9",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-a0aad709",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 22,
+      "originalHash": "a0aad709",
+      "context": "Task 7: The Apology Escalation",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-4f646c5c",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 6,
+      "originalHash": "4f646c5c",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-977a910d",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 25,
+      "originalHash": "977a910d",
+      "context": "Task 8: Microwave Instructions for Aliens",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-9b840a8f",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "9b840a8f",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-2ec2aa17",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 16,
+      "originalHash": "2ec2aa17",
+      "context": "Task 9: The Passive-Aggressive Tooltip",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-4e321de8",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 6,
+      "originalHash": "4e321de8",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-22c5ebb3",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 24,
+      "originalHash": "22c5ebb3",
+      "context": "Task 10: Success Message for Failure",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-7df8d1c1",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 7,
+      "originalHash": "7df8d1c1",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-e85cdeda",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 20,
+      "originalHash": "e85cdeda",
+      "context": "Task 11: The Permission Request Guilt Trip",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-31028263",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 6,
+      "originalHash": "31028263",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-ec523f90",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 27,
+      "originalHash": "ec523f90",
+      "context": "Task 12: Onboarding for the Immortal",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-c4de6a04",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 7,
+      "originalHash": "c4de6a04",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-f1d1ceea",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 26,
+      "originalHash": "f1d1ceea",
+      "context": "Task 13: The Compliment Sandwich Review Request",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-121354b7",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "121354b7",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-88a2d564",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 20,
+      "originalHash": "88a2d564",
+      "context": "Task 14: Loading State Existentialism",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-5c6ca784",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 5,
+      "originalHash": "5c6ca784",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-a1d846d3",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 27,
+      "originalHash": "a1d846d3",
+      "context": "Task 15: The Localization Disaster",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-8420bdc2",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 10,
+      "originalHash": "8420bdc2",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-18c32fbc",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 26,
+      "originalHash": "18c32fbc",
+      "context": "Task 16: Terms of Service, But Make It Gen Z",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-h2-559b32d4",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "h2",
+      "originalWordCount": 8,
+      "originalHash": "559b32d4",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-word-wrangler-game-p-63bc465a",
+      "sourcePath": "content/projects/word-wrangler-game/index.mdx",
+      "sourceType": "mdx",
+      "elementType": "p",
+      "originalWordCount": 26,
+      "originalHash": "63bc465a",
+      "context": "Task 17: The Breakup Email from Your App",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-2ca6c44f",
+      "sourcePath": "app/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 13,
+      "originalHash": "2ca6c44f",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-63b71b13",
+      "sourcePath": "app/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 35,
+      "originalHash": "63b71b13",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-e8eb6162",
+      "sourcePath": "app/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 16,
+      "originalHash": "e8eb6162",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-11e16875",
+      "sourcePath": "app/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 13,
+      "originalHash": "11e16875",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-5a35ad24",
+      "sourcePath": "app/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 12,
+      "originalHash": "5a35ad24",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-1ae65caf",
+      "sourcePath": "app/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 14,
+      "originalHash": "1ae65caf",
+      "versions": []
+    },
+    {
+      "chunkId": "portfolio-page.tsx-p-a3d6396e",
+      "sourcePath": "app/portfolio/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 11,
+      "originalHash": "a3d6396e",
+      "versions": []
+    },
+    {
+      "chunkId": "projects-page.tsx-p-82accb46",
+      "sourcePath": "app/projects/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 8,
+      "originalHash": "82accb46",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-99c27493",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 20,
+      "originalHash": "99c27493",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-d6591298",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 15,
+      "originalHash": "d6591298",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-792f7e5d",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 12,
+      "originalHash": "792f7e5d",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-06ffe4f7",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 15,
+      "originalHash": "06ffe4f7",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-c43b0c03",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 13,
+      "originalHash": "c43b0c03",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-b6db3c8b",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 9,
+      "originalHash": "b6db3c8b",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-13640ec5",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 16,
+      "originalHash": "13640ec5",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-678c6734",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 8,
+      "originalHash": "678c6734",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-cfda85ac",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 9,
+      "originalHash": "cfda85ac",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-8a46454a",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 8,
+      "originalHash": "8a46454a",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-1955ab26",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 10,
+      "originalHash": "1955ab26",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-0d52a387",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 8,
+      "originalHash": "0d52a387",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-e77ba6fc",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 13,
+      "originalHash": "e77ba6fc",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-5a88106f",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 11,
+      "originalHash": "5a88106f",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-4fc68f23",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 9,
+      "originalHash": "4fc68f23",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-4644741b",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 9,
+      "originalHash": "4644741b",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-5adb5f24",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 16,
+      "originalHash": "5adb5f24",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-e68c79c1",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 18,
+      "originalHash": "e68c79c1",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-83b22c04",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 12,
+      "originalHash": "83b22c04",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-01ce691d",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 9,
+      "originalHash": "01ce691d",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-af733e71",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 10,
+      "originalHash": "af733e71",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-d89c31aa",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 15,
+      "originalHash": "d89c31aa",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-545fe816",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 12,
+      "originalHash": "545fe816",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-3ff1d0eb",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 11,
+      "originalHash": "3ff1d0eb",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-a66a6105",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 17,
+      "originalHash": "a66a6105",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-eb00eed2",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 9,
+      "originalHash": "eb00eed2",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-4fd31eca",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 9,
+      "originalHash": "4fd31eca",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-b0fd40ad",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 10,
+      "originalHash": "b0fd40ad",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-5b61d1b0",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 8,
+      "originalHash": "5b61d1b0",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-dac6531b",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 8,
+      "originalHash": "dac6531b",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-e426769b",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 9,
+      "originalHash": "e426769b",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-6eb74e66",
+      "sourcePath": "app/resources/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 13,
+      "originalHash": "6eb74e66",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-a4d486fe",
+      "sourcePath": "app/writing/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 34,
+      "originalHash": "a4d486fe",
+      "versions": []
+    },
+    {
+      "chunkId": "home-p-716d28fb",
+      "sourcePath": "app/writing/page.tsx",
+      "sourceType": "jsx",
+      "elementType": "p",
+      "originalWordCount": 9,
+      "originalHash": "716d28fb",
+      "versions": []
+    }
+  ]
+}

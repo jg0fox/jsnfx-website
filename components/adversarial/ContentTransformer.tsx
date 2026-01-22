@@ -245,7 +245,46 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
     gateFailed?: boolean;
     gateReason?: string;
     latency?: number;
+    preGenerated?: boolean;
+    preGenVersion?: number;
+    preGenChunkId?: string;
   }
+
+  /**
+   * Try to get pre-generated expansion content
+   * Sends content to server which hashes it with MD5 for lookup
+   */
+  const getPreGeneratedExpansion = useCallback(
+    async (content: string): Promise<TransformAPIResponse | null> => {
+      try {
+        // Send content to API - server will hash it properly with MD5
+        const response = await fetch(`/api/expanded?content=${encodeURIComponent(content)}`);
+
+        if (!response.ok) {
+          // No pre-generated content available
+          return null;
+        }
+
+        const data = await response.json();
+
+        if (data.content) {
+          return {
+            transformedContent: data.content,
+            latency: 0, // Instant!
+            preGenerated: true,
+            preGenVersion: data.version,
+            preGenChunkId: data.chunkId,
+          };
+        }
+
+        return null;
+      } catch (error) {
+        console.log('[Transform] Pre-generated lookup failed, falling back to API');
+        return null;
+      }
+    },
+    []
+  );
 
   /**
    * Call the transform API
@@ -350,14 +389,64 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
         return;
       }
 
-      // IMMEDIATE: Show loading state before API call
-      showLoadingState(chunk.element, type);
-
-      // Store previous content before API call
+      // Store previous content before any operations
       const previousContent = chunk.currentContent;
 
+      // For EXPAND mode, try pre-generated content first (instant!)
+      if (type === 'expand') {
+        const preGenResult = await getPreGeneratedExpansion(previousContent);
+
+        if (preGenResult?.transformedContent) {
+          console.log(`[Transform] Using pre-generated expansion (v${preGenResult.preGenVersion})`);
+
+          // Validate element is still in DOM
+          if (!isElementConnected(chunk.element)) {
+            console.warn(`[Transform] Skipped DOM update: element no longer connected (${chunk.id})`);
+            return;
+          }
+
+          const transformedContent = preGenResult.transformedContent;
+
+          // Update chunk state
+          updateChunkContent(chunk.id, transformedContent, type, level);
+
+          // Register transform for debug panel (mark as pre-generated)
+          registerTransform({
+            chunkId: chunk.id,
+            type,
+            level,
+            latency: 0,
+          });
+
+          // Record transformation for batch evaluation (with pre-generated flag)
+          const record: TransformationRecord = {
+            chunkId: chunk.id,
+            type,
+            level,
+            trigger: 'fast_scroll_pregen',
+            originalContent: previousContent,
+            transformedContent,
+            latency: 0,
+            timestamp: Date.now(),
+          };
+          transformationRecordsRef.current.push(record);
+
+          // Check if we should trigger a batch
+          checkAndTriggerBatch();
+
+          // Apply to DOM with animation
+          const config = getAnimationConfig(type, level);
+          applyToDOMWithAnimation(chunk.element, previousContent, transformedContent, config);
+
+          return; // Done! No API call needed
+        }
+      }
+
+      // IMMEDIATE: Show loading state before API call (only for real-time transforms)
+      showLoadingState(chunk.element, type);
+
       try {
-        // Call API
+        // Call API (fallback for EXPAND, or primary for REWRITE)
         const result = await callTransformAPI(chunk, type, level);
 
         // Clear loading state (always, even on failure)
@@ -416,7 +505,7 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
         console.error(`[Transform] Error transforming ${chunk.id}:`, error);
       }
     },
-    [callTransformAPI, updateChunkContent, registerTransform, state.idleTime, checkAndTriggerBatch, showLoadingState, clearLoadingState, isElementConnected]
+    [callTransformAPI, getPreGeneratedExpansion, updateChunkContent, registerTransform, state.idleTime, checkAndTriggerBatch, showLoadingState, clearLoadingState, isElementConnected]
   );
 
   /**
