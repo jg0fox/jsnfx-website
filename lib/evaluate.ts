@@ -142,11 +142,18 @@ REWRITE L3 (Hostile) transformations:
 - Does it feel deliberately difficult, not just broken?
 
 SCORING GUIDE:
-- 9-10: Perfectly achieves adversarial intent
-- 7-8: Good obstruction with minor missed opportunities
-- 5-6: Achieves basic obstruction but could be stronger
-- 3-4: Weak adversarial effect, too subtle or too obvious
-- 1-2: Fails to obstruct or feels like malfunction
+- 9-10: Fully achieves adversarial intent
+- 7-8: Achieves intent with minor missed opportunities
+- 5-6: Partial success, could be stronger
+- 3-4: Weak effect, too subtle or too obvious
+- 1-2: Fails to obstruct or feels broken
+
+NOTES GUIDANCE:
+Do NOT echo the scoring guide (avoid words like "exceptional", "perfectly", "good obstruction").
+Instead, describe SPECIFIC observations:
+- What specific changes were made? (e.g., "Added 3 elaborative clauses about process details")
+- What effect would this have on the reader? (e.g., "Reader must parse nested subclauses to extract meaning")
+- What worked or didn't? (e.g., "Synonym swap from 'use' to 'utilize' too subtle to notice")
 
 BATCH DATA:
 ${JSON.stringify(preparedBatch, null, 2)}
@@ -157,7 +164,7 @@ RESPOND IN THIS EXACT JSON FORMAT (no markdown, just raw JSON):
     {
       "chunkId": "chunk-id-here",
       "adversarialEffectiveness": <1-10>,
-      "notes": "Brief explanation"
+      "notes": "Specific observation about what changed and its effect on the reader"
     }
   ],
   "batchSummary": {
@@ -165,7 +172,7 @@ RESPOND IN THIS EXACT JSON FORMAT (no markdown, just raw JSON):
     "passed": <true if averageScore >= 6>,
     "totalTransformations": <count>,
     "failedTransformations": <count with score < 6>,
-    "notes": "Overall assessment"
+    "notes": "Pattern observed across transformations (not just score summary)"
   }
 }`;
 }

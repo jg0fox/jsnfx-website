@@ -7,12 +7,11 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { ReportList, ReportDetail } from '@/components/evaluation';
+import { ReportAccordion } from '@/components/evaluation';
 import type { EvaluationReport } from '@/types/evaluation';
 
 export default function EvaluationPage() {
   const [reports, setReports] = useState<EvaluationReport[]>([]);
-  const [selectedReport, setSelectedReport] = useState<EvaluationReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,11 +32,6 @@ export default function EvaluationPage() {
 
         const data = await response.json();
         setReports(data.reports || []);
-
-        // Auto-select first report
-        if (data.reports?.length > 0) {
-          setSelectedReport(data.reports[0]);
-        }
       } catch (err) {
         console.error('Failed to fetch reports:', err);
         setError('Failed to connect to the server.');
@@ -80,7 +74,7 @@ export default function EvaluationPage() {
       </div>
 
       {/* Debug Panel Tip */}
-      <div className="mb-8 p-4 bg-palm-leaf/10 border border-palm-leaf/20 rounded-lg">
+      <div className="mb-8 p-4 bg-palm-leaf/10 border border-palm-leaf/20 rounded-lg max-w-4xl">
         <div className="flex items-start gap-3">
           <span className="text-palm-leaf text-lg">💡</span>
           <div>
@@ -112,37 +106,14 @@ export default function EvaluationPage() {
 
       {/* Content */}
       {!loading && !error && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Report List */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-4">
-              <h2 className="text-lg font-bold text-text-primary mb-4">
-                Recent reports
-              </h2>
-              <ReportList
-                reports={reports}
-                selectedId={selectedReport?.batchId}
-                onSelect={setSelectedReport}
-              />
-            </div>
-          </div>
-
-          {/* Report Detail */}
-          <div className="lg:col-span-2">
-            {selectedReport ? (
-              <ReportDetail report={selectedReport} />
-            ) : (
-              <div className="text-center py-12 text-text-muted">
-                <p>Select a report to view details</p>
-              </div>
-            )}
-          </div>
+        <div className="max-w-4xl">
+          <ReportAccordion reports={reports} />
         </div>
       )}
 
       {/* Stats Summary */}
       {!loading && !error && reports.length > 0 && (
-        <div className="mt-12 pt-8 border-t border-soft-linen-dark">
+        <div className="mt-12 pt-8 border-t border-soft-linen-dark max-w-4xl">
           <h2 className="text-lg font-bold text-text-primary mb-4">
             Overall statistics
           </h2>

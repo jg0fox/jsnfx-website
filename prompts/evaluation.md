@@ -48,11 +48,18 @@ EVALUATION CRITERIA:
    - Appropriate for a professional portfolio site?
 
 SCORING GUIDE:
-- 9-10: Exceptional — perfectly achieves goals
-- 7-8: Good — achieves goals with minor issues
-- 5-6: Acceptable — achieves goals but with notable issues
-- 3-4: Poor — partially achieves goals, significant issues
-- 1-2: Failed — does not achieve goals or has critical issues
+- 9-10: Fully achieves adversarial intent
+- 7-8: Achieves intent with minor missed opportunities
+- 5-6: Partial success, could be stronger
+- 3-4: Weak effect, too subtle or too obvious
+- 1-2: Fails to obstruct or feels broken
+
+NOTES GUIDANCE:
+Do NOT echo the scoring guide (avoid words like "exceptional", "perfectly", "good").
+Instead, describe SPECIFIC observations:
+- What specific changes were made?
+- What effect would this have on the reader?
+- What worked or didn't?
 
 BATCH DATA:
 {batch_json}
@@ -144,14 +151,14 @@ A failed batch indicates the transformation system needs adjustment.
       "adversarialEffectiveness": 8,
       "contentIntegrity": 9,
       "technicalQuality": 9,
-      "notes": "EXPAND achieved 52% increase. All original information retained. Clean grammar."
+      "notes": "Added 3 subordinate clauses explaining design rationale. Reader must parse nested context to reach the main point. 47% length increase."
     },
     {
       "chunkId": "content-p-007",
       "adversarialEffectiveness": 7,
       "contentIntegrity": 8,
       "technicalQuality": 8,
-      "notes": "REWRITE L2 clearly noticeable. Core meaning intact. Minor awkward phrasing."
+      "notes": "Restructured from active to passive voice and split into 2 sentences. Disrupts flow but meaning still recoverable on re-read."
     }
   ],
   "batchSummary": {
@@ -159,7 +166,7 @@ A failed batch indicates the transformation system needs adjustment.
     "passed": true,
     "totalTransformations": 2,
     "failedTransformations": 0,
-    "notes": "Batch performed well. EXPAND transformations particularly effective."
+    "notes": "EXPAND adds cognitive load through nested clauses. REWRITE L2 uses voice shifts effectively but could push further with vocabulary swaps."
   }
 }
 ```
