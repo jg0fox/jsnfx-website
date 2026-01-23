@@ -125,7 +125,18 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
         if (origSection && rewrittenSection) {
           // Normalize whitespace for matching
           const normalizedOrig = normalizeText(origSection);
-          map.set(normalizedOrig, rewrittenSection);
+
+          // Skip if:
+          // 1. Key already exists (avoid collisions - first match wins)
+          // 2. Original and rewritten are the same (no transformation needed)
+          // 3. Key is too short (likely a heading that will cause false matches)
+          if (
+            !map.has(normalizedOrig) &&
+            normalizeText(rewrittenSection) !== normalizedOrig &&
+            normalizedOrig.length > 20
+          ) {
+            map.set(normalizedOrig, rewrittenSection);
+          }
 
           // Also map individual sentences within sections
           const origSentences = splitSentences(origSection);
@@ -134,7 +145,16 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
           for (let j = 0; j < origSentences.length; j++) {
             if (origSentences[j] && rewrittenSentences[j]) {
               const normalizedSentence = normalizeText(origSentences[j]);
-              map.set(normalizedSentence, rewrittenSentences[j]);
+              const normalizedRewritten = normalizeText(rewrittenSentences[j]);
+
+              // Same checks for sentences
+              if (
+                !map.has(normalizedSentence) &&
+                normalizedRewritten !== normalizedSentence &&
+                normalizedSentence.length > 20
+              ) {
+                map.set(normalizedSentence, rewrittenSentences[j]);
+              }
             }
           }
         }
@@ -235,16 +255,18 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
 
       const normalizedChunk = normalizeText(chunkText);
 
-      // Skip if normalized text is too short
-      if (normalizedChunk.length < 5) {
+      // Skip if normalized text is too short (likely a heading or title)
+      if (normalizedChunk.length < 20) {
         return null;
       }
 
       // Direct match
       if (contentMap.has(normalizedChunk)) {
         const rewritten = contentMap.get(normalizedChunk)!;
-        // Validate rewritten content isn't garbage
-        if (isValidContent(rewritten)) {
+        // Validate rewritten content:
+        // 1. Must be valid content
+        // 2. Must be at least 50% the length of original (avoid short mismatches)
+        if (isValidContent(rewritten) && rewritten.length >= chunkText.length * 0.5) {
           return stripMarkdown(rewritten);
         }
       }
@@ -253,7 +275,8 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
       for (const [origKey, rewritten] of contentMap.entries()) {
         // Check if original contains chunk or vice versa
         if (origKey.includes(normalizedChunk) || normalizedChunk.includes(origKey)) {
-          if (isValidContent(rewritten)) {
+          // Validate length ratio to avoid returning short mismatches
+          if (isValidContent(rewritten) && rewritten.length >= chunkText.length * 0.5) {
             return stripMarkdown(rewritten);
           }
         }
@@ -262,22 +285,23 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
       // Try matching by significant words
       const chunkWords = new Set(normalizedChunk.split(' ').filter((w) => w.length > 4));
 
-      // Need at least 2 significant words to attempt word matching
-      if (chunkWords.size < 2) {
+      // Need at least 3 significant words to attempt word matching (increased for safety)
+      if (chunkWords.size < 3) {
         return null;
       }
 
       let bestMatch: { key: string; score: number; rewritten: string } | null = null;
 
       for (const [origKey, rewritten] of contentMap.entries()) {
-        // Skip invalid rewritten content
+        // Skip invalid rewritten content or content that's too short
         if (!isValidContent(rewritten)) continue;
+        if (rewritten.length < chunkText.length * 0.5) continue;
 
         const origWords = new Set(origKey.split(' ').filter((w) => w.length > 4));
         const intersection = [...chunkWords].filter((w) => origWords.has(w));
         const score = intersection.length / Math.max(chunkWords.size, origWords.size);
 
-        if (score > 0.5 && (!bestMatch || score > bestMatch.score)) {
+        if (score > 0.6 && (!bestMatch || score > bestMatch.score)) {
           bestMatch = { key: origKey, score, rewritten };
         }
       }
