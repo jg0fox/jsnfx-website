@@ -146,13 +146,38 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
   );
 
   /**
+   * Strip markdown formatting from text for DOM insertion
+   * Removes: headings (#), bold (**), italic (*), links [text](url), inline code
+   */
+  const stripMarkdown = (text: string): string => {
+    return text
+      // Remove heading markers at start of lines
+      .replace(/^#{1,6}\s+/gm, '')
+      // Remove bold markers
+      .replace(/\*\*([^*]+)\*\*/g, '$1')
+      .replace(/__([^_]+)__/g, '$1')
+      // Remove italic markers (single * or _)
+      .replace(/\*([^*]+)\*/g, '$1')
+      .replace(/_([^_]+)_/g, '$1')
+      // Remove links but keep text
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      // Remove inline code markers
+      .replace(/`([^`]+)`/g, '$1')
+      // Trim whitespace
+      .trim();
+  };
+
+  /**
    * Parse content into sections (paragraphs, headings, list items)
+   * Strips markdown formatting for better DOM text matching
    */
   const parseSections = (content: string): string[] => {
     // Split on double newlines or markdown section markers
     return content
       .split(/\n\n+|(?=^#{1,6}\s)/m)
       .map((s) => s.trim())
+      // Strip markdown from each section for better matching
+      .map((s) => stripMarkdown(s))
       .filter((s) => {
         // Filter out empty sections
         if (s.length === 0) return false;
@@ -220,7 +245,7 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
         const rewritten = contentMap.get(normalizedChunk)!;
         // Validate rewritten content isn't garbage
         if (isValidContent(rewritten)) {
-          return rewritten;
+          return stripMarkdown(rewritten);
         }
       }
 
@@ -229,7 +254,7 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
         // Check if original contains chunk or vice versa
         if (origKey.includes(normalizedChunk) || normalizedChunk.includes(origKey)) {
           if (isValidContent(rewritten)) {
-            return rewritten;
+            return stripMarkdown(rewritten);
           }
         }
       }
@@ -257,7 +282,7 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
         }
       }
 
-      return bestMatch?.rewritten ?? null;
+      return bestMatch ? stripMarkdown(bestMatch.rewritten) : null;
     },
     []
   );
