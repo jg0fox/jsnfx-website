@@ -47,9 +47,12 @@ interface ContentCache {
 
 export function ContentTransformer({ enabled = true }: ContentTransformerProps) {
   const pathname = usePathname();
-  const { state, thresholds } = useBehavior();
+  const { state, thresholds, adversarialEnabled } = useBehavior();
   const { getTransformableChunks, updateChunkContent, chunks } = useChunks();
   const registerTransform = useRegisterTransform();
+
+  // Combined enabled check - both prop and global toggle must be true
+  const isEnabled = enabled && adversarialEnabled;
 
   const [sessionId] = useState(() => generateSessionId());
   const [isTransforming, setIsTransforming] = useState(false);
@@ -467,7 +470,7 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
    * Handle level changes - immediately transform visible content to new level
    */
   useEffect(() => {
-    if (!enabled || state.mode !== 'REWRITE') return;
+    if (!isEnabled || state.mode !== 'REWRITE') return;
 
     const currentLevel = state.rewriteLevel;
     const previousLevel = lastLevelRef.current;
@@ -485,7 +488,7 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
    * Handle mode changes
    */
   useEffect(() => {
-    if (!enabled) return;
+    if (!isEnabled) return;
 
     const currentMode = state.mode;
     const previousMode = lastModeRef.current;
@@ -537,7 +540,7 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
    * Cleanup orphaned transforming states periodically
    */
   useEffect(() => {
-    if (!enabled) return;
+    if (!isEnabled) return;
 
     const cleanup = () => {
       const transformingElements = document.querySelectorAll('.adversarial-transforming');
