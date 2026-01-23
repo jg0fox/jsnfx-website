@@ -20,6 +20,7 @@ import {
   FlaskConical,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AdversarialToggle } from "@/components/ui/AdversarialToggle";
 
 // Medium icon (not available in Lucide)
 function MediumIcon({ className }: { className?: string }) {
@@ -278,8 +279,18 @@ export function MobileNav({ portfolioItems = [], projectItems = [] }: MobileNavP
               })}
             </div>
 
-            {/* Social Links */}
+            {/* Lab Section */}
             <div className="mt-8 pt-6 border-t border-soft-linen-dark">
+              <p className="px-4 mb-3 text-xs font-medium uppercase tracking-wider text-text-muted">
+                Lab
+              </p>
+              <div className="px-4">
+                <AdversarialToggle />
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="mt-6 pt-6 border-t border-soft-linen-dark">
               <p className="px-4 mb-3 text-xs font-medium uppercase tracking-wider text-text-muted">
                 Connect
               </p>

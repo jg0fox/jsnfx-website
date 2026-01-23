@@ -15,4 +15,6 @@ export {
   useRegisterTransform,
   useUpdateChunkCounts,
   useUpdateBatchInfo,
+  useAdversarialMode,
+  useRegisterContentReset,
 } from './useBehavior';

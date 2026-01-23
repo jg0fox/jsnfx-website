@@ -20,8 +20,8 @@ import { usePathname } from 'next/navigation';
 import type { ContentChunk, ChunkState } from '@/types/transformation';
 import type { RewriteLevel } from '@/types/behavior';
 import { DEFAULT_CHUNKING_CONFIG } from '@/types/transformation';
-import { useUpdateChunkCounts } from '@/components/behavior';
-import { storeTransformedContent, getStoredTransform } from '@/lib/session';
+import { useUpdateChunkCounts, useRegisterContentReset } from '@/components/behavior';
+import { storeTransformedContent, getStoredTransform, clearStoredTransforms } from '@/lib/session';
 
 export interface ChunkContextValue {
   /** All tracked chunks */
@@ -72,6 +72,7 @@ export function ViewportChunker({
 
   const pathname = usePathname();
   const updateChunkCounts = useUpdateChunkCounts();
+  const registerContentReset = useRegisterContentReset();
 
   // Count words in text
   const countWords = useCallback((text: string): number => {
@@ -236,6 +237,43 @@ export function ViewportChunker({
 
     return result;
   }, [chunks, visibleChunkIds]);
+
+  // Reset all content to original state
+  const resetAllContent = useCallback(() => {
+    setChunks((prevChunks) => {
+      const nextChunks = new Map<string, ContentChunk>();
+
+      prevChunks.forEach((chunk, id) => {
+        // Restore original content to DOM
+        if (chunk.element.isConnected) {
+          chunk.element.innerHTML = chunk.baseContent;
+        }
+
+        // Reset chunk state
+        nextChunks.set(id, {
+          ...chunk,
+          currentContent: chunk.baseContent,
+          transformCount: 0,
+          lastTransformType: null,
+          lastRewriteLevel: null,
+          lastTransformTime: null,
+        });
+      });
+
+      return nextChunks;
+    });
+
+    // Clear stored transforms from session storage
+    clearStoredTransforms();
+    setTotalTransforms(0);
+
+    console.log('[ViewportChunker] All content reset to original');
+  }, []);
+
+  // Register reset function with behavior context
+  useEffect(() => {
+    registerContentReset(resetAllContent);
+  }, [registerContentReset, resetAllContent]);
 
   // Set up Intersection Observer
   useEffect(() => {

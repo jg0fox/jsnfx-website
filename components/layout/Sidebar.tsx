@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { AdversarialToggle } from "@/components/ui/AdversarialToggle";
 
 interface NavItemProps {
   href: string;
@@ -280,6 +281,16 @@ export function Sidebar({ portfolioItems = [], projectItems = [] }: SidebarProps
           />
         ))}
       </nav>
+
+      {/* Lab Section */}
+      <div className="p-4 border-t border-soft-linen-dark">
+        <p className="px-3 mb-2 text-xs font-medium uppercase tracking-wider text-text-muted">
+          Lab
+        </p>
+        <div className="space-y-1">
+          <AdversarialToggle />
+        </div>
+      </div>
 
       {/* Connect Section */}
       <div className="p-4 border-t border-soft-linen-dark">

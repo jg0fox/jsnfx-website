@@ -53,6 +53,12 @@ export interface BehaviorContextValue {
   updateChunkCounts: (visible: number, transformed: number) => void;
   /** Update batch info */
   updateBatchInfo: (transforms: number, timeRemaining: number) => void;
+  /** Whether adversarial mode is enabled */
+  adversarialEnabled: boolean;
+  /** Toggle adversarial mode on/off */
+  setAdversarialEnabled: (enabled: boolean) => void;
+  /** Register content reset callback (from ViewportChunker) */
+  registerContentReset: (resetFn: () => void) => void;
 }
 
 const defaultDebugInfo: DebugInfo = {
@@ -83,6 +89,9 @@ export const BehaviorContext = createContext<BehaviorContextValue>({
   registerTransform: () => {},
   updateChunkCounts: () => {},
   updateBatchInfo: () => {},
+  adversarialEnabled: true,
+  setAdversarialEnabled: () => {},
+  registerContentReset: () => {},
 });
 
 export interface BehaviorTrackerProps {
@@ -102,8 +111,10 @@ export function BehaviorTracker({
   const [events, setEvents] = useState<BehaviorEvent[]>([]);
   const [debugVisible, setDebugVisible] = useState(debugDefault);
   const [debugInfo, setDebugInfo] = useState<DebugInfo>(defaultDebugInfo);
+  const [adversarialEnabled, setAdversarialEnabledState] = useState(true);
 
   const engineRef = useRef<ModeEngine | null>(null);
+  const contentResetRef = useRef<(() => void) | null>(null);
   const rafRef = useRef<number | null>(null);
   const lastRewriteTimeRef = useRef<number | null>(null);
   const sessionTransformsRef = useRef(0);
@@ -391,6 +402,22 @@ export function BehaviorTracker({
     []
   );
 
+  const setAdversarialEnabled = useCallback((enabled: boolean) => {
+    setAdversarialEnabledState(enabled);
+    if (!enabled) {
+      // Force neutral mode and reset content
+      engineRef.current?.forceMode('NEUTRAL');
+      contentResetRef.current?.();
+    } else {
+      // Reset tracking when enabling
+      engineRef.current?.reset();
+    }
+  }, []);
+
+  const registerContentReset = useCallback((resetFn: () => void) => {
+    contentResetRef.current = resetFn;
+  }, []);
+
   const value: BehaviorContextValue = {
     state,
     thresholds: engineRef.current?.getThresholds() ?? DEFAULT_THRESHOLDS,
@@ -403,6 +430,9 @@ export function BehaviorTracker({
     registerTransform,
     updateChunkCounts,
     updateBatchInfo,
+    adversarialEnabled,
+    setAdversarialEnabled,
+    registerContentReset,
   };
 
   return (

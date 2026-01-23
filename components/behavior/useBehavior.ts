@@ -101,3 +101,25 @@ export function useUpdateBatchInfo(): BehaviorContextValue['updateBatchInfo'] {
   const { updateBatchInfo } = useBehavior();
   return updateBatchInfo;
 }
+
+/**
+ * Access adversarial mode enabled state and toggle
+ */
+export function useAdversarialMode(): {
+  enabled: boolean;
+  setEnabled: (enabled: boolean) => void;
+} {
+  const { adversarialEnabled, setAdversarialEnabled } = useBehavior();
+  return {
+    enabled: adversarialEnabled,
+    setEnabled: setAdversarialEnabled,
+  };
+}
+
+/**
+ * Access content reset registration function
+ */
+export function useRegisterContentReset(): BehaviorContextValue['registerContentReset'] {
+  const { registerContentReset } = useBehavior();
+  return registerContentReset;
+}
