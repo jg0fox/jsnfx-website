@@ -153,7 +153,15 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
     return content
       .split(/\n\n+|(?=^#{1,6}\s)/m)
       .map((s) => s.trim())
-      .filter((s) => s.length > 0);
+      .filter((s) => {
+        // Filter out empty sections
+        if (s.length === 0) return false;
+        // Filter out horizontal rules (---, ***, ___)
+        if (/^[-*_]{3,}$/.test(s)) return false;
+        // Filter out sections that are just punctuation/symbols
+        if (!/[a-zA-Z]{3,}/.test(s)) return false;
+        return true;
+      });
   };
 
   /**
@@ -178,30 +186,68 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
   };
 
   /**
+   * Check if content is valid (not just punctuation/separators)
+   */
+  const isValidContent = (text: string): boolean => {
+    // Must have at least 10 characters
+    if (text.length < 10) return false;
+    // Must have at least 3 consecutive letters (actual words)
+    if (!/[a-zA-Z]{3,}/.test(text)) return false;
+    // Must not be just a horizontal rule
+    if (/^[-*_\s]+$/.test(text)) return false;
+    return true;
+  };
+
+  /**
    * Find matching rewritten content for a chunk
    */
   const findRewrittenContent = useCallback(
     (chunkText: string, contentMap: Map<string, string>): string | null => {
+      // Skip invalid chunks (too short, just punctuation, etc.)
+      if (!isValidContent(chunkText)) {
+        return null;
+      }
+
       const normalizedChunk = normalizeText(chunkText);
+
+      // Skip if normalized text is too short
+      if (normalizedChunk.length < 5) {
+        return null;
+      }
 
       // Direct match
       if (contentMap.has(normalizedChunk)) {
-        return contentMap.get(normalizedChunk)!;
+        const rewritten = contentMap.get(normalizedChunk)!;
+        // Validate rewritten content isn't garbage
+        if (isValidContent(rewritten)) {
+          return rewritten;
+        }
       }
 
       // Fuzzy match - try to find content that contains most of the chunk
       for (const [origKey, rewritten] of contentMap.entries()) {
         // Check if original contains chunk or vice versa
         if (origKey.includes(normalizedChunk) || normalizedChunk.includes(origKey)) {
-          return rewritten;
+          if (isValidContent(rewritten)) {
+            return rewritten;
+          }
         }
       }
 
       // Try matching by significant words
       const chunkWords = new Set(normalizedChunk.split(' ').filter((w) => w.length > 4));
+
+      // Need at least 2 significant words to attempt word matching
+      if (chunkWords.size < 2) {
+        return null;
+      }
+
       let bestMatch: { key: string; score: number; rewritten: string } | null = null;
 
       for (const [origKey, rewritten] of contentMap.entries()) {
+        // Skip invalid rewritten content
+        if (!isValidContent(rewritten)) continue;
+
         const origWords = new Set(origKey.split(' ').filter((w) => w.length > 4));
         const intersection = [...chunkWords].filter((w) => origWords.has(w));
         const score = intersection.length / Math.max(chunkWords.size, origWords.size);
