@@ -324,6 +324,95 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ===========================================
+   Text Scramble Animation Styles
+   =========================================== */
+
+.scramble-char {
+  color: var(--palm-leaf);
+  opacity: 0.7;
+  font-family: monospace;
+}
+
+/* Level-based scramble character colors */
+.adversarial-chunk[data-transform-level="1"] .scramble-char {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.adversarial-chunk[data-transform-level="2"] .scramble-char {
+  color: var(--palm-leaf);
+  opacity: 0.7;
+}
+
+.adversarial-chunk[data-transform-level="3"] .scramble-char {
+  color: var(--bronze-spice);
+  opacity: 0.8;
+}
+
+.adversarial-chunk[data-transform-level="4"] .scramble-char {
+  color: #9b2c2c; /* dark red for very hostile */
+  opacity: 0.9;
+  text-shadow: 0 0 2px rgba(155, 44, 44, 0.3);
+}
+
+/* Transforming state styling */
+.adversarial-transforming {
+  position: relative;
+}
+
+.adversarial-transforming::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    135deg,
+    rgba(144, 149, 94, 0.05) 0%,
+    transparent 50%,
+    rgba(144, 149, 94, 0.05) 100%
+  );
+  border-radius: 4px;
+  pointer-events: none;
+  animation: transform-pulse 600ms ease-out;
+}
+
+.adversarial-chunk[data-transform-level="3"].adversarial-transforming::before,
+.adversarial-chunk[data-transform-level="4"].adversarial-transforming::before {
+  background: linear-gradient(
+    135deg,
+    rgba(194, 90, 40, 0.05) 0%,
+    transparent 50%,
+    rgba(194, 90, 40, 0.05) 100%
+  );
+}
+
+@keyframes transform-pulse {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Respect reduced motion for scramble */
+@media (prefers-reduced-motion: reduce) {
+  .scramble-char {
+    opacity: 1;
+  }
+
+  .adversarial-transforming::before {
+    animation: none;
+    display: none;
+  }
+}
+
+/* ===========================================
    Evaluation Page Styles
    =========================================== */
 

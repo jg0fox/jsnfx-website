@@ -12,6 +12,7 @@
 
 import React, { useState } from 'react';
 import { useDebug } from '@/components/behavior';
+import { REWRITE_LEVEL_LABELS, DEFAULT_THRESHOLDS } from '@/types/behavior';
 import type { Mode, RewriteLevel } from '@/types/behavior';
 
 function formatTime(seconds: number): string {
@@ -38,15 +39,50 @@ function getModeColor(mode: Mode): string {
   }
 }
 
-function getRewriteLevelLabel(level: RewriteLevel): string {
+function getLevelColor(level: RewriteLevel): string {
   switch (level) {
     case 1:
-      return 'subtle';
+      return '#8a9a8c'; // subtle - muted
     case 2:
-      return 'noticeable';
+      return '#90955e'; // noticeable - palm leaf
     case 3:
-      return 'hostile';
+      return '#c25a28'; // hostile - bronze spice
+    case 4:
+      return '#9b2c2c'; // very hostile - dark red
   }
+}
+
+/**
+ * Calculate time until next level
+ */
+function getNextLevelInfo(
+  idleTime: number,
+  currentLevel: RewriteLevel
+): { nextLevel: RewriteLevel; secondsUntil: number } | null {
+  const thresholds = DEFAULT_THRESHOLDS;
+
+  if (currentLevel === 1 && idleTime < thresholds.rewriteLevel2) {
+    return {
+      nextLevel: 2,
+      secondsUntil: (thresholds.rewriteLevel2 - idleTime) / 1000,
+    };
+  }
+
+  if (currentLevel === 2 && idleTime < thresholds.rewriteLevel3) {
+    return {
+      nextLevel: 3,
+      secondsUntil: (thresholds.rewriteLevel3 - idleTime) / 1000,
+    };
+  }
+
+  if (currentLevel === 3 && idleTime < thresholds.rewriteLevel4) {
+    return {
+      nextLevel: 4,
+      secondsUntil: (thresholds.rewriteLevel4 - idleTime) / 1000,
+    };
+  }
+
+  return null; // Already at max level
 }
 
 export function DebugPanel() {
@@ -59,6 +95,11 @@ export function DebugPanel() {
 
   const { state } = info;
   const modeColor = getModeColor(state.mode);
+  const levelColor = getLevelColor(state.rewriteLevel);
+  const nextLevelInfo =
+    state.mode === 'REWRITE'
+      ? getNextLevelInfo(state.idleTime, state.rewriteLevel)
+      : null;
 
   return (
     <div
@@ -114,12 +155,6 @@ export function DebugPanel() {
                 </span>
                 <span className="font-bold" style={{ color: modeColor }}>
                   {state.mode}
-                  {state.mode === 'REWRITE' && (
-                    <span className="font-normal opacity-75">
-                      {' '}
-                      (L{state.rewriteLevel}: {getRewriteLevelLabel(state.rewriteLevel)})
-                    </span>
-                  )}
                 </span>
               </div>
               <div className="flex items-center gap-1">
@@ -132,24 +167,56 @@ export function DebugPanel() {
               </div>
             </div>
 
-            {/* Next Mode Timer */}
-            {info.nextModeInfo && (
-              <div className="flex items-center gap-2 text-[11px] p-2 rounded"
-                style={{ backgroundColor: 'rgba(144, 149, 94, 0.1)' }}>
+            {/* Level Indicator (when in REWRITE mode) */}
+            {state.mode === 'REWRITE' && (
+              <div
+                className="flex items-center justify-between p-2 rounded"
+                style={{ backgroundColor: 'rgba(144, 149, 94, 0.1)' }}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] uppercase tracking-wider opacity-60">
+                    Level:
+                  </span>
+                  <span className="font-bold" style={{ color: levelColor }}>
+                    {state.rewriteLevel} ({REWRITE_LEVEL_LABELS[state.rewriteLevel]})
+                  </span>
+                </div>
+                {nextLevelInfo && (
+                  <div className="flex items-center gap-1 text-[11px]">
+                    <span className="opacity-60">→</span>
+                    <span className="font-medium" style={{ color: getLevelColor(nextLevelInfo.nextLevel) }}>
+                      L{nextLevelInfo.nextLevel}
+                    </span>
+                    <span className="tabular-nums opacity-75">
+                      in {nextLevelInfo.secondsUntil.toFixed(1)}s
+                    </span>
+                  </div>
+                )}
+                {!nextLevelInfo && (
+                  <span className="text-[10px] opacity-60 italic">max level</span>
+                )}
+              </div>
+            )}
+
+            {/* Next Mode Timer (when in NEUTRAL) */}
+            {state.mode === 'NEUTRAL' && info.nextModeInfo && (
+              <div
+                className="flex items-center gap-2 text-[11px] p-2 rounded"
+                style={{ backgroundColor: 'rgba(144, 149, 94, 0.1)' }}
+              >
                 <span className="text-[10px] uppercase tracking-wider opacity-60">
                   Next:
                 </span>
                 <span className="font-medium" style={{ color: '#90955e' }}>
                   {info.nextModeInfo.label}
                 </span>
-                {info.nextModeInfo.trigger === 'time' && info.nextModeInfo.secondsUntil !== null ? (
+                {info.nextModeInfo.trigger === 'time' &&
+                info.nextModeInfo.secondsUntil !== null ? (
                   <span className="tabular-nums opacity-75">
                     in {info.nextModeInfo.secondsUntil.toFixed(1)}s
                   </span>
                 ) : (
-                  <span className="opacity-75 italic">
-                    on interaction
-                  </span>
+                  <span className="opacity-75 italic">on interaction</span>
                 )}
               </div>
             )}
@@ -163,8 +230,7 @@ export function DebugPanel() {
                 <span
                   className="tabular-nums"
                   style={{
-                    color:
-                      state.scrollVelocity > 500 ? '#c25a28' : 'inherit',
+                    color: state.scrollVelocity > 500 ? '#c25a28' : 'inherit',
                   }}
                 >
                   {formatVelocity(state.scrollVelocity)}
@@ -178,17 +244,13 @@ export function DebugPanel() {
                   Viewport:
                 </span>
                 <span className="tabular-nums">
-                  {info.viewportChunks} chunks, {info.transformedChunks}{' '}
-                  transformed
+                  {info.viewportChunks} chunks, {info.transformedChunks} transformed
                 </span>
               </div>
             </div>
 
             {/* Divider */}
-            <div
-              className="h-px"
-              style={{ backgroundColor: '#e8e2d5' }}
-            />
+            <div className="h-px" style={{ backgroundColor: '#e8e2d5' }} />
 
             {/* Last Transform Section */}
             <div className="space-y-1 text-[11px]">
@@ -206,51 +268,50 @@ export function DebugPanel() {
                 <div className="pl-3 space-y-0.5 opacity-80">
                   <div>
                     ├─ Type:{' '}
-                    <span className="font-medium">
-                      {info.lastTransformType.toUpperCase()}
-                      {info.lastRewriteLevel && ` L${info.lastRewriteLevel}`}
+                    <span
+                      className="font-medium"
+                      style={{
+                        color: info.lastRewriteLevel
+                          ? getLevelColor(info.lastRewriteLevel)
+                          : 'inherit',
+                      }}
+                    >
+                      REWRITE L{info.lastRewriteLevel}
                     </span>
                   </div>
                   <div>├─ Chunk: {info.lastTransformChunk}</div>
-                  <div>├─ Latency: {info.lastTransformLatency}ms</div>
-                  {info.nextRewriteIn !== null && (
-                    <div>
-                      └─ Next rewrite:{' '}
-                      <span className="tabular-nums">
-                        {info.nextRewriteIn.toFixed(1)}s
-                      </span>
-                    </div>
-                  )}
+                  <div>
+                    └─ Animation:{' '}
+                    <span className="font-medium">scramble</span>{' '}
+                    <span className="opacity-75">({info.lastTransformLatency}ms)</span>
+                  </div>
                 </div>
               )}
             </div>
 
             {/* Divider */}
-            <div
-              className="h-px"
-              style={{ backgroundColor: '#e8e2d5' }}
-            />
+            <div className="h-px" style={{ backgroundColor: '#e8e2d5' }} />
 
-            {/* Batch & Session Row */}
+            {/* Session Stats */}
             <div className="flex items-center justify-between text-[11px]">
               <div className="flex items-center gap-1">
                 <span className="text-[10px] uppercase tracking-wider opacity-60">
-                  Eval Batch:
+                  Session:
                 </span>
                 <span className="tabular-nums">
-                  {info.batchTransforms}/10 transforms |{' '}
-                  {Math.round(info.batchTimeRemaining)}s to trigger
+                  {formatTime(state.sessionDuration / 1000)} |{' '}
+                  {info.sessionTransforms} transforms
                 </span>
               </div>
-            </div>
-            <div className="flex items-center gap-1 text-[11px]">
-              <span className="text-[10px] uppercase tracking-wider opacity-60">
-                Session:
-              </span>
-              <span className="tabular-nums">
-                {formatTime(state.sessionDuration / 1000)} |{' '}
-                {info.sessionTransforms} transforms
-              </span>
+              <div
+                className="px-2 py-0.5 rounded text-[9px] font-medium"
+                style={{
+                  backgroundColor: 'rgba(144, 149, 94, 0.2)',
+                  color: '#90955e',
+                }}
+              >
+                no API calls
+              </div>
             </div>
           </div>
         )}
@@ -260,7 +321,12 @@ export function DebugPanel() {
           <div className="px-3 py-1.5 flex items-center gap-3 text-[11px]">
             <span style={{ color: modeColor }} className="font-bold">
               {state.mode}
-              {state.mode === 'REWRITE' && ` L${state.rewriteLevel}`}
+              {state.mode === 'REWRITE' && (
+                <span style={{ color: levelColor }}>
+                  {' '}
+                  L{state.rewriteLevel}
+                </span>
+              )}
             </span>
             <span className="opacity-60">|</span>
             <span className="tabular-nums">
@@ -268,6 +334,13 @@ export function DebugPanel() {
             </span>
             <span className="opacity-60">|</span>
             <span className="tabular-nums">{info.sessionTransforms} tx</span>
+            <span className="opacity-60">|</span>
+            <span
+              className="text-[9px]"
+              style={{ color: '#90955e' }}
+            >
+              static
+            </span>
           </div>
         )}
       </div>

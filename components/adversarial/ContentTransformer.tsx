@@ -3,613 +3,327 @@
 /**
  * ContentTransformer - Orchestrates adversarial content transformations
  *
- * Listens for mode changes, selects chunks to transform, calls the API,
- * and applies transformations with animated text morphing.
- * Also handles batch collection and evaluation submission.
+ * Refactored to use static pre-written content with scramble animations.
+ * No API calls, no evaluation - just instant content swaps with visual effects.
  */
 
 import React, { useEffect, useRef, useCallback, useState } from 'react';
-import { useBehavior, useRegisterTransform, useUpdateBatchInfo } from '@/components/behavior';
+import { usePathname } from 'next/navigation';
+import { useBehavior, useRegisterTransform } from '@/components/behavior';
 import { useChunks } from './ViewportChunker';
-import { getAnimationConfig } from '@/lib/textDiff';
-import {
-  generateSessionId,
-  generateBatchId,
-  createVisitorMetadata,
-  checkBatchTrigger,
-  summarizeBehaviorSequence,
-} from '@/lib/session';
+import { TextScrambler } from '@/lib/text-scrambler';
+import { generateSessionId } from '@/lib/session';
 import type { ContentChunk } from '@/types/transformation';
 import type { Mode, RewriteLevel } from '@/types/behavior';
-import type { TransformationRecord, EvaluationBatch, VisitorMetadata } from '@/types/evaluation';
 
 export interface ContentTransformerProps {
   /** Enable/disable transformations */
   enabled?: boolean;
 }
 
+/**
+ * Static content response from API
+ */
+interface StaticContentResponse {
+  path: string;
+  level: RewriteLevel;
+  original: string;
+  rewritten: string;
+  metadata: {
+    title: string;
+    page_type: string;
+  };
+}
+
+/**
+ * Cached content per route and level
+ */
+interface ContentCache {
+  [routeAndLevel: string]: {
+    contentMap: Map<string, string>;
+    fetchedAt: number;
+  };
+}
+
 export function ContentTransformer({ enabled = true }: ContentTransformerProps) {
-  const { state, thresholds, events } = useBehavior();
-  const { getTransformableChunks, updateChunkContent } = useChunks();
+  const pathname = usePathname();
+  const { state, thresholds } = useBehavior();
+  const { getTransformableChunks, updateChunkContent, chunks } = useChunks();
   const registerTransform = useRegisterTransform();
-  const updateBatchInfo = useUpdateBatchInfo();
 
   const [sessionId] = useState(() => generateSessionId());
   const [isTransforming, setIsTransforming] = useState(false);
 
   const lastModeRef = useRef<Mode>('NEUTRAL');
+  const lastLevelRef = useRef<RewriteLevel>(1);
   const lastRewriteTimeRef = useRef<number>(0);
   const rewriteIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const transformedChunksThisCycleRef = useRef<Set<string>>(new Set());
-
-  // Batch collection state
-  const transformationRecordsRef = useRef<TransformationRecord[]>([]);
-  const lastEvaluationTimeRef = useRef<number>(Date.now());
-  const lastEventIndexRef = useRef<number>(0); // Track events sent in last batch
-  const visitorMetadataRef = useRef<VisitorMetadata | null>(null);
-  const batchCheckIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const transformedChunksRef = useRef<Set<string>>(new Set());
+  const contentCacheRef = useRef<ContentCache>({});
+  const scramblerMapRef = useRef<Map<string, TextScrambler>>(new Map());
 
   /**
-   * Initialize visitor metadata
+   * Fetch static content for current route and level
    */
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !visitorMetadataRef.current) {
-      const partialMetadata = createVisitorMetadata();
-      // Fill in placeholder values for IP/location (would be filled server-side)
-      visitorMetadataRef.current = {
-        ip: 'client',
-        location: { city: 'Unknown', region: 'Unknown', country: 'Unknown' },
-        ...partialMetadata,
-      };
-    }
-  }, []);
+  const fetchStaticContent = useCallback(
+    async (level: RewriteLevel): Promise<Map<string, string> | null> => {
+      const cacheKey = `${pathname}:${level}`;
 
-  /**
-   * Submit evaluation batch
-   */
-  const submitEvaluationBatch = useCallback(
-    async (trigger: 'time_elapsed' | 'transform_count' | 'session_end') => {
-      const records = transformationRecordsRef.current;
-
-      if (records.length === 0) {
-        console.log('[Batch] No transformations to evaluate');
-        return;
+      // Check cache first (valid for 5 minutes)
+      const cached = contentCacheRef.current[cacheKey];
+      if (cached && Date.now() - cached.fetchedAt < 5 * 60 * 1000) {
+        return cached.contentMap;
       }
-
-      // Only send events since last batch (not full history) to reduce tokens
-      const eventsSinceLastBatch = events.slice(lastEventIndexRef.current);
-      lastEventIndexRef.current = events.length;
-
-      // Summarize behavior events for token efficiency
-      // This reduces hundreds of scroll events to ~20-50 summary items
-      const behaviorSummary = summarizeBehaviorSequence(eventsSinceLastBatch);
-
-      const batch = {
-        sessionId,
-        batchId: generateBatchId(),
-        timestamp: new Date().toISOString(),
-        visitor: visitorMetadataRef.current || {
-          ip: 'unknown',
-          location: { city: 'Unknown', region: 'Unknown', country: 'Unknown' },
-          device: { type: 'unknown', browser: 'unknown', os: 'unknown', viewport: { width: 0, height: 0 } },
-          referrer: null,
-          localTime: new Date().toISOString(),
-        },
-        // Send summarized behavior instead of raw events
-        behaviorSummary,
-        transformations: records,
-      };
-
-      console.log(`[Batch] Submitting batch (${trigger}): ${records.length} transforms, ${eventsSinceLastBatch.length} events -> summarized`);
 
       try {
-        const response = await fetch('/api/evaluate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ batch }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log(
-            `[Batch] Evaluation complete: ${data.report?.batchSummary?.passed ? 'PASSED' : 'FAILED'}`
-          );
-        } else {
-          console.error('[Batch] Evaluation failed:', response.status);
-        }
-      } catch (error) {
-        console.error('[Batch] Evaluation error:', error);
-      }
-
-      // Reset batch state
-      transformationRecordsRef.current = [];
-      lastEvaluationTimeRef.current = Date.now();
-    },
-    [sessionId, events]
-  );
-
-  /**
-   * Check if batch should be triggered
-   */
-  const checkAndTriggerBatch = useCallback(() => {
-    const transformsSinceLastEval = transformationRecordsRef.current.length;
-    const timeSinceLastEval = Date.now() - lastEvaluationTimeRef.current;
-
-    const { shouldTrigger, reason } = checkBatchTrigger(
-      transformsSinceLastEval,
-      timeSinceLastEval,
-      false
-    );
-
-    // Update debug panel
-    updateBatchInfo(transformsSinceLastEval, Math.max(0, 300 - timeSinceLastEval / 1000));
-
-    if (shouldTrigger && reason) {
-      submitEvaluationBatch(reason);
-    }
-  }, [submitEvaluationBatch, updateBatchInfo]);
-
-  /**
-   * Set up batch check interval
-   */
-  useEffect(() => {
-    if (!enabled) return;
-
-    // Check every 5 seconds
-    batchCheckIntervalRef.current = setInterval(() => {
-      checkAndTriggerBatch();
-    }, 5000);
-
-    return () => {
-      if (batchCheckIntervalRef.current) {
-        clearInterval(batchCheckIntervalRef.current);
-      }
-    };
-  }, [enabled, checkAndTriggerBatch]);
-
-  /**
-   * Cleanup orphaned loading states periodically
-   * This catches edge cases where loading state wasn't properly cleared
-   */
-  useEffect(() => {
-    if (!enabled) return;
-
-    const cleanupOrphanedLoadingStates = () => {
-      const loadingElements = document.querySelectorAll('.adversarial-loading');
-      loadingElements.forEach((el) => {
-        if (el instanceof HTMLElement) {
-          // If element has been loading for more than 15 seconds, clear it
-          const transformingAttr = el.getAttribute('data-transforming');
-          if (transformingAttr === 'true') {
-            console.warn('[Transform] Clearing orphaned loading state');
-            el.classList.remove('adversarial-loading');
-            el.removeAttribute('data-transforming');
-            el.removeAttribute('data-transform-type');
-            el.style.opacity = '1';
-          }
-        }
-      });
-    };
-
-    // Run cleanup every 10 seconds
-    const cleanupInterval = setInterval(cleanupOrphanedLoadingStates, 10000);
-
-    return () => {
-      clearInterval(cleanupInterval);
-    };
-  }, [enabled]);
-
-  /**
-   * Handle session end (page unload)
-   */
-  useEffect(() => {
-    if (!enabled) return;
-
-    const handleBeforeUnload = () => {
-      if (transformationRecordsRef.current.length > 0) {
-        // Summarize behavior events for token efficiency
-        const behaviorSummary = summarizeBehaviorSequence(events);
-
-        // Use sendBeacon for reliable delivery on page unload
-        const batch = {
-          sessionId,
-          batchId: generateBatchId(),
-          timestamp: new Date().toISOString(),
-          visitor: visitorMetadataRef.current || {
-            ip: 'unknown',
-            location: { city: 'Unknown', region: 'Unknown', country: 'Unknown' },
-            device: { type: 'unknown', browser: 'unknown', os: 'unknown', viewport: { width: 0, height: 0 } },
-            referrer: null,
-            localTime: new Date().toISOString(),
-          },
-          behaviorSummary,
-          transformations: transformationRecordsRef.current,
-        };
-
-        navigator.sendBeacon('/api/evaluate', JSON.stringify({ batch }));
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [enabled, sessionId, events]);
-
-  /**
-   * Transform API response type
-   */
-  interface TransformAPIResponse {
-    transformedContent: string | null;
-    gateFailed?: boolean;
-    gateReason?: string;
-    latency?: number;
-    preGenerated?: boolean;
-    preGenVersion?: number;
-    preGenChunkId?: string;
-  }
-
-  /**
-   * Try to get pre-generated expansion content
-   * Sends content to server which hashes it with MD5 for lookup
-   */
-  const getPreGeneratedExpansion = useCallback(
-    async (content: string): Promise<TransformAPIResponse | null> => {
-      try {
-        // Send content to API - server will hash it properly with MD5
-        const response = await fetch(`/api/expanded?content=${encodeURIComponent(content)}`);
+        const response = await fetch(
+          `/api/static-content?path=${encodeURIComponent(pathname)}&level=${level}`
+        );
 
         if (!response.ok) {
-          // No pre-generated content available
+          console.warn(`[Transform] No static content for ${pathname} at level ${level}`);
           return null;
         }
 
-        const data = await response.json();
+        const data: StaticContentResponse = await response.json();
 
-        if (data.content) {
-          return {
-            transformedContent: data.content,
-            latency: 0, // Instant!
-            preGenerated: true,
-            preGenVersion: data.version,
-            preGenChunkId: data.chunkId,
-          };
-        }
+        // Parse content into sentences/sections and create mapping
+        const contentMap = createContentMap(data.original, data.rewritten);
 
-        return null;
+        // Cache the result
+        contentCacheRef.current[cacheKey] = {
+          contentMap,
+          fetchedAt: Date.now(),
+        };
+
+        return contentMap;
       } catch (error) {
-        console.log('[Transform] Pre-generated lookup failed, falling back to API');
+        console.error('[Transform] Failed to fetch static content:', error);
         return null;
       }
+    },
+    [pathname]
+  );
+
+  /**
+   * Create a mapping from original text segments to rewritten versions
+   * Uses fuzzy matching to handle minor variations
+   */
+  const createContentMap = useCallback(
+    (original: string, rewritten: string): Map<string, string> => {
+      const map = new Map<string, string>();
+
+      // Split both into paragraphs/sections
+      const originalSections = parseSections(original);
+      const rewrittenSections = parseSections(rewritten);
+
+      // Map by position (sections should align)
+      for (let i = 0; i < originalSections.length; i++) {
+        const origSection = originalSections[i];
+        const rewrittenSection = rewrittenSections[i];
+
+        if (origSection && rewrittenSection) {
+          // Normalize whitespace for matching
+          const normalizedOrig = normalizeText(origSection);
+          map.set(normalizedOrig, rewrittenSection);
+
+          // Also map individual sentences within sections
+          const origSentences = splitSentences(origSection);
+          const rewrittenSentences = splitSentences(rewrittenSection);
+
+          for (let j = 0; j < origSentences.length; j++) {
+            if (origSentences[j] && rewrittenSentences[j]) {
+              const normalizedSentence = normalizeText(origSentences[j]);
+              map.set(normalizedSentence, rewrittenSentences[j]);
+            }
+          }
+        }
+      }
+
+      return map;
     },
     []
   );
 
   /**
-   * Call the transform API
+   * Parse content into sections (paragraphs, headings, list items)
    */
-  const callTransformAPI = useCallback(
-    async (
-      chunk: ContentChunk,
-      type: 'expand' | 'rewrite',
-      level?: RewriteLevel
-    ): Promise<TransformAPIResponse> => {
-      try {
-        const response = await fetch('/api/transform', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            sessionId,
-            chunkId: chunk.id,
-            content: chunk.currentContent,
-            type,
-            level,
-            idleDuration: state.idleTime,
-          }),
-        });
+  const parseSections = (content: string): string[] => {
+    // Split on double newlines or markdown section markers
+    return content
+      .split(/\n\n+|(?=^#{1,6}\s)/m)
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+  };
 
-        if (!response.ok) {
-          console.error('[Transform] API error:', response.status);
-          return { transformedContent: null };
-        }
+  /**
+   * Split text into sentences
+   */
+  const splitSentences = (text: string): string[] => {
+    return text
+      .split(/(?<=[.!?])\s+/)
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+  };
 
-        const data = await response.json();
+  /**
+   * Normalize text for matching (lowercase, collapse whitespace)
+   */
+  const normalizeText = (text: string): string => {
+    return text
+      .toLowerCase()
+      .replace(/\s+/g, ' ')
+      .replace(/[^\w\s]/g, '')
+      .trim();
+  };
 
-        // Check if gate failed
-        if (data.gateFailed) {
-          console.warn(`[Transform] Gate failed: ${data.gateReason}`);
-          return {
-            transformedContent: null, // Don't use the fallback content
-            gateFailed: true,
-            gateReason: data.gateReason,
-          };
-        }
+  /**
+   * Find matching rewritten content for a chunk
+   */
+  const findRewrittenContent = useCallback(
+    (chunkText: string, contentMap: Map<string, string>): string | null => {
+      const normalizedChunk = normalizeText(chunkText);
 
-        return {
-          transformedContent: data.transformedContent,
-          latency: data.latency,
-        };
-      } catch (error) {
-        console.error('[Transform] Request failed:', error);
-        return { transformedContent: null };
+      // Direct match
+      if (contentMap.has(normalizedChunk)) {
+        return contentMap.get(normalizedChunk)!;
       }
+
+      // Fuzzy match - try to find content that contains most of the chunk
+      for (const [origKey, rewritten] of contentMap.entries()) {
+        // Check if original contains chunk or vice versa
+        if (origKey.includes(normalizedChunk) || normalizedChunk.includes(origKey)) {
+          return rewritten;
+        }
+      }
+
+      // Try matching by significant words
+      const chunkWords = new Set(normalizedChunk.split(' ').filter((w) => w.length > 4));
+      let bestMatch: { key: string; score: number; rewritten: string } | null = null;
+
+      for (const [origKey, rewritten] of contentMap.entries()) {
+        const origWords = new Set(origKey.split(' ').filter((w) => w.length > 4));
+        const intersection = [...chunkWords].filter((w) => origWords.has(w));
+        const score = intersection.length / Math.max(chunkWords.size, origWords.size);
+
+        if (score > 0.5 && (!bestMatch || score > bestMatch.score)) {
+          bestMatch = { key: origKey, score, rewritten };
+        }
+      }
+
+      return bestMatch?.rewritten ?? null;
     },
-    [sessionId, state.idleTime]
+    []
   );
 
   /**
-   * Check if element is still connected to DOM
+   * Get or create scrambler for an element
    */
-  const isElementConnected = useCallback((element: HTMLElement): boolean => {
-    return element.isConnected && document.body.contains(element);
+  const getScrambler = useCallback((chunkId: string, element: HTMLElement): TextScrambler => {
+    let scrambler = scramblerMapRef.current.get(chunkId);
+    if (!scrambler) {
+      scrambler = new TextScrambler(element, { speed: 1.2 });
+      scramblerMapRef.current.set(chunkId, scrambler);
+    }
+    return scrambler;
   }, []);
 
   /**
-   * Show immediate loading state on element (before API returns)
-   */
-  const showLoadingState = useCallback((element: HTMLElement, type: 'expand' | 'rewrite') => {
-    if (!isElementConnected(element)) return;
-
-    element.classList.add('adversarial-chunk', 'adversarial-loading');
-    element.setAttribute('data-transforming', 'true');
-    element.setAttribute('data-transform-type', type);
-
-    // Add subtle pulse/shimmer effect immediately
-    element.style.transition = 'opacity 200ms ease-out';
-    element.style.opacity = '0.85';
-  }, [isElementConnected]);
-
-  /**
-   * Clear loading state from element
-   */
-  const clearLoadingState = useCallback((element: HTMLElement) => {
-    if (!isElementConnected(element)) return;
-
-    element.classList.remove('adversarial-loading');
-    element.removeAttribute('data-transforming');
-    element.removeAttribute('data-transform-type');
-    element.style.opacity = '1';
-  }, [isElementConnected]);
-
-  /**
-   * Apply transformation with animation
+   * Apply transformation with scramble animation
    */
   const applyTransformation = useCallback(
-    async (
-      chunk: ContentChunk,
-      type: 'expand' | 'rewrite',
-      level?: RewriteLevel
-    ) => {
+    async (chunk: ContentChunk, level: RewriteLevel) => {
       const startTime = Date.now();
 
-      // Validate element is still in DOM before starting
-      if (!isElementConnected(chunk.element)) {
+      // Validate element is still in DOM
+      if (!chunk.element.isConnected) {
         console.warn(`[Transform] Skipped: element no longer in DOM (${chunk.id})`);
         return;
       }
 
-      // Store previous content before any operations
-      const previousContent = chunk.currentContent;
-
-      // For REWRITE L3 (hostile), use pre-generated expanded content 70% of the time
-      // This significantly reduces LLM costs while maintaining variety in hostile rewrites
-      if (type === 'rewrite' && level === 3 && Math.random() < 0.7) {
-        const preGenResult = await getPreGeneratedExpansion(previousContent);
-
-        if (preGenResult?.transformedContent) {
-          console.log(`[Transform] Using pre-generated content for L3 hostile rewrite (v${preGenResult.preGenVersion})`);
-
-          // Validate element is still in DOM
-          if (!isElementConnected(chunk.element)) {
-            console.warn(`[Transform] Skipped DOM update: element no longer connected (${chunk.id})`);
-            return;
-          }
-
-          const transformedContent = preGenResult.transformedContent;
-
-          // Update chunk state
-          updateChunkContent(chunk.id, transformedContent, type, level);
-
-          // Register transform for debug panel (mark as pre-generated)
-          registerTransform({
-            chunkId: chunk.id,
-            type,
-            level,
-            latency: 0,
-          });
-
-          // Record transformation for batch evaluation (with pre-generated flag)
-          const record: TransformationRecord = {
-            chunkId: chunk.id,
-            type,
-            level,
-            trigger: 'idle_pregen_l3',
-            originalContent: previousContent,
-            transformedContent,
-            latency: 0,
-            timestamp: Date.now(),
-          };
-          transformationRecordsRef.current.push(record);
-
-          // Check if we should trigger a batch
-          checkAndTriggerBatch();
-
-          // Apply to DOM with animation
-          const config = getAnimationConfig(type, level);
-          applyToDOMWithAnimation(chunk.element, previousContent, transformedContent, config);
-
-          return; // Done! No API call needed
-        }
-        // If no pre-generated content found, fall through to LLM generation
+      // Get static content for this level
+      const contentMap = await fetchStaticContent(level);
+      if (!contentMap) {
+        console.warn(`[Transform] No content map available for level ${level}`);
+        return;
       }
 
-      // IMMEDIATE: Show loading state before API call (only for real-time transforms)
-      showLoadingState(chunk.element, type);
+      // Find matching rewritten content
+      const currentText = chunk.element.innerText;
+      const rewrittenContent = findRewrittenContent(currentText, contentMap);
+
+      if (!rewrittenContent || rewrittenContent === currentText) {
+        console.log(`[Transform] No change needed for chunk ${chunk.id}`);
+        return;
+      }
+
+      // Apply scramble animation
+      const scrambler = getScrambler(chunk.id, chunk.element);
+
+      // Mark element as transforming
+      chunk.element.classList.add('adversarial-chunk', 'adversarial-transforming');
+      chunk.element.setAttribute('data-transform-level', level.toString());
 
       try {
-        // Call API (fallback for EXPAND, or primary for REWRITE)
-        const result = await callTransformAPI(chunk, type, level);
+        // Scramble to new content
+        await scrambler.setTextStaggered(rewrittenContent, 1.5);
 
-        // Clear loading state (always, even on failure)
-        clearLoadingState(chunk.element);
-
-        // Handle gate failures or API errors - silently skip
-        if (!result.transformedContent || result.gateFailed) {
-          if (result.gateFailed) {
-            console.log(`[Transform] Skipped due to gate failure: ${result.gateReason}`);
-          }
-          return;
-        }
-
-        // Validate element is still in DOM before applying
-        if (!isElementConnected(chunk.element)) {
-          console.warn(`[Transform] Skipped DOM update: element no longer connected (${chunk.id})`);
-          return;
-        }
-
-        const transformedContent = result.transformedContent;
-        const latency = result.latency || (Date.now() - startTime);
+        const latency = Date.now() - startTime;
 
         // Update chunk state
-        updateChunkContent(chunk.id, transformedContent, type, level);
+        updateChunkContent(chunk.id, rewrittenContent, 'rewrite', level);
 
         // Register transform for debug panel
         registerTransform({
           chunkId: chunk.id,
-          type,
+          type: 'rewrite',
           level,
           latency,
         });
 
-        // Record transformation for batch evaluation
-        const record: TransformationRecord = {
-          chunkId: chunk.id,
-          type,
-          level,
-          trigger: `idle_${state.idleTime}ms`,
-          originalContent: previousContent,
-          transformedContent,
-          latency,
-          timestamp: Date.now(),
-        };
-        transformationRecordsRef.current.push(record);
-
-        // Check if we should trigger a batch
-        checkAndTriggerBatch();
-
-        // Apply to DOM with animation
-        const config = getAnimationConfig(type, level);
-        applyToDOMWithAnimation(chunk.element, previousContent, transformedContent, config);
-      } catch (error) {
-        // Always clear loading state on any error
-        clearLoadingState(chunk.element);
-        console.error(`[Transform] Error transforming ${chunk.id}:`, error);
+        console.log(
+          `[Transform] ${chunk.id} → L${level} (${latency}ms, scramble animation)`
+        );
+      } finally {
+        // Clear transforming state
+        chunk.element.classList.remove('adversarial-transforming');
       }
     },
-    [callTransformAPI, getPreGeneratedExpansion, updateChunkContent, registerTransform, state.idleTime, checkAndTriggerBatch, showLoadingState, clearLoadingState, isElementConnected]
+    [fetchStaticContent, findRewrittenContent, getScrambler, updateChunkContent, registerTransform]
   );
 
   /**
-   * Apply content to DOM with smooth morphing animation
+   * Select chunks to transform (prefers less-transformed chunks)
    */
-  const applyToDOMWithAnimation = useCallback(
-    (
-      element: HTMLElement,
-      previousContent: string,
-      newContent: string,
-      config: ReturnType<typeof getAnimationConfig>
-    ) => {
-      // Mark element as transforming
-      element.classList.add('adversarial-chunk');
-      element.setAttribute('data-transforming', 'true');
-      element.setAttribute('data-intensity', config.intensity.toString());
+  const selectChunksToTransform = useCallback(
+    (count: number = 2): ContentChunk[] => {
+      const allChunks = getTransformableChunks();
 
-      // Calculate animation duration based on config
-      const duration = config.scrambleDuration;
-      const easing = config.chaotic ? 'cubic-bezier(0.68, -0.55, 0.265, 1.55)' : 'ease-out';
+      if (allChunks.length === 0) {
+        return [];
+      }
 
-      // Store original height to prevent layout shift
-      const originalHeight = element.offsetHeight;
-      element.style.minHeight = `${originalHeight}px`;
+      // Filter out chunks we've already transformed this session
+      let available = allChunks.filter(
+        (c) => !transformedChunksRef.current.has(c.id)
+      );
 
-      // Phase 1: Fade out slightly and add subtle blur
-      element.style.transition = `opacity ${duration / 3}ms ${easing}, filter ${duration / 3}ms ${easing}`;
-      element.style.opacity = config.chaotic ? '0.6' : '0.8';
-      element.style.filter = config.chaotic ? 'blur(1px)' : 'blur(0.5px)';
+      if (available.length === 0) {
+        // Reset and allow re-transformation
+        transformedChunksRef.current.clear();
+        available = allChunks;
+      }
 
-      setTimeout(() => {
-        // Phase 2: Update content
-        element.innerHTML = newContent;
+      // Sort by transform count (prefer less-transformed)
+      available.sort((a, b) => a.transformCount - b.transformCount);
 
-        // Phase 3: Fade back in and remove blur
-        element.style.transition = `opacity ${duration / 2}ms ${easing}, filter ${duration / 2}ms ${easing}, min-height ${duration}ms ${easing}`;
-        element.style.opacity = '1';
-        element.style.filter = 'blur(0)';
-
-        // Allow height to adjust naturally
-        setTimeout(() => {
-          element.style.minHeight = '';
-        }, duration / 2);
-
-        // Cleanup
-        setTimeout(() => {
-          element.setAttribute('data-transforming', 'false');
-          element.removeAttribute('data-intensity');
-          element.style.transition = '';
-          element.style.filter = '';
-        }, duration);
-      }, duration / 3);
+      return available.slice(0, count);
     },
-    []
+    [getTransformableChunks]
   );
 
   /**
-   * Number of chunks to transform simultaneously
-   */
-  const CHUNKS_PER_TRANSFORM = 2;
-
-  /**
-   * Select chunks to transform (returns up to CHUNKS_PER_TRANSFORM)
-   */
-  const selectChunksToTransform = useCallback((count: number = CHUNKS_PER_TRANSFORM): ContentChunk[] => {
-    const chunks = getTransformableChunks();
-
-    if (chunks.length === 0) {
-      return [];
-    }
-
-    // Filter out chunks we've already transformed this cycle
-    let availableChunks = chunks.filter(
-      (c) => !transformedChunksThisCycleRef.current.has(c.id)
-    );
-
-    if (availableChunks.length === 0) {
-      // Reset cycle and start fresh
-      transformedChunksThisCycleRef.current.clear();
-      availableChunks = chunks;
-    }
-
-    // Prefer chunks with fewer transformations
-    availableChunks.sort((a, b) => a.transformCount - b.transformCount);
-
-    // Return up to 'count' chunks
-    return availableChunks.slice(0, Math.min(count, availableChunks.length));
-  }, [getTransformableChunks]);
-
-  /**
-   * Handle EXPAND mode - DISABLED
-   * Pre-generated expanded content is now used for L3 hostile rewrites instead.
-   * Keeping this stub in case we want to re-enable EXPAND mode in the future.
-   */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleExpandMode = useCallback(async () => {
-    // EXPAND mode is disabled - do nothing
-    console.log('[ContentTransformer] EXPAND mode is disabled');
-  }, []);
-
-  /**
-   * Handle REWRITE mode - transform with escalating levels
+   * Handle REWRITE mode - transform visible chunks at current level
    */
   const handleRewriteMode = useCallback(async () => {
     if (isTransforming) return;
@@ -617,23 +331,32 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
     const now = Date.now();
     const timeSinceLastRewrite = now - lastRewriteTimeRef.current;
 
-    // Check if enough time has passed since last rewrite
+    // Check interval between transforms
     if (timeSinceLastRewrite < thresholds.rewriteInterval) {
       return;
     }
 
-    const chunks = selectChunksToTransform(CHUNKS_PER_TRANSFORM);
-    if (chunks.length === 0) return;
+    const chunksToTransform = selectChunksToTransform(2);
+    if (chunksToTransform.length === 0) return;
 
     setIsTransforming(true);
     lastRewriteTimeRef.current = now;
-    chunks.forEach(c => transformedChunksThisCycleRef.current.add(c.id));
+
+    // Mark chunks as transformed this session
+    chunksToTransform.forEach((c) => transformedChunksRef.current.add(c.id));
 
     try {
-      // Transform chunks in parallel
-      await Promise.all(
-        chunks.map(chunk => applyTransformation(chunk, 'rewrite', state.rewriteLevel))
-      );
+      // Transform chunks with staggered timing for "spreading corruption" effect
+      for (let i = 0; i < chunksToTransform.length; i++) {
+        const chunk = chunksToTransform[i];
+
+        if (i > 0) {
+          // Delay between chunks (200-500ms)
+          await new Promise((r) => setTimeout(r, 200 + Math.random() * 300));
+        }
+
+        await applyTransformation(chunk, state.rewriteLevel);
+      }
     } finally {
       setIsTransforming(false);
     }
@@ -646,6 +369,24 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
   ]);
 
   /**
+   * Handle level changes - immediately transform visible content to new level
+   */
+  useEffect(() => {
+    if (!enabled || state.mode !== 'REWRITE') return;
+
+    const currentLevel = state.rewriteLevel;
+    const previousLevel = lastLevelRef.current;
+
+    if (currentLevel !== previousLevel) {
+      console.log(`[Transform] Level change: L${previousLevel} → L${currentLevel}`);
+      lastLevelRef.current = currentLevel;
+
+      // Immediately trigger transformation at new level
+      handleRewriteMode();
+    }
+  }, [enabled, state.mode, state.rewriteLevel, handleRewriteMode]);
+
+  /**
    * Handle mode changes
    */
   useEffect(() => {
@@ -654,7 +395,6 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
     const currentMode = state.mode;
     const previousMode = lastModeRef.current;
 
-    // Mode changed
     if (currentMode !== previousMode) {
       console.log(`[ContentTransformer] Mode: ${previousMode} → ${currentMode}`);
 
@@ -664,15 +404,11 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
         rewriteIntervalRef.current = null;
       }
 
-      // Reset transformed chunks on mode change
-      transformedChunksThisCycleRef.current.clear();
-
       lastModeRef.current = currentMode;
     }
 
-    // Handle current mode (EXPAND mode is disabled, only REWRITE is active)
+    // Handle REWRITE mode
     if (currentMode === 'REWRITE') {
-      // Set up rewrite interval
       if (!rewriteIntervalRef.current) {
         // Initial rewrite
         handleRewriteMode();
@@ -690,12 +426,37 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
         rewriteIntervalRef.current = null;
       }
     };
-  }, [
-    enabled,
-    state.mode,
-    handleRewriteMode,
-    thresholds.rewriteInterval,
-  ]);
+  }, [enabled, state.mode, handleRewriteMode, thresholds.rewriteInterval]);
+
+  /**
+   * Cleanup scramblers on unmount
+   */
+  useEffect(() => {
+    return () => {
+      scramblerMapRef.current.forEach((scrambler) => scrambler.cancel());
+      scramblerMapRef.current.clear();
+    };
+  }, []);
+
+  /**
+   * Cleanup orphaned transforming states periodically
+   */
+  useEffect(() => {
+    if (!enabled) return;
+
+    const cleanup = () => {
+      const transformingElements = document.querySelectorAll('.adversarial-transforming');
+      transformingElements.forEach((el) => {
+        if (el instanceof HTMLElement) {
+          // Clear stuck states after 10 seconds
+          el.classList.remove('adversarial-transforming');
+        }
+      });
+    };
+
+    const interval = setInterval(cleanup, 10000);
+    return () => clearInterval(interval);
+  }, [enabled]);
 
   // This component doesn't render anything - it just orchestrates
   return null;

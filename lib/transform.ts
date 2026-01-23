@@ -7,6 +7,7 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 import type { TransformRequest, TransformResponse } from '@/types/transformation';
+import type { RewriteLevel } from '@/types/behavior';
 
 // Lazy initialization of Anthropic client
 let anthropicClient: Anthropic | null = null;
@@ -141,7 +142,7 @@ Return only the hostile rewritten content. Keep it the same length.`;
 function buildPrompt(
   type: 'expand' | 'rewrite',
   content: string,
-  level?: 1 | 2 | 3,
+  level?: RewriteLevel,
   idleDuration?: number
 ): { system: string; user: string } {
   if (type === 'expand') {

@@ -12,7 +12,7 @@ import type {
   EvaluationBatch,
   SummarizedBehavior,
 } from '@/types/evaluation';
-import type { BehaviorEvent } from '@/types/behavior';
+import type { BehaviorEvent, RewriteLevel } from '@/types/behavior';
 
 /**
  * Generate a unique session ID
@@ -392,7 +392,7 @@ interface StoredTransform {
   transformedContent: string;
   transformCount: number;
   lastTransformType: 'expand' | 'rewrite' | null;
-  lastRewriteLevel: 1 | 2 | 3 | null;
+  lastRewriteLevel: RewriteLevel | null;
 }
 
 /**
@@ -418,7 +418,7 @@ export function storeTransformedContent(
   transformedContent: string,
   transformCount: number,
   lastTransformType: 'expand' | 'rewrite' | null,
-  lastRewriteLevel: 1 | 2 | 3 | null
+  lastRewriteLevel: RewriteLevel | null
 ): void {
   if (typeof window === 'undefined') return;
 

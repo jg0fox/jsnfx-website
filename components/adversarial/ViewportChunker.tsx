@@ -18,6 +18,7 @@ import React, {
 } from 'react';
 import { usePathname } from 'next/navigation';
 import type { ContentChunk, ChunkState } from '@/types/transformation';
+import type { RewriteLevel } from '@/types/behavior';
 import { DEFAULT_CHUNKING_CONFIG } from '@/types/transformation';
 import { useUpdateChunkCounts } from '@/components/behavior';
 import { storeTransformedContent, getStoredTransform } from '@/lib/session';
@@ -34,7 +35,7 @@ export interface ChunkContextValue {
   /** Get a specific chunk by ID */
   getChunk: (id: string) => ContentChunk | undefined;
   /** Update chunk content after transformation */
-  updateChunkContent: (id: string, newContent: string, type: 'expand' | 'rewrite', level?: 1 | 2 | 3) => void;
+  updateChunkContent: (id: string, newContent: string, type: 'expand' | 'rewrite', level?: RewriteLevel) => void;
   /** Get all visible chunks that can be transformed */
   getTransformableChunks: () => ContentChunk[];
   /** Total transforms this session */
@@ -185,7 +186,7 @@ export function ViewportChunker({
       id: string,
       newContent: string,
       type: 'expand' | 'rewrite',
-      level?: 1 | 2 | 3
+      level?: RewriteLevel
     ) => {
       setChunks((prev) => {
         const chunk = prev.get(id);

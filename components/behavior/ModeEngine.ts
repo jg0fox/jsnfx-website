@@ -312,7 +312,10 @@ export class ModeEngine {
     const { idleTime, rewriteLevel } = this.state;
     let newLevel: RewriteLevel = 1;
 
-    if (idleTime >= this.thresholds.rewriteLevel3) {
+    // Escalate through 4 levels based on idle duration
+    if (idleTime >= this.thresholds.rewriteLevel4) {
+      newLevel = 4;
+    } else if (idleTime >= this.thresholds.rewriteLevel3) {
       newLevel = 3;
     } else if (idleTime >= this.thresholds.rewriteLevel2) {
       newLevel = 2;

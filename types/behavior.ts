@@ -13,10 +13,21 @@ export type Mode = 'NEUTRAL' | 'EXPAND' | 'REWRITE';
 /**
  * Rewrite intensity levels based on idle duration
  * - Level 1 (5-15s): Subtle changes (synonyms, slight rephrasing)
- * - Level 2 (15-30s): Noticeable changes (restructured sentences)
- * - Level 3 (30s+): Hostile changes (fragmented syntax, slippery meaning)
+ * - Level 2 (15-30s): Noticeable changes (restructured sentences, different framing)
+ * - Level 3 (30-45s): Hostile changes (fragmented syntax, unusual word choices)
+ * - Level 4 (45s+): Very hostile (highly degraded, difficult to comprehend)
  */
-export type RewriteLevel = 1 | 2 | 3;
+export type RewriteLevel = 1 | 2 | 3 | 4;
+
+/**
+ * Labels for each rewrite level
+ */
+export const REWRITE_LEVEL_LABELS: Record<RewriteLevel, string> = {
+  1: 'subtle',
+  2: 'noticeable',
+  3: 'hostile',
+  4: 'very hostile',
+};
 
 /**
  * Threshold configuration for behavior detection
@@ -40,6 +51,8 @@ export interface BehaviorThresholds {
   rewriteLevel2: number;
   /** Milliseconds idle for REWRITE Level 3 */
   rewriteLevel3: number;
+  /** Milliseconds idle for REWRITE Level 4 */
+  rewriteLevel4: number;
   /** Pixels of cursor movement to reset idle */
   cursorMoveThreshold: number;
 }
@@ -53,10 +66,11 @@ export const DEFAULT_THRESHOLDS: BehaviorThresholds = {
   fastScrollDuration: 800,      // 0.8s sustained to trigger EXPAND (lowered from 1.5s)
   expandMinDuration: 2000,      // 2s minimum in EXPAND
   expandCooldown: 3000,         // 3s cooldown after exiting EXPAND before re-entry
-  idleStart: 4000,              // 4s to enter REWRITE (lowered from 5s)
-  rewriteInterval: 5000,        // 5s between rewrites (lowered from 8s) - ~12/min
-  rewriteLevel2: 20000,         // 20s idle for L2 (lowered from 30s) - ~3 L1 transforms
-  rewriteLevel3: 40000,         // 40s idle for L3 (lowered from 60s) - ~4 L2 transforms
+  idleStart: 5000,              // 5s to enter REWRITE mode at Level 1
+  rewriteInterval: 8000,        // 8-10s between level escalation checks
+  rewriteLevel2: 15000,         // 15s idle for L2 (noticeable)
+  rewriteLevel3: 30000,         // 30s idle for L3 (hostile)
+  rewriteLevel4: 45000,         // 45s idle for L4 (very hostile)
   cursorMoveThreshold: 100,     // 100px movement resets idle
 };
 
