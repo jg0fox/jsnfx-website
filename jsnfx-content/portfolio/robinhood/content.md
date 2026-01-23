@@ -1,0 +1,93 @@
+# Robinhood's 24 Hour Market
+
+Helping Robinhood customers participate in the stock market on their own terms.
+
+**Company:** Robinhood  
+**Role:** Senior Staff Content Designer  
+**Timeline:** 6 months  
+**Tools & methods:** Figma, Object Oriented UX, Journey Mapping
+
+## Beth Dunn, and then some
+
+Let's talk for a moment about Beth Dunn's full-stack content design model. It highlights the range of skills I used and the practices I undertook while working on this project.
+
+While Beth's stack sets the foundation with Scope, Structure, and Surface, I've added a Systems layer due to the high level of legal and compliance management required for this project.
+
+It's worth noting that this portfolio presentation is a tour of the project highlights, not a chronological or linear progression through design phases.
+
+## Problem definition
+
+Journey mapping helps me and the people I work with figure out what we know, what we don't know, and what to do next.
+
+For Robinhood's 24 Hour Market initiative, we knew that many of our customers struggled to participate in the stock market because they held jobs or cared for families during regular market hours. The opportunity to make the after hours market more accessible for a general audience was very exciting.
+
+I ran a journey mapping workshop with my cross-functional stakeholders to understand how this opportunity might take shape within our core stock trading experiences.
+
+*Defining the problem at the scope layer.*
+
+## Experimenting within constraints
+
+Providing customers with a clear understanding of how a stock's bid/ask spread should inform their chosen limit order price was a core goal of the 24 Hour Market experience.
+
+Our existing market data modal window already felt conceptually dense. When we began to add explanatory content, the density multiplied and we began to lose sight of our core bid/ask spread messages.
+
+We asked ourselves how much responsibility we should burden this modal window with.
+
+Our consensus was: Enough to limit risk, enable action, and inspire more experimentation.
+
+*Focusing on usability at the structure layer.*
+
+## Clarity and cohesion through Object Oriented UX
+
+As evidenced in our exploration of explaining the bid/ask spread so that customers can make a more informed limit price choice, it was clear that we were dealing with persistent conceptual density. Not only can this make complicated tasks more difficult to learn, it can make a product or feature as a whole feel more cumbersome and friction-y.
+
+Object Oriented UX practices, like mapping out objects, actions, and their related attributes, can help create a sound structural layer to build upon. This structure will help us avoid ambiguity and inconsistency in the long run, but it also helps us think about the larger content ecosystem as a team.
+
+## Setting expectations by modulating tone
+
+In my UX content mind, tone consists of two elements: substance and sound.
+
+When these elements come together, we're able to effectively modulate our tone to accommodate for a variety of use cases.
+
+Something that comes up a lot in Robinhood's review and critique sessions is the concept of a term of art, which is a word or phrase that has a specific meaning in a particular field that differs from its general meaning.
+
+In finance, we have words like *portfolio* and *execute*. These terms play a large role in shaping the Robinhood tone of voice.
+
+Let's talk about the word *execute* because I know you want to.
+
+Is it within our desired voice or tone? Maybe not. Is it intimidating and dense? Maybe yes. Does a customer need to understand what the word means to effectively navigate the world of equities trading? Almost definitely.
+
+This 1 word packs a tonality punch. It covers both sound and substance elements with lots of glottal stops that make it very frictive and it's also conceptually dense with lots of associations. One of which is murder.
+
+My rationale for inclusion of *execute* is that it's a moment of good friction and that the domain expertise it imparts to Robinhood customers outweighs the negative associations.
+
+*Creating an intentional tone at the surface layer.*
+
+## Collaborating with legal and compliance
+
+Robinhood, a publicly traded financial institution with tons of public scrutiny, very strictly adheres to various legal and compliance measures.
+
+The legal and compliance process, although cumbersome, is very much in line with what I think are best practices for quality UX writing.
+
+In the 24 Hour Market onboarding tour that introduces customers to the bid/ask spread data, we went through countless revisions of tooltips to ensure they adhered to the SEC's Regulation Best Interest. In the attached example, you can see some of the nuanced and not-so-nuanced differences.
+
+## Governing content in development and for the long haul
+
+Compliance and legal review is an ongoing process throughout all project phases.
+In this type of environment, diligent version control makes the difference between chaos and cohesion.
+
+Using component sets to manage content during these reviews and into handoff with engineering helped us ensure that we only shipped legal and compliance-approved content. It also helped us document our decision making to reduce churn in future projects.
+
+*Managing and scaling content at the systems layer.*
+
+## The before, after, and sweet hereafter
+
+This project required a phased approach. We started by creating low-lift modifications to existing experiences which served as the foundation of the 24 Hour market. We then explored our way toward a more intuitive 24 Hour market onboarding experience.
+
+---
+
+### Want the full portfolio presentation?
+
+Invite me to a hangout and we'll dive deep.
+
+[Get in touch](mailto:jason@jsnfx.com?subject=I'd%20like%20to%20see%20your%20portfolio)

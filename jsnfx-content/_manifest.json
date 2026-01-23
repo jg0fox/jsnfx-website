@@ -1,0 +1,127 @@
+{
+  "crawl_started": "2026-01-23T11:00:48.776884",
+  "crawl_completed": "2026-01-23T11:08:43.941697",
+  "pages_crawled": 16,
+  "images_downloaded": 0,
+  "api_calls": 16,
+  "tokens_used": {
+    "input": 523466,
+    "output": 18359
+  },
+  "estimated_cost_usd": 1.8458,
+  "pages": [
+    {
+      "url": "https://jsnfx.com",
+      "local_path": "index",
+      "page_type": "about",
+      "title": "Jason Fox, Content Designer",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/resources",
+      "local_path": "resources",
+      "page_type": "resource-list",
+      "title": "Resources",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/portfolio",
+      "local_path": "portfolio",
+      "page_type": "resource-list",
+      "title": "Portfolio | Jason Fox",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/writing",
+      "local_path": "writing",
+      "page_type": "creative-writing",
+      "title": "Creative writing",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/evaluation",
+      "local_path": "evaluation",
+      "page_type": "other",
+      "title": "Evaluation reports",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/projects",
+      "local_path": "projects",
+      "page_type": "resource-list",
+      "title": "Side projects | Jason Fox",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/portfolio/robinhood",
+      "local_path": "portfolio/robinhood",
+      "page_type": "case-study",
+      "title": "Robinhood's 24 Hour Market",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/portfolio/netflix",
+      "local_path": "portfolio/netflix",
+      "page_type": "case-study",
+      "title": "Content design considerations for Netflix payments",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/portfolio/oracle",
+      "local_path": "portfolio/oracle",
+      "page_type": "case-study",
+      "title": "Refining Oracle's voice and tone",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/portfolio/chime",
+      "local_path": "portfolio/chime",
+      "page_type": "case-study",
+      "title": "Peer-to-peer payments at Chime",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/portfolio/atlassian",
+      "local_path": "portfolio/atlassian",
+      "page_type": "case-study",
+      "title": "New admin experiences at Atlassian",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/projects/jsnfx-website",
+      "local_path": "projects/jsnfx-website",
+      "page_type": "other",
+      "title": "jsnfx.com redesign",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/projects/tone-spectrum",
+      "local_path": "projects/tone-spectrum",
+      "page_type": "other",
+      "title": "Tone spectrum explorer",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/projects/content-journey",
+      "local_path": "projects/content-journey",
+      "page_type": "other",
+      "title": "Content journey",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/projects/check-content",
+      "local_path": "projects/check-content",
+      "page_type": "other",
+      "title": "Content standards checker for dev environments",
+      "images_count": 0
+    },
+    {
+      "url": "https://jsnfx.com/projects/word-wrangler-game",
+      "local_path": "projects/word-wrangler-game",
+      "page_type": "other",
+      "title": "Word Wrangler",
+      "images_count": 0
+    }
+  ],
+  "errors": []
+}

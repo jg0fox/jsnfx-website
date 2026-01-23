@@ -1,0 +1,16 @@
+{
+  "title": "Content standards checker for dev environments",
+  "page_type": "other",
+  "summary": "Check content is a CLI tool that scans codebases for content quality issues, using pattern matching and GPT-4o to evaluate text against industry-specific content standards and inclusive language guidelines.",
+  "tags": [
+    "content tools",
+    "TypeScript",
+    "CLI",
+    "AI",
+    "system prompting",
+    "pattern detection",
+    "content standards",
+    "inclusive language"
+  ],
+  "url": "https://jsnfx.com/projects/check-content"
+}

@@ -1,0 +1,88 @@
+# jsnfx.com redesign
+
+A personal portfolio website built with Next.js and MDX, plus an LLM-powered crawler for migrating content from the old Webflow site.
+
+## The problem with portfolio sites
+
+Most portfolio templates optimize for the wrong thing. They're either over-designed with nauseating animations or under-considered with an emphasis on thumbnail grids. Neither approach suited me (or my desire to overcomplicate everything I do in my free time).
+
+## My process
+
+Yeah, we can call it a "process." I started with a logo designed by Gemini.
+
+Then I used [Coolors](https://coolors.com) to generate a color palette based on the logo that Gemini created.
+
+You might be noticing a theme, and it's not slow or meticulous planning.
+
+Before going to Claude, my unwitting partner in everything, I asked Google Stitch to mock up some examples. I primarily wanted to get the sidebar pagetree style navigation and overall layout feeling "good enough" before building anything.
+
+You're up, Claude.
+
+With my tech spec and agent.md file in hand, I did a handoff from Claude to Claude and built a version locally in VS Code.
+
+After a few hours of iterating, my site was done. I published it to Vercel, which is free, somehow. Sorry, Webflow, I am broken up with you.
+
+## The stack (and why)
+
+**Next.js 14+** with App Router. React Server Components play well with content-heavy sites, and Vercel deployment is effectively zero-config.
+
+**Tailwind CSS v4** — Utility-first means I can iterate on visual details without context-switching between files. Theming is straightforward.
+
+**MDX for content** — Markdown with embedded React components. This is the key architectural decision. Content lives in `.mdx` files with frontmatter metadata, which means adding a new portfolio piece is just: create folder, add `index.mdx`, done. The system handles routing, navigation, and metadata automatically.
+
+**TypeScript in strict mode** — Catches entire categories of bugs before they ship.
+
+## Content migration: building a smarter crawler
+
+I had an existing Webflow site with a dozen pages and nearly 90 images. The manual approach to copy, reformat, rename, organize would have taken hours that I don't have would have introduced a sea of typos and confusion.
+
+So I built a crawler that thinks.
+
+The system uses **Playwright** to render JavaScript-heavy pages, then passes each page to **Claude** for intelligent extraction. Two tools work together:
+
+1. **extract_page_content** — Returns structured output: clean markdown, title, page type, summary, tags
+2. **name_images** — Transforms meaningless CDN URLs (`cdn.prod.website-files.com/abc123.png`) into contextual filenames (`robinhood-trading-dashboard.png`)
+
+### The decorative image problem
+
+Not every image on a page belongs in the content. Icons, checkmarks, navigation sprites — these need to be filtered out. URL patterns alone don't cut it.
+
+The solution layers multiple signals: dimension thresholds (skip anything under 100×100px), URL pattern matching, accessibility attributes, and alt text analysis. No single signal is reliable; the combination is.
+
+### Results
+
+12 pages processed. 87 images downloaded with meaningful names. ~$0.80 in API costs. 7 minutes total.
+
+Each page produced clean markdown with images positioned correctly, ready to drop into the MDX system without manual cleanup.
+
+### What actually worked
+
+- **Prompt for inclusion, not exclusion** — "Include content images, skip only tiny icons" outperformed "skip decorative images"
+- **Playwright over requests** — Headless browsers are non-negotiable for modern JavaScript-rendered sites
+- **Build fallbacks into multi-tool flows** — LLMs are inconsistent with parallel tool calls; design for graceful degradation
+
+## The CMS: GitHub as a database (hear me out)
+
+I needed a way to manage content without spinning up a database, paying for a headless CMS, or editing raw MDX files like a coffeeshop laptop lurker.
+
+The solution was a custom CMS that uses GitHub as the backend. Content lives in the repo. Edits commit directly via the GitHub API. No database, no sync issues, no monthly invoice. GOODBYE WEBFLOW.
+
+**The stack:** Next.js + TypeScript, JWT auth via `jose`, GitHub Contents API for CRUD operations. Images get compressed client-side before committing to the repo.
+
+**The workflow:** Log in → edit in a real UI → hit save → changes commit and deploy automatically via Vercel. Draft/publish flow included.
+
+It's not clever infrastructure. It's *no* infrastructure. That's the point.
+
+## Architecture decisions that paid off
+
+**Component-driven UI** — Reusable components enforce consistency without requiring discipline. The system makes the right thing easy.
+
+**Automatic navigation** — Previous/next links generate from content metadata. Adding a portfolio piece doesn't require touching navigation code.
+
+**Mobile-first, always** — Every component starts at the smallest breakpoint and scales up. This constraint produces better decisions than "desktop-first, then fix mobile."
+
+**Static where possible** — Pre-rendered pages, optimized images, no unnecessary JavaScript. Performance isn't a feature; it's table stakes.
+
+## What's next
+
+The site is live. Ongoing work includes additional case studies, personal projects, and probably a blowing the entire thing to smithereens when I inevitably try to implement maze-style gamificaiton of the content.

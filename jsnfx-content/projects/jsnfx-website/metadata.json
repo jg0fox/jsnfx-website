@@ -1,0 +1,20 @@
+{
+  "title": "jsnfx.com redesign",
+  "page_type": "other",
+  "summary": "A detailed case study of rebuilding a personal portfolio website using Next.js and MDX, including the development of an LLM-powered content migration crawler and a custom GitHub-based CMS.",
+  "tags": [
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "MDX",
+    "web development",
+    "content migration",
+    "LLM",
+    "Claude API",
+    "Playwright",
+    "portfolio",
+    "CMS",
+    "GitHub"
+  ],
+  "url": "https://jsnfx.com/projects/jsnfx-website"
+}

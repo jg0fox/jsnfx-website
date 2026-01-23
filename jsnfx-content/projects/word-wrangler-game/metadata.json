@@ -1,0 +1,16 @@
+{
+  "title": "Word Wrangler",
+  "page_type": "other",
+  "summary": "A chaotic multiplayer language game for content designers inspired by the Taskmaster TV show, featuring 17 creative writing challenges that test wit, creativity, and technical accuracy.",
+  "tags": [
+    "web app",
+    "game design",
+    "content design",
+    "multiplayer",
+    "creative writing",
+    "UX writing",
+    "Next.js",
+    "Supabase"
+  ],
+  "url": "https://jsnfx.com/projects/word-wrangler-game"
+}

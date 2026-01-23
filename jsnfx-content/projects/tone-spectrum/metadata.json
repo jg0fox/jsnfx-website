@@ -1,0 +1,16 @@
+{
+  "title": "Tone spectrum explorer",
+  "page_type": "other",
+  "summary": "An interactive HTML tool that helps users define positioning on tone spectrums, explore linguistic devices, and generate structured content standards in markdown format.",
+  "tags": [
+    "tone of voice",
+    "content design",
+    "linguistics",
+    "interactive tool",
+    "HTML",
+    "JavaScript",
+    "standards generation",
+    "UX writing"
+  ],
+  "url": "https://jsnfx.com/projects/tone-spectrum"
+}

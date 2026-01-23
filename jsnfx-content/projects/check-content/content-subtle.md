@@ -1,0 +1,121 @@
+# Content standards checker for dev environments
+
+Helping cross-functional explorers check their content quality.
+
+*Check content* is a command line interface (CLI) tool that scans code bases for content issues. First it pulls text from HTML, JSX, or TSX files, then it auto-detects industry, and finally it sends pulled content paired with a system prompt to a GPT-4o API. The API checks the text against industry best-practice content standards, inclusive language, plain language, and accessibility standards, returning violations with suggestions.
+
+It's one of my responses to the decline in cross-functional consultation.
+
+[View on NPM](https://www.npmjs.com/package/check-content)
+
+## Go on, have a demo
+
+[Check content walkthrough video](https://www.loom.com/embed/7d9d1426273245daae76ee2eec309e23)
+
+## Pattern matching industry detection
+
+*Check content* tries to automatically detect an app's industry so that it can provide industry-specific content standards.
+
+First, it scans for clear indicators like stock symbols or medical terms that clearly identify an industry. If it doesn't find any, it falls back to weighted pattern matching across content, dependencies, and file structures.
+
+```javascript
+function detectIndustry(codebaseData) {
+  const allText = combineAllSources(codebaseData);
+
+  for (const [industry, patterns] of industries) {
+    // Check definitive indicators first
+    const definitiveMatches = patterns.definitiveIndicators
+      .filter(term => allText.includes(term.toLowerCase()));
+
+    if (definitiveMatches.length > 0) {
+      return {
+        industry,
+        confidence: 0.9 + bonusCalculation(definitiveMatches),
+        source: 'definitive_indicators'
+      };
+    }
+
+    // Fall back to pattern matching
+    const patternScore = calculatePatternScore(codebaseData, patterns);
+  }
+}
+```
+
+The tool currently supports six industries, each with specialized rules. Healthcare apps get HIPAA compliance content standards and person-first language checks. Finance gets regulatory compliance and risk disclosure rules. E-commerce apps get product clarity and conversion optimization guidance.
+
+### Refinement: fintech trading platform
+
+I tested *Check content* with a friend's cryptocurrency trading prototype. I was curious to see that the industry detection algorithm consistently classified it as a gaming app with 70% confidence even though there was clear financial language.
+
+After looking into it, it turned out that application contained gaming terms like "Alpha Leaderboard", "Win Rate", and "Trading Arena" that overwhelmed financial indicators like "Stock Symbol", "TSLA Position Alert", and "Total Portfolio", resulting in an incorrect analysis.
+
+```javascript
+// Content that triggered gaming detection:
+"Alpha Leaderboard"     // Strong gaming signal
+"Win Rate"              // Gaming terminology
+"Trading Arena"         // "Arena" suggests competitive gaming
+
+// Financial signals that were overwhelmed:
+"Stock Symbol"          // Should indicate finance
+"TSLA Position Alert"   // Clear stock reference
+"Total Portfolio"       // Financial terminology
+```
+
+I used Claude Code and some common sense to improve the definitive indicator system to prioritize financial terms and added special handling for stock symbols.
+
+## Standards and analysis
+
+The standards are based on three reliable sources:
+
+1. **Atlassian Design System** - Bold, optimistic, practical voice with inclusive language
+2. **Atlassian Inclusive Writing Guidelines** - Gender-neutral pronouns, avoiding exclusionary terms
+3. **California Innovation Hub Principles** - Plain language (8th grade reading level), conversational tone
+
+The system prompt is a ~210-line constant that is passed to GPT-4o as the system message in the OpenAI chat completion call.
+
+### Key Standards Categories
+
+| Category | Severity | Examples |
+|----------|----------|----------|
+| **Inclusive Language** | error | guys→everyone, blacklist→blocklist, manpower→workforce |
+| **Pronoun Guidelines** | warning | he/she→they, his/her→their |
+| **Plain Language** | warning | utilize→use, facilitate→help, paradigm→model |
+| **Active Voice** | warning | "was created"→"created", "is being processed"→"processes" |
+| **Missing Alt Text** | error | Images without alt attributes |
+| **Non-descriptive Links** | warning | "click here"→descriptive text |
+
+### Banned Terms (Partial List)
+
+The system prompt includes 50+ banned terms:
+
+**Gender-exclusive:**
+
+- guys, dudes, bros → team, everyone, folks
+- mankind → humanity, people
+- manpower → workforce, staff
+- businessman, freshman → business people, first-year student
+
+**Tech legacy terms:**
+
+- master/slave → primary/secondary, main/replica
+- blacklist/whitelist → blocklist/allowlist
+
+**Ableist language:**
+
+- crazy/insane → surprising, unexpected
+- blind spot → gap, oversight
+- lame → disappointing, weak
+
+**Jargon to simplify:**
+
+- utilize, leverage → use
+- facilitate → help, enable
+- optimize, streamline → improve, simplify
+- synergize, ideate → work together, brainstorm
+- paradigm, methodology → model, method
+
+## Project details
+
+**Status:** Active  
+**Category:** Content tools  
+**Technologies:** TypeScript, Regex, AI, System prompting, Pattern detection, Content standards

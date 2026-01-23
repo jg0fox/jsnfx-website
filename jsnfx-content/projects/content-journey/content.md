@@ -1,0 +1,25 @@
+# Content journey
+
+A tool that pairs the contextual effort of designing content with the analytical practice of evaluating LLM inputs and outputs.
+
+**Status:** Active  
+**Category:** Web App  
+**Technologies:** Next.js, Prompt design, System prompts, Content standards, voice and tone, Evaluation, Scoring rubric
+
+[Try it out](https://content-journey-app.vercel.app/) | [View on GitHub](https://github.com/jg0fox/content-journey-app)
+
+## Content Journey
+
+Content Journey is a side project I built to pair the contextual layer of content design—audience, brand voice, core message—with the analytical evaluation component of working with LLMs. All packaged into one experience.
+
+## How it works
+
+The tool walks you through setting up your content context: audience profile, brand voice, content standards, and core message. Then it generates content across multiple surfaces using compiled system prompts—each with unique parameters and pattern guidance, but designed to work together so output feels cohesive rather than isolated.
+
+The interesting part (interesting to me, anyways) is that I connected two models (Claude and GPT-4) so one LLM evaluates the other's output. The evaluation phase scores content against clarity, relevance, tone, actionability, and accessibility using linguistic and literary devices I built into the evaluation prompt. You get a scorecard with specific feedback, and can hit "improve" to let the secondary model refine content using that evaluation context.
+
+## The output
+
+You end up with before/after comparisons, performance insights, and the ability to export all system prompts as Markdown, JSON, or PDF—the full set or just the winning prompts.
+
+The dashboard is admittedly a bit noisy, but there's plenty of material to work with. It's what I envisioned when combining that contextual layer with the analytical one.

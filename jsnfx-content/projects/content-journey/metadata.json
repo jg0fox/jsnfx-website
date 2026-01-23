@@ -1,0 +1,16 @@
+{
+  "title": "Content journey",
+  "page_type": "other",
+  "summary": "A web application that combines content design context (audience, brand voice, core message) with LLM evaluation, allowing users to generate content across multiple surfaces and evaluate it using dual AI models.",
+  "tags": [
+    "web app",
+    "content design",
+    "LLM evaluation",
+    "AI tools",
+    "prompt engineering",
+    "content strategy",
+    "Next.js",
+    "system prompts"
+  ],
+  "url": "https://jsnfx.com/projects/content-journey"
+}
