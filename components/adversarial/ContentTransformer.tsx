@@ -61,7 +61,13 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
   const lastLevelRef = useRef<RewriteLevel>(1);
   const lastRewriteTimeRef = useRef<number>(0);
   const rewriteIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const transformedChunksRef = useRef<Set<string>>(new Set());
+  // Track transformed chunks PER LEVEL - when level changes, chunks become re-eligible
+  const transformedChunksRef = useRef<Map<RewriteLevel, Set<string>>>(new Map([
+    [1, new Set()],
+    [2, new Set()],
+    [3, new Set()],
+    [4, new Set()],
+  ]));
   const contentCacheRef = useRef<ContentCache>({});
   const scramblerMapRef = useRef<Map<string, TextScrambler>>(new Map());
 
@@ -395,25 +401,27 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
   );
 
   /**
-   * Select chunks to transform (prefers less-transformed chunks)
+   * Select chunks to transform at a given level (prefers less-transformed chunks)
    */
   const selectChunksToTransform = useCallback(
-    (count: number = 2): ContentChunk[] => {
+    (level: RewriteLevel, count: number = 4): ContentChunk[] => {
       const allChunks = getTransformableChunks();
 
       if (allChunks.length === 0) {
         return [];
       }
 
-      // Filter out chunks we've already transformed this session
+      // Get the set of chunks already transformed at THIS level
+      const transformedAtLevel = transformedChunksRef.current.get(level) || new Set();
+
+      // Filter out chunks we've already transformed at this level
       let available = allChunks.filter(
-        (c) => !transformedChunksRef.current.has(c.id)
+        (c) => !transformedAtLevel.has(c.id)
       );
 
       if (available.length === 0) {
-        // Reset and allow re-transformation
-        transformedChunksRef.current.clear();
-        available = allChunks;
+        // All chunks transformed at this level - nothing more to do
+        return [];
       }
 
       // Sort by transform count (prefer less-transformed)
@@ -432,20 +440,30 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
 
     const now = Date.now();
     const timeSinceLastRewrite = now - lastRewriteTimeRef.current;
+    const currentLevel = state.rewriteLevel;
 
-    // Check interval between transforms
-    if (timeSinceLastRewrite < thresholds.rewriteInterval) {
+    // Use shorter interval (3s) to transform content faster
+    const transformInterval = 3000;
+    if (timeSinceLastRewrite < transformInterval) {
       return;
     }
 
-    const chunksToTransform = selectChunksToTransform(2);
-    if (chunksToTransform.length === 0) return;
+    // Select chunks that haven't been transformed at the CURRENT level
+    const chunksToTransform = selectChunksToTransform(currentLevel, 4);
+    if (chunksToTransform.length === 0) {
+      console.log(`[Transform] All chunks transformed at L${currentLevel}`);
+      return;
+    }
 
     setIsTransforming(true);
     lastRewriteTimeRef.current = now;
 
-    // Mark chunks as transformed this session
-    chunksToTransform.forEach((c) => transformedChunksRef.current.add(c.id));
+    // Get or create the set for this level
+    const levelSet = transformedChunksRef.current.get(currentLevel) || new Set();
+
+    // Mark chunks as transformed at THIS level
+    chunksToTransform.forEach((c) => levelSet.add(c.id));
+    transformedChunksRef.current.set(currentLevel, levelSet);
 
     try {
       // Transform chunks with staggered timing for "spreading corruption" effect
@@ -453,11 +471,11 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
         const chunk = chunksToTransform[i];
 
         if (i > 0) {
-          // Delay between chunks (200-500ms)
-          await new Promise((r) => setTimeout(r, 200 + Math.random() * 300));
+          // Delay between chunks (150-350ms) - slightly faster
+          await new Promise((r) => setTimeout(r, 150 + Math.random() * 200));
         }
 
-        await applyTransformation(chunk, state.rewriteLevel);
+        await applyTransformation(chunk, currentLevel);
       }
     } finally {
       setIsTransforming(false);
@@ -467,7 +485,6 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
     selectChunksToTransform,
     applyTransformation,
     state.rewriteLevel,
-    thresholds.rewriteInterval,
   ]);
 
   /**
@@ -483,10 +500,14 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
       console.log(`[Transform] Level change: L${previousLevel} → L${currentLevel}`);
       lastLevelRef.current = currentLevel;
 
+      // Reset the last rewrite time to allow immediate transformation
+      lastRewriteTimeRef.current = 0;
+
       // Immediately trigger transformation at new level
+      // All chunks are eligible since we track per-level
       handleRewriteMode();
     }
-  }, [enabled, state.mode, state.rewriteLevel, handleRewriteMode]);
+  }, [isEnabled, state.mode, state.rewriteLevel, handleRewriteMode]);
 
   /**
    * Handle mode changes
@@ -506,19 +527,29 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
         rewriteIntervalRef.current = null;
       }
 
+      // Reset per-level tracking when entering REWRITE from NEUTRAL
+      if (currentMode === 'REWRITE' && previousMode === 'NEUTRAL') {
+        transformedChunksRef.current = new Map([
+          [1, new Set()],
+          [2, new Set()],
+          [3, new Set()],
+          [4, new Set()],
+        ]);
+      }
+
       lastModeRef.current = currentMode;
     }
 
-    // Handle REWRITE mode
+    // Handle REWRITE mode - use faster 3s interval to fill viewport
     if (currentMode === 'REWRITE') {
       if (!rewriteIntervalRef.current) {
         // Initial rewrite
         handleRewriteMode();
 
-        // Set up interval for continued rewrites
+        // Set up interval for continued rewrites (3 seconds)
         rewriteIntervalRef.current = setInterval(() => {
           handleRewriteMode();
-        }, thresholds.rewriteInterval);
+        }, 3000);
       }
     }
 
@@ -528,7 +559,7 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
         rewriteIntervalRef.current = null;
       }
     };
-  }, [enabled, state.mode, handleRewriteMode, thresholds.rewriteInterval]);
+  }, [isEnabled, state.mode, handleRewriteMode]);
 
   /**
    * Cleanup scramblers on unmount
