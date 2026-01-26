@@ -211,7 +211,7 @@ export function DebugPanel() {
                   {info.nextModeInfo.label}
                 </span>
                 {info.nextModeInfo.trigger === 'time' &&
-                info.nextModeInfo.secondsUntil !== null ? (
+                typeof info.nextModeInfo.secondsUntil === 'number' ? (
                   <span className="tabular-nums opacity-75">
                     in {info.nextModeInfo.secondsUntil.toFixed(1)}s
                   </span>
@@ -259,7 +259,7 @@ export function DebugPanel() {
                   Last Transform:
                 </span>
                 <span className="tabular-nums">
-                  {info.lastTransformAge !== null
+                  {typeof info.lastTransformAge === 'number'
                     ? `${info.lastTransformAge.toFixed(1)}s ago`
                     : 'none'}
                 </span>
