@@ -346,11 +346,15 @@ export function ContentTransformer({ enabled = true }: ContentTransformerProps) 
         return;
       }
 
-      // Find matching rewritten content
-      const currentText = chunk.element.innerText;
-      const rewrittenContent = findRewrittenContent(currentText, contentMap);
+      // Find matching rewritten content using ORIGINAL text (baseContent)
+      // This allows re-transformation at higher levels since we always match
+      // against the original, not the already-transformed DOM text
+      const originalText = chunk.baseContent.replace(/<[^>]*>/g, '').trim();
+      const rewrittenContent = findRewrittenContent(originalText, contentMap);
 
-      if (!rewrittenContent || rewrittenContent === currentText) {
+      // Check if we found content and it's different from what's currently displayed
+      const currentDisplayedText = chunk.element.innerText;
+      if (!rewrittenContent || rewrittenContent === currentDisplayedText) {
         console.log(`[Transform] No change needed for chunk ${chunk.id}`);
         return;
       }
