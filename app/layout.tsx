@@ -84,6 +84,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${fraunces.variable} ${sourceSans.variable}`}>
+      {/*
+        ╭──────────────────────────────────────────────────────────╮
+        │                                                          │
+        │         Made with care and Claude in California.         │
+        │                                                          │
+        ╰──────────────────────────────────────────────────────────╯
+      */}
       <body className="antialiased min-h-screen">
         <AdversarialProvider>
           <a href="#main-content" className="skip-link">
@@ -110,6 +117,13 @@ export default async function RootLayout({
             <div className="px-4 py-6 md:px-6 md:py-8 lg:px-10 lg:py-12 max-w-5xl">
               {children}
             </div>
+
+            {/* Footer */}
+            <footer className="px-4 pb-8 md:px-6 lg:px-10 max-w-5xl">
+              <p className="text-[11px] text-text-muted/60 text-center lg:text-left">
+                Made with care and Claude in California.
+              </p>
+            </footer>
           </main>
         </AdversarialProvider>
         <Analytics />
