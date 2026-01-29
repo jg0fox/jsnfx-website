@@ -116,11 +116,6 @@ export function MobileNav({ portfolioItems = [], projectItems = [] }: MobileNavP
       label: "Creative writing",
       icon: <PenTool className="w-5 h-5" />,
     },
-    {
-      href: "/evaluation",
-      label: "Evaluation",
-      icon: <FlaskConical className="w-5 h-5" />,
-    },
   ];
 
   const socialLinks = [
@@ -279,13 +274,27 @@ export function MobileNav({ portfolioItems = [], projectItems = [] }: MobileNavP
               })}
             </div>
 
-            {/* Lab Section */}
+            {/* Experiments Section */}
             <div className="mt-8 pt-6 border-t border-soft-linen-dark">
-              <p className="px-4 mb-3 text-xs font-medium uppercase tracking-wider text-text-muted">
-                Lab
+              <p className="px-4 mb-1 text-xs font-medium uppercase tracking-wider text-text-muted">
+                Experiments
               </p>
-              <div className="px-4">
+              <p className="px-4 mb-3 text-[11px] text-text-muted leading-relaxed">
+                AI-powered features that make content harder to read. For science.
+              </p>
+              <div className="px-4 space-y-2">
                 <AdversarialToggle />
+                <Link
+                  href="/evaluation"
+                  className={cn(
+                    "flex items-center gap-2 py-2 text-sm rounded-lg transition-colors duration-200",
+                    "text-text-secondary hover:text-text-primary",
+                    pathname === "/evaluation" && "text-palm-leaf-3 font-medium"
+                  )}
+                >
+                  <FlaskConical className="w-4 h-4" />
+                  <span>Evaluation reports</span>
+                </Link>
               </div>
             </div>
 

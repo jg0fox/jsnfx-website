@@ -215,11 +215,6 @@ export function Sidebar({ portfolioItems = [], projectItems = [] }: SidebarProps
       label: "Creative writing",
       icon: <PenTool className="w-5 h-5" />,
     },
-    {
-      href: "/evaluation",
-      label: "Evaluation",
-      icon: <FlaskConical className="w-5 h-5" />,
-    },
   ];
 
   const socialLinks = [
@@ -282,13 +277,27 @@ export function Sidebar({ portfolioItems = [], projectItems = [] }: SidebarProps
         ))}
       </nav>
 
-      {/* Lab Section */}
+      {/* Experiments Section */}
       <div className="p-4 border-t border-soft-linen-dark">
-        <p className="px-3 mb-2 text-xs font-medium uppercase tracking-wider text-text-muted">
-          Lab
+        <p className="px-3 mb-1 text-xs font-medium uppercase tracking-wider text-text-muted">
+          Experiments
+        </p>
+        <p className="px-3 mb-3 text-[11px] text-text-muted leading-relaxed">
+          AI-powered features that make content harder to read. For science.
         </p>
         <div className="space-y-1">
           <AdversarialToggle />
+          <Link
+            href="/evaluation"
+            className={cn(
+              "flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors duration-200",
+              "text-text-secondary hover:text-text-primary hover:bg-soft-linen-dark/50",
+              pathname === "/evaluation" && "text-palm-leaf-3 font-medium"
+            )}
+          >
+            <FlaskConical className="w-4 h-4" />
+            <span>Evaluation reports</span>
+          </Link>
         </div>
       </div>
 
