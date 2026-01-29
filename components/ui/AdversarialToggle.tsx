@@ -3,105 +3,133 @@
 /**
  * AdversarialToggle - Toggle switch for adversarial mode with tooltip
  *
- * Shows a toggle to enable/disable adversarial mode, with a dismissible
- * tooltip explaining the debug console keyboard shortcut.
+ * Shows a toggle to enable/disable adversarial mode, with a clickable
+ * info icon that shows a toast explaining the debug console.
  */
 
-import { useState, useEffect } from 'react';
-import { FlaskConical, X } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
+import { FlaskConical, Info, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAdversarialMode } from '@/components/behavior';
 
-const TOOLTIP_DISMISSED_KEY = 'adversarial_tooltip_dismissed';
+const TOAST_DURATION = 8000; // 8 seconds
 
 export function AdversarialToggle() {
   const { enabled, setEnabled } = useAdversarialMode();
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [tooltipDismissed, setTooltipDismissed] = useState(true);
-
-  // Check localStorage for dismissed state on mount
-  useEffect(() => {
-    const dismissed = localStorage.getItem(TOOLTIP_DISMISSED_KEY) === 'true';
-    setTooltipDismissed(dismissed);
-    // Show tooltip if not dismissed and mode is enabled
-    if (!dismissed && enabled) {
-      setShowTooltip(true);
-    }
-  }, [enabled]);
+  const [showToast, setShowToast] = useState(false);
 
   const handleToggle = () => {
-    const newEnabled = !enabled;
-    setEnabled(newEnabled);
+    setEnabled(!enabled);
+  };
 
-    // Show tooltip when enabling (if not previously dismissed)
-    if (newEnabled && !tooltipDismissed) {
-      setShowTooltip(true);
-    } else {
-      setShowTooltip(false);
+  const handleShowToast = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowToast(true);
+  }, []);
+
+  const handleDismissToast = useCallback(() => {
+    setShowToast(false);
+  }, []);
+
+  // Auto-dismiss toast after duration
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => {
+        setShowToast(false);
+      }, TOAST_DURATION);
+      return () => clearTimeout(timer);
     }
-  };
-
-  const handleDismissTooltip = () => {
-    setShowTooltip(false);
-    setTooltipDismissed(true);
-    localStorage.setItem(TOOLTIP_DISMISSED_KEY, 'true');
-  };
+  }, [showToast]);
 
   // Detect OS for keyboard shortcut display
   const isMac = typeof navigator !== 'undefined' && /Mac/.test(navigator.userAgent);
-  const shortcutKey = isMac ? '⌘+⇧+D' : 'Ctrl+Shift+D';
 
   return (
-    <div className="relative">
-      <button
-        onClick={handleToggle}
-        className={cn(
-          'flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors duration-200 w-full text-left',
-          'hover:bg-soft-linen-dark/50',
-          enabled
-            ? 'text-bronze-spice font-medium'
-            : 'text-text-secondary'
-        )}
-        role="switch"
-        aria-checked={enabled}
-        aria-label="Toggle adversarial mode"
-      >
-        <FlaskConical className="w-4 h-4" />
-        <span className="flex-1">Adversarial</span>
+    <>
+      <div className="relative">
         <div
           className={cn(
-            'relative w-9 h-5 rounded-full transition-colors duration-200',
-            enabled ? 'bg-bronze-spice' : 'bg-soft-linen-dark'
+            'flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors duration-200',
+            'hover:bg-soft-linen-dark/50',
+            enabled
+              ? 'text-bronze-spice font-medium'
+              : 'text-text-secondary'
           )}
         >
-          <div
-            className={cn(
-              'absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200',
-              enabled ? 'translate-x-4' : 'translate-x-0.5'
-            )}
-          />
-        </div>
-      </button>
+          <FlaskConical className="w-4 h-4" />
+          <span className="flex-1">Adversarial</span>
 
-      {/* Tooltip */}
-      {showTooltip && (
-        <div className="absolute bottom-full left-0 right-0 mb-2 z-50">
-          <div className="bg-text-primary text-soft-linen rounded-lg p-3 shadow-lg text-xs relative">
-            <button
-              onClick={handleDismissTooltip}
-              className="absolute top-1 right-1 p-1 hover:bg-white/10 rounded transition-colors"
-              aria-label="Dismiss tooltip"
+          {/* Info button */}
+          <button
+            onClick={handleShowToast}
+            className="p-1 -m-1 text-text-muted hover:text-text-secondary transition-colors"
+            aria-label="Learn about adversarial mode"
+          >
+            <Info className="w-4 h-4" />
+          </button>
+
+          {/* Toggle switch */}
+          <button
+            onClick={handleToggle}
+            role="switch"
+            aria-checked={enabled}
+            aria-label="Toggle adversarial mode"
+            className="ml-1"
+          >
+            <div
+              className={cn(
+                'relative w-9 h-5 rounded-full transition-colors duration-200',
+                enabled ? 'bg-bronze-spice' : 'bg-soft-linen-dark'
+              )}
             >
-              <X className="w-3 h-3" />
-            </button>
-            <p className="pr-4">
-              Press <kbd className="px-1 py-0.5 bg-white/20 rounded text-[10px] font-mono">{shortcutKey}</kbd> to open the debug console.
-            </p>
-            {/* Arrow */}
-            <div className="absolute -bottom-1.5 left-6 w-3 h-3 bg-text-primary rotate-45" />
+              <div
+                className={cn(
+                  'absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200',
+                  enabled ? 'translate-x-4' : 'translate-x-0.5'
+                )}
+              />
+            </div>
+          </button>
+        </div>
+      </div>
+
+      {/* Toast notification - fixed position */}
+      {showToast && (
+        <div className="fixed bottom-4 left-4 right-4 z-[9999] md:left-auto md:right-4 md:w-96">
+          <div className="bg-soft-linen border border-soft-linen-dark rounded-lg p-4 shadow-lg">
+            <div className="flex items-start gap-3">
+              <span className="text-xl">💡</span>
+              <div className="flex-1 min-w-0">
+                <p className="font-medium text-text-primary text-sm">
+                  Want to see transformations in real-time?
+                </p>
+                <p className="text-text-secondary text-sm mt-1">
+                  Press{' '}
+                  <kbd className="px-1.5 py-0.5 bg-soft-linen-dark rounded text-xs font-mono">
+                    {isMac ? '⌘' : 'Ctrl'}
+                  </kbd>
+                  {' + '}
+                  <kbd className="px-1.5 py-0.5 bg-soft-linen-dark rounded text-xs font-mono">
+                    Shift
+                  </kbd>
+                  {' + '}
+                  <kbd className="px-1.5 py-0.5 bg-soft-linen-dark rounded text-xs font-mono">
+                    D
+                  </kbd>
+                  {' '}on any page to open the debug panel. It shows the current behavior mode, scroll velocity, idle time, and transformation activity as it happens.
+                </p>
+              </div>
+              <button
+                onClick={handleDismissToast}
+                className="p-1 -m-1 text-text-muted hover:text-text-secondary transition-colors flex-shrink-0"
+                aria-label="Dismiss"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
