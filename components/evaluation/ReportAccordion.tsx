@@ -167,8 +167,8 @@ function TransformationCard({
             </div>
           )}
         </div>
-        <div className={`text-2xl font-bold ${getScoreColor(effectivenessScore)}`}>
-          {effectivenessScore.toFixed(1)}
+        <div className={`text-2xl font-bold ${getScoreColor(effectivenessScore ?? 0)}`}>
+          {typeof effectivenessScore === 'number' ? effectivenessScore.toFixed(1) : 'N/A'}
         </div>
       </div>
 
@@ -316,8 +316,8 @@ function AccordionItem({ report, isOpen, onToggle }: {
                 </div>
               )}
             </div>
-            <div className={`text-2xl font-bold ${getScoreColor(batchSummary.averageScore)}`}>
-              {batchSummary.averageScore.toFixed(1)}
+            <div className={`text-2xl font-bold ${getScoreColor(batchSummary.averageScore ?? 0)}`}>
+              {typeof batchSummary.averageScore === 'number' ? batchSummary.averageScore.toFixed(1) : 'N/A'}
             </div>
           </div>
         </div>
@@ -329,8 +329,8 @@ function AccordionItem({ report, isOpen, onToggle }: {
           {/* Summary Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="p-3 bg-soft-linen rounded-lg">
-              <div className={`text-2xl font-bold ${getScoreColor(batchSummary.averageScore)}`}>
-                {batchSummary.averageScore.toFixed(1)}
+              <div className={`text-2xl font-bold ${getScoreColor(batchSummary.averageScore ?? 0)}`}>
+                {typeof batchSummary.averageScore === 'number' ? batchSummary.averageScore.toFixed(1) : 'N/A'}
               </div>
               <div className="text-xs text-text-muted">Average score</div>
             </div>

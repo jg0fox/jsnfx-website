@@ -102,10 +102,10 @@ export function ReportList({ reports, selectedId, onSelect }: ReportListProps) {
                 <div className="text-right">
                   <div
                     className={`text-2xl font-bold ${getScoreColor(
-                      batchSummary.averageScore
+                      batchSummary.averageScore ?? 0
                     )}`}
                   >
-                    {batchSummary.averageScore.toFixed(1)}
+                    {typeof batchSummary.averageScore === 'number' ? batchSummary.averageScore.toFixed(1) : 'N/A'}
                   </div>
                   <div
                     className={`text-xs font-medium ${
