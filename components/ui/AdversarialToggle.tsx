@@ -8,7 +8,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { FlaskConical, Info, X } from 'lucide-react';
+import { Info, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAdversarialMode } from '@/components/behavior';
 
@@ -56,8 +56,7 @@ export function AdversarialToggle() {
               : 'text-text-secondary'
           )}
         >
-          <FlaskConical className="w-4 h-4" />
-          <span className="flex-1">Adversarial</span>
+          <span className="flex-1">Content adversary</span>
 
           {/* Info button */}
           <button

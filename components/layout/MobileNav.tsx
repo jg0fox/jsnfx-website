@@ -17,7 +17,6 @@ import {
   ChevronDown,
   Check,
   Library,
-  FlaskConical,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AdversarialToggle } from "@/components/ui/AdversarialToggle";
@@ -287,13 +286,12 @@ export function MobileNav({ portfolioItems = [], projectItems = [] }: MobileNavP
                 <Link
                   href="/evaluation"
                   className={cn(
-                    "flex items-center gap-2 py-2 text-sm rounded-lg transition-colors duration-200",
+                    "flex items-center py-2 text-sm rounded-lg transition-colors duration-200",
                     "text-text-secondary hover:text-text-primary",
                     pathname === "/evaluation" && "text-palm-leaf-3 font-medium"
                   )}
                 >
-                  <FlaskConical className="w-4 h-4" />
-                  <span>Evaluation reports</span>
+                  Evaluation reports
                 </Link>
               </div>
             </div>

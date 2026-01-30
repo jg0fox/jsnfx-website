@@ -15,7 +15,6 @@ import {
   Copy,
   Check,
   Library,
-  FlaskConical,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -290,13 +289,12 @@ export function Sidebar({ portfolioItems = [], projectItems = [] }: SidebarProps
           <Link
             href="/evaluation"
             className={cn(
-              "flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors duration-200",
+              "flex items-center px-3 py-2 text-sm rounded-lg transition-colors duration-200",
               "text-text-secondary hover:text-text-primary hover:bg-soft-linen-dark/50",
               pathname === "/evaluation" && "text-palm-leaf-3 font-medium"
             )}
           >
-            <FlaskConical className="w-4 h-4" />
-            <span>Evaluation reports</span>
+            Evaluation reports
           </Link>
         </div>
       </div>
