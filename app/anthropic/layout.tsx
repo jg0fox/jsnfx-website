@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Thoughts on content, trust, and AI",
+  title: "Notes on enterprise AI, trust, and content design",
   description:
-    "How I'd approach enterprise content design at Anthropic — building trust with complex, multi-stakeholder audiences in healthcare and financial services.",
+    "My notes on enterprise AI content design — observations on trust frameworks, regulated industries, and principles from studying Anthropic's approach.",
   robots: {
     index: false,
     follow: false,
