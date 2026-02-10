@@ -46,6 +46,9 @@ jsnfx-website-tech-spec.md
 Illustration/
 site structure and content/
 
+# archived landing pages
+anthropic-landing-page/
+
 # loose images in root (keep them in public/)
 /*.png
 /*.svg
