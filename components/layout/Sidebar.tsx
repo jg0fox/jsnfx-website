@@ -15,6 +15,7 @@ import {
   Copy,
   Check,
   Library,
+  BookText,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -213,6 +214,11 @@ export function Sidebar({ portfolioItems = [], projectItems = [] }: SidebarProps
       href: "/writing",
       label: "Creative writing",
       icon: <PenTool className="w-5 h-5" />,
+    },
+    {
+      href: "/glossolalia",
+      label: "Glossolalia",
+      icon: <BookText className="w-5 h-5" />,
     },
   ];
 
