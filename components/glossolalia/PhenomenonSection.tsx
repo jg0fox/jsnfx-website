@@ -39,22 +39,22 @@ export function PhenomenonSection({
     <section
       id={phenomenon.id}
       ref={sectionRef}
-      className="scroll-mt-20 pb-12 md:pb-16"
+      className="scroll-mt-32 lg:scroll-mt-16 pb-8 md:pb-16"
     >
-      <h3 className="text-xl md:text-2xl font-display font-bold text-text-primary mb-4">
+      <h3 className="text-xl md:text-2xl font-display font-bold text-text-primary mb-3">
         {phenomenon.number}. {phenomenon.title}
       </h3>
 
       {/* Overview */}
-      <div className="mb-6">
-        <p className="text-base text-text-secondary leading-relaxed max-w-prose">
+      <div className="mb-4 md:mb-6">
+        <p className="text-sm md:text-base text-text-secondary leading-relaxed">
           {phenomenon.overview}
         </p>
       </div>
 
       {/* Key concepts */}
-      <div className="mb-6">
-        <h4 className="text-sm font-bold text-text-muted uppercase tracking-wide mb-3">
+      <div className="mb-4 md:mb-6">
+        <h4 className="text-xs md:text-sm font-bold text-text-muted uppercase tracking-wide mb-2 md:mb-3">
           Key concepts
         </h4>
         <div className="grid gap-2">
@@ -70,8 +70,8 @@ export function PhenomenonSection({
 
       {/* Thought experiments */}
       {phenomenon.thoughtExperiments.length > 0 && (
-        <div className="mb-6">
-          <h4 className="text-sm font-bold text-text-muted uppercase tracking-wide mb-3">
+        <div className="mb-4 md:mb-6">
+          <h4 className="text-xs md:text-sm font-bold text-text-muted uppercase tracking-wide mb-2 md:mb-3">
             Try it yourself
           </h4>
           <div className="grid gap-3">
@@ -84,9 +84,9 @@ export function PhenomenonSection({
 
       {/* Interactive exercise */}
       {ExerciseComponent && (
-        <div className="mb-6">
-          <div className="border-2 border-palm-leaf/30 rounded-lg p-5 md:p-6 bg-soft-linen-light/50">
-            <h4 className="text-sm font-bold text-palm-leaf-3 uppercase tracking-wide mb-4">
+        <div className="mb-4 md:mb-6">
+          <div className="border-2 border-palm-leaf/30 rounded-lg p-4 md:p-6 bg-soft-linen-light/50">
+            <h4 className="text-xs md:text-sm font-bold text-palm-leaf-3 uppercase tracking-wide mb-3 md:mb-4">
               Interactive exercise
             </h4>
             <ExerciseComponent />

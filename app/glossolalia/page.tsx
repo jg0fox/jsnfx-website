@@ -45,8 +45,8 @@ export default function GlossalaliaPage() {
       />
 
       {/* Intro */}
-      <div className="mb-8 md:mb-12 max-w-prose">
-        <p className="text-base text-text-secondary leading-relaxed mb-4">
+      <div className="mb-6 md:mb-12">
+        <p className="text-sm md:text-base text-text-secondary leading-relaxed mb-3 md:mb-4">
           The premise behind this research is straightforward: language
           processing in humans is largely automatic, involuntary, and operates
           below conscious control. These aren&apos;t theoretical concerns —
@@ -56,7 +56,7 @@ export default function GlossalaliaPage() {
           better), it could potentially engineer linguistic exploits that bypass
           human reasoning entirely.
         </p>
-        <p className="text-base text-text-secondary leading-relaxed">
+        <p className="text-sm md:text-base text-text-secondary leading-relaxed">
           We&apos;re not building the exploit. We&apos;re building the corpus —
           gathering evidence, running experiments, and documenting
           vulnerabilities so that when aligned AI systems are capable enough to
@@ -65,8 +65,8 @@ export default function GlossalaliaPage() {
         </p>
       </div>
 
-      {/* Two-column layout: nav sidebar + content */}
-      <div className="flex gap-8">
+      {/* Two-column layout: stacked on mobile, side-by-side at xl+ */}
+      <div className="flex flex-col xl:flex-row xl:gap-8">
         <StudyGuideNav
           tiers={tiers}
           activePhenomenonId={activeId}
@@ -101,7 +101,7 @@ export default function GlossalaliaPage() {
           />
 
           {/* Divider between tiers */}
-          <div className="my-12 md:my-16 border-t border-soft-linen-dark" />
+          <div className="my-8 md:my-16 border-t border-soft-linen-dark" />
 
           {/* Tier 2 */}
           <TierHeader

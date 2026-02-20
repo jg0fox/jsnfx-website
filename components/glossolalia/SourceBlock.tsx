@@ -59,7 +59,7 @@ export function SourceBlock({ source }: SourceBlockProps) {
             </p>
           </blockquote>
 
-          <div className="flex items-center justify-between pt-1">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-1">
             <p className="text-xs text-text-muted italic">
               {source.experimentRelevance}
             </p>
@@ -68,7 +68,7 @@ export function SourceBlock({ source }: SourceBlockProps) {
                 href={source.doiUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-palm-leaf-3 hover:text-bronze-spice transition-colors shrink-0 ml-3"
+                className="inline-flex items-center gap-1 text-xs text-palm-leaf-3 hover:text-bronze-spice transition-colors shrink-0"
               >
                 Source <ExternalLink className="w-3 h-3" />
               </a>

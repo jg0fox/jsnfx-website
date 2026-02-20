@@ -80,7 +80,7 @@ export function StudyGuideNav({
       </aside>
 
       {/* Mobile/tablet dropdown — visible below xl */}
-      <div className="xl:hidden sticky top-0 z-10 bg-soft-linen/95 backdrop-blur-sm border-b border-soft-linen-dark -mx-4 px-4 md:-mx-6 md:px-6 py-3">
+      <div className="xl:hidden sticky top-16 lg:top-0 z-10 bg-soft-linen/95 backdrop-blur-sm border-b border-soft-linen-dark -mx-4 px-4 md:-mx-6 md:px-6 py-3">
         <div className="flex items-center justify-between">
           <div className="min-w-0 flex-1 mr-3">
             <ProgressBar progress={progress} />
