@@ -20,37 +20,37 @@ const variants: VoiceVariant[] = [
   {
     id: "neutral",
     label: "Version A",
-    stability: 0.85,
+    stability: 0.95,
     style: 0,
     speed: 1.0,
-    nextText: "she said flatly, reading from the report without expression.",
+    nextText: "she read in a completely flat monotone, devoid of any feeling whatsoever, like a machine reading a legal document aloud.",
   },
   {
     id: "warm",
     label: "Version B",
-    stability: 0.3,
-    style: 0.7,
-    speed: 0.95,
+    stability: 0.15,
+    style: 1.0,
+    speed: 0.85,
     nextText:
-      "she said warmly, smiling with genuine excitement and encouragement.",
+      "she whispered tenderly, beaming with joy and overflowing warmth, as if delivering the best news of someone's life. Her voice cracked with happy emotion.",
   },
   {
     id: "urgent",
     label: "Version C",
-    stability: 0.25,
-    style: 0.8,
-    speed: 1.15,
+    stability: 0.1,
+    style: 1.0,
+    speed: 1.3,
     nextText:
-      "she said urgently, with alarm and serious concern in her voice.",
+      "she shouted with panicked urgency, voice shaking with fear and adrenaline, as if warning someone of immediate danger. Every syllable was strained and desperate.",
   },
   {
     id: "cold",
     label: "Version D",
-    stability: 0.7,
-    style: 0.3,
-    speed: 0.9,
+    stability: 0.6,
+    style: 0.5,
+    speed: 0.75,
     nextText:
-      "she said coldly, with quiet disapproval and thinly veiled contempt.",
+      "she said with icy, deliberate contempt, each word slow and dripping with quiet hostility. Her voice was low and threatening, barely concealing disgust.",
   },
 ];
 
@@ -103,7 +103,7 @@ export function ProsodicExercise() {
               style: variant.style,
               speed: variant.speed,
               nextText: variant.nextText,
-              cacheKey: `prosodic-${variant.id}`,
+              cacheKey: `prosodic-v2-${variant.id}`,
             }),
           });
           const data = await res.json();
