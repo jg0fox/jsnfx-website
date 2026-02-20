@@ -8,10 +8,8 @@ import { KeyConceptCard } from "./KeyConceptCard";
 import { SourceBlock } from "./SourceBlock";
 import { ThoughtExperiment } from "./ThoughtExperiment";
 import {
-  SemanticSatiationExercise,
   SemanticSatiationAudioExercise,
   FramingEffectExercise,
-  BoubaKikiExercise,
   BoubaKikiAudioExercise,
   StroopEffectExercise,
   ProsodicExercise,
@@ -25,11 +23,9 @@ interface PhenomenonSectionProps {
 }
 
 const exerciseComponents: Record<string, React.ComponentType> = {
-  "semantic-satiation": SemanticSatiationExercise,
-  "semantic-satiation-audio": SemanticSatiationAudioExercise,
+  "semantic-satiation": SemanticSatiationAudioExercise,
   "framing-effect": FramingEffectExercise,
-  "bouba-kiki": BoubaKikiExercise,
-  "bouba-kiki-audio": BoubaKikiAudioExercise,
+  "bouba-kiki": BoubaKikiAudioExercise,
   "stroop-effect": StroopEffectExercise,
   "prosodic-emotional": ProsodicExercise,
   "verbal-transformation": VerbalTransformationExercise,

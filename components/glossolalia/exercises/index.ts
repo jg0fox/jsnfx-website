@@ -1,7 +1,5 @@
-export { SemanticSatiationExercise } from "./SemanticSatiationExercise";
 export { SemanticSatiationAudioExercise } from "./SemanticSatiationAudioExercise";
 export { FramingEffectExercise } from "./FramingEffectExercise";
-export { BoubaKikiExercise } from "./BoubaKikiExercise";
 export { BoubaKikiAudioExercise } from "./BoubaKikiAudioExercise";
 export { StroopEffectExercise } from "./StroopEffectExercise";
 export { ProsodicExercise } from "./ProsodicExercise";

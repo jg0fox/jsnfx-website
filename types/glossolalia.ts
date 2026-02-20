@@ -43,10 +43,8 @@ export interface ThoughtExperiment {
 
 export type ExerciseType =
   | "semantic-satiation"
-  | "semantic-satiation-audio"
   | "framing-effect"
   | "bouba-kiki"
-  | "bouba-kiki-audio"
   | "stroop-effect"
   | "prosodic-emotional"
   | "verbal-transformation"

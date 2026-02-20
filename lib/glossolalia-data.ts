@@ -114,7 +114,7 @@ const semanticSatiation: Phenomenon = {
         'Imagine a social media feed that, through algorithmic repetition, shows you the word "freedom" 200 times in a single scrolling session, embedded in headlines, comments, ads, captions. Not as propaganda. Just as ambient repetition. By the end of the session, what has happened to your relationship with the concept?',
     },
   ],
-  exercises: ["semantic-satiation", "semantic-satiation-audio"],
+  exercises: ["semantic-satiation"],
 };
 
 const gardenPathSentences: Phenomenon = {
@@ -918,7 +918,7 @@ const boubaKikiEffect: Phenomenon = {
         'Say the word "kiki" out loud. Notice how the hard /k/ sounds feel angular in your mouth, sharp, percussive, edged. Now say "bouba." The /b/ is rounded. The /ou/ opens your mouth into a circle. You are not imagining this association. Your auditory cortex is tracking real acoustic physics, and this mapping is pre-linguistic.',
     },
   ],
-  exercises: ["bouba-kiki", "bouba-kiki-audio"],
+  exercises: ["bouba-kiki"],
 };
 
 const cognitiveLoadTheory: Phenomenon = {
