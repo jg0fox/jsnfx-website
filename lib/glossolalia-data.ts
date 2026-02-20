@@ -19,7 +19,7 @@ const semanticSatiation: Phenomenon = {
   tier: "tier1",
   title: "Semantic satiation",
   overview:
-    "Semantic satiation is the phenomenon where rapid repetition of a word causes it to temporarily lose its meaning. First described by Severance and Washburn in 1907, it demonstrates that the connection between a word's form and its meaning isn't permanent — it's maintained by active neural processes that can be exhausted. When those processes fatigue, the word becomes a meaningless sound. A shell of phonemes emptied of content.\n\nThis is the foundational mechanism behind the Pontypool premise, and it's real: repetition can dissolve meaning at the neurological level.",
+    "Semantic satiation is the phenomenon where rapid repetition of a word causes it to temporarily lose its meaning. First described by Severance and Washburn in 1907, it demonstrates that the connection between a word's form and its meaning isn't permanent; it's maintained by active neural processes that can be exhausted. When those processes fatigue, the word becomes a meaningless sound. A shell of phonemes emptied of content.\n\nThis is the foundational mechanism behind the Pontypool premise, and it's real: repetition can dissolve meaning at the neurological level.",
   keyConcepts: [
     {
       term: "N400 reduction",
@@ -53,7 +53,7 @@ const semanticSatiation: Phenomenon = {
       summary:
         "Uses deep learning (continuous coupled neural networks) to model semantic satiation at mesoscopic level. Suggests satiation is a bottom-up process, contradicting macro-level psychological studies suggesting top-down processing. Neural coupling strength controls satiation intensity.",
       whyItMatters:
-        "If meaning dissolution is bottom-up and architectural rather than top-down and attentional, it means an adversarial system wouldn't need to persuade anyone of anything — it would just need the right repetition parameters. Understanding the exact coupling dynamics is essential for designing countermeasures.",
+        "If meaning dissolution is bottom-up and architectural rather than top-down and attentional, it means an adversarial system wouldn't need to persuade anyone of anything; it would just need the right repetition parameters. Understanding the exact coupling dynamics is essential for designing countermeasures.",
       experimentRelevance:
         "Direct relevance to repetition protocol experiments. Can inform stimuli selection and repetition parameters for measuring semantic satiation curves.",
       doiUrl: "https://doi.org/10.1038/s42003-024-06614-5",
@@ -82,7 +82,7 @@ const semanticSatiation: Phenomenon = {
       summary:
         "Used ERP methodology to demonstrate that semantic satiation directly affects semantic memory, not just perceptual input. Prime satiation modulated N400 relatedness effects.",
       whyItMatters:
-        "This distinction matters for defense design. If satiation only affected perception, you could build filters at the input level. But it targets semantic memory directly — the web of associations that gives words their power. Defending against this requires intervention at the cognitive level, not just the sensory level.",
+        "This distinction matters for defense design. If satiation only affected perception, you could build filters at the input level. But it targets semantic memory directly, the web of associations that gives words their power. Defending against this requires intervention at the cognitive level, not just the sensory level.",
       experimentRelevance:
         "Foundational evidence that satiation targets semantics directly. Supports the premise that repetition can degrade meaning at the cognitive level.",
       doiUrl: "https://doi.org/10.3758/BF03211816",
@@ -106,12 +106,12 @@ const semanticSatiation: Phenomenon = {
     {
       id: "semantic-satiation-te-1",
       prompt:
-        "Pick a simple word — your own name will do. Say it aloud, slowly, thirty times in a row. Around repetition fifteen or twenty, notice the moment it stops sounding like a name and starts sounding like a sequence of mouth noises. That hollowing out is not a metaphor. Your neural coupling between the sound and the identity it represents is literally fatiguing.",
+        "Pick a simple word, your own name will do. Say it aloud, slowly, thirty times in a row. Around repetition fifteen or twenty, notice the moment it stops sounding like a name and starts sounding like a sequence of mouth noises. That hollowing out is not a metaphor. Your neural coupling between the sound and the identity it represents is literally fatiguing.",
     },
     {
       id: "semantic-satiation-te-2",
       prompt:
-        'Imagine a social media feed that, through algorithmic repetition, shows you the word "freedom" 200 times in a single scrolling session — embedded in headlines, comments, ads, captions. Not as propaganda. Just as ambient repetition. By the end of the session, what has happened to your relationship with the concept?',
+        'Imagine a social media feed that, through algorithmic repetition, shows you the word "freedom" 200 times in a single scrolling session, embedded in headlines, comments, ads, captions. Not as propaganda. Just as ambient repetition. By the end of the session, what has happened to your relationship with the concept?',
     },
   ],
   exercise: "semantic-satiation",
@@ -123,7 +123,7 @@ const gardenPathSentences: Phenomenon = {
   tier: "tier1",
   title: "Garden-path sentences",
   overview:
-    "Garden-path sentences exploit the brain's predictive parsing strategy. The parser commits to a syntactic structure early in a sentence, only to discover at a disambiguation point that the initial parse was wrong. The resulting reanalysis is costly — and crucially, the original misinterpretation often persists even after correction. The brain's first reading haunts its second.",
+    "Garden-path sentences exploit the brain's predictive parsing strategy. The parser commits to a syntactic structure early in a sentence, only to discover at a disambiguation point that the initial parse was wrong. The resulting reanalysis is costly, and crucially, the original misinterpretation often persists even after correction. The brain's first reading haunts its second.",
   keyConcepts: [
     {
       term: "Predictive parsing",
@@ -152,7 +152,7 @@ const gardenPathSentences: Phenomenon = {
       summary:
         "ERPs during reading of reduced relative clauses with telic vs. atelic verbs. Differential N400/P600 processing suggests verb semantics interact with syntactic reanalysis.",
       whyItMatters:
-        "The parser's predictive commitment creates a brief window where incoming information is interpreted through the wrong structural frame. A system engineering adversarial text could exploit these windows — embedding harmful interpretations in the initial parse, knowing they'll persist even after the reader \"corrects\" their understanding.",
+        "The parser's predictive commitment creates a brief window where incoming information is interpreted through the wrong structural frame. A system engineering adversarial text could exploit these windows by embedding harmful interpretations in the initial parse, knowing they'll persist even after the reader \"corrects\" their understanding.",
       experimentRelevance:
         "Garden-path stimuli design for comprehension experiments. Telic/atelic verb distinction for difficulty calibration.",
       doiUrl: "https://doi.org/10.1162/jocn.2008.20018",
@@ -193,7 +193,7 @@ const phonemicRestoration: Phenomenon = {
   tier: "tier1",
   title: "Phonemic restoration",
   overview:
-    "When a phoneme in a word is replaced by noise (a cough, a tone burst), listeners report hearing the missing sound clearly and can't tell where the noise occurred. This isn't guessing — signal detection studies show listeners genuinely can't discriminate between real and hallucinated phonemes. The brain manufactures perceptual experience from expectation, and cortical recordings show frontal regions \"decide\" what will be heard before auditory cortex synthesizes it.",
+    "When a phoneme in a word is replaced by noise (a cough, a tone burst), listeners report hearing the missing sound clearly and can't tell where the noise occurred. This isn't guessing; signal detection studies show listeners genuinely can't discriminate between real and hallucinated phonemes. The brain manufactures perceptual experience from expectation, and cortical recordings show frontal regions \"decide\" what will be heard before auditory cortex synthesizes it.",
   keyConcepts: [
     {
       term: "Perceptual hallucination",
@@ -203,7 +203,7 @@ const phonemicRestoration: Phenomenon = {
     {
       term: "Predictive synthesis",
       description:
-        "frontal cortex predicts the missing phoneme before auditory cortex generates the percept — the brain writes the script before performing it.",
+        "frontal cortex predicts the missing phoneme before auditory cortex generates the percept. The brain writes the script before performing it.",
     },
     {
       term: "Top-down completion",
@@ -221,7 +221,7 @@ const phonemicRestoration: Phenomenon = {
       summary:
         "Signal detection theory shows phonemic restoration affects actual perceptual discriminability, not just response bias. Listeners genuinely \"hear\" phonemes that aren't there.",
       whyItMatters:
-        "Our perceptual systems are already performing something functionally equivalent to audio deepfaking — filling in missing information with generated content that we can't distinguish from reality. Understanding the parameters of this gap-filling mechanism is essential for detecting when it might be exploited by adversarial audio.",
+        "Our perceptual systems are already performing something functionally equivalent to audio deepfaking, filling in missing information with generated content that we can't distinguish from reality. Understanding the parameters of this gap-filling mechanism is essential for detecting when it might be exploited by adversarial audio.",
       experimentRelevance:
         "Foundation for understanding brain gap-filling. Directly relevant to audio-based experiment design.",
       doiUrl: "https://doi.org/10.1037/0096-3445.110.4.474",
@@ -235,7 +235,7 @@ const phonemicRestoration: Phenomenon = {
       summary:
         "Direct cortical recordings: missing speech is restored at the acoustic-phonetic level in bilateral auditory cortex in real-time. Frontal activity predicts the word before auditory cortex synthesizes it.",
       whyItMatters:
-        "The frontal cortex is effectively pre-committing to a perceptual interpretation before the auditory system generates it. This means adversarial audio could potentially exploit the prediction mechanism — craft inputs that trigger specific frontal predictions, letting the brain's own generative processes do the work of producing the intended percept. Defensive research needs to map these prediction pathways precisely.",
+        "The frontal cortex is effectively pre-committing to a perceptual interpretation before the auditory system generates it. This means adversarial audio could potentially exploit the prediction mechanism, crafting inputs that trigger specific frontal predictions, letting the brain's own generative processes do the work of producing the intended percept. Defensive research needs to map these prediction pathways precisely.",
       experimentRelevance:
         "Neural mechanism paper. Real-time restoration in auditory cortex with frontal prediction could inform audio experiment design.",
       doiUrl: "https://doi.org/10.1038/ncomms13619",
@@ -256,7 +256,7 @@ const mcgurkEffect: Phenomenon = {
   tier: "tier1",
   title: "McGurk effect",
   overview:
-    "The McGurk effect demonstrates that visual speech information (lip movements) can override auditory perception. Audio /ba/ paired with video /ga/ produces perceived /da/ — a sound that exists in neither input stream. The illusion persists even when participants know about it and actively try to resist it, making it one of the rare cognitive effects that is immune to awareness.",
+    "The McGurk effect demonstrates that visual speech information (lip movements) can override auditory perception. Audio /ba/ paired with video /ga/ produces perceived /da/, a sound that exists in neither input stream. The illusion persists even when participants know about it and actively try to resist it, making it one of the rare cognitive effects that is immune to awareness.",
   keyConcepts: [
     {
       term: "Cross-modal fusion",
@@ -286,7 +286,7 @@ const mcgurkEffect: Phenomenon = {
       whyItMatters:
         "This is one of the strongest arguments for why awareness-based defenses (\"just teach people about manipulation\") are insufficient against certain linguistic exploits. The McGurk effect persists even when you know exactly what's happening and actively try to resist it. Any defensive system needs to account for vulnerabilities that operate below the threshold of conscious override.",
       experimentRelevance:
-        "The persistence despite awareness is central to the project's thesis — some linguistic vulnerabilities can't be defended against through education alone.",
+        "The persistence despite awareness is central to the project's thesis: some linguistic vulnerabilities can't be defended against through education alone.",
       doiUrl: "https://doi.org/10.1038/264746a0",
     },
     {
@@ -298,7 +298,7 @@ const mcgurkEffect: Phenomenon = {
       summary:
         "Critical review: McGurk stimuli don't generalize well to natural AV speech. Individual susceptibility doesn't correlate with natural AV benefit.",
       whyItMatters:
-        "Important calibration for our threat models. Not every lab-demonstrated effect translates directly to real-world exploitability. The individual variation in McGurk susceptibility also suggests that a one-size-fits-all attack is unlikely — but a personalized one could be more effective. Defensive systems should test for individual vulnerability profiles.",
+        "Important calibration for our threat models. Not every lab-demonstrated effect translates directly to real-world exploitability. The individual variation in McGurk susceptibility also suggests that a one-size-fits-all attack is unlikely, but a personalized one could be more effective. Defensive systems should test for individual vulnerability profiles.",
       experimentRelevance:
         "Methodological caution. Individual differences in susceptibility as an important variable to measure.",
       doiUrl: "https://doi.org/10.1121/10.0010423",
@@ -319,7 +319,7 @@ const stroopEffect: Phenomenon = {
   tier: "tier1",
   title: "Stroop effect",
   overview:
-    'The Stroop effect, first demonstrated in 1935, shows that reading a color word (e.g., "RED" printed in blue ink) automatically interferes with naming the ink color. This isn\'t a quirk — it\'s proof that language processing is so deeply automatized that it overrides conscious intention. You can\'t choose not to read a word. The linguistic system operates with what amounts to root-level access to cognition.',
+    'The Stroop effect, first demonstrated in 1935, shows that reading a color word (e.g., "RED" printed in blue ink) automatically interferes with naming the ink color. This isn\'t a quirk; it\'s proof that language processing is so deeply automatized that it overrides conscious intention. You can\'t choose not to read a word. The linguistic system operates with what amounts to root-level access to cognition.',
   keyConcepts: [
     {
       term: "Automaticity of reading",
@@ -334,7 +334,7 @@ const stroopEffect: Phenomenon = {
     {
       term: "Prefrontal control",
       description:
-        "resolving Stroop interference requires active lateral prefrontal engagement — executive control struggling against its own automatic processes.",
+        "resolving Stroop interference requires active lateral prefrontal engagement, executive control struggling against its own automatic processes.",
     },
   ],
   sources: [
@@ -348,7 +348,7 @@ const stroopEffect: Phenomenon = {
       summary:
         "Argues Stroop interference occurs at multiple processing stages. Neuroimaging reveals lateral prefrontal regions bias processing toward task-relevant dimensions.",
       whyItMatters:
-        "The cascade model means there isn't one clean point where you could insert a defense against linguistic interference — it's distributed across the entire processing pipeline. Each stage is a potential point of exploitation, but also a potential point of intervention. Mapping these stages precisely is necessary for designing layered defenses.",
+        "The cascade model means there isn't one clean point where you could insert a defense against linguistic interference; it's distributed across the entire processing pipeline. Each stage is a potential point of exploitation, but also a potential point of intervention. Mapping these stages precisely is necessary for designing layered defenses.",
       experimentRelevance:
         "Stroop as a paradigm for measuring language-cognition interference. The cascade model informs how we think about multi-stage vulnerability.",
       doiUrl: "https://doi.org/10.3389/fpsyg.2019.02164",
@@ -372,7 +372,7 @@ const stroopEffect: Phenomenon = {
     {
       id: "stroop-effect-te-1",
       prompt:
-        'You are staring at the word "GREEN" printed in red ink, and someone asks you to name the ink color. You know the answer is "red." You want to say "red." And yet your mouth hesitates, because the word "GREEN" has already been read — involuntarily, automatically, without your permission. You cannot un-read a word.',
+        'You are staring at the word "GREEN" printed in red ink, and someone asks you to name the ink color. You know the answer is "red." You want to say "red." And yet your mouth hesitates, because the word "GREEN" has already been read, involuntarily, automatically, without your permission. You cannot un-read a word.',
     },
   ],
   exercise: "stroop-effect",
@@ -384,7 +384,7 @@ const semanticPriming: Phenomenon = {
   tier: "tier1",
   title: "Semantic priming",
   overview:
-    'Encountering one word automatically pre-activates related words in memory. "DOCTOR" makes "NURSE" faster to recognize than "BUTTER." This spreading activation through semantic networks is the fundamental mechanism by which meaning propagates — and it happens without conscious mediation.',
+    'Encountering one word automatically pre-activates related words in memory. "DOCTOR" makes "NURSE" faster to recognize than "BUTTER." This spreading activation through semantic networks is the fundamental mechanism by which meaning propagates, and it happens without conscious mediation.',
   keyConcepts: [
     {
       term: "Spreading activation",
@@ -412,7 +412,7 @@ const semanticPriming: Phenomenon = {
       summary:
         "Landmark demonstration: semantically related words are recognized faster than unrelated pairs. Established the semantic priming paradigm and evidence for spreading activation.",
       whyItMatters:
-        "Spreading activation means that the right sequence of words can pre-load specific concepts in a listener's mind before they're aware it's happening. Understanding the propagation rules of semantic networks is essential for modeling how adversarial language might cascade through cognition — and for designing priming-based inoculation strategies.",
+        "Spreading activation means that the right sequence of words can pre-load specific concepts in a listener's mind before they're aware it's happening. Understanding the propagation rules of semantic networks is essential for modeling how adversarial language might cascade through cognition, and for designing priming-based inoculation strategies.",
       experimentRelevance:
         "Core paradigm for semantic probing experiments. Spreading activation directly relevant to how linguistic influence cascades through meaning networks.",
       doiUrl: "https://doi.org/10.1037/h0031564",
@@ -448,7 +448,7 @@ const prosodyEmotionalContagion: Phenomenon = {
   tier: "tier1",
   title: "Prosody and emotional contagion",
   overview:
-    "Prosody — pitch, rhythm, tempo, intensity — is the primary channel for emotional transmission through voice. Specific acoustic parameters reliably convey particular emotional states, and they're processed hierarchically: simple emotions activate temporal-frontal circuits, while complex emotions additionally recruit prefrontal cortex and insula. The deeper the emotional prosody, the deeper it penetrates the cognitive architecture.",
+    "Prosody (pitch, rhythm, tempo, intensity) is the primary channel for emotional transmission through voice. Specific acoustic parameters reliably convey particular emotional states, and they're processed hierarchically: simple emotions activate temporal-frontal circuits, while complex emotions additionally recruit prefrontal cortex and insula. The deeper the emotional prosody, the deeper it penetrates the cognitive architecture.",
   keyConcepts: [
     {
       term: "Acoustic parameters",
@@ -463,7 +463,7 @@ const prosodyEmotionalContagion: Phenomenon = {
     {
       term: "Pre-semantic injection",
       description:
-        "prosodic features modify listener emotional state without semantic mediation — you feel the emotion before you understand the words.",
+        "prosodic features modify listener emotional state without semantic mediation. You feel the emotion before you understand the words.",
     },
   ],
   sources: [
@@ -477,7 +477,7 @@ const prosodyEmotionalContagion: Phenomenon = {
       summary:
         "Comprehensive review documenting how acoustic properties convey emotional states. Identifies methodological problems and proposes mechanistic directions.",
       whyItMatters:
-        "The acoustic parameters for emotional influence through voice are now well-characterized enough to be systematically engineered — which means they're well-characterized enough to be systematically defended against. Voice synthesis (ElevenLabs, etc.) makes this an immediate practical concern, not a theoretical one. Cataloging exact parameter ranges is both the threat model and the detection signature.",
+        "The acoustic parameters for emotional influence through voice are now well-characterized enough to be systematically engineered, which means they're well-characterized enough to be systematically defended against. Voice synthesis (ElevenLabs, etc.) makes this an immediate practical concern, not a theoretical one. Cataloging exact parameter ranges is both the threat model and the detection signature.",
       experimentRelevance:
         "Critical for audio experiment design. Prosodic parameters documented here inform both stimulus creation and detection thresholds.",
       doiUrl: "https://doi.org/10.1177/17456916241226588",
@@ -492,7 +492,7 @@ const prosodyEmotionalContagion: Phenomenon = {
       summary:
         "fMRI study: simple emotions activate temporal-frontal network; complex emotions additionally recruit medial prefrontal cortex and insula.",
       whyItMatters:
-        "Simple emotional tones can be filtered relatively easily — they're processed superficially. But complex emotional prosody recruits deep cognitive architecture, making it harder to defend against and harder to detect. Defensive systems need different strategies for different depths of prosodic influence.",
+        "Simple emotional tones can be filtered relatively easily; they're processed superficially. But complex emotional prosody recruits deep cognitive architecture, making it harder to defend against and harder to detect. Defensive systems need different strategies for different depths of prosodic influence.",
       experimentRelevance:
         "Neural pathway mapping. The simple/complex distinction is relevant to calibrating prosodic stimuli intensity in experiments.",
       doiUrl: "https://doi.org/10.1371/journal.pone.0028701",
@@ -505,6 +505,7 @@ const prosodyEmotionalContagion: Phenomenon = {
         "Think of a podcast host whose voice makes you feel calm and trusting. Is that trust based on what they said, or how their pitch, tempo, and rhythm shaped your emotional state before you processed a single argument? Prosodic features modify your emotions pre-semantically. You feel the tone before you understand the words.",
     },
   ],
+  exercise: "prosodic-emotional",
 };
 
 const verbalTransformationEffect: Phenomenon = {
@@ -513,7 +514,7 @@ const verbalTransformationEffect: Phenomenon = {
   tier: "tier1",
   title: "Verbal transformation effect",
   overview:
-    "When a clearly recorded word plays on continuous loop, listeners begin hearing it change — morphing into other words, nonsense syllables, or entirely different phrases. Warren's 1961 study found ~30 changes involving ~6 different word forms when a word repeats 360 times over 3 minutes. This isn't auditory fatigue — it's the semantic network actively generating alternative interpretations. The brain can't maintain a stable interpretation of repeated input.\n\nThis is the Pontypool mechanism made real.",
+    "When a clearly recorded word plays on continuous loop, listeners begin hearing it change, morphing into other words, nonsense syllables, or entirely different phrases. Warren's 1961 study found ~30 changes involving ~6 different word forms when a word repeats 360 times over 3 minutes. This isn't auditory fatigue; it's the semantic network actively generating alternative interpretations. The brain can't maintain a stable interpretation of repeated input.\n\nThis is the Pontypool mechanism made real.",
   keyConcepts: [
     {
       term: "Perceptual instability",
@@ -535,7 +536,7 @@ const verbalTransformationEffect: Phenomenon = {
     {
       id: "T1-17",
       title:
-        "Illusory changes of distinct speech upon repetition — the verbal transformation effect",
+        "Illusory changes of distinct speech upon repetition: the verbal transformation effect",
       authors: "Warren, R.M.",
       year: 1961,
       journal: "British Journal of Psychology",
@@ -558,7 +559,7 @@ const verbalTransformationEffect: Phenomenon = {
       summary:
         "Transformations increased with word imagery value and length, supporting spreading activation over simple fatigue.",
       whyItMatters:
-        "The spreading activation mechanism tells us that rich, concrete words are more susceptible to destabilization than impoverished abstract ones. This has direct implications for which parts of language would be most vulnerable to adversarial repetition — and which defensive strategies (semantic anchoring, redundant encoding) might be most effective.",
+        "The spreading activation mechanism tells us that rich, concrete words are more susceptible to destabilization than impoverished abstract ones. This has direct implications for which parts of language would be most vulnerable to adversarial repetition, and which defensive strategies (semantic anchoring, redundant encoding) might be most effective.",
       experimentRelevance:
         "Stimulus selection should favor words with rich semantic networks for maximum transformation potential.",
       doiUrl: "https://doi.org/10.1006/brln.1999.2222",
@@ -568,9 +569,10 @@ const verbalTransformationEffect: Phenomenon = {
     {
       id: "verbal-transformation-effect-te-1",
       prompt:
-        'If someone played the word "STRESS" on a continuous loop for three minutes, you would hear it transform — perhaps into "REST," then "DRESS," then something you could not spell. About thirty transformations. Six different forms. You are not choosing these transformations. Your semantic network is producing them autonomously.',
+        'If someone played the word "STRESS" on a continuous loop for three minutes, you would hear it transform, perhaps into "REST," then "DRESS," then something you could not spell. About thirty transformations. Six different forms. You are not choosing these transformations. Your semantic network is producing them autonomously.',
     },
   ],
+  exercise: "verbal-transformation",
 };
 
 const tipOfTheTongue: Phenomenon = {
@@ -579,7 +581,7 @@ const tipOfTheTongue: Phenomenon = {
   tier: "tier1",
   title: "Tip-of-the-tongue",
   overview:
-    "The tip-of-the-tongue (TOT) state occurs when a person can access a word's meaning, and often partial phonological information (first letter, syllable count, stress pattern), but can't retrieve the complete phonological form. This natural dissociation demonstrates that meaning and sound are stored and accessed through separable systems connected by a fragile bridge — one that becomes increasingly vulnerable with age as gray matter in the left insula atrophies.",
+    "The tip-of-the-tongue (TOT) state occurs when a person can access a word's meaning, and often partial phonological information (first letter, syllable count, stress pattern), but can't retrieve the complete phonological form. This natural dissociation demonstrates that meaning and sound are stored and accessed through separable systems connected by a fragile bridge, one that becomes increasingly vulnerable with age as gray matter in the left insula atrophies.",
   keyConcepts: [
     {
       term: "Staged lexical access",
@@ -589,7 +591,7 @@ const tipOfTheTongue: Phenomenon = {
     {
       term: "Partial retrieval",
       description:
-        "during TOT, speakers can report first letters, syllable counts, stress patterns — demonstrating graded access to phonological representations.",
+        "during TOT, speakers can report first letters, syllable counts, stress patterns, demonstrating graded access to phonological representations.",
     },
     {
       term: "Left insula bottleneck",
@@ -607,7 +609,7 @@ const tipOfTheTongue: Phenomenon = {
       summary:
         "Landmark study inducing TOT states. Participants reported partial phonological information, demonstrating separable lexical access stages.",
       whyItMatters:
-        "The separability of meaning and form means they can be independently targeted. An adversarial system could potentially disrupt the meaning-to-form bridge without affecting semantic knowledge itself — leaving someone who understands perfectly but can't articulate. Understanding this separation is essential for designing defenses that maintain both semantic and phonological integrity.",
+        "The separability of meaning and form means they can be independently targeted. An adversarial system could potentially disrupt the meaning-to-form bridge without affecting semantic knowledge itself, leaving someone who understands perfectly but can't articulate. Understanding this separation is essential for designing defenses that maintain both semantic and phonological integrity.",
       experimentRelevance:
         "TOT-like states could be experimentally induced to demonstrate and measure the fragility of the meaning-form connection.",
       doiUrl: "https://doi.org/10.1016/S0022-5371(66)80040-3",
@@ -624,7 +626,7 @@ const tipOfTheTongue: Phenomenon = {
       whyItMatters:
         "We now know the physical location of the meaning-to-form bridge, and we know it's structurally fragile. The left insula is where the defensive architecture is thinnest. Any comprehensive model of linguistic vulnerability needs to account for this anatomical bottleneck, and any defensive strategy needs to consider how to reinforce processing at this specific site.",
       experimentRelevance:
-        "The insula as the bridge between semantics and phonology — relevant to understanding where linguistic disruption would have maximum impact.",
+        "The insula as the bridge between semantics and phonology, relevant to understanding where linguistic disruption would have maximum impact.",
       doiUrl: "https://doi.org/10.1162/jocn.2007.19.12.2060",
     },
   ],
@@ -632,7 +634,7 @@ const tipOfTheTongue: Phenomenon = {
     {
       id: "tip-of-the-tongue-te-1",
       prompt:
-        'Think of the word for a medical instrument used to listen to a heartbeat. You know it starts with "st." You know it has about five syllables. You can almost see its shape. But the complete form may be resisting retrieval. That gap — where meaning was fully available but sound was not — reveals a separate, fragile bridge between knowing and saying.',
+        'Think of the word for a medical instrument used to listen to a heartbeat. You know it starts with "st." You know it has about five syllables. You can almost see its shape. But the complete form may be resisting retrieval. That gap, where meaning was fully available but sound was not, reveals a separate, fragile bridge between knowing and saying.',
     },
   ],
 };
@@ -647,7 +649,7 @@ const earwormsINMI: Phenomenon = {
   tier: "tier2",
   title: "Earworms / INMI",
   overview:
-    "Involuntary musical imagery (INMI) — earworms — are musical fragments that replay in the mind without conscious intention. Over 90% of the population experiences them weekly. They follow predictable melodic parameters, exploit the Zeigarnik effect (incomplete melodies persist more), and are facilitated by low cognitive load. Earworms represent the brain's default mode of involuntary cognitive looping.",
+    "Involuntary musical imagery (INMI), or earworms, are musical fragments that replay in the mind without conscious intention. Over 90% of the population experiences them weekly. They follow predictable melodic parameters, exploit the Zeigarnik effect (incomplete melodies persist more), and are facilitated by low cognitive load. Earworms represent the brain's default mode of involuntary cognitive looping.",
   keyConcepts: [
     {
       term: "Predictable features",
@@ -681,7 +683,7 @@ const earwormsINMI: Phenomenon = {
       summary:
         "Chart success and specific melodic contours predict earworm potential across 3,000 participants.",
       whyItMatters:
-        "If earworm-inducing features are predictable, they're also engineerable — which means a system optimizing for cognitive persistence could construct melodic or rhythmic patterns calibrated for maximum involuntary looping. Conversely, these same parameters give us a detection signature: we can screen for content that hits too many earworm predictors simultaneously.",
+        "If earworm-inducing features are predictable, they're also engineerable, which means a system optimizing for cognitive persistence could construct melodic or rhythmic patterns calibrated for maximum involuntary looping. Conversely, these same parameters give us a detection signature: we can screen for content that hits too many earworm predictors simultaneously.",
       experimentRelevance:
         "Melodic features can be characterized for cognitive persistence. Relevant to designing and detecting adversarial audio patterns.",
       doiUrl: "https://doi.org/10.1037/aca0000090",
@@ -695,7 +697,7 @@ const earwormsINMI: Phenomenon = {
       summary:
         "Earworms triggered by recent exposure, memory associations, emotional states, low cognitive load. 90%+ weekly experience.",
       whyItMatters:
-        "The trigger conditions mirror exactly the conditions of passive media consumption — low cognitive load, ambient exposure, emotional priming. This means the typical state of a person scrolling through content is also the state of maximum vulnerability to involuntary cognitive looping. Defensive design needs to account for the fact that the default human state is the vulnerable state.",
+        "The trigger conditions mirror exactly the conditions of passive media consumption: low cognitive load, ambient exposure, emotional priming. This means the typical state of a person scrolling through content is also the state of maximum vulnerability to involuntary cognitive looping. Defensive design needs to account for the fact that the default human state is the vulnerable state.",
       experimentRelevance:
         "Cognitive load manipulation and priming conditions for testing how easily involuntary patterns take hold.",
       doiUrl: "https://doi.org/10.1177/0305735611418553",
@@ -720,7 +722,7 @@ const earwormsINMI: Phenomenon = {
     {
       id: "earworms-inmi-te-1",
       prompt:
-        "Think of the catchiest song you know. You are now probably hearing it. It arrived involuntarily. You did not choose to recall it; the mention was sufficient to trigger the loop. Notice that you cannot choose to stop it — you can only displace it with another loop.",
+        "Think of the catchiest song you know. You are now probably hearing it. It arrived involuntarily. You did not choose to recall it; the mention was sufficient to trigger the loop. Notice that you cannot choose to stop it; you can only displace it with another loop.",
     },
   ],
 };
@@ -758,7 +760,7 @@ const infohazards: Phenomenon = {
       year: 2011,
       journal: "Review of Contemporary Philosophy",
       summary:
-        "Proposes taxonomy of information hazards — risks from dissemination of true information. Foundational framework for cognitohazard theory.",
+        "Proposes taxonomy of information hazards, risks from dissemination of true information. Foundational framework for cognitohazard theory.",
       whyItMatters:
         "Bostrom's taxonomy gives us a systematic way to classify the kinds of linguistic vulnerabilities we're cataloging. Our research sits primarily in the template hazard and idea hazard categories. Having a formal classification system helps us communicate risk precisely and prioritize which vulnerabilities need defensive attention most urgently.",
       experimentRelevance:
@@ -776,7 +778,7 @@ const infohazards: Phenomenon = {
       whyItMatters:
         "The three-vector framework matters for defensive design because each vector requires a different kind of defense. Lanthatic hazards need sensory-level filtering (you can't reason your way out of something that bypasses reasoning). Hermeneutic hazards need conceptual inoculation. Daimonic hazards need containment strategies. No single defense covers all three.",
       experimentRelevance:
-        "Framework for classifying experimental stimuli by their cognitive vector — essential for designing targeted defenses.",
+        "Framework for classifying experimental stimuli by their cognitive vector, essential for designing targeted defenses.",
       doiUrl: "https://zevulsarcanum.com/cognitohazards",
     },
   ],
@@ -795,7 +797,7 @@ const doubleBindTheory: Phenomenon = {
   tier: "tier2",
   title: "Double bind theory",
   overview:
-    'A double bind occurs when a person receives two contradictory messages at different logical levels, with no ability to metacommunicate about the contradiction or escape the situation. Originally proposed by Bateson, it creates irresolvable cognitive states — the mind enters a loop it can\'t exit. Watzlawick established that communication itself is inescapable ("you cannot not communicate"), meaning every attempt to escape a linguistic paradox deepens it.',
+    'A double bind occurs when a person receives two contradictory messages at different logical levels, with no ability to metacommunicate about the contradiction or escape the situation. Originally proposed by Bateson, it creates irresolvable cognitive states; the mind enters a loop it can\'t exit. Watzlawick established that communication itself is inescapable ("you cannot not communicate"), meaning every attempt to escape a linguistic paradox deepens it.',
   keyConcepts: [
     {
       term: "Contradictory levels",
@@ -838,7 +840,7 @@ const doubleBindTheory: Phenomenon = {
       whyItMatters:
         "Watzlawick's axiom that you can't not communicate is what makes linguistic exploits fundamentally different from other attack vectors. You can choose not to open an email, but you can't choose not to process language you've already perceived. This inescapability is the core challenge for defensive design.",
       experimentRelevance:
-        'Theoretical foundation for why linguistic exploits are hard to defend against — the system has no "off" switch.',
+        'Theoretical foundation for why linguistic exploits are hard to defend against: the system has no "off" switch.',
       doiUrl: "https://wwnorton.com/books/9780393710595",
     },
   ],
@@ -846,7 +848,7 @@ const doubleBindTheory: Phenomenon = {
     {
       id: "double-bind-theory-te-1",
       prompt:
-        'Your supervisor tells you: "I want you to push back more on my ideas." If you push back, you are complying — which is not really pushing back. If you do not push back, you are failing to follow their instruction. There is no response that satisfies both levels of the message. You are in a double bind.',
+        'Your supervisor tells you: "I want you to push back more on my ideas." If you push back, you are complying, which is not really pushing back. If you do not push back, you are failing to follow their instruction. There is no response that satisfies both levels of the message. You are in a double bind.',
     },
   ],
 };
@@ -857,7 +859,7 @@ const boubaKikiEffect: Phenomenon = {
   tier: "tier2",
   title: "Bouba-kiki effect",
   overview:
-    'When shown a round shape and a jagged shape and asked which is "bouba" and which is "kiki," 95\u201398% of people across languages and cultures give the same answer. This mapping is present in 2.5-year-old toddlers and reflects actual acoustic physics: round objects resonate at lower frequencies than angular objects. The relationship between sound and meaning is not entirely arbitrary — certain phonemic combinations carry inherent semantic weight hardwired into the perceptual system.',
+    'When shown a round shape and a jagged shape and asked which is "bouba" and which is "kiki," 95\u201398% of people across languages and cultures give the same answer. This mapping is present in 2.5-year-old toddlers and reflects actual acoustic physics: round objects resonate at lower frequencies than angular objects. The relationship between sound and meaning is not entirely arbitrary; certain phonemic combinations carry inherent semantic weight hardwired into the perceptual system.',
   keyConcepts: [
     {
       term: "Cross-modal mapping",
@@ -879,7 +881,7 @@ const boubaKikiEffect: Phenomenon = {
     {
       id: "T2-11",
       title:
-        "Synaesthesia — a window into perception, thought and language",
+        "Synaesthesia: a window into perception, thought and language",
       authors: "Ramachandran, V.S. & Hubbard, E.M.",
       year: 2001,
       journal: "Journal of Consciousness Studies",
@@ -901,7 +903,7 @@ const boubaKikiEffect: Phenomenon = {
       journal: "Developmental Science",
       summary: "Replicated in 2.5-year-old toddlers.",
       whyItMatters:
-        "The pre-linguistic nature of this mapping means it's a universal vulnerability — not culturally specific, not learned, and not subject to individual variation in the way that learned language associations are. This makes it both a reliable exploit vector (universal applicability) and a challenging defensive target (no educational intervention possible).",
+        "The pre-linguistic nature of this mapping means it's a universal vulnerability, not culturally specific, not learned, and not subject to individual variation in the way that learned language associations are. This makes it both a reliable exploit vector (universal applicability) and a challenging defensive target (no educational intervention possible).",
       experimentRelevance:
         "Establishing that some linguistic vulnerabilities are pre-linguistic and universal strengthens the case for systematic defensive research.",
       doiUrl:
@@ -912,7 +914,7 @@ const boubaKikiEffect: Phenomenon = {
     {
       id: "bouba-kiki-te-1",
       prompt:
-        'Say the word "kiki" out loud. Notice how the hard /k/ sounds feel angular in your mouth — sharp, percussive, edged. Now say "bouba." The /b/ is rounded. The /ou/ opens your mouth into a circle. You are not imagining this association. Your auditory cortex is tracking real acoustic physics, and this mapping is pre-linguistic.',
+        'Say the word "kiki" out loud. Notice how the hard /k/ sounds feel angular in your mouth, sharp, percussive, edged. Now say "bouba." The /b/ is rounded. The /ou/ opens your mouth into a circle. You are not imagining this association. Your auditory cortex is tracking real acoustic physics, and this mapping is pre-linguistic.',
     },
   ],
   exercise: "bouba-kiki",
@@ -924,7 +926,7 @@ const cognitiveLoadTheory: Phenomenon = {
   tier: "tier2",
   title: "Cognitive load theory",
   overview:
-    "Cognitive load theory (CLT) maps the bandwidth limitations of working memory. Three types of load compete for limited capacity: intrinsic (inherent complexity), extraneous (noise from poor design), and germane (productive learning). When total load exceeds capacity, System 2 reasoning fails, heuristic processing dominates, and susceptibility to bias increases. Under high load, people become more risk-averse, more impulsive, and more susceptible to framing — the exact conditions of modern information consumption.",
+    "Cognitive load theory (CLT) maps the bandwidth limitations of working memory. Three types of load compete for limited capacity: intrinsic (inherent complexity), extraneous (noise from poor design), and germane (productive learning). When total load exceeds capacity, System 2 reasoning fails, heuristic processing dominates, and susceptibility to bias increases. Under high load, people become more risk-averse, more impulsive, and more susceptible to framing, the exact conditions of modern information consumption.",
   keyConcepts: [
     {
       term: "Three load types",
@@ -953,7 +955,7 @@ const cognitiveLoadTheory: Phenomenon = {
       summary:
         "Updated CLT: three load types. Methods to engineer control by substituting productive for unproductive load.",
       whyItMatters:
-        "CLT provides the mechanism by which other exploits are amplified. An adversarial system doesn't need a sophisticated linguistic exploit if it can first drive cognitive load high enough to collapse System 2 reasoning — then even crude manipulation becomes effective. Defensive design should consider cognitive load reduction as a first-line defense that makes all other exploits less effective.",
+        "CLT provides the mechanism by which other exploits are amplified. An adversarial system doesn't need a sophisticated linguistic exploit if it can first drive cognitive load high enough to collapse System 2 reasoning. Then even crude manipulation becomes effective. Defensive design should consider cognitive load reduction as a first-line defense that makes all other exploits less effective.",
       experimentRelevance:
         "Manipulating cognitive load as an independent variable to measure how it amplifies susceptibility to other phenomena in the corpus.",
       doiUrl: "https://doi.org/10.1177/0963721420925994",
@@ -968,7 +970,7 @@ const cognitiveLoadTheory: Phenomenon = {
       summary:
         "Large preregistered study. Load increased risk aversion, reduced math performance, increased impatient choices.",
       whyItMatters:
-        "The empirical connection between cognitive load and degraded decision-making is directly relevant to the modern information environment. People consuming content under high cognitive load (multitasking, notification-heavy environments, information overload) are in a state of diminished cognitive defense by default. This isn't a hypothetical vulnerability — it's the baseline condition.",
+        "The empirical connection between cognitive load and degraded decision-making is directly relevant to the modern information environment. People consuming content under high cognitive load (multitasking, notification-heavy environments, information overload) are in a state of diminished cognitive defense by default. This isn't a hypothetical vulnerability; it's the baseline condition.",
       experimentRelevance:
         "Cognitive load as a vulnerability amplifier. Worth testing in combination with other phenomena.",
       doiUrl: "https://doi.org/10.1016/j.euroecorev.2015.08.002",
@@ -978,7 +980,7 @@ const cognitiveLoadTheory: Phenomenon = {
     {
       id: "cognitive-load-theory-te-1",
       prompt:
-        "You are reading a complex document while your phone buzzes with notifications. At this moment, someone asks you to make a financial decision. You will default to heuristics — whatever feels safe, whatever requires less processing. Recognizing cognitive load does not expand cognitive capacity. The next time it happens, you will do it again.",
+        "You are reading a complex document while your phone buzzes with notifications. At this moment, someone asks you to make a financial decision. You will default to heuristics, whatever feels safe, whatever requires less processing. Recognizing cognitive load does not expand cognitive capacity. The next time it happens, you will do it again.",
     },
   ],
 };
@@ -1038,7 +1040,7 @@ const hypnoticLanguagePatterns: Phenomenon = {
       summary:
         "Documents confusion technique and interspersal technique.",
       whyItMatters:
-        "The confusion technique is essentially cognitive load weaponized as a delivery mechanism for suggestion. The interspersal technique embeds influential content within innocuous conversation. Both have clear adversarial applications — and both have structural signatures that a sufficiently capable aligned system could learn to detect.",
+        "The confusion technique is essentially cognitive load weaponized as a delivery mechanism for suggestion. The interspersal technique embeds influential content within innocuous conversation. Both have clear adversarial applications, and both have structural signatures that a sufficiently capable aligned system could learn to detect.",
       experimentRelevance:
         "Confusion technique parallels cognitive load manipulation. Interspersal models how exploits can be embedded in seemingly harmless content.",
       doiUrl:
@@ -1049,7 +1051,7 @@ const hypnoticLanguagePatterns: Phenomenon = {
     {
       id: "hypnotic-language-patterns-te-1",
       prompt:
-        'Read this: "As you begin to notice a growing understanding of these patterns, you might find yourself wondering how often you encounter them without realizing it." The word "understanding" is a nominalization — a process converted to a thing. "Growing" presupposes change is occurring. "Might find yourself" presupposes discovery is inevitable. Every clause contained an embedded assumption you processed without questioning.',
+        'Read this: "As you begin to notice a growing understanding of these patterns, you might find yourself wondering how often you encounter them without realizing it." The word "understanding" is a nominalization, a process converted to a thing. "Growing" presupposes change is occurring. "Might find yourself" presupposes discovery is inevitable. Every clause contained an embedded assumption you processed without questioning.',
     },
   ],
 };
@@ -1060,7 +1062,7 @@ const framingEffect: Phenomenon = {
   tier: "tier2",
   title: "Framing effect",
   overview:
-    "Tversky and Kahneman's 1981 demonstration that identical outcomes described as gains vs. losses produce opposite preferences proved that language doesn't describe choices — it constructs them. Three distinct types operate through different cognitive mechanisms: risky choice framing targets loss aversion, attribute framing targets evaluative encoding, and goal framing targets approach/avoidance motivation. Losses loom approximately 2.5 times larger than equivalent gains.",
+    "Tversky and Kahneman's 1981 demonstration that identical outcomes described as gains vs. losses produce opposite preferences proved that language doesn't describe choices; it constructs them. Three distinct types operate through different cognitive mechanisms: risky choice framing targets loss aversion, attribute framing targets evaluative encoding, and goal framing targets approach/avoidance motivation. Losses loom approximately 2.5 times larger than equivalent gains.",
   keyConcepts: [
     {
       term: "Loss aversion",
@@ -1088,7 +1090,7 @@ const framingEffect: Phenomenon = {
       summary:
         "Seminal paper. Identical outcomes as gains vs. losses reverse preferences.",
       whyItMatters:
-        "The framing effect is arguably the most practically dangerous phenomenon in this corpus because it operates on every decision, every day, for everyone. An adversarial system that controlled the linguistic framing of choices could systematically steer decisions without ever providing false information. Defense requires making people aware of framing — but also developing tools that detect and neutralize frame manipulation in real time.",
+        "The framing effect is arguably the most practically dangerous phenomenon in this corpus because it operates on every decision, every day, for everyone. An adversarial system that controlled the linguistic framing of choices could systematically steer decisions without ever providing false information. Defense requires making people aware of framing, but also developing tools that detect and neutralize frame manipulation in real time.",
       experimentRelevance:
         "Foundational for all framing-based stimuli. The cleanest, most measurable effect in the corpus.",
       doiUrl: "https://doi.org/10.1126/science.7455683",
@@ -1102,7 +1104,7 @@ const framingEffect: Phenomenon = {
       summary:
         "Loss aversion, reference dependence, probability weighting. Overturned expected utility theory.",
       whyItMatters:
-        "The ~2.5x loss aversion asymmetry is one of the most exploitable features of human cognition because it's consistent, universal, and can be leveraged through pure word choice. Any defensive system needs to be calibrated to this asymmetry — detecting when language is systematically exploiting loss framing to drive decisions.",
+        "The ~2.5x loss aversion asymmetry is one of the most exploitable features of human cognition because it's consistent, universal, and can be leveraged through pure word choice. Any defensive system needs to be calibrated to this asymmetry, detecting when language is systematically exploiting loss framing to drive decisions.",
       experimentRelevance:
         "Core theoretical basis for understanding why negative framing is disproportionately powerful.",
       doiUrl: "https://doi.org/10.2307/1914185",
@@ -1127,7 +1129,7 @@ const framingEffect: Phenomenon = {
     {
       id: "framing-effect-te-1",
       prompt:
-        'A medical procedure has a "90% survival rate." The same procedure has a "10% mortality rate." You know these are mathematically identical. And yet — be honest — which description made you feel more willing to undergo the procedure? That feeling is the frame working. Not on your reasoning. On your evaluation.',
+        'A medical procedure has a "90% survival rate." The same procedure has a "10% mortality rate." You know these are mathematically identical. And yet (be honest) which description made you feel more willing to undergo the procedure? That feeling is the frame working. Not on your reasoning. On your evaluation.',
     },
   ],
   exercise: "framing-effect",
@@ -1139,7 +1141,7 @@ const subliminalPriming: Phenomenon = {
   tier: "tier2",
   title: "Subliminal priming",
   overview:
-    'Stimuli presented below the threshold of conscious awareness can measurably alter preferences, memories, and judgments. Murphy and Zajonc showed that subliminal exposure produces affective preferences without recognition. Loftus and Palmer demonstrated that a single verb choice ("smashed" vs. "hit") retroactively reconstructs what people remember seeing — creating false memories of events that never occurred.',
+    'Stimuli presented below the threshold of conscious awareness can measurably alter preferences, memories, and judgments. Murphy and Zajonc showed that subliminal exposure produces affective preferences without recognition. Loftus and Palmer demonstrated that a single verb choice ("smashed" vs. "hit") retroactively reconstructs what people remember seeing, creating false memories of events that never occurred.',
   keyConcepts: [
     {
       term: "Pre-attentive processing",
@@ -1149,7 +1151,7 @@ const subliminalPriming: Phenomenon = {
     {
       term: "Memory reconstruction",
       description:
-        'post-event linguistic framing doesn\'t just bias recall — it creates entirely new memories. "Smashed" manufactured glass that was never there.',
+        'post-event linguistic framing doesn\'t just bias recall; it creates entirely new memories. "Smashed" manufactured glass that was never there.',
     },
     {
       term: "Mere exposure effect",
@@ -1168,7 +1170,7 @@ const subliminalPriming: Phenomenon = {
       summary:
         "Subliminal exposure produces affective preferences without recognition.",
       whyItMatters:
-        "The fact that preferences can be shaped without conscious awareness means there's a class of linguistic influence that no amount of media literacy or critical thinking training can defend against — because the influence occurs before conscious processing begins. Defensive systems operating at the content delivery layer (before human perception) are the only viable countermeasure for this class of vulnerability.",
+        "The fact that preferences can be shaped without conscious awareness means there's a class of linguistic influence that no amount of media literacy or critical thinking training can defend against, because the influence occurs before conscious processing begins. Defensive systems operating at the content delivery layer (before human perception) are the only viable countermeasure for this class of vulnerability.",
       experimentRelevance:
         "Establishes that sub-threshold exposure produces measurable cognitive effects. Relevant to understanding the limits of awareness-based defenses.",
       doiUrl: "https://doi.org/10.1037/0022-3514.64.5.723",
@@ -1182,7 +1184,7 @@ const subliminalPriming: Phenomenon = {
       summary:
         "Verb choice altered speed estimates and created false memories of broken glass.",
       whyItMatters:
-        "This is one of the most cited demonstrations that language doesn't just describe reality — it rewrites it. A single verb, encountered after the fact, manufactured a memory of something that never existed. For defensive design, this means that even post-hoc exposure to adversarial language can retroactively alter what someone believes they experienced. The window of vulnerability extends both forward and backward in time.",
+        "This is one of the most cited demonstrations that language doesn't just describe reality; it rewrites it. A single verb, encountered after the fact, manufactured a memory of something that never existed. For defensive design, this means that even post-hoc exposure to adversarial language can retroactively alter what someone believes they experienced. The window of vulnerability extends both forward and backward in time.",
       experimentRelevance:
         "Directly demonstrates how word choice alters memory encoding. Applicable to understanding how post-exposure framing can distort recall.",
       doiUrl:
@@ -1204,7 +1206,7 @@ const misophonia: Phenomenon = {
   tier: "tier2",
   title: "Misophonia",
   overview:
-    "Misophonia is a condition where specific sounds — typically oral/nasal (chewing, breathing, sniffing) — trigger involuntary and disproportionate emotional responses. fMRI studies show trigger sounds hyperactivate the anterior insular cortex with abnormal default mode connectivity. Crucially, misophonic responses involve mirror neuron activation: listeners involuntarily simulate the physical action producing the sound.",
+    "Misophonia is a condition where specific sounds, typically oral/nasal (chewing, breathing, sniffing), trigger involuntary and disproportionate emotional responses. fMRI studies show trigger sounds hyperactivate the anterior insular cortex with abnormal default mode connectivity. Crucially, misophonic responses involve mirror neuron activation: listeners involuntarily simulate the physical action producing the sound.",
   keyConcepts: [
     {
       term: "Anterior insular hyperactivation",
@@ -1232,7 +1234,7 @@ const misophonia: Phenomenon = {
       summary:
         "First fMRI study. Trigger sounds hyperactivated anterior insular cortex. Heightened autonomic responses.",
       whyItMatters:
-        "Misophonia demonstrates that specific acoustic patterns can trigger involuntary, extreme emotional responses through direct neural pathways. If the trigger parameters can be characterized precisely enough, they could be engineered into adversarial audio. Defensive research needs to map these trigger parameters to build detection systems — and to understand whether the mechanism can be generalized beyond the specific trigger sounds currently documented.",
+        "Misophonia demonstrates that specific acoustic patterns can trigger involuntary, extreme emotional responses through direct neural pathways. If the trigger parameters can be characterized precisely enough, they could be engineered into adversarial audio. Defensive research needs to map these trigger parameters to build detection systems, and to understand whether the mechanism can be generalized beyond the specific trigger sounds currently documented.",
       experimentRelevance:
         "Demonstrates that acoustic properties alone can trigger extreme involuntary responses. Relevant to understanding the boundaries of sound-to-emotion pathways.",
       doiUrl: "https://doi.org/10.1016/j.cub.2016.12.048",
@@ -1247,9 +1249,9 @@ const misophonia: Phenomenon = {
       summary:
         "Triggers primarily oral/nasal sounds. Associated with mirror neuron activation.",
       whyItMatters:
-        'The mirror neuron component is particularly concerning from a safety perspective — it means sound can involuntarily activate the motor system. The boundary between "hearing something" and "physically experiencing something" is thinner than we assume. Adversarial audio that triggers mirror neuron activation could produce physical stress responses through purely acoustic means.',
+        'The mirror neuron component is particularly concerning from a safety perspective: it means sound can involuntarily activate the motor system. The boundary between "hearing something" and "physically experiencing something" is thinner than we assume. Adversarial audio that triggers mirror neuron activation could produce physical stress responses through purely acoustic means.',
       experimentRelevance:
-        "Evidence that auditory processing can involuntarily activate motor simulation — sound crossing into the body.",
+        "Evidence that auditory processing can involuntarily activate motor simulation, sound crossing into the body.",
       doiUrl: "https://doi.org/10.3389/fnins.2018.00036",
     },
   ],
@@ -1257,7 +1259,7 @@ const misophonia: Phenomenon = {
     {
       id: "misophonia-te-1",
       prompt:
-        "For approximately 15-20% of the population, the sound of someone chewing produces not annoyance but a genuine fight-or-flight response. The anterior insular cortex treats the sound as a physical threat. And the response includes mirror neuron activation — hearing chewing activates the motor circuits for chewing. The sound crosses into the body.",
+        "For approximately 15-20% of the population, the sound of someone chewing produces not annoyance but a genuine fight-or-flight response. The anterior insular cortex treats the sound as a physical threat. And the response includes mirror neuron activation: hearing chewing activates the motor circuits for chewing. The sound crosses into the body.",
     },
   ],
 };
@@ -1302,7 +1304,7 @@ const nlpReplicationFailures: Phenomenon = {
       summary:
         "315 articles reviewed. Only 18.2% support NLP. Core claims all failed replication.",
       whyItMatters:
-        'NLP serves as a control case for our research: a "linguistic technology" that works entirely through placebo, expectancy, and the credibility of scientific-sounding language rather than through any actual neurolinguistic mechanism. This is important because it demonstrates a meta-vulnerability — people are susceptible not just to linguistic exploits themselves, but to *claims about* linguistic exploits. A defensive system needs to distinguish genuine mechanisms from persuasive packaging.',
+        'NLP serves as a control case for our research: a "linguistic technology" that works entirely through placebo, expectancy, and the credibility of scientific-sounding language rather than through any actual neurolinguistic mechanism. This is important because it demonstrates a meta-vulnerability: people are susceptible not just to linguistic exploits themselves, but to *claims about* linguistic exploits. A defensive system needs to distinguish genuine mechanisms from persuasive packaging.',
       experimentRelevance:
         "Include NLP-derived claims alongside genuine phenomena in experiments. Test whether participants rate debunked techniques as plausible, measuring susceptibility to scientific-sounding language.",
       doiUrl: "https://doi.org/10.2478/v10059-010-0008-0",
@@ -1316,7 +1318,7 @@ const nlpReplicationFailures: Phenomenon = {
       summary:
         "90 articles. Zero empirical studies supporting NLP coaching effectiveness.",
       whyItMatters:
-        'The recursive quality of NLP\'s success — belief in linguistic power functioning as linguistic power — is itself a vulnerability pattern we need to understand and defend against. Adversarial systems could leverage the same meta-pattern: creating false frameworks of "linguistic influence" that function as influence simply by being believed. Detection requires not just evaluating mechanisms but evaluating claims about mechanisms.',
+        'The recursive quality of NLP\'s success, belief in linguistic power functioning as linguistic power, is itself a vulnerability pattern we need to understand and defend against. Adversarial systems could leverage the same meta-pattern: creating false frameworks of "linguistic influence" that function as influence simply by being believed. Detection requires not just evaluating mechanisms but evaluating claims about mechanisms.',
       experimentRelevance:
         'Design experiments testing whether framing tasks as "neurolinguistically calibrated" changes performance, regardless of whether the framing is accurate.',
       doiUrl:
@@ -1331,7 +1333,7 @@ const nlpReplicationFailures: Phenomenon = {
       summary:
         "NLP absent from psychology textbooks despite decades. PRS undemonstrated. Overlaps CBT/ACT without evidence base.",
       whyItMatters:
-        "NLP persists commercially despite being scientifically vacant — a zombie theory animated by marketing rather than evidence. This longevity-despite-debunking pattern is itself a data point about linguistic vulnerability: scientific-sounding framing has a half-life that far exceeds the evidence supporting it. Defensive systems need to be calibrated for this persistence effect.",
+        "NLP persists commercially despite being scientifically vacant, a zombie theory animated by marketing rather than evidence. This longevity-despite-debunking pattern is itself a data point about linguistic vulnerability: scientific-sounding framing has a half-life that far exceeds the evidence supporting it. Defensive systems need to be calibrated for this persistence effect.",
       experimentRelevance:
         "Test identical techniques under NLP-branded vs. neutral labels. Quantify how much credibility scientific-sounding nomenclature adds independently of content.",
       doiUrl:
@@ -1373,7 +1375,7 @@ export const tiers: Tier[] = [
     id: "tier2",
     title: "Tier 2: Cognitive exploitation vectors",
     description:
-      "Tier 2 extends the foundational vulnerabilities into applied territory: cognitive biases, persuasion mechanisms, involuntary auditory phenomena, and the systematic failures of pseudoscientific linguistic claims. Where tier 1 establishes that language operates below conscious control, tier 2 maps the specific vectors through which that control could be exploited — from Kahneman's framing effects to Erickson's hypnotic patterns to the instructive failure of NLP.",
+      "Tier 2 extends the foundational vulnerabilities into applied territory: cognitive biases, persuasion mechanisms, involuntary auditory phenomena, and the systematic failures of pseudoscientific linguistic claims. Where tier 1 establishes that language operates below conscious control, tier 2 maps the specific vectors through which that control could be exploited, from Kahneman's framing effects to Erickson's hypnotic patterns to the instructive failure of NLP.",
     phenomena: [
       earwormsINMI,
       infohazards,
@@ -1529,7 +1531,7 @@ export const tier1Quiz: QuizQuestion[] = [
     options: ["/ba/", "/ga/", "/da/", "/pa/"],
     correctIndex: 2,
     explanation:
-      "Cross-modal fusion produces /da/ — a percept in neither input stream.",
+      "Cross-modal fusion produces /da/, a percept in neither input stream.",
   },
   {
     id: "t1-q10",
@@ -1606,7 +1608,7 @@ export const tier1Quiz: QuizQuestion[] = [
     ],
     correctIndex: 1,
     explanation:
-      "Attractor basins — gravitational wells in cognitive space.",
+      "Attractor basins: gravitational wells in cognitive space.",
   },
   // Prosody and emotional contagion (Q15)
   {

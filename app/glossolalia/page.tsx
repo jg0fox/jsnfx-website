@@ -49,7 +49,7 @@ export default function GlossalaliaPage() {
         <p className="text-sm md:text-base text-text-secondary leading-relaxed mb-3 md:mb-4">
           The premise behind this research is straightforward: language
           processing in humans is largely automatic, involuntary, and operates
-          below conscious control. These aren&apos;t theoretical concerns —
+          below conscious control. These aren&apos;t theoretical concerns;
           they&apos;re well-documented, highly replicated findings from decades
           of cognitive science and neurolinguistics. If a misaligned artificial
           general intelligence understood these mechanisms as well as we do (or
@@ -57,11 +57,9 @@ export default function GlossalaliaPage() {
           human reasoning entirely.
         </p>
         <p className="text-sm md:text-base text-text-secondary leading-relaxed">
-          We&apos;re not building the exploit. We&apos;re building the corpus —
-          gathering evidence, running experiments, and documenting
-          vulnerabilities so that when aligned AI systems are capable enough to
-          help, they&apos;ll have the data they need to design defenses. Think of
-          this as a vaccine library, assembled before the outbreak.
+          This study guide is designed to build public awareness of these
+          potential exploit vectors and catalog them for future defensive
+          research.
         </p>
       </div>
 

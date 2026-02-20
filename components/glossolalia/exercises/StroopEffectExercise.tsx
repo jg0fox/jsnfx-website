@@ -150,7 +150,7 @@ export function StroopEffectExercise() {
         <div>
           <p className="text-sm text-text-secondary leading-relaxed mb-3">
             You will see colored items in three rounds. Your task is to identify
-            the <strong>ink color</strong> as fast as you can — ignore the word
+            the <strong>ink color</strong> as fast as you can. Ignore the word
             itself. Press the matching color button below.
           </p>
           <ul className="text-sm text-text-secondary leading-relaxed mb-4 space-y-1">
@@ -244,17 +244,17 @@ export function StroopEffectExercise() {
                     )}
                     % slower
                   </strong>{" "}
-                  than the control. That delay is the Stroop effect — your
+                  than the control. That delay is the Stroop effect: your
                   automatic reading process interfering with color naming. You
                   cannot un-read a word. Language has root-level access to your
                   cognition.
                 </>
               ) : (
                 <>
-                  Interesting — your times were relatively close across rounds.
+                  Interesting: your times were relatively close across rounds.
                   Most people show a significant slowdown on incongruent trials.
                   The Stroop effect is robust across populations, but individual
-                  variation exists. Try the exercise again — the effect often
+                  variation exists. Try the exercise again; the effect often
                   becomes more apparent with practice as you try harder to
                   respond quickly.
                 </>

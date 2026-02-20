@@ -169,12 +169,12 @@ export function FramingEffectExercise() {
           <div className="p-4 bg-palm-leaf/5 border-l-4 border-palm-leaf rounded-r-lg">
             <p className="text-sm text-text-secondary leading-relaxed mb-2">
               <strong>Program A and Program C are mathematically identical</strong>{" "}
-              — both result in 200 saved / 400 dead. Programs B and D are also
-              identical — both are a 1/3 gamble on saving everyone.
+              : both result in 200 saved / 400 dead. Programs B and D are also
+              identical: both are a 1/3 gamble on saving everyone.
             </p>
             {didReverse ? (
               <p className="text-sm text-text-secondary leading-relaxed">
-                Your preferences reversed between frames — just like 72% of
+                Your preferences reversed between frames, just like 72% of
                 Tversky and Kahneman&apos;s original participants. The gain
                 frame pushed you toward the sure thing; the loss frame pushed you
                 toward the gamble. Same information, different words, opposite
@@ -182,7 +182,7 @@ export function FramingEffectExercise() {
               </p>
             ) : (
               <p className="text-sm text-text-secondary leading-relaxed">
-                You maintained consistent preferences across frames — unlike the
+                You maintained consistent preferences across frames, unlike the
                 majority. In Tversky and Kahneman&apos;s original study, ~72%
                 chose A in the gain frame but ~78% chose D in the loss frame,
                 reversing their preference based purely on word choice.

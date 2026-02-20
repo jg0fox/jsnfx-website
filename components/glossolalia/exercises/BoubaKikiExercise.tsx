@@ -100,7 +100,7 @@ export function BoubaKikiExercise() {
             <p className="text-sm text-text-secondary leading-relaxed mb-2">
               {isCorrect ? (
                 <>
-                  You matched &ldquo;bouba&rdquo; to the round shape — just like{" "}
+                  You matched &ldquo;bouba&rdquo; to the round shape, just like{" "}
                   <strong>95-98% of people across all languages and cultures</strong>.
                 </>
               ) : (
@@ -115,7 +115,7 @@ export function BoubaKikiExercise() {
               This mapping is present in toddlers as young as 2.5 years. It
               reflects real acoustic physics: round objects resonate at lower
               frequencies than angular objects, and your brain tracks these
-              relationships pre-linguistically — before culture, before literacy,
+              relationships pre-linguistically: before culture, before literacy,
               before language itself.
             </p>
           </div>

@@ -45,7 +45,9 @@ export type ExerciseType =
   | "semantic-satiation"
   | "framing-effect"
   | "bouba-kiki"
-  | "stroop-effect";
+  | "stroop-effect"
+  | "prosodic-emotional"
+  | "verbal-transformation";
 
 export interface QuizQuestion {
   id: string;

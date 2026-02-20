@@ -128,7 +128,7 @@ export function SemanticSatiationExercise() {
         <div className="mt-6 p-4 bg-palm-leaf/5 border-l-4 border-palm-leaf rounded-r-lg">
           <p className="text-sm text-text-secondary leading-relaxed">
             Did the word start to feel strange or hollow? That dissolution is
-            semantic satiation happening in real time — the neural coupling
+            semantic satiation happening in real time. The neural coupling
             between the word&apos;s sound and its meaning literally fatiguing.
             The word&apos;s acoustic shell persists after its semantic content
             has been evacuated.

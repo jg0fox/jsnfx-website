@@ -30,7 +30,7 @@ export function SourceBlock({ source }: SourceBlockProps) {
               {source.title}
             </h4>
             <p className="text-xs text-text-muted mt-1">
-              {source.authors} — <em>{source.journal}</em>
+              {source.authors}, <em>{source.journal}</em>
             </p>
           </div>
           <ChevronDown

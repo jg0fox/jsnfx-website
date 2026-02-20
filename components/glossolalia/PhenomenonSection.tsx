@@ -12,6 +12,8 @@ import {
   FramingEffectExercise,
   BoubaKikiExercise,
   StroopEffectExercise,
+  ProsodicExercise,
+  VerbalTransformationExercise,
 } from "./exercises";
 
 interface PhenomenonSectionProps {
@@ -24,6 +26,8 @@ const exerciseComponents: Record<string, React.ComponentType> = {
   "framing-effect": FramingEffectExercise,
   "bouba-kiki": BoubaKikiExercise,
   "stroop-effect": StroopEffectExercise,
+  "prosodic-emotional": ProsodicExercise,
+  "verbal-transformation": VerbalTransformationExercise,
 };
 
 export function PhenomenonSection({
