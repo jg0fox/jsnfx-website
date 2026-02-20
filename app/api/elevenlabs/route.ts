@@ -11,8 +11,18 @@ const CACHE_TTL = 1000 * 60 * 60; // 1 hour
 
 export async function POST(request: NextRequest) {
   if (!ELEVENLABS_API_KEY) {
+    console.error("ELEVENLABS_API_KEY is not set in environment variables");
     return NextResponse.json(
       { error: "ElevenLabs API key not configured" },
+      { status: 500 }
+    );
+  }
+
+  // Validate key format
+  if (!ELEVENLABS_API_KEY.startsWith("sk_")) {
+    console.error("ELEVENLABS_API_KEY does not start with sk_ prefix");
+    return NextResponse.json(
+      { error: "Invalid API key format" },
       { status: 500 }
     );
   }
@@ -73,9 +83,15 @@ export async function POST(request: NextRequest) {
 
   if (!response.ok) {
     const errorText = await response.text();
-    console.error("ElevenLabs API error:", response.status, errorText);
+    console.error(
+      "ElevenLabs API error:",
+      response.status,
+      errorText,
+      "Key prefix:",
+      ELEVENLABS_API_KEY.substring(0, 6) + "..."
+    );
     return NextResponse.json(
-      { error: "Failed to generate audio" },
+      { error: "Failed to generate audio", status: response.status, detail: errorText },
       { status: response.status }
     );
   }

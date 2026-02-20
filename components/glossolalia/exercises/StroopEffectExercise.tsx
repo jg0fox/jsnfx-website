@@ -146,26 +146,31 @@ export function StroopEffectExercise() {
 
   return (
     <div>
-      {phase === "instructions" && (
-        <div>
+      {/* Instructions: always visible except during results */}
+      {phase !== "results" && (
+        <div className={isActive ? "mb-4" : ""}>
           <p className="text-sm text-text-secondary leading-relaxed mb-3">
             You will see colored items in three rounds. Your task is to identify
             the <strong>ink color</strong> as fast as you can. Ignore the word
             itself. Press the matching color button below.
           </p>
-          <ul className="text-sm text-text-secondary leading-relaxed mb-4 space-y-1">
-            <li>Round 1: Colored squares (control)</li>
-            <li>Round 2: Words matching their ink color</li>
-            <li>Round 3: Words conflicting with their ink color</li>
-          </ul>
-          <div className="flex justify-center">
-            <button
-              onClick={() => startRound("control")}
-              className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-bronze-spice rounded-lg hover:bg-bronze-spice-light transition-colors min-h-[44px]"
-            >
-              Begin
-            </button>
-          </div>
+          {!isActive && (
+            <>
+              <ul className="text-sm text-text-secondary leading-relaxed mb-4 space-y-1">
+                <li>Round 1: Colored squares (control)</li>
+                <li>Round 2: Words matching their ink color</li>
+                <li>Round 3: Words conflicting with their ink color</li>
+              </ul>
+              <div className="flex justify-center">
+                <button
+                  onClick={() => startRound("control")}
+                  className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-bronze-spice rounded-lg hover:bg-bronze-spice-light transition-colors min-h-[44px]"
+                >
+                  Begin
+                </button>
+              </div>
+            </>
+          )}
         </div>
       )}
 
