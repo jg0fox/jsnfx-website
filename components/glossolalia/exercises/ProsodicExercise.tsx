@@ -39,7 +39,7 @@ const variants: VoiceVariant[] = [
     label: "Version C",
     stability: 0.1,
     style: 1.0,
-    speed: 1.3,
+    speed: 1.2,
     nextText:
       "she shouted with panicked urgency, voice shaking with fear and adrenaline, as if warning someone of immediate danger. Every syllable was strained and desperate.",
   },
