@@ -16,7 +16,7 @@ export interface Phenomenon {
   keyConcepts: KeyConcept[];
   sources: Source[];
   thoughtExperiments: ThoughtExperiment[];
-  exercise?: ExerciseType;
+  exercises?: ExerciseType[];
 }
 
 export interface KeyConcept {
@@ -43,11 +43,14 @@ export interface ThoughtExperiment {
 
 export type ExerciseType =
   | "semantic-satiation"
+  | "semantic-satiation-audio"
   | "framing-effect"
   | "bouba-kiki"
+  | "bouba-kiki-audio"
   | "stroop-effect"
   | "prosodic-emotional"
-  | "verbal-transformation";
+  | "verbal-transformation"
+  | "phonemic-restoration";
 
 export interface QuizQuestion {
   id: string;

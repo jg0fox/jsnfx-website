@@ -9,11 +9,14 @@ import { SourceBlock } from "./SourceBlock";
 import { ThoughtExperiment } from "./ThoughtExperiment";
 import {
   SemanticSatiationExercise,
+  SemanticSatiationAudioExercise,
   FramingEffectExercise,
   BoubaKikiExercise,
+  BoubaKikiAudioExercise,
   StroopEffectExercise,
   ProsodicExercise,
   VerbalTransformationExercise,
+  PhonemicRestorationExercise,
 } from "./exercises";
 
 interface PhenomenonSectionProps {
@@ -23,11 +26,14 @@ interface PhenomenonSectionProps {
 
 const exerciseComponents: Record<string, React.ComponentType> = {
   "semantic-satiation": SemanticSatiationExercise,
+  "semantic-satiation-audio": SemanticSatiationAudioExercise,
   "framing-effect": FramingEffectExercise,
   "bouba-kiki": BoubaKikiExercise,
+  "bouba-kiki-audio": BoubaKikiAudioExercise,
   "stroop-effect": StroopEffectExercise,
   "prosodic-emotional": ProsodicExercise,
   "verbal-transformation": VerbalTransformationExercise,
+  "phonemic-restoration": PhonemicRestorationExercise,
 };
 
 export function PhenomenonSection({
@@ -35,9 +41,6 @@ export function PhenomenonSection({
   sectionRef,
 }: PhenomenonSectionProps) {
   const [sourcesExpanded, setSourcesExpanded] = useState(false);
-  const ExerciseComponent = phenomenon.exercise
-    ? exerciseComponents[phenomenon.exercise]
-    : null;
 
   return (
     <section
@@ -86,17 +89,21 @@ export function PhenomenonSection({
         </div>
       )}
 
-      {/* Interactive exercise */}
-      {ExerciseComponent && (
-        <div className="mb-4 md:mb-6">
-          <div className="border-2 border-palm-leaf/30 rounded-lg p-4 md:p-6 bg-soft-linen-light/50">
-            <h4 className="text-xs md:text-sm font-bold text-palm-leaf-3 uppercase tracking-wide mb-3 md:mb-4">
-              Interactive exercise
-            </h4>
-            <ExerciseComponent />
+      {/* Interactive exercises */}
+      {phenomenon.exercises?.map((exerciseId) => {
+        const ExerciseComponent = exerciseComponents[exerciseId];
+        if (!ExerciseComponent) return null;
+        return (
+          <div key={exerciseId} className="mb-4 md:mb-6">
+            <div className="border-2 border-palm-leaf/30 rounded-lg p-4 md:p-6 bg-soft-linen-light/50">
+              <h4 className="text-xs md:text-sm font-bold text-palm-leaf-3 uppercase tracking-wide mb-3 md:mb-4">
+                Interactive exercise
+              </h4>
+              <ExerciseComponent />
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })}
 
       {/* Sources */}
       <div>
