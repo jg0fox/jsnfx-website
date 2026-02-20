@@ -102,9 +102,9 @@ export function PhonemicRestorationExercise() {
         modData.set(original);
       }
 
-      // Replace middle ~12% with noise
+      // Replace middle ~6% with noise (small enough to be subtle)
       const totalSamples = modified.length;
-      const segmentLength = Math.floor(totalSamples * 0.12);
+      const segmentLength = Math.floor(totalSamples * 0.06);
       const segmentStart = Math.floor((totalSamples - segmentLength) / 2);
       const segmentEnd = segmentStart + segmentLength;
 
@@ -118,12 +118,12 @@ export function PhonemicRestorationExercise() {
         }
         const rms = Math.sqrt(sumSquares / segmentLength);
 
-        // Cross-fade length (5ms)
-        const fadeLength = Math.floor(modified.sampleRate * 0.005);
+        // Cross-fade length (20ms for smooth blending)
+        const fadeLength = Math.floor(modified.sampleRate * 0.02);
 
-        // Replace with noise at matched amplitude
+        // Replace with noise at matched amplitude (1.0x RMS to blend naturally)
         for (let i = segmentStart; i < segmentEnd; i++) {
-          const noise = (Math.random() * 2 - 1) * rms * 2.5;
+          const noise = (Math.random() * 2 - 1) * rms * 1.0;
 
           // Apply cross-fade at boundaries
           const distFromStart = i - segmentStart;
