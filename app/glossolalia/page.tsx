@@ -47,19 +47,39 @@ export default function GlossalaliaPage() {
       {/* Intro */}
       <div className="mb-6 md:mb-12">
         <p className="text-sm md:text-base text-text-secondary leading-relaxed mb-3 md:mb-4">
-          The premise behind this research is straightforward: language
-          processing in humans is largely automatic, involuntary, and operates
-          below conscious control. These aren&apos;t theoretical concerns;
-          they&apos;re well-documented, highly replicated findings from decades
-          of cognitive science and neurolinguistics. If a misaligned artificial
-          general intelligence understood these mechanisms as well as we do (or
-          better), it could potentially engineer linguistic exploits that bypass
-          human reasoning entirely.
+          My efforts with this research are based on a paranoid hunch that a
+          misaligned artificial general intelligence (AGI) could exploit human
+          language to create a language virus that triggers a zombie-like
+          cannibalistic rage in humans. If this sounds like the plot to{" "}
+          <em className="font-bold">Pontypool Changes Everything</em> (1995
+          novel) or <em className="font-bold">Pontypool</em> (2008 film), then
+          good, you&apos;re on my wavelength. It wouldn&apos;t be the first
+          time{" "}
+          <a
+            href="https://en.wikipedia.org/wiki/List_of_existing_technologies_predicted_in_science_fiction"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-palm-leaf-3 hover:text-bronze-spice transition-colors underline"
+          >
+            fiction predicted new technology
+          </a>
+          .
+        </p>
+        <p className="text-sm md:text-base text-text-secondary leading-relaxed mb-3 md:mb-4">
+          Language processing in humans is largely automatic, involuntary, and
+          operates below conscious control. In the context of an AGI-designed
+          language virus, what better environment to attempt an exploit? These
+          concerns are well-documented with highly replicated findings from
+          decades of cognitive science and neurolinguistics. If a misaligned AGI
+          understood these mechanisms as well as we do (or better), it could
+          potentially engineer linguistic exploits that bypass human reasoning
+          entirely.
         </p>
         <p className="text-sm md:text-base text-text-secondary leading-relaxed">
           This study guide is designed to build public awareness of these
           potential exploit vectors and catalog them for future defensive
-          research.
+          research. The goal here is to supply a future aligned AGI with
+          everything it needs to prevent the exploit or design a cure.
         </p>
       </div>
 
