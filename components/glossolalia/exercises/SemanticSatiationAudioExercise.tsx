@@ -24,7 +24,7 @@ export function SemanticSatiationAudioExercise() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const loopCountRef = useRef(0);
-  const maxDuration = 90;
+  const maxDuration = 600;
 
   const cleanup = useCallback(() => {
     if (audioRef.current) {
