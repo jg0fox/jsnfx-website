@@ -89,7 +89,7 @@ export const BehaviorContext = createContext<BehaviorContextValue>({
   registerTransform: () => {},
   updateChunkCounts: () => {},
   updateBatchInfo: () => {},
-  adversarialEnabled: true,
+  adversarialEnabled: false,
   setAdversarialEnabled: () => {},
   registerContentReset: () => {},
 });
@@ -111,7 +111,7 @@ export function BehaviorTracker({
   const [events, setEvents] = useState<BehaviorEvent[]>([]);
   const [debugVisible, setDebugVisible] = useState(debugDefault);
   const [debugInfo, setDebugInfo] = useState<DebugInfo>(defaultDebugInfo);
-  const [adversarialEnabled, setAdversarialEnabledState] = useState(true);
+  const [adversarialEnabled, setAdversarialEnabledState] = useState(false);
 
   const engineRef = useRef<ModeEngine | null>(null);
   const contentResetRef = useRef<(() => void) | null>(null);

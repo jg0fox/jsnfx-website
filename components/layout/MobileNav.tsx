@@ -20,7 +20,7 @@ import {
   BookText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { AdversarialToggle } from "@/components/ui/AdversarialToggle";
+// import { AdversarialToggle } from "@/components/ui/AdversarialToggle";
 
 // Medium icon (not available in Lucide)
 function MediumIcon({ className }: { className?: string }) {
@@ -279,7 +279,7 @@ export function MobileNav({ portfolioItems = [], projectItems = [] }: MobileNavP
               })}
             </div>
 
-            {/* Experiments Section */}
+            {/* Experiments Section — hidden for now
             <div className="mt-8 pt-6 border-t border-soft-linen-dark">
               <p className="px-4 mb-1 text-xs font-medium uppercase tracking-wider text-text-muted">
                 Experiments
@@ -301,6 +301,7 @@ export function MobileNav({ portfolioItems = [], projectItems = [] }: MobileNavP
                 </Link>
               </div>
             </div>
+            */}
 
             {/* Social Links */}
             <div className="mt-6 pt-6 border-t border-soft-linen-dark">
