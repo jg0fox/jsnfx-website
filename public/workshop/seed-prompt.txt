@@ -1,0 +1,29 @@
+I'm building a content testing protocol generator as a learning project. It's a standalone HTML tool that a content designer can open in their browser, fill in four fields about something they want to test, and receive a complete lightweight testing protocol they can actually run.
+
+We're building this in two versions:
+
+Version 1 (Static): Pure HTML, CSS, and JavaScript. No API needed. Uses conditional logic and pre-written protocol templates to select a testing method and assemble a protocol based on the user's inputs. This is the version we build first. It should work in any browser with no account, no API key, and no external dependencies.
+
+Version 2 (API-enhanced): Same UI, same four inputs. Connects to the Anthropic Claude API to generate a contextual, more nuanced protocol. Built on top of Version 1 by adding an API call layer. This is the stretch goal.
+
+The four inputs are:
+1. What are you testing? (paste copy or describe the content decision)
+2. Product context (brief product description + primary user type)
+3. Biggest uncertainty (comprehension, preference, trust, or task completion)
+4. Constraints (time available, budget, participant access)
+
+The output is a formatted protocol document containing: a precisely stated research question, the recommended testing method with a plain-language rationale, stimulus format and instructions, 3-5 specific test questions or tasks, success criteria, a participant screener, and a plain-language "what to do with results" section.
+
+The testing methods in scope are: cloze test, comprehension check, preference test, five-second test, and think-aloud protocol.
+
+The tool should be a single self-contained HTML file with no external dependencies. The UI should be clean and minimal. The output renders inline on the same page after generation.
+
+For the API version: the Claude API key must never be hardcoded in the HTML file. For local development, the key should be entered by the user in a separate input field that is clearly marked as sensitive. For production deployment, it would live in an environment variable on the server side. Include a brief note in the tech spec about API key safety: what a key is, why hardcoding it is a problem, and where it should live instead.
+
+Please generate three files. Create each one as a separate downloadable artifact so I can save them directly to my project folder. Do not put them in code blocks or inline text. Each should be its own standalone file I can download.
+
+1. CLAUDE.md — A project brief for Claude Code. It should tell the agent: the role it's playing (a senior content researcher who builds tools for other content designers), what we're building and why, the two-version approach, the output format and constraints, and four rules it should never break when helping build this tool. Make the rules specific to content testing methodology, not generic software rules.
+
+2. system-prompt.txt — A system prompt that will live inside the HTML tool (Version 2) and instruct the Claude API how to generate testing protocols. It should encode content testing expertise, specify the output structure precisely, and set a consistent tone (practical, clear, like a senior content researcher briefing a colleague). It should know about cloze tests, comprehension checks, preference tests, five-second tests, and think-aloud protocols at a practitioner level.
+
+3. tech-spec.md — A lightweight tech spec covering: file structure (single HTML file per version), the two-version approach and how they relate, the four input fields and their validation rules, the output sections in order, the conditional logic for method selection in Version 1, the API call pattern for Version 2, a note on API key safety, and three things that are explicitly out of scope for this first version.

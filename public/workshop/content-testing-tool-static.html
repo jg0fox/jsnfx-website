@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Testing Protocol Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background-color: #F7F2E8;
+            color: #1E1912;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 2.5rem;
+            color: #1E1912;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #6B5B42;
+            font-style: italic;
+        }
+
+        .form-section {
+            background-color: #EDE7D9;
+            border-radius: 8px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            color: #1E1912;
+        }
+
+        textarea, select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #C8753A;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+            background-color: #FEFDFB;
+            color: #1E1912;
+            resize: vertical;
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+
+        textarea:focus, select:focus {
+            outline: none;
+            border-color: #6B5B42;
+            box-shadow: 0 0 0 3px rgba(200, 117, 58, 0.1);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            padding-right: 2.5rem;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%236B5B42" d="M1 1l5 5 5-5"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: #C8753A;
+            color: #FEFDFB;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background-color: #B06B2F;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(200, 117, 58, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: #6B5B42;
+            color: #FEFDFB;
+        }
+
+        .btn-secondary:hover {
+            background-color: #564A35;
+            transform: translateY(-1px);
+        }
+
+        .error {
+            color: #C8753A;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .output-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .protocol {
+            background-color: #FEFDFB;
+            border-left: 4px solid #C8753A;
+            padding: 2.5rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .protocol-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .protocol-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .protocol h2 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.8rem;
+            color: #1E1912;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid #EDE7D9;
+            padding-bottom: 1rem;
+        }
+
+        .protocol h3 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.3rem;
+            color: #C8753A;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .protocol h4 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.1rem;
+            color: #6B5B42;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .protocol p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .protocol ul, .protocol ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .protocol li {
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        .protocol blockquote {
+            border-left: 3px solid #C8753A;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            color: #6B5B42;
+        }
+
+        .copy-button {
+            background-color: #C8753A;
+            color: #FEFDFB;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .copy-button:hover {
+            background-color: #B06B2F;
+            transform: translateY(-1px);
+        }
+
+        .copy-button.copied {
+            background-color: #6B5B42;
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #EDE7D9;
+        }
+
+        .method-badge {
+            display: inline-block;
+            background-color: #C8753A;
+            color: #FEFDFB;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .instruction-box {
+            background-color: #F7F2E8;
+            padding: 1.25rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            border-left: 3px solid #C8753A;
+        }
+
+        .question-item {
+            background-color: #F7F2E8;
+            padding: 1.25rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            border-left: 3px solid #C8753A;
+        }
+
+        .question-number {
+            font-weight: 600;
+            color: #C8753A;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .form-section {
+                padding: 1.5rem;
+            }
+
+            .protocol {
+                padding: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .button-group button {
+                width: 100%;
+            }
+
+            .output-actions {
+                flex-direction: column;
+            }
+
+            .output-actions button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Content Testing Protocol Generator</h1>
+            <p class="subtitle">Build a lightweight testing plan in minutes</p>
+        </header>
+
+        <div class="form-section">
+            <form id="protocolForm">
+                <div class="form-group">
+                    <label for="contentTesting">What are you testing?</label>
+                    <textarea id="contentTesting" placeholder="Paste the copy you're testing, or describe the content decision. For example: 'Headline for signup flow: Should we use action-oriented language (Start building) or benefit-focused (Get access to tools)?' Or paste actual copy here."></textarea>
+                    <div class="error" id="contentError">This field is required</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="productContext">Product context</label>
+                    <textarea id="productContext" placeholder="Brief product description and primary user type. Example: 'SaaS project management tool for freelancers. Users are solo creatives managing multiple client projects, often jumping between tools.'"></textarea>
+                    <div class="error" id="contextError">This field is required</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="uncertainty">What's your biggest uncertainty?</label>
+                    <select id="uncertainty" required>
+                        <option value="">-- Select one --</option>
+                        <option value="comprehension">Comprehension (Do users understand it?)</option>
+                        <option value="preference">Preference (Which option do users prefer?)</option>
+                        <option value="trust">Trust (Does it feel credible/safe?)</option>
+                        <option value="taskcompletion">Task completion (Can users do what we're asking?)</option>
+                    </select>
+                    <div class="error" id="uncertaintyError">This field is required</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="constraints">Constraints</label>
+                    <textarea id="constraints" placeholder="Time available, budget, participant access. Example: '2 weeks, 5 participants max, can only test with current users'"></textarea>
+                    <div class="error" id="constraintsError">This field is required</div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-primary">Generate Protocol</button>
+                    <button type="reset" class="btn-secondary">Clear Form</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="outputContainer" class="output-section"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('protocolForm');
+        const outputContainer = document.getElementById('outputContainer');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Clear previous errors
+            document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+
+            // Get form values
+            const contentTesting = document.getElementById('contentTesting').value.trim();
+            const productContext = document.getElementById('productContext').value.trim();
+            const uncertainty = document.getElementById('uncertainty').value;
+            const constraints = document.getElementById('constraints').value.trim();
+
+            // Validate
+            let isValid = true;
+            if (!contentTesting) {
+                document.getElementById('contentError').style.display = 'block';
+                isValid = false;
+            }
+            if (!productContext) {
+                document.getElementById('contextError').style.display = 'block';
+                isValid = false;
+            }
+            if (!uncertainty) {
+                document.getElementById('uncertaintyError').style.display = 'block';
+                isValid = false;
+            }
+            if (!constraints) {
+                document.getElementById('constraintsError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Determine if content is pasted copy or concept
+            const isPastedCopy = contentTesting.length > 100;
+
+            // Generate protocol based on uncertainty type
+            let protocol = '';
+
+            if (uncertainty === 'comprehension') {
+                protocol = generateComprehensionProtocol(contentTesting, productContext, constraints, isPastedCopy);
+            } else if (uncertainty === 'preference') {
+                protocol = generatePreferenceProtocol(contentTesting, productContext, constraints);
+            } else if (uncertainty === 'trust') {
+                protocol = generateTrustProtocol(contentTesting, productContext, constraints);
+            } else if (uncertainty === 'taskcompletion') {
+                protocol = generateTaskCompletionProtocol(contentTesting, productContext, constraints);
+            }
+
+            // Display output
+            outputContainer.innerHTML = protocol;
+            outputContainer.style.display = 'block';
+            outputContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        function generateComprehensionProtocol(content, context, constraints, isPastedCopy) {
+            const methodType = isPastedCopy ? 'Cloze Test' : 'Comprehension Check';
+            const methodDescription = isPastedCopy
+                ? 'A cloze test removes key words from your copy. When participants fill them in, you see what language they use and whether your message sticks.'
+                : 'Participants read your content, then answer targeted recall and inference questions. You\'ll see what they understood, what confused them, and how confident they feel.';
+
+            let protocolHtml = `
+                <div class="protocol">
+                    <h2>Content Testing Protocol</h2>
+
+                    <div class="protocol-section">
+                        <span class="method-badge">${methodType}</span>
+                        <h3>Research Question</h3>
+                        <p>When users encounter this content, do they understand the core message? Specifically: can they recall the key concept, infer the intended action or benefit, and articulate why it matters to them?</p>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Recommended Method</h3>
+                        <h4>${methodType}</h4>
+                        <p>${methodDescription}</p>
+                        <p><strong>Why this method:</strong> For ${context.split('.')[0]}, clarity is non-negotiable. ${methodType} cuts through assumptions and shows you exactly where comprehension breaks down or succeeds.</p>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Stimulus Format & Instructions</h3>
+            `;
+
+            if (isPastedCopy) {
+                protocolHtml += `
+                        <div class="instruction-box">
+                            <h4>Setup</h4>
+                            <p>Prepare your text by removing 5-8 key words (nouns, verbs, adjectives that carry meaning). Replace each removed word with a blank: ________</p>
+                            <p><strong>Example:</strong> Original: "Get access to tools that help you manage projects." Cloze version: "Get ________ to tools that help you ________ projects."</p>
+                            <h4>Participant Instructions (read aloud)</h4>
+                            <blockquote>"I'm going to show you some text with some words missing. Your job is to fill in the blanks with the word you think belongs there. Don't overthink it—just write the first word that makes sense."</blockquote>
+                            <h4>Scoring</h4>
+                            <ul>
+                                <li><strong>Exact match:</strong> Participant filled in your original word</li>
+                                <li><strong>Synonym:</strong> Different word but same meaning (e.g., "gain" for "get")</li>
+                                <li><strong>Semantic failure:</strong> Word doesn't convey your intended meaning</li>
+                            </ul>
+                            <p>If 70%+ of participants get exact matches or synonyms, your language is clear. If you see a lot of semantic failures, that word needs rewording.</p>
+                        </div>
+                `;
+            } else {
+                protocolHtml += `
+                        <div class="instruction-box">
+                            <h4>Setup</h4>
+                            <p>Display your content on screen or hand over printed copy. Give participants time to read at their own pace (30-60 seconds typically). Don't rush them.</p>
+                            <h4>Participant Instructions (read aloud)</h4>
+                            <blockquote>"I want to understand what stands out to you about what you just read. Take your time answering. There are no wrong answers—I just want to know what you understood."</blockquote>
+                        </div>
+                `;
+            }
+
+            protocolHtml += `
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Test Questions</h3>
+            `;
+
+            if (isPastedCopy) {
+                protocolHtml += `
+                        <div class="question-item">
+                            <div class="question-number">1. Cloze Task (Filled Responses)</div>
+                            <p>Show your cloze text. Collect all filled-in responses. Note exact matches, synonyms, and misses.</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">2. Open-ended Recall</div>
+                            <p>"Without looking back, what was the main idea you just read?"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">3. Action/Benefit Inference</div>
+                            <p>"Based on what you read, what should you do next? Or what benefit would you get?"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">4. Confidence Check (5-point Likert)</div>
+                            <p>"How confident are you that you understood the message? 1 = not confident, 5 = very confident"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">5. Language Resonance</div>
+                            <p>"Did any of the words feel confusing, unusual, or off-brand? Which ones, and why?"</p>
+                        </div>
+                `;
+            } else {
+                protocolHtml += `
+                        <div class="question-item">
+                            <div class="question-number">1. Unaided Recall</div>
+                            <p>"Without looking back, what was the main idea you just read? Tell me in your own words."</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">2. Key Takeaway</div>
+                            <p>"What's the one thing you should remember or do based on this content?"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">3. Target Audience Check</div>
+                            <p>"Who do you think this message is for? Do you feel included or excluded?"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">4. Clarity Confidence (5-point Likert)</div>
+                            <p>"How clear was this message? 1 = very confusing, 5 = crystal clear"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">5. Friction Points</div>
+                            <p>"Was there anything that made you pause, re-read, or feel uncertain about what you were reading?"</p>
+                        </div>
+                `;
+            }
+
+            protocolHtml += `
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Success Criteria</h3>
+                        <ul>
+                            <li><strong>70%+ accuracy on key words (cloze)</strong> or <strong>unanimous or near-unanimous correct recall (comprehension check):</strong> Your content is clear. Ship it.</li>
+                            <li><strong>50–70% accuracy/recall:</strong> Some friction. Identify which words/phrases caused misses. Edit and retest those sections.</li>
+                            <li><strong>Below 50%:</strong> Major comprehension issue. The message isn't landing. Restructure and retest before launch.</li>
+                            <li><strong>Likert confidence 4–5 for 80%+ of participants:</strong> Participants feel confident they understand. Good sign.</li>
+                            <li><strong>Participant language (synonyms, their own words) matches your brand voice:</strong> They're not just understanding; they're resonating.</li>
+                        </ul>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Participant Screener</h3>
+                        <div class="question-item">
+                            <div class="question-number">1. Usage Frequency</div>
+                            <p>"How often do you use products like ours? Daily, weekly, monthly, or rarely?" <br><strong>Screen for:</strong> Match your target user frequency in the context: "${context.split('.')[0]}"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">2. Role/Workflow</div>
+                            <p>"Describe your typical workflow when managing [core task]. Where do tools like ours fit in?" <br><strong>Screen for:</strong> Genuine use case alignment. Avoid people who just say "I'd use it someday."</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">3. Language Sensitivity</div>
+                            <p>"Do you pay attention to the exact wording companies use? Does certain language turn you off or attract you?" <br><strong>Screen for:</strong> Participants who notice language nuance. They'll give richer feedback.</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">4. Availability</div>
+                            <p>"Can you spend 20–30 minutes with us in the next 5 days?" <br><strong>Screen for:</strong> Realistic scheduling. Don't rely on "maybes."</p>
+                        </div>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>What to Do With Results</h3>
+                        <ol>
+                            <li><strong>Tally responses:</strong> Create a simple spreadsheet: Blank → Responses → Exact/Synonym/Failure</li>
+                            <li><strong>Look for patterns:</strong> Which words/phrases had the most misses? Those are candidates for edit.</li>
+                            <li><strong>Separate fact from opinion:</strong> "I didn't like the tone" is feedback; "I didn't understand what 'synergy' means" is a comprehension failure. Prioritize the latter.</li>
+                            <li><strong>Iterate:</strong> If a word caused 50%+ failure, rewrite just that phrase. You don't need to retest the whole thing.</li>
+                            <li><strong>Set a decision threshold:</strong> Decide in advance: "If 2+ participants have the same comprehension failure, we edit." Stick to it.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="output-actions">
+                    <button class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+                    <button class="btn-secondary" onclick="clearAndReset()">Start Over</button>
+                </div>
+            `;
+
+            return protocolHtml;
+        }
+
+        function generatePreferenceProtocol(content, context, constraints) {
+            return `
+                <div class="protocol">
+                    <h2>Content Testing Protocol</h2>
+
+                    <div class="protocol-section">
+                        <span class="method-badge">Preference Test</span>
+                        <h3>Research Question</h3>
+                        <p>Between these content options, which resonates more strongly with users? And why? We're testing not just preference, but the reasoning behind it—what language, tone, or framing actually moves people.</p>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Recommended Method</h3>
+                        <h4>Preference Test (A/B Comparison)</h4>
+                        <p>Show participants two content variants side-by-side or sequentially. Ask them to choose, then explain their reasoning. You'll learn which option feels more compelling, and whether preference correlates with comprehension or emotional resonance.</p>
+                        <p><strong>Why this method:</strong> For ${context.split('.')[0]}, preference tests surface what users actually respond to—not what makes logical sense to you. You'll find language patterns that attract or repel your audience.</p>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Stimulus Format & Instructions</h3>
+                        <div class="instruction-box">
+                            <h4>Setup</h4>
+                            <p>You should have two distinct content variants. If you haven't prepared them, do so now. They should differ in tone, framing, or specific language—not just capitalization.</p>
+                            <p><strong>Option A:</strong> [Show concise version of content option A]</p>
+                            <p><strong>Option B:</strong> [Show concise version of content option B]</p>
+                            <h4>Presentation (Choose one)</h4>
+                            <ul>
+                                <li><strong>Sequential (Less bias):</strong> Show Option A, ask preference. Wait 30 seconds. Show Option B, ask preference again. This reduces recency bias.</li>
+                                <li><strong>Side-by-side (Faster):</strong> Show both options together. Participant can compare directly.</li>
+                            </ul>
+                            <h4>Participant Instructions (read aloud)</h4>
+                            <blockquote>"I'm going to show you two ways of saying the same thing. I want you to tell me which one appeals to you more and why. There's no right answer—I just want to know what resonates with you."</blockquote>
+                        </div>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Test Questions</h3>
+                        <div class="question-item">
+                            <div class="question-number">1. Initial Preference</div>
+                            <p>"Which one appeals to you more, A or B? Why?" <br><strong>Listen for:</strong> Gut reaction + reasoning. Don't accept "I don't know." Probe: "If you had to choose, which feels more YOU?"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">2. Tone Reaction</div>
+                            <p>"How would you describe the tone of each one? (e.g., professional, friendly, urgent, reassuring)" <br><strong>Listen for:</strong> Whether the tone matches your brand and their expectations. Mismatch = friction.</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">3. Trust & Credibility (5-point Likert)</div>
+                            <p>"Which one makes you feel more confident this company knows what it's doing? Option A or B? Rate each 1-5."</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">4. Specific Language</div>
+                            <p>"Are there any words or phrases in either option that stood out—good or bad? Which ones?"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">5. Action Likelihood (5-point Likert)</div>
+                            <p>"Based on each option, how likely would you be to take the next step? Rate A and B separately. 1 = not likely, 5 = very likely"</p>
+                        </div>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Success Criteria</h3>
+                        <ul>
+                            <li><strong>Unanimous or 80%+ preference for one option:</strong> Winner is clear. That's your message.</li>
+                            <li><strong>50/50 split:</strong> Both resonate equally, but likely for different reasons. Dig into the qualitative feedback. You might segment your audience and use both messages for different segments.</li>
+                            <li><strong>Clear reasoning behind preference:</strong> "I liked B because it felt more like a real person" or "A sounds like my industry" tells you what values matter to them.</li>
+                            <li><strong>Action likelihood 4–5 for preferred option:</strong> Preference alone doesn't matter if it doesn't drive action. Preferred option should also score higher on likelihood-to-act.</li>
+                            <li><strong>Tone alignment:</strong> Does the winning option match your brand voice? If yes, you've validated both preference AND brand fit.</li>
+                        </ul>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Participant Screener</h3>
+                        <div class="question-item">
+                            <div class="question-number">1. Target Audience Match</div>
+                            <p>"Tell me about your current use of [product category]. Who are you as a user?" <br><strong>Screen for:</strong> Genuine alignment with the primary user type described in your context: "${context.split('.')[0]}"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">2. Decision Confidence</div>
+                            <p>"When choosing between two similar products or tools, how do you usually decide? What matters most to you?" <br><strong>Screen for:</strong> People who have an opinion and can articulate it. Avoid wishy-washy decision-makers.</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">3. Openness to Feedback</div>
+                            <p>"Are you comfortable sharing opinions that might be different from what you think we want to hear?" <br><strong>Screen for:</strong> Honest feedback. You don't want people-pleasers who say what they think you want.</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">4. Scheduling</div>
+                            <p>"Can you spend 15–20 minutes with us this week?" <br><strong>Screen for:</strong> Availability. Preference tests are quick; don't let scheduling drag.</p>
+                        </div>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>What to Do With Results</h3>
+                        <ol>
+                            <li><strong>Tally preferences:</strong> Create a simple table: Option A vs. Option B + count. Add a column for top reasons cited.</li>
+                            <li><strong>Look for demographic patterns:</strong> Did preference correlate with age, role, experience level? That insight might help you decide which message to use where.</li>
+                            <li><strong>Separate preference from trust/action:</strong> Sometimes people prefer an option emotionally but don't trust it or won't act on it. Prioritize action likelihood.</li>
+                            <li><strong>Mine qualitative feedback for language patterns:</strong> If 3+ people said "B felt more personal," that's a finding. That language pattern works.</li>
+                            <li><strong>Decide your next step:</strong> Winner by landslide? Ship it. Close split? Run a second round with different audiences or test the runner-up for different contexts. No clear winner? Iterate both and test again.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="output-actions">
+                    <button class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+                    <button class="btn-secondary" onclick="clearAndReset()">Start Over</button>
+                </div>
+            `;
+        }
+
+        function generateTrustProtocol(content, context, constraints) {
+            const usesFiveSecond = constraints.includes('minute') || constraints.includes('quick') || constraints.includes('brief');
+            const methodType = usesFiveSecond ? 'Five-Second Test' : 'Think-Aloud Protocol';
+            const methodDescription = usesFiveSecond
+                ? 'A five-second test flashes your content for 5 seconds, then asks what they remember and their first impression. You'll see what lands instantly—perfect for testing first-impression trust.'
+                : 'Participants verbalize their thoughts while reviewing your content in real time. You\'ll hear hesitations, questions, and trust signals as they happen.';
+
+            return `
+                <div class="protocol">
+                    <h2>Content Testing Protocol</h2>
+
+                    <div class="protocol-section">
+                        <span class="method-badge">${methodType}</span>
+                        <h3>Research Question</h3>
+                        <p>When users encounter this content, do they immediately feel this is credible, safe, and from a company worth trusting? What triggers trust signals or red flags?</p>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Recommended Method</h3>
+                        <h4>${methodType}</h4>
+                        <p>${methodDescription}</p>
+                        <p><strong>Why this method:</strong> Trust is visceral and fast. For ${context.split('.')[0]}, users make snap judgments. ${methodType} captures those raw reactions before analytical thinking kicks in.</p>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Stimulus Format & Instructions</h3>
+                        <div class="instruction-box">
+                            <h4>Setup</h4>
+                            <p>${usesFiveSecond
+                                ? 'Prepare your content (image, screenshot, or text) on screen. Set a 5-second timer. You\'ll show it, then immediately hide it.'
+                                : 'Prepare your content. Participant will view it on screen or in print while you listen and observe.'}</p>
+                            <h4>Participant Instructions (read aloud)</h4>
+                            <blockquote>${usesFiveSecond
+                                ? '"I\'m going to show you something for exactly 5 seconds. Just look at it. Don\'t worry about remembering everything. When it disappears, I\'ll ask what stood out."'
+                                : '"I\'m going to show you this content, and while you\'re reading, I want you to think out loud. Say anything that crosses your mind—questions, reactions, concerns, good feelings, anything. It might feel weird, but it really helps me understand how you experience this."'}</blockquote>
+                        </div>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Test Questions</h3>
+                        <div class="question-item">
+                            <div class="question-number">1. ${usesFiveSecond ? 'Instant Recall' : 'Open-Ended Reaction'}</div>
+                            <p>${usesFiveSecond
+                                ? '"What do you remember seeing? Describe it." Listen for: What sticks. What fades. Trust signals (logos, testimonials) or red flags (jargon, missing info) that registered.'
+                                : '"What went through your head as you read that? Any questions, hesitations, or good feelings?" Listen for: Pauses (confusion), skepticism, reassurance.'}</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">2. First Impression Trust (5-point Likert)</div>
+                            <p>"Based on what you just saw, how much would you trust this company with [your data/your money/your time]? 1 = not at all, 5 = completely"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">3. Red Flag Detection</div>
+                            <p>"Was there anything that made you hesitate or feel uncertain about trusting this company?"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">4. Credibility Signals</div>
+                            <p>"What made you feel (or not feel) like this is a legitimate, professional company? What details mattered?"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">5. Comparative Trust</div>
+                            <p>"Compared to other companies in this space, does this feel trustworthy? Why or why not?"</p>
+                        </div>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Success Criteria</h3>
+                        <ul>
+                            <li><strong>Trust rating 4–5 for 75%+ of participants:</strong> You've nailed trust. Users feel confident.</li>
+                            <li><strong>Trust rating 3 or below for 50%+ of participants:</strong> Major issue. Identify the red flags. Is it tone, missing information, visual design, or language? Fix the underlying problem.</li>
+                            <li><strong>Spontaneous credibility signals:</strong> Participants mention professional design, clear policies, social proof, or specific assurances without prompting. That's earned trust.</li>
+                            <li><strong>No red flags mentioned by 80%+ of participants:</strong> Clean. You're not raising suspicion.</li>
+                            <li><strong>Consistent hesitation patterns across multiple participants:</strong> That hesitation is diagnostic. It's telling you where your content underperforms on trust.</li>
+                        </ul>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Participant Screener</h3>
+                        <div class="question-item">
+                            <div class="question-number">1. Product Familiarity</div>
+                            <p>"Have you used products or services like this before? What was that experience?" <br><strong>Screen for:</strong> Mix of familiar and new-to-category users. Familiar users spot trust breakdowns; new users tell you if you're clear enough.</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">2. Trust Sensitivity</div>
+                            <p>"When evaluating a new company online, what matters most to you: reviews, certifications, how the website looks, or something else?" <br><strong>Screen for:</strong> People who think critically about trust. Avoid those who are overly trusting or paranoid.</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">3. Honesty & Comfort Thinking Aloud</div>
+                            <p>"How comfortable are you voicing skepticism or concerns, even if you think it might be critical?" <br><strong>Screen for:</strong> Candid participants. You need their genuine doubts.</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">4. Availability</div>
+                            <p>"Can you spend ${usesFiveSecond ? '10-15' : '20-30'} minutes with us this week?" <br><strong>Screen for:</strong> Confirmed availability.</p>
+                        </div>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>What to Do With Results</h3>
+                        <ol>
+                            <li><strong>Separate trust from clarity:</strong> Low trust might mean unclear messaging (comprehension issue) or lack of credibility signals (trust issue). These need different fixes.</li>
+                            <li><strong>Tally red flags:</strong> What did multiple participants mention? "Doesn't say who runs it" or "No pricing transparency" or "Language feels too salesy"? That's your action list.</li>
+                            <li><strong>Identify trust drivers:</strong> What made people feel confident? Was it certifications, social proof, transparent pricing, professional tone? Double down on that.</li>
+                            <li><strong>Look for hesitation patterns:</strong> Do specific words, visuals, or claims make people pause? That's where trust erodes.</li>
+                            <li><strong>Act on critical mass:</strong> If 3+ participants mention the same red flag, prioritize fixing it. One person's doubt might be an outlier; three people's doubt is a pattern.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="output-actions">
+                    <button class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+                    <button class="btn-secondary" onclick="clearAndReset()">Start Over</button>
+                </div>
+            `;
+        }
+
+        function generateTaskCompletionProtocol(content, context, constraints) {
+            return `
+                <div class="protocol">
+                    <h2>Content Testing Protocol</h2>
+
+                    <div class="protocol-section">
+                        <span class="method-badge">Think-Aloud Protocol</span>
+                        <h3>Research Question</h3>
+                        <p>Can users complete the task we're asking them to do based on this content? Where do they get stuck, confused, or abandon? What content changes would remove those barriers?</p>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Recommended Method</h3>
+                        <h4>Think-Aloud Protocol (Guided Task)</h4>
+                        <p>Participants verbalize their thoughts while attempting the task your content instructs them to do. You observe in real time where comprehension breaks down, where they feel confident, and where they need help. This is the most direct way to test whether your content actually enables task completion.</p>
+                        <p><strong>Why this method:</strong> For ${context.split('.')[0]}, the content's job is to get users from point A (confused or uninformed) to point B (task complete). Think-aloud protocol shows you the exact path they take and where they stumble.</p>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Stimulus Format & Instructions</h3>
+                        <div class="instruction-box">
+                            <h4>Setup</h4>
+                            <p>Prepare your content (instructions, tutorial, onboarding copy, etc.) and the environment where the task would happen. For example: if you're testing signup flow copy, set up the actual signup page. If you're testing invoice instructions, have the invoice and forms ready.</p>
+                            <p>Have a clear task prepared: "Your goal is to [specific, measurable task]. You have your content/resources here. Go ahead and do it."</p>
+                            <h4>Warm-Up (1–2 minutes)</h4>
+                            <p>Before starting, build rapport: "I'm going to ask you to complete a task using this content. As you do it, I want you to think out loud—say what you're thinking, what you're noticing, what's confusing. It might feel weird, but it really helps. There's no test here; I'm testing the content, not you. Okay?"</p>
+                            <h4>Participant Instructions (read aloud)</h4>
+                            <blockquote>"Here's your task: [state the specific goal clearly]. Use this content to help you. As you work through it, tell me what you're thinking. If you hit a question or get confused, say that too. Don't worry about being articulate—I just want to hear your real reaction."</blockquote>
+                            <h4>Your Role</h4>
+                            <p>Observe and listen. Don't help unless they ask explicitly. Let them struggle a little—that's where you learn. If they ask, clarify the task, but don't simplify or explain the content for them. That's the content's job.</p>
+                        </div>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Test Questions</h3>
+                        <div class="question-item">
+                            <div class="question-number">1. Observation During Task</div>
+                            <p>Listen and note: Where did they pause? Re-read? Ask for help? Express doubt? These are friction points. Do they correlate with specific content sections?</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">2. Task Completion</div>
+                            <p>Did they complete the task correctly? Partially? Not at all? If not, at what step did they get stuck?</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">3. Confidence Level (5-point Likert)</div>
+                            <p>"How confident do you feel you completed that correctly? 1 = not confident, 5 = very confident"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">4. Content Clarity</div>
+                            <p>"Were the instructions clear? What was confusing or missing?"</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">5. Friction Points</div>
+                            <p>"Was there a moment where you got stuck or doubted what to do next? Walk me through that."</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">6. Suggested Improvements</div>
+                            <p>"If you were rewriting the instructions, what would you change?"</p>
+                        </div>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Success Criteria</h3>
+                        <ul>
+                            <li><strong>100% task completion rate (correct execution):</strong> Your content works. Users understand and can act on it.</li>
+                            <li><strong>75%+ task completion rate with high confidence (4–5 rating):</strong> Strong. A few people may struggle with edge cases or non-core features, but the main path is clear.</li>
+                            <li><strong>Below 75% completion or confidence ratings of 3 or lower:</strong> Significant problem. Your content isn't enabling task completion. Identify which step(s) failed and redesign that section.</li>
+                            <li><strong>All participants complete the task in roughly the same timeframe:</strong> Predictable. No one is wildly slower, which suggests no major comprehension gaps.</li>
+                            <li><strong>Consistent friction points across multiple participants at the same step:</strong> That step needs content revision. If 3+ people hit the same snag, it's a pattern, not an outlier.</li>
+                            <li><strong>Suggested improvements cluster around 1–2 content areas:</strong> That tells you where to focus edits. If feedback is scattered everywhere, the whole structure might need rethinking.</li>
+                        </ul>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>Participant Screener</h3>
+                        <div class="question-item">
+                            <div class="question-number">1. Task Familiarity</div>
+                            <p>"Have you done something like this before? What was that experience like?" <br><strong>Screen for:</strong> Mix of first-timers and experienced users. First-timers will show you if the content is accessible to beginners; experienced users will tell you if it's efficient.</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">2. Comfort with Instructions</div>
+                            <p>"When you're given a task and instructions, do you prefer step-by-step detail or high-level overview?" <br><strong>Screen for:</strong> Variety. Some people want every step spelled out; others want the big picture. Your content should serve both or one clearly.</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">3. Honest Feedback</div>
+                            <p>"If instructions are confusing, are you comfortable saying so?" <br><strong>Screen for:</strong> Candid participants. You need their real experience, not polite silence.</p>
+                        </div>
+                        <div class="question-item">
+                            <div class="question-number">4. Availability & Environment</div>
+                            <p>"Can you spend 30–45 minutes with us in a quiet environment where you can focus?" <br><strong>Screen for:</strong> Realistic commitment and distraction-free participation. Think-aloud requires focus.</p>
+                        </div>
+                    </div>
+
+                    <div class="protocol-section">
+                        <h3>What to Do With Results</h3>
+                        <ol>
+                            <li><strong>Map the task path:</strong> Create a step-by-step flowchart of what users should do. Overlay where each participant got stuck or succeeded.</li>
+                            <li><strong>Identify the bottleneck:</strong> Did everyone fail at step 3? That's your problem area. Is it unclear language, missing information, confusing interface, or a prerequisite they didn't understand?</li>
+                            <li><strong>Separate content from UX:</strong> Sometimes users can't complete a task because the interface is confusing, not because the copy is wrong. Be precise about what failed.</li>
+                            <li><strong>Prioritize by impact:</strong> If 100% of users fail at step 4, fix that first. If one person struggles with an edge case, note it but don't redesign for the outlier.</li>
+                            <li><strong>Iterate and retest:</strong> Fix the bottleneck step. Run a quick follow-up test (even just 2–3 people) to confirm the fix works. Don't assume.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="output-actions">
+                    <button class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+                    <button class="btn-secondary" onclick="clearAndReset()">Start Over</button>
+                </div>
+            `;
+        }
+
+        function copyToClipboard() {
+            const protocol = document.querySelector('.protocol').innerText;
+            navigator.clipboard.writeText(protocol).then(() => {
+                const btn = event.target;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy to Clipboard';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function clearAndReset() {
+            form.reset();
+            outputContainer.innerHTML = '';
+            outputContainer.style.display = 'none';
+            document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

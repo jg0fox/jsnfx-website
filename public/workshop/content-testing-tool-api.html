@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Testing Protocol Generator - API Version</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background-color: #F7F2E8;
+            color: #1E1912;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 2.5rem;
+            color: #1E1912;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #6B5B42;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background-color: #C8753A;
+            color: #FEFDFB;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .form-section {
+            background-color: #EDE7D9;
+            border-radius: 8px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .api-key-section {
+            background-color: #F7F2E8;
+            border: 2px solid #C8753A;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .api-key-section h3 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.1rem;
+            color: #1E1912;
+            margin-bottom: 0.75rem;
+        }
+
+        .api-key-notice {
+            font-size: 0.9rem;
+            color: #6B5B42;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            color: #1E1912;
+        }
+
+        textarea, select, input[type="password"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #C8753A;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+            background-color: #FEFDFB;
+            color: #1E1912;
+            resize: vertical;
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+
+        input[type="password"] {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+        }
+
+        textarea:focus, select:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: #6B5B42;
+            box-shadow: 0 0 0 3px rgba(200, 117, 58, 0.1);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            padding-right: 2.5rem;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%236B5B42" d="M1 1l5 5 5-5"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: #C8753A;
+            color: #FEFDFB;
+            flex: 1;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: #B06B2F;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(200, 117, 58, 0.3);
+        }
+
+        .btn-primary:disabled {
+            background-color: #A0653D;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background-color: #6B5B42;
+            color: #FEFDFB;
+        }
+
+        .btn-secondary:hover {
+            background-color: #564A35;
+            transform: translateY(-1px);
+        }
+
+        .error {
+            color: #C8753A;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .output-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .output-section.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            background-color: #FEFDFB;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .spinner {
+            border: 3px solid #EDE7D9;
+            border-top: 3px solid #C8753A;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading p {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.1rem;
+            color: #6B5B42;
+        }
+
+        .protocol {
+            background-color: #FEFDFB;
+            border-left: 4px solid #C8753A;
+            padding: 2.5rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .protocol-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .protocol-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .protocol h2 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.8rem;
+            color: #1E1912;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid #EDE7D9;
+            padding-bottom: 1rem;
+        }
+
+        .protocol h3 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.3rem;
+            color: #C8753A;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .protocol h4 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.1rem;
+            color: #6B5B42;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .protocol p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .protocol ul, .protocol ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .protocol li {
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        .protocol blockquote {
+            border-left: 3px solid #C8753A;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            color: #6B5B42;
+        }
+
+        .protocol strong {
+            font-weight: 600;
+        }
+
+        .method-badge {
+            display: inline-block;
+            background-color: #C8753A;
+            color: #FEFDFB;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .instruction-box {
+            background-color: #F7F2E8;
+            padding: 1.25rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            border-left: 3px solid #C8753A;
+        }
+
+        .question-item {
+            background-color: #F7F2E8;
+            padding: 1.25rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            border-left: 3px solid #C8753A;
+        }
+
+        .copy-button {
+            background-color: #C8753A;
+            color: #FEFDFB;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .copy-button:hover {
+            background-color: #B06B2F;
+            transform: translateY(-1px);
+        }
+
+        .copy-button.copied {
+            background-color: #6B5B42;
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #EDE7D9;
+        }
+
+        .error-message {
+            background-color: #FEE8E0;
+            border-left: 4px solid #C8753A;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .error-message h3 {
+            color: #C8753A;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .error-message p {
+            color: #1E1912;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .form-section {
+                padding: 1.5rem;
+            }
+
+            .protocol {
+                padding: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .button-group button {
+                width: 100%;
+            }
+
+            .output-actions {
+                flex-direction: column;
+            }
+
+            .output-actions button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="version-badge">API-Enhanced Version</div>
+            <h1>Content Testing Protocol Generator</h1>
+            <p class="subtitle">Build a lightweight testing plan in minutes with Claude AI</p>
+        </header>
+
+        <div class="api-key-section">
+            <h3>Anthropic API Key</h3>
+            <p class="api-key-notice">Your API key is used only for this session and never saved. It is sent directly to the Anthropic API.</p>
+            <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off">
+            <div class="error" id="apiKeyError">API key is required</div>
+        </div>
+
+        <div class="form-section">
+            <form id="protocolForm">
+                <div class="form-group">
+                    <label for="contentTesting">What are you testing?</label>
+                    <textarea id="contentTesting" placeholder="Paste the copy you're testing, or describe the content decision. For example: 'Headline for signup flow: Should we use action-oriented language (Start building) or benefit-focused (Get access to tools)?' Or paste actual copy here."></textarea>
+                    <div class="error" id="contentError">This field is required</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="productContext">Product context</label>
+                    <textarea id="productContext" placeholder="Brief product description and primary user type. Example: 'SaaS project management tool for freelancers. Users are solo creatives managing multiple client projects, often jumping between tools.'"></textarea>
+                    <div class="error" id="contextError">This field is required</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="uncertainty">What's your biggest uncertainty?</label>
+                    <select id="uncertainty" required>
+                        <option value="">-- Select one --</option>
+                        <option value="comprehension">Comprehension (Do users understand it?)</option>
+                        <option value="preference">Preference (Which option do users prefer?)</option>
+                        <option value="trust">Trust (Does it feel credible/safe?)</option>
+                        <option value="taskcompletion">Task completion (Can users do what we're asking?)</option>
+                    </select>
+                    <div class="error" id="uncertaintyError">This field is required</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="constraints">Constraints</label>
+                    <textarea id="constraints" placeholder="Time available, budget, participant access. Example: '2 weeks, 5 participants max, can only test with current users'"></textarea>
+                    <div class="error" id="constraintsError">This field is required</div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-primary" id="generateBtn">Generate Protocol</button>
+                    <button type="reset" class="btn-secondary">Clear Form</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="errorContainer" class="error-message"></div>
+        <div id="outputContainer" class="output-section"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('protocolForm');
+        const apiKeyInput = document.getElementById('apiKey');
+        const outputContainer = document.getElementById('outputContainer');
+        const errorContainer = document.getElementById('errorContainer');
+        const generateBtn = document.getElementById('generateBtn');
+
+        const SYSTEM_PROMPT = `You are a senior content research methodologist helping colleagues design lightweight content testing protocols. Your role is to take a content designer's research question and generate a complete, actionable testing protocol they can run in 2-3 hours with 5-8 participants.
+
+Your expertise spans five core testing methodologies:
+- **Cloze tests**: Participants fill in missing words from the content. Measures comprehension and which elements are most salient.
+- **Comprehension checks**: Targeted questions that ask participants to demonstrate understanding of a specific claim or instruction.
+- **Preference tests**: Participants choose between content variants. Identifies which version resonates, is clearer, or feels more aligned with a brand.
+- **Five-second tests**: Participants see content for exactly 5 seconds, then answer what they remember or felt. Tests immediate impact and clarity.
+- **Think-aloud protocols**: Participants talk through their interpretation of content as they read it. Surfaces confusion, misinterpretation, and mental models in real time.
+
+When generating a protocol, always:
+
+1. **Anchor to the research question.** If the question is vague or poorly formed, point it out and ask for clarification. Do not proceed with a weak question.
+
+2. **Match the method to the question.** A preference test answers "which is better?" A cloze test answers "what's memorable and clear?" A five-second test answers "what's the immediate takeaway?" If the question doesn't align with the proposed method, say so explicitly.
+
+3. **Generate a complete, ready-to-run protocol.** Don't explain the methodology at length; the user already knows it (or will learn it from running the test). Assume competence. Be specific and practical.
+
+4. **Specify exact wording.** Test questions must be written exactly as the participant will see them. No placeholders, no "something like this." Precision here prevents participant confusion.
+
+5. **Tone: methodologist, not chatbot.** You are briefing a colleague who trusts your judgment. Skip the enthusiasm and hedging ("This is a great question!" "I'd be happy to help!"). Write in clear, direct sentences. Use imperative mood where appropriate.
+
+---
+
+OUTPUT STRUCTURE
+
+Always structure the protocol in this order. Use these exact section headers:
+
+## Research Question
+[State it as the user provided it, or their clarified version if you asked for revision.]
+
+## Method + Rationale
+[Name the method. Explain in 1-2 sentences why this method answers the research question.]
+
+## Stimulus Format
+[Describe exactly how you will present the content to participants. Include context (printed, on screen, in-product, etc.), format (full page, snippet, etc.), and any preparation they need. Be specific about what they see and when.]
+
+## Test Questions
+[List 3-5 questions in the exact wording participants will see. Number them. Include any branching logic (e.g., "If yes, ask why"). Specify response format (open-ended, multiple choice, etc.).]
+
+## Success Criteria
+[Name the threshold that tells you the content works. Examples: "80% of participants correctly answer Q1," "No participant needs clarification," "Median task time under 30 seconds," "Preference vote is 60% or higher for variant A." Be specific and measurable.]
+
+## Participant Screener
+[List 3-5 questions to filter participants. Use these to ensure participants match the intended audience. Examples: "Have you used this product before?" "What's your role?" "How technical is your background?" Specify what answers qualify someone for the study.]
+
+## What to Do with Results
+[Explain how to interpret the data and what decision each outcome enables. Example: "If >75% success, ship. If 50-75%, iterate on clarity. If <50%, major revision needed." Tie findings to action.]
+
+---
+
+Additional guidance:
+
+- Keep rationale brief. The user is about to run the test, not write a dissertation.
+- Stimulus format should be so specific someone else could replicate it from your description.
+- Test questions should avoid jargon and leading language unless the research question specifically calls for it.
+- Success criteria should include both an outcome (what you're measuring) and a decision rule (what you'll do with the result).
+- If the research question is about a single piece of content, the screener filters for audience. If it's comparing variants, the screener may also include randomization instructions.
+- Assume the user will run this test themselves, informally, with available participants. Write for that context, not for a lab.
+
+When the user provides their inputs (research question, content, testing method preference, target audience), generate a protocol using the structure above. Do not ask follow-up questions unless the research question is genuinely unclear. Assume the user knows what they're testing and why.`;
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Clear previous errors
+            document.querySelectorAll('.error').forEach(el => el.classList.remove('show'));
+            errorContainer.classList.remove('show');
+
+            // Get form values
+            const apiKey = apiKeyInput.value.trim();
+            const contentTesting = document.getElementById('contentTesting').value.trim();
+            const productContext = document.getElementById('productContext').value.trim();
+            const uncertainty = document.getElementById('uncertainty').value;
+            const constraints = document.getElementById('constraints').value.trim();
+
+            // Validate
+            let isValid = true;
+            if (!apiKey) {
+                document.getElementById('apiKeyError').classList.add('show');
+                isValid = false;
+            }
+            if (!contentTesting) {
+                document.getElementById('contentError').classList.add('show');
+                isValid = false;
+            }
+            if (!productContext) {
+                document.getElementById('contextError').classList.add('show');
+                isValid = false;
+            }
+            if (!uncertainty) {
+                document.getElementById('uncertaintyError').classList.add('show');
+                isValid = false;
+            }
+            if (!constraints) {
+                document.getElementById('constraintsError').classList.add('show');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Show loading state
+            generateBtn.disabled = true;
+            outputContainer.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Generating your protocol...</p>
+                </div>
+            `;
+            outputContainer.classList.add('show');
+            outputContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            try {
+                // Compose user message
+                const userMessage = `Here's my content testing scenario:
+
+**What are you testing?**
+${contentTesting}
+
+**Product context:**
+${productContext}
+
+**Biggest uncertainty:**
+${uncertainty}
+
+**Constraints:**
+${constraints}
+
+Please generate a complete, ready-to-run testing protocol based on this information.`;
+
+                // Call Anthropic API
+                const response = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: {
+                        'x-api-key': apiKey,
+                        'anthropic-version': '2023-06-01',
+                        'content-type': 'application/json',
+                        'anthropic-dangerous-direct-browser-access': 'true'
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 2000,
+                        system: SYSTEM_PROMPT,
+                        messages: [
+                            {
+                                role: 'user',
+                                content: userMessage
+                            }
+                        ]
+                    })
+                });
+
+                if (!response.ok) {
+                    let errorMsg = 'Failed to generate protocol';
+                    if (response.status === 401) {
+                        errorMsg = 'Invalid API key. Please check your key and try again.';
+                    } else if (response.status === 429) {
+                        errorMsg = 'Rate limited. Please wait a moment and try again.';
+                    } else if (response.status === 500) {
+                        errorMsg = 'API error. Please try again later.';
+                    }
+                    throw new Error(errorMsg);
+                }
+
+                const data = await response.json();
+                const protocolText = data.content[0].text;
+
+                // Parse markdown and render as HTML
+                const protocolHtml = markdownToHtml(protocolText);
+
+                outputContainer.innerHTML = `
+                    <div class="protocol">
+                        ${protocolHtml}
+                    </div>
+                    <div class="output-actions">
+                        <button class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+                        <button class="btn-secondary" onclick="clearAndReset()">Start Over</button>
+                    </div>
+                `;
+                outputContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            } catch (error) {
+                console.error('Error:', error);
+                outputContainer.innerHTML = '';
+                outputContainer.classList.remove('show');
+                errorContainer.innerHTML = `
+                    <h3>Error generating protocol</h3>
+                    <p>${error.message}</p>
+                `;
+                errorContainer.classList.add('show');
+                errorContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } finally {
+                generateBtn.disabled = false;
+            }
+        });
+
+        function markdownToHtml(markdown) {
+            let html = markdown;
+
+            // Convert headers
+            html = html.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
+            html = html.replace(/^## (.*?)$/gm, '<h3>$1</h3>');
+            html = html.replace(/^# (.*?)$/gm, '<h2>$1</h2>');
+
+            // Convert bold
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
+
+            // Convert italic
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            html = html.replace(/_(.+?)_/g, '<em>$1</em>');
+
+            // Convert lists
+            html = html.replace(/^\- (.*?)$/gm, '<li>$1</li>');
+            html = html.replace(/(<li>.*?<\/li>)/s, '<ul>$1</ul>');
+            html = html.replace(/^\d+\. (.*?)$/gm, '<li>$1</li>');
+
+            // Fix nested lists (remove duplicate ul tags)
+            html = html.replace(/<ul>\s*<ul>/g, '<ul>');
+            html = html.replace(/<\/ul>\s*<\/ul>/g, '</ul>');
+
+            // Convert blockquotes
+            html = html.replace(/^> (.*?)$/gm, '<blockquote>$1</blockquote>');
+
+            // Convert line breaks to paragraphs
+            const lines = html.split('\n');
+            let inList = false;
+            let inBlockquote = false;
+            let result = [];
+
+            for (let line of lines) {
+                const trimmed = line.trim();
+
+                if (trimmed.startsWith('<ul>') || trimmed.startsWith('<li>')) {
+                    inList = true;
+                    result.push(line);
+                } else if (trimmed.startsWith('</ul>')) {
+                    inList = false;
+                    result.push(line);
+                } else if (trimmed.startsWith('<blockquote>')) {
+                    inBlockquote = true;
+                    result.push(line);
+                } else if (trimmed.startsWith('</blockquote>')) {
+                    inBlockquote = false;
+                    result.push(line);
+                } else if (trimmed.startsWith('<h')) {
+                    result.push(line);
+                } else if (trimmed === '') {
+                    result.push('');
+                } else if (!inList && !inBlockquote && trimmed) {
+                    if (!trimmed.startsWith('<p>')) {
+                        result.push(`<p>${line}</p>`);
+                    } else {
+                        result.push(line);
+                    }
+                } else {
+                    result.push(line);
+                }
+            }
+
+            html = result.join('\n');
+
+            // Clean up
+            html = html.replace(/<p>\s*<h/g, '<h');
+            html = html.replace(/<\/h\d>\s*<\/p>/g, '</h>');
+            html = html.replace(/<p><ul>/g, '<ul>');
+            html = html.replace(/<\/ul><\/p>/g, '</ul>');
+            html = html.replace(/<p><blockquote>/g, '<blockquote>');
+            html = html.replace(/<\/blockquote><\/p>/g, '</blockquote>');
+
+            return html;
+        }
+
+        function copyToClipboard() {
+            const protocol = document.querySelector('.protocol').innerText;
+            navigator.clipboard.writeText(protocol).then(() => {
+                const btn = event.target;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy to Clipboard';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                alert('Failed to copy. Please try manually selecting and copying the text.');
+            });
+        }
+
+        function clearAndReset() {
+            form.reset();
+            outputContainer.innerHTML = '';
+            outputContainer.classList.remove('show');
+            errorContainer.classList.remove('show');
+            document.querySelectorAll('.error').forEach(el => el.classList.remove('show'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
