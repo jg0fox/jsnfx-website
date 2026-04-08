@@ -3,6 +3,8 @@ import { PageHeader } from "@/components/layout";
 import { Divider } from "@/components/ui";
 import { Download, FileText, Presentation, BookOpen, Code, MessageSquare } from "lucide-react";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "AI workshop materials",
   description:
@@ -69,21 +71,6 @@ const artifactFiles = [
     title: "CLAUDE.md",
     description: "Project instructions file used with Claude Code.",
     href: "/workshop/CLAUDE.md",
-    icon: FileText,
-  },
-];
-
-const facilitatorMaterials = [
-  {
-    title: "Facilitator notes",
-    description: "Detailed talking points and guidance for running the workshop.",
-    href: "/workshop/facilitator-notes.md",
-    icon: FileText,
-  },
-  {
-    title: "Run of show",
-    description: "Timing and agenda breakdown for the session.",
-    href: "/workshop/run-of-show.md",
     icon: FileText,
   },
 ];
@@ -159,22 +146,6 @@ export default function AIWorkshopPage() {
         </div>
       </section>
 
-      <Divider />
-
-      {/* Facilitator materials */}
-      <section className="mt-12">
-        <h2 className="text-2xl font-display font-bold text-text-primary mb-2">
-          Facilitator materials
-        </h2>
-        <p className="text-sm text-text-muted mb-6">
-          For anyone running their own version of this workshop.
-        </p>
-        <div className="space-y-3">
-          {facilitatorMaterials.map((item) => (
-            <DownloadLink key={item.title} {...item} />
-          ))}
-        </div>
-      </section>
     </>
   );
 }
