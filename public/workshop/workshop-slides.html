@@ -172,11 +172,10 @@
     margin-top: clamp(16px, 4vh, 56px);
   }
   .s2-deco {
-    position: absolute;
-    bottom: clamp(28px, 5vh, 52px); right: var(--pad-x);
     font-size: clamp(10px, 1.1vw, 12px);
     letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--text-secondary);
+    margin-top: clamp(16px, 3vh, 32px);
   }
 
   /* ─── TWO-COL ───────────────────────────────────────── */
@@ -503,6 +502,19 @@
     font-weight: 300;
     line-height: 1.45;
   }
+
+  /* ─── SLIDE NUMBER ─────────────────────────────────── */
+  .slide-num {
+    position: absolute;
+    bottom: clamp(14px, 2vw, 22px);
+    right: clamp(18px, 2.5vw, 30px);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    opacity: 0.45;
+  }
+  .slide.dark .slide-num { color: rgba(253,250,244,0.25); }
 </style>
 </head>
 <body>
@@ -560,7 +572,7 @@
         <span class="step-n">✓</span>
         <div class="step-content">
           <div class="step-text">Node.js installed</div>
-          <div class="step-note">Claude Code needs it to run. Download at nodejs.org. LTS version is the right choice.</div>
+          <div class="step-note">Claude Code needs it to run. If you don't have it, we'll help you get it set up. Don't sweat this one.</div>
         </div>
       </div>
       <div class="step-row">
@@ -580,15 +592,15 @@
   <div class="slide-body">
     <div class="eyebrow">&nbsp;</div>
     <div class="s2-quote">"AI is a writing assistant."</div>
+    <div class="s2-deco">A common assumption</div>
   </div>
-  <div class="s2-deco">A common assumption</div>
 </div>
 
 <!-- 3 — REFRAME -->
 <div class="slide">
   <div class="two-col">
     <div class="col">
-      <div class="col-label">What most people do</div>
+      <div class="col-label">A common approach</div>
       <div class="col-heading">Ask. Get a response.<br>Paste. Tweak. Move on.</div>
       <div class="col-body">Every session starts from scratch.</div>
     </div>
@@ -609,8 +621,8 @@
     <div class="spectrum">
       <div class="spec-item">
         <div class="spec-num">01</div>
-        <div class="spec-name">Claude web or app</div>
-        <div class="spec-desc">Where most people start. Great for exploration and building context packs. Works well for conversation-based tasks.</div>
+        <div class="spec-name">Claude, desktop, or Cowork</div>
+        <div class="spec-desc">Where most people start. Claude.ai in a browser, the desktop app on Mac/Windows, or Cowork for file and task automation without code. Great for thinking, planning, and Phase 0.</div>
       </div>
       <div class="spec-sep">
         <svg width="44" height="20" viewBox="0 0 44 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -648,6 +660,8 @@
     <div class="chip-row">
       <div class="chip dark">Claude</div>
       <div class="chip ring">+ VS Code</div>
+      <div class="chip">Claude Desktop</div>
+      <div class="chip">Cowork</div>
       <div class="chip">Cursor</div>
       <div class="chip">Repl.it</div>
       <div class="chip">Lovable</div>
@@ -740,6 +754,53 @@
   </div>
 </div>
 
+<!-- VS CODE HUB DIAGRAM -->
+<div class="slide">
+  <div class="slide-body" style="justify-content: center; align-items: center;">
+    <svg viewBox="0 0 720 420" style="max-width: 80%; max-height: 75vh;" xmlns="http://www.w3.org/2000/svg">
+      <!-- center node -->
+      <rect x="260" y="160" width="200" height="100" rx="12" fill="#1E1912" stroke="#C8753A" stroke-width="2"/>
+      <text x="360" y="200" text-anchor="middle" fill="#F7F2E8" font-family="Georgia, serif" font-size="20" font-weight="700">VS Code</text>
+      <text x="360" y="225" text-anchor="middle" fill="rgba(253,250,244,0.5)" font-family="system-ui, sans-serif" font-size="11">Your workspace</text>
+      <!-- Claude Code agent -->
+      <rect x="20" y="30" width="160" height="64" rx="8" fill="#EDE7D9" stroke="#6B5B42" stroke-width="1"/>
+      <text x="100" y="57" text-anchor="middle" fill="#1E1912" font-family="Georgia, serif" font-size="14" font-weight="600">Claude Code</text>
+      <text x="100" y="75" text-anchor="middle" fill="#6B5B42" font-family="system-ui, sans-serif" font-size="10">Agent in your terminal</text>
+      <line x1="180" y1="62" x2="260" y2="180" stroke="#C8753A" stroke-width="1.5" stroke-dasharray="6 3"/>
+      <!-- CLAUDE.md -->
+      <rect x="20" y="175" width="160" height="64" rx="8" fill="#EDE7D9" stroke="#6B5B42" stroke-width="1"/>
+      <text x="100" y="202" text-anchor="middle" fill="#1E1912" font-family="Georgia, serif" font-size="14" font-weight="600">CLAUDE.md</text>
+      <text x="100" y="220" text-anchor="middle" fill="#6B5B42" font-family="system-ui, sans-serif" font-size="10">Agent instructions</text>
+      <line x1="180" y1="207" x2="260" y2="210" stroke="#C8753A" stroke-width="1.5" stroke-dasharray="6 3"/>
+      <!-- Tech spec -->
+      <rect x="20" y="320" width="160" height="64" rx="8" fill="#EDE7D9" stroke="#6B5B42" stroke-width="1"/>
+      <text x="100" y="347" text-anchor="middle" fill="#1E1912" font-family="Georgia, serif" font-size="14" font-weight="600">Tech spec</text>
+      <text x="100" y="365" text-anchor="middle" fill="#6B5B42" font-family="system-ui, sans-serif" font-size="10">Blueprint for the build</text>
+      <line x1="180" y1="352" x2="260" y2="240" stroke="#C8753A" stroke-width="1.5" stroke-dasharray="6 3"/>
+      <!-- Browser preview -->
+      <rect x="540" y="30" width="160" height="64" rx="8" fill="#EDE7D9" stroke="#6B5B42" stroke-width="1"/>
+      <text x="620" y="57" text-anchor="middle" fill="#1E1912" font-family="Georgia, serif" font-size="14" font-weight="600">Browser</text>
+      <text x="620" y="75" text-anchor="middle" fill="#6B5B42" font-family="system-ui, sans-serif" font-size="10">Preview your tool</text>
+      <line x1="460" y1="180" x2="540" y2="62" stroke="#C8753A" stroke-width="1.5" stroke-dasharray="6 3"/>
+      <!-- Terminal -->
+      <rect x="540" y="175" width="160" height="64" rx="8" fill="#EDE7D9" stroke="#6B5B42" stroke-width="1"/>
+      <text x="620" y="202" text-anchor="middle" fill="#1E1912" font-family="Georgia, serif" font-size="14" font-weight="600">Terminal</text>
+      <text x="620" y="220" text-anchor="middle" fill="#6B5B42" font-family="system-ui, sans-serif" font-size="10">Run commands</text>
+      <line x1="460" y1="210" x2="540" y2="207" stroke="#C8753A" stroke-width="1.5" stroke-dasharray="6 3"/>
+      <!-- GitHub / Vercel -->
+      <rect x="540" y="320" width="160" height="64" rx="8" fill="#EDE7D9" stroke="#6B5B42" stroke-width="1"/>
+      <text x="620" y="347" text-anchor="middle" fill="#1E1912" font-family="Georgia, serif" font-size="14" font-weight="600">GitHub + Vercel</text>
+      <text x="620" y="365" text-anchor="middle" fill="#6B5B42" font-family="system-ui, sans-serif" font-size="10">Share and deploy</text>
+      <line x1="460" y1="240" x2="540" y2="352" stroke="#C8753A" stroke-width="1.5" stroke-dasharray="6 3"/>
+      <!-- Figma -->
+      <rect x="280" y="340" width="160" height="52" rx="8" fill="#EDE7D9" stroke="#6B5B42" stroke-width="1"/>
+      <text x="360" y="363" text-anchor="middle" fill="#1E1912" font-family="Georgia, serif" font-size="14" font-weight="600">Figma plugins</text>
+      <text x="360" y="379" text-anchor="middle" fill="#6B5B42" font-family="system-ui, sans-serif" font-size="10">Design context</text>
+      <line x1="360" y1="260" x2="360" y2="340" stroke="#C8753A" stroke-width="1.5" stroke-dasharray="6 3"/>
+    </svg>
+  </div>
+</div>
+
 <!-- 7 — ONE-OFF PROMPTS -->
 <div class="slide">
   <div class="slide-body">
@@ -772,8 +833,8 @@
   <div class="slide-body" style="justify-content: center;">
     <div class="rule"></div>
     <div class="slide-title md">Structuring what the model <em>knows</em>,<br>not just what you ask it.</div>
-    <div class="body-text" style="margin-top: clamp(10px, 1.4vw, 18px); font-size: clamp(11px, 1.2vw, 14px); color: var(--text-secondary);">context engineering &nbsp;n.</div>
-    <div class="body-text">Role, constraints, examples, output format. Define these precisely and the model produces what you need reliably. Leave them out and you're starting from scratch every time.</div>
+    <div class="body-text" style="margin-top: clamp(10px, 1.4vw, 18px); font-size: clamp(11px, 1.2vw, 14px); color: var(--text-secondary);">context engineering</div>
+    <div class="body-text">Role, constraints, examples, output format. Define these once, reuse them across sessions, and the model produces what you need reliably. Leave them out and you're starting from scratch every time.</div>
   </div>
 </div>
 
@@ -848,7 +909,7 @@
 
 <!-- ══════════════════════════════════════════════════════
   BLOCK 2 — BUILD TOGETHER
-  Slides 10–21. Live demo primary. ~65 minutes.
+  ~65 minutes. Three sections: Plan, Build, Extend.
 ══════════════════════════════════════════════════════ -->
 
 <!-- 10 — WHAT WE'RE BUILDING TODAY (new) -->
@@ -859,12 +920,6 @@
     <div class="artifact-card">
       <div class="artifact-name">Content Testing<br><em>Protocol Generator</em></div>
       <div class="artifact-desc">A content designer inputs what they're testing, their product context, their biggest uncertainty, and their constraints. The tool outputs a complete, ready-to-run lightweight testing protocol.</div>
-      <div class="artifact-inputs">
-        <div class="artifact-input">What you're testing</div>
-        <div class="artifact-input">Product context</div>
-        <div class="artifact-input">Biggest uncertainty</div>
-        <div class="artifact-input">Constraints</div>
-      </div>
     </div>
   </div>
 </div>
@@ -872,7 +927,7 @@
 <!-- 11 — PHASE 0 -->
 <div class="slide">
   <div class="slide-body">
-    <div class="eyebrow">Phase 0 · The pre-build ritual</div>
+    <div class="eyebrow">Plan · Phase 0</div>
     <div class="slide-title sm">Before you open your editor.</div>
     <div class="gap-sm"></div>
     <div class="step-list">
@@ -880,7 +935,7 @@
         <span class="step-n">1</span>
         <div class="step-content">
           <div class="step-text">Describe the problem in plain language</div>
-          <div class="step-note">In Claude web, before you touch an editor.</div>
+          <div class="step-note">In Claude, before you touch an editor.</div>
         </div>
       </div>
       <div class="step-row">
@@ -904,93 +959,36 @@
           <div class="step-note">Files, formats, approach. Rough is fine.</div>
         </div>
       </div>
-      <div class="step-row">
-        <span class="step-n">5</span>
-        <div class="step-content">
-          <div class="step-text">Scope check: "Is this too big for 60 minutes?"</div>
-          <div class="step-note">Find the smallest version that's still useful.</div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
 
-<!-- 12 — VOICE DICTATION -->
+<!-- BUILD PROMPT -->
 <div class="slide">
   <div class="slide-body">
-    <div class="eyebrow">A workflow upgrade</div>
-    <div class="slide-title sm">Talk to your agent.</div>
-    <div class="body-text">Typing slows down your thinking. Voice dictation lets you describe what you want at the speed of thought. Especially useful during Phase 0 and mid-build when you're working through a problem in real time.</div>
-    <div class="gap-md"></div>
-    <div class="tip-box">
-      <div class="tip-label">Worth trying</div>
-      <div class="tip-text"><strong>Wispr Flow</strong> runs on Mac and transcribes into any text field, including your editor and Claude's chat input. It handles technical vocabulary well and gets out of the way.</div>
-    </div>
-  </div>
-</div>
-
-<!-- 13 — CLAUDE.MD -->
-<div class="slide">
-  <div class="slide-body">
-    <div class="eyebrow">The move most people haven't tried</div>
-    <div class="slide-title sm">Use one agent to write the<br>next agent's instructions.</div>
+    <div class="eyebrow">Build · Your first prompt</div>
+    <div class="slide-title sm">Your first prompt sets the ceiling.</div>
     <div class="gap-md"></div>
     <div class="code-block">
-      <div class="code-tag">Prompt</div>
+      <div class="code-tag">Today's build prompt</div>
       <div class="code-mono">
-        <span class="hi">"Based on this project brief, write a CLAUDE.md file</span><br>
-        &nbsp;that I can drop into my project folder.<br>
-        &nbsp;It should tell Claude: who it is in this context,<br>
-        &nbsp;what we're building, the output format,<br>
-        &nbsp;and three rules it should never break."<br>
-        <br>
-        <span class="dim">// Brief → agent instructions → drop in folder → build</span>
+        <span class="hi">"Review the CLAUDE.md and tech-spec.md</span><br>
+        &nbsp;in this directory, then build Version 1<br>
+        &nbsp;of the tool as a single HTML file called<br>
+        &nbsp;index.html. No API, no external dependencies.<br>
+        &nbsp;Use conditional logic to pick the testing<br>
+        &nbsp;method and generate the protocol from templates."
       </div>
     </div>
-    <div class="body-text" style="font-size: clamp(12px, 1.2vw, 14px);">The brief becomes the brain. The CLAUDE.md becomes the behavior.</div>
-  </div>
-</div>
-
+    <div class="gap-sm"></div>
     <div class="body-text" style="font-size: clamp(12px, 1.2vw, 14px);">A vague first prompt produces a vague first output. You'll spend the session correcting instead of building.</div>
   </div>
 </div>
 
-<!-- 15 — BUILD LOOP -->
+<!-- DIAGNOSTIC -->
 <div class="slide">
   <div class="slide-body">
-    <div class="eyebrow">The method</div>
-    <div class="slide-title sm">The loop.</div>
-    <div class="gap-lg"></div>
-    <div class="loop-row">
-      <div class="loop-node">
-        <div class="loop-circle accent">Prompt</div>
-        <div class="loop-lbl">Start here</div>
-      </div>
-      <div class="loop-arrow">→</div>
-      <div class="loop-node">
-        <div class="loop-circle">Output</div>
-        <div class="loop-lbl">What you get</div>
-      </div>
-      <div class="loop-arrow">→</div>
-      <div class="loop-node">
-        <div class="loop-circle">Evaluate</div>
-        <div class="loop-lbl">Does it work?</div>
-      </div>
-      <div class="loop-arrow">→</div>
-      <div class="loop-node">
-        <div class="loop-circle">Iterate</div>
-        <div class="loop-lbl">Adjust and go</div>
-      </div>
-      <div class="loop-arrow" style="color: var(--accent);">↩</div>
-    </div>
-    <div class="body-text">Aim for a working v1. Build, evaluate, and adjust. That's the whole method.</div>
-  </div>
-</div>
-
-<!-- 16 — DIAGNOSTIC -->
-<div class="slide">
-  <div class="slide-body">
-    <div class="eyebrow">When something goes wrong</div>
+    <div class="eyebrow">Build · When something goes wrong</div>
     <div class="slide-title sm">Something's off. Which kind of off?</div>
     <div class="gap-md"></div>
     <div class="diag-row">
@@ -1013,36 +1011,10 @@
   </div>
 </div>
 
-<!-- 17 — RECOVERY MOVES -->
+<!-- TWO VERSIONS -->
 <div class="slide">
   <div class="slide-body">
-    <div class="eyebrow">Recovery moves</div>
-    <div class="slide-title sm">When the loop breaks down.</div>
-    <div class="gap-sm"></div>
-    <div class="diag-row">
-      <div class="diag-card" style="border-color: #B8956A;">
-        <div class="diag-type">Start a fresh conversation</div>
-        <div class="diag-q">A long, broken context window makes things worse.</div>
-        <div class="diag-fix">Open a new chat. Paste your CLAUDE.md and brief. Start from the last working state.</div>
-      </div>
-      <div class="diag-card" style="border-color: var(--accent);">
-        <div class="diag-type">Ask it to explain itself</div>
-        <div class="diag-q">You can't fix what you don't understand.</div>
-        <div class="diag-fix">"Walk me through what this does, line by line." The answer usually reveals the problem.</div>
-      </div>
-      <div class="diag-card" style="border-color: var(--accent-dark);">
-        <div class="diag-type">Shrink the scope</div>
-        <div class="diag-q">The ask got too big for one prompt.</div>
-        <div class="diag-fix">"Forget everything else. Just make [the one core thing] work first."</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 18 — TWO VERSIONS (new) -->
-<div class="slide">
-  <div class="slide-body">
-    <div class="eyebrow">How we'll build it</div>
+    <div class="eyebrow">Extend · How we'll build it</div>
     <div class="slide-title sm">Static first. API second.</div>
     <div class="version-row">
       <div class="version-card">
@@ -1064,7 +1036,7 @@
 <!-- 19 — API KEY SAFETY (new) -->
 <div class="slide">
   <div class="slide-body">
-    <div class="eyebrow">Before you add the API</div>
+    <div class="eyebrow">Extend · Before you add the API</div>
     <div class="slide-title sm">Where does the key live?</div>
     <div class="safety-grid">
       <div class="safety-card warn">
@@ -1091,109 +1063,30 @@
   </div>
 </div>
 
-<!-- 20 — DEPLOYMENT INTRO -->
+<!-- DEPLOYMENT (optional) -->
 <div class="slide">
   <div class="slide-body">
-    <div class="eyebrow">Before you share</div>
-    <div class="slide-title sm">Think about where it lives.</div>
-    <div class="body-text">A file on your machine is a start. A URL you can send anyone is the finish line.</div>
+    <div class="eyebrow">Extend · After the build (optional)</div>
+    <div class="slide-title sm">From your machine to a URL.</div>
+    <div class="body-text">A file on your machine is a start. A URL you can send anyone is the finish line. Claude Code can write the commands for each step.</div>
     <div class="gap-lg"></div>
     <div class="deploy-flow">
       <div class="d-node">
         <div class="d-nlabel">Step one</div>
         <div class="d-nname">Your machine</div>
-        <div class="d-nsub">Run it locally. Test fast.</div>
+        <div class="d-nsub">Double-click the HTML file to open it in a browser. Test fast.</div>
       </div>
       <div class="d-arrow">→</div>
       <div class="d-node">
         <div class="d-nlabel">Step two</div>
         <div class="d-nname">GitHub</div>
-        <div class="d-nsub">Push your files.</div>
+        <div class="d-nsub">Push your files. Free account is enough.</div>
       </div>
       <div class="d-arrow">→</div>
       <div class="d-node lit">
         <div class="d-nlabel">Step three</div>
         <div class="d-nname">Vercel</div>
-        <div class="d-nsub">Public URL. Done.</div>
-      </div>
-    </div>
-    <div class="body-text" style="font-size: clamp(12px, 1.2vw, 14px);">Claude Code can write the commands for each step.</div>
-  </div>
-</div>
-
-<!-- 21 — LOCAL FIRST -->
-<div class="slide">
-  <div class="slide-body">
-    <div class="eyebrow">Step one · Local</div>
-    <div class="slide-title sm">See it on your machine first.</div>
-    <div class="gap-sm"></div>
-    <div class="step-list">
-      <div class="step-row">
-        <span class="step-n">1</span>
-        <div class="step-content">
-          <div class="step-text">HTML files open directly in any browser</div>
-          <div class="step-note">Double-click the file or drag it into Chrome. No setup needed.</div>
-        </div>
-      </div>
-      <div class="step-row">
-        <span class="step-n">2</span>
-        <div class="step-content">
-          <div class="step-text">Apps that need a server: use Live Server</div>
-          <div class="step-note">A VS Code extension. One click and your project runs on localhost.</div>
-        </div>
-      </div>
-      <div class="step-row">
-        <span class="step-n">3</span>
-        <div class="step-content">
-          <div class="step-text">Localhost means "your computer, no internet required"</div>
-          <div class="step-note">Fast iteration. Changes appear the moment you save.</div>
-        </div>
-      </div>
-      <div class="step-row">
-        <span class="step-n">4</span>
-        <div class="step-content">
-          <div class="step-text">Test here before you deploy anywhere</div>
-          <div class="step-note">Local is where you break things cheaply.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 22 — DEPLOY WITH VERCEL -->
-<div class="slide">
-  <div class="slide-body">
-    <div class="eyebrow">Step two · Deploy</div>
-    <div class="slide-title sm">Share it with anyone.</div>
-    <div class="gap-sm"></div>
-    <div class="step-list">
-      <div class="step-row">
-        <span class="step-n">1</span>
-        <div class="step-content">
-          <div class="step-text">Push your project to GitHub</div>
-          <div class="step-note">A free account is enough. Claude Code can write the git commands.</div>
-        </div>
-      </div>
-      <div class="step-row">
-        <span class="step-n">2</span>
-        <div class="step-content">
-          <div class="step-text">Connect GitHub to Vercel</div>
-          <div class="step-note">Free account. Takes about two minutes to set up the first time.</div>
-        </div>
-      </div>
-      <div class="step-row">
-        <span class="step-n">3</span>
-        <div class="step-content">
-          <div class="step-text">Vercel detects your project and deploys it</div>
-          <div class="step-note">You get a public URL instantly. No configuration required for most projects.</div>
-        </div>
-      </div>
-      <div class="step-row">
-        <span class="step-n">4</span>
-        <div class="step-content">
-          <div class="step-text">Every future push triggers a new deploy</div>
-          <div class="step-note">Update locally, push to GitHub, Vercel handles the rest.</div>
-        </div>
+        <div class="d-nsub">Connect to GitHub. Public URL instantly.</div>
       </div>
     </div>
   </div>
@@ -1201,36 +1094,61 @@
 
 
 <!-- ══════════════════════════════════════════════════════
-  BLOCK 3 — STUDENT BUILD
-  Slides 23–29. Slides hold the room. ~55 minutes.
+  BLOCK 3 — ITERATE
+  Slides 23–28. Guided iteration. ~55 minutes.
 ══════════════════════════════════════════════════════ -->
 
-<!-- 23 — YOUR OPENING MOVE -->
+<!-- 23 — TWO PATHS -->
 <div class="slide">
   <div class="slide-body">
-    <div class="eyebrow">Starting the build</div>
-    <div class="slide-title sm">Your first prompt sets the ceiling.</div>
+    <div class="section-label">Block 3 · Iterate</div>
+    <div class="slide-title sm">You have a working tool.<br>Now make it better.</div>
     <div class="gap-md"></div>
-    <div class="code-block">
-      <div class="code-tag">Today's build prompt</div>
-      <div class="code-mono">
-        <span class="hi">"Review the CLAUDE.md and tech-spec.md</span><br>
-        &nbsp;in this directory, then build Version 1<br>
-        &nbsp;of the tool as a single HTML file called<br>
-        &nbsp;index.html. No API, no external dependencies.<br>
-        &nbsp;Use conditional logic to pick the testing<br>
-        &nbsp;method and generate the protocol from templates."
+    <div class="menu-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="menu-card">
+        <span class="menu-icon">&#9998;</span>
+        <div class="menu-name">Make it yours</div>
+        <div class="menu-desc">Swap in your own product context. Change the inputs, the testing scenarios, the output format. Same tool, your content, your users, your decisions.</div>
+      </div>
+      <div class="menu-card">
+        <span class="menu-icon">&#8679;</span>
+        <div class="menu-name">Push it further</div>
+        <div class="menu-desc">Add a new testing method. Improve the output with a timeline or scoring rubric. Add input validation. Stretch to the API layer if you're ready.</div>
       </div>
     </div>
     <div class="gap-sm"></div>
-    <div class="code-block" style="max-width: 58%; padding: clamp(14px, 2vw, 22px) clamp(16px, 2.5vw, 28px);">
-      <div class="code-tag">General structure</div>
-      <div class="code-mono">
-        <span class="hi">What I'm building:</span> [one sentence, specific]<br>
-        <span class="hi">What done looks like:</span> [concrete output or behavior]<br>
-        <span class="hi">Format I want:</span> [file type, structure, length]<br>
-        <span class="hi">First task:</span> [just the first thing, not everything]
+    <div class="body-text">Pick one. You can always do the other later.</div>
+  </div>
+</div>
+
+<!-- 24 — BREAK IT -->
+<div class="slide dark">
+  <div class="slide-body">
+    <div class="eyebrow">Round two</div>
+    <div class="slide-title sm" style="color: var(--white);">Now try to break it.</div>
+    <div class="gap-md"></div>
+    <div class="share-list">
+      <div class="share-item">
+        <div class="share-dot"></div>
+        <div class="share-text">Ask for too much at once</div>
       </div>
+      <div class="share-item">
+        <div class="share-dot"></div>
+        <div class="share-text">Give contradictory instructions</div>
+      </div>
+      <div class="share-item">
+        <div class="share-dot"></div>
+        <div class="share-text">Omit critical context</div>
+      </div>
+      <div class="share-item">
+        <div class="share-dot"></div>
+        <div class="share-text">Ask it to do something outside its pattern</div>
+      </div>
+    </div>
+    <div class="gap-sm"></div>
+    <div class="loop-back">
+      <div class="lb-icon">&#8634;</div>
+      <div class="lb-text">Name the kind of wrong. Fix it. <strong>That's the skill.</strong></div>
     </div>
   </div>
 </div>
@@ -1274,11 +1192,11 @@
   </div>
 </div>
 
-<!-- 27 — BUILD TIME -->
+<!-- 27 — ITERATION TIME -->
 <div class="slide dark">
   <div class="slide-body" style="justify-content: center;">
-    <div class="eyebrow">Build session</div>
-    <div class="timer-num"><em>60</em> min</div>
+    <div class="eyebrow">Iteration session</div>
+    <div class="timer-num"><em>45</em> min</div>
   </div>
 </div>
 
@@ -1444,10 +1362,10 @@
   </div>
 </div>
 
-<!-- 34 — CLOSE -->
+<!-- CLOSE -->
 <div class="slide">
   <div class="slide-body" style="justify-content: center;">
-    <div class="close-word">You're a<br><em>builder</em> now.</div>
+    <div class="close-word">Thanks for<br>your <em>time.</em></div>
     <div class="gap-lg"></div>
     <div class="next-row">
       <div class="next-item">
@@ -1455,12 +1373,12 @@
         <div class="next-text">The thing you made today<br>is v1. Keep iterating.</div>
       </div>
       <div class="next-item">
-        <div class="next-label">Share it</div>
-        <div class="next-text">Post what you built.<br>Show, don't describe.</div>
+        <div class="next-label">jsnfx.com</div>
+        <div class="next-text">Workshop materials,<br>templates, and more.</div>
       </div>
       <div class="next-item">
-        <div class="next-label">Come back</div>
-        <div class="next-text">jsnfx.com<br>uxcontent.com</div>
+        <div class="next-label">uxcontent.com</div>
+        <div class="next-text">UX Content Collective<br>courses and community.</div>
       </div>
     </div>
   </div>
@@ -1470,6 +1388,14 @@
   const slides = document.querySelectorAll('.slide');
   const total = slides.length;
   let current = 0;
+
+  // Inject slide numbers
+  slides.forEach((s, i) => {
+    const num = document.createElement('div');
+    num.className = 'slide-num';
+    num.textContent = (i + 1) + ' / ' + total;
+    s.appendChild(num);
+  });
   let touchStartX = 0;
   let touchStartY = 0;
 
