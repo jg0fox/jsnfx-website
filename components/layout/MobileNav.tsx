@@ -17,7 +17,6 @@ import {
   ChevronDown,
   Check,
   Library,
-  BookText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 // import { AdversarialToggle } from "@/components/ui/AdversarialToggle";
@@ -115,11 +114,6 @@ export function MobileNav({ portfolioItems = [], projectItems = [] }: MobileNavP
       href: "/writing",
       label: "Creative writing",
       icon: <PenTool className="w-5 h-5" />,
-    },
-    {
-      href: "/glossolalia",
-      label: "Glossolalia",
-      icon: <BookText className="w-5 h-5" />,
     },
   ];
 
