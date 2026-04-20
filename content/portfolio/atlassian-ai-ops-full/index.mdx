@@ -1,0 +1,127 @@
+---
+title: "AI content operations at Atlassian"
+slug: atlassian-ai-ops-full
+description: >-
+  Designing evaluation frameworks, building prompt testing tools, and
+  establishing content standards governance for AI-assisted authoring at scale.
+category: "Enterprise SaaS"
+company: Atlassian
+date: '2025-01'
+role: Content Design Lead, AI Tooling
+timeline: 6+ months
+tools:
+  - Evaluation Design
+  - Prompt Engineering
+  - Content Standards
+  - Confluence
+  - Replit
+featured: false
+listed: false
+thumbnail: "/portfolio/atlassian-ai-ops/slides/slide-44.png"
+heroImage: "/portfolio/atlassian-ai-ops/slides/slide-44.png"
+order: 3
+---
+
+## You're all authors now
+
+What used to be purely the responsibility of writers with years of expertise is now something that potentially anyone at Atlassian could be tasked with. This distribution of content authorship would have been unheard of a few years ago, but today companies like Atlassian are investing heavily in the operations and tooling required to make it happen.
+
+The question driving my work: can we maintain quality while opening up authorship?
+
+## The release notes agent
+
+![The DC release notes helper agent interface](/portfolio/atlassian-ai-ops/slides/slide-49.png)
+
+This project centers on a release notes agent built on one of the OpenAI models. I designed the AI-assisted workflow for working with this agent and collaborated on the prompt design — roles, goals, and logic — for shaping its behavior. One of my primary responsibilities as the AI tooling content lead was to measure the quality of the content we were achieving.
+
+![Evaluation roadmap showing our position in the journey toward excellent evals](/portfolio/atlassian-ai-ops/slides/slide-50.png)
+
+We'd been evaluating the agent through a series of pilots that relied primarily on structured human review. Product managers, content designers, and engineers graded outputs against rubrics. That gave us a strong qualitative baseline and helped us define what "good" actually looks like. The next step on our roadmap was migrating the rubrics and structural checks we'd validated through human review into automated graders — but we wanted to make sure our success criteria were well-defined before automating. We didn't want to scale grading that's measuring the wrong thing.
+
+## Designing the evaluation rubric
+
+![Release notes rubric with quality dimensions for accuracy, completeness, clarity, vocabulary, voice and tone, and accessibility](/portfolio/atlassian-ai-ops/slides/slide-52.png)
+
+I designed the evaluation rubric with my content design partner. We used a double-blind setup: two human graders for each task, anonymous to one another. The rubric had clear yes/no criteria for each quality dimension, but we also documented rationale — which turned out to be excellent data for training our agents. Our initial quality threshold required reaching a 7 out of 10.
+
+![Evaluation spreadsheet showing score variance between graders](/portfolio/atlassian-ai-ops/slides/slide-53.png)
+
+Early results revealed a problem. Looking at the score column, there was prevalent variance between evaluators on the same sample — one evaluator giving a 9 while another gave a 5. This drove up our standard deviation and degraded our ability to arrive at a meaningful quality threshold. Either our evaluators were looking at the wrong samples, or we were all out of alignment on how we read, understood, and answered each criterion.
+
+## Getting aligned
+
+After verifying we were all looking at the correct samples, I brought everyone together for an alignment session. We evaluated one output together, then — without sharing results — walked through our actual process: whether we opened certain tabs, read the entire sample, drilled into sections, checked criteria one at a time. Then we revealed our scores, showing where we had deviation.
+
+![Voice and tone alignment exercise showing a 3-3 split among evaluators](/portfolio/atlassian-ai-ops/slides/slide-55.png)
+
+For our voice and tone criterion, the group was split evenly — three yes, three no. People got hung up on the subjectivity of tone. It takes expertise and experience, especially for something like release notes, to understand the desired tone of voice. This introduces variance that compounds across evaluators.
+
+Our solution: simplify to a single "in your judgment" criterion. We went from three bullet points about alignment, hype avoidance, and slang to one question: *Does the release note align with your understanding of Atlassian voice and tone?* To support this, we created exemplary release notes — gold standards for evaluator onboarding and for building our library of few-shot prompting examples.
+
+## The numbers
+
+![Pilot results comparing AI draft, AI-assisted, and manually written quality scores](/portfolio/atlassian-ai-ops/slides/slide-57.png)
+
+The pilot compared unedited AI draft quality to AI-assisted quality and both to a manually written control. For raw AI drafts, we fell just short of the quality threshold — scoring 6.7 against our target of 7. But for agent drafts with human editing, we scored slightly higher than the manually written controls and documented a **68.5% time reduction**.
+
+These results far exceeded expectations and contributed to the creation of a release notes request desk that now automates 50% of all release notes at Atlassian.
+
+## Building a prompt evaluation tool
+
+![Request from the FedRAMP team for a prompt evaluation tool](/portfolio/atlassian-ai-ops/slides/slide-59.png)
+
+As this work was ongoing, a smaller team working on FedRAMP products asked if there were any system prompt evaluation tools we could use. We looked at the landscape and realized there wasn't anything readily available — so I built one.
+
+![Prompt Lab web interface with experiment builder](/portfolio/atlassian-ai-ops/slides/slide-60.png)
+
+I gave the team both a web app and a command-line interface. The tool let them run prompt variants in parallel and compare outputs.
+
+![Non-proprietary demo exploring whether structural prompt shape changes model reasoning](/portfolio/atlassian-ai-ops/slides/slide-61.png)
+
+In a demo experiment, I explored whether the structural shape of a prompt — not just its content — changes how an AI model reasons and what it produces. The task was writing tooltip copy for a retail brokerage app with compliance constraints.
+
+## What I'd do differently
+
+![Agent pipeline architecture showing the layers that shape output, alongside lessons learned](/portfolio/atlassian-ai-ops/slides/slide-65.png)
+
+Pretty quickly, I realized that our mental model treated the system prompt as the single determinant of output quality, when it's really just one of several layers in the agent's pipeline. What the team actually needed was more education and a structured prompt refinement process backed by evaluation criteria — not just a comparison tool.
+
+In correcting course, I got the group together for an architectural overview showing all the layers that shape agent output. If I could start over, I would have started from that overview and established evaluation criteria and a golden dataset before building bespoke tooling.
+
+## Content standards governance
+
+![Content standards audit spreadsheet showing 260 standards across Confluence spaces](/portfolio/atlassian-ai-ops/slides/slide-67.png)
+
+Alongside all of this, I was leading an initiative to put in place a content standards governance mechanism for all of Atlassian's content standards — across all products, accumulated over years. Without governance, standards exist as static documents that teams either can't find or interpret inconsistently. This drift compounds across distributed teams and over time.
+
+The governance layer turns standards into living infrastructure with clear ownership, review workflows, and version control — and makes them machine-readable enough to integrate into AI tooling like the release notes agent.
+
+![Two existing content standards pages showing inconsistent formatting and non-machine-readable content](/portfolio/atlassian-ai-ops/slides/slide-69.png)
+
+The audit surfaced 49 collections across 9 Confluence spaces and 219 pages with visible overlap — error messaging patterns appeared in at least three spaces with no shared hierarchy. It turned an abstract governance problem into something a stakeholder could point at and say "this is why teams can't find or trust our standards."
+
+## Designing the architecture
+
+![Standards governance architecture diagram showing Hub UI, Confluence API, audit scripts, and AI tool integration](/portfolio/atlassian-ai-ops/slides/slide-72.png)
+
+With my engineering partner, we designed an intermediary architecture that treats Confluence as the source of truth while layering governance on top. A Hub UI backed by a Postgres index lets teams browse, search, and manage standards with governance state, while a weekly audit script reads page state via the Confluence API to detect drift and flag conflicts. AI tools connect by fetching and transforming Confluence content into markdown, so the same governed standards that humans browse are the ones agents reason against.
+
+## The Content Standards Hub
+
+![Content Standards Hub prototype showing 30 total standards with search, filter, and governance state](/portfolio/atlassian-ai-ops/slides/slide-73.png)
+
+I built a working prototype of the Content Standards Hub. People could experiment with it, sign up for accounts, and see what it meant to be an admin or a user.
+
+![Standard editing interface with metadata, context, implementation details, and testing criteria](/portfolio/atlassian-ai-ops/slides/slide-74.png)
+
+They could edit standards with structured metadata — type, level, source, owner, version, related standards — alongside implementation details and testing criteria.
+
+![Governance queue showing intake, triage, and review workflow with proposed changes](/portfolio/atlassian-ai-ops/slides/slide-75.png)
+
+The governance intake, triage, and review workflow was fully functional. Even if the operational parts of standards governance don't ultimately live in this tool, the workflow has been designed. AI empowered me to communicate the concept of governance as an interactive, functional pipeline rather than a detailed Confluence page.
+
+## AI tooling is only as good as what's underneath it
+
+![Rope stretched across water — AI tooling is only as good as the systems and people underneath it](/portfolio/atlassian-ai-ops/slides/slide-76.png)
+
+If your standards are scattered and invisible to the tools and teams that rely on them, no amount of prompt engineering will drive meaningful change to the output. My hope is that this standards governance initiative makes every AI-assisted workflow at Atlassian more trustworthy and reliable.

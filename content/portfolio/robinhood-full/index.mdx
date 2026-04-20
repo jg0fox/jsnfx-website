@@ -1,0 +1,99 @@
+---
+title: "Robinhood's 24 Hour Market"
+slug: robinhood-full
+description: >-
+  Navigating compliance, conceptual density, and content systems to help
+  customers trade on their own terms.
+category: Fintech
+company: Robinhood
+date: '2023-09-04'
+role: Senior Staff Content Designer
+timeline: 6 months
+tools:
+  - Figma
+  - Journey Mapping
+  - Content Systems
+  - Reg BI Compliance
+  - Object Oriented UX
+featured: false
+listed: false
+thumbnail: "/portfolio/robinhood/slides/slide-41.png"
+heroImage: "/portfolio/robinhood/slides/slide-41.png"
+order: 1
+---
+
+## Customers locked out of their own market
+
+Years of research and support tickets told us the same story: Robinhood customers were eager to participate in the stock market but couldn't always do so because they had jobs during market hours, cared for families, or were otherwise unavailable. The opportunity to make extended-hours trading accessible to a general audience was significant.
+
+I ran a journey mapping workshop with my product designer, researcher, PM, and legal and compliance partners to figure out how the 24 Hour Market would take shape within Robinhood's existing trading experiences.
+
+![Journey mapping workshop for 24 Hour Market](/portfolio/robinhood/slides/slide-17.png)
+
+One key takeaway: we'd build on top of Robinhood's existing limit order flow for the core functionality.
+
+## The natural pricing rabbit hole
+
+![Existing limit order flow screens](/portfolio/robinhood/slides/slide-18.png)
+
+The existing limit order experience was already cumbersome and informationally dense — especially for people new to trading. As I started reviewing the content across these surfaces, I found myself staring at a market price tooltip that read: *"The consolidated real-time market data for PINS across all US stock exchanges is..."* followed by cryptic data and a hefty disclaimer.
+
+My hunch was that this content wasn't great. But a hunch isn't a critique. So I went looking for the root cause.
+
+![Content design system pattern alongside the modal content it produced](/portfolio/robinhood/slides/slide-22.png)
+
+Tracing the content back to our design system, I found the definitional header pattern that likely produced it. Reasonable pattern, reasonable output — until you factor in compliance.
+
+![Regulation Best Interest guidelines in tension with the content pattern](/portfolio/robinhood/slides/slide-25.png)
+
+After meeting with our legal and compliance partners, I learned that this content had been shaped by a tug-of-war between our plain-language pattern and the SEC's Regulation Best Interest. Terms like "contextual information" and "no misleading statements" had pushed the content toward a clunky but defensible phrase. Understanding this root cause didn't make the content good — but it made the problem solvable.
+
+## The data that justified going deeper
+
+![Market price tooltip with bounce and abandonment metrics](/portfolio/robinhood/slides/slide-29.png)
+
+My research and analytics partners helped quantify the problem. Over the previous 12 months, customers who tapped the market price tooltip had a **7% increase in bounces**, and those who didn't bounce were **12% more likely to abandon** the trade flow entirely.
+
+My hypothesis: there was a mismatch between what customers expected (learning about market price) and what they got (specific market data about the bid/ask spread with no indication of how the two concepts related).
+
+This wasn't strictly within the scope of 24 Hour Market — it would require changes to the existing limit order flow, all of which had already received legal and compliance approval. But the potential to reduce bounce and abandonment across *all* limit orders, not just 24HM, made it worth escalating.
+
+## Designing for clarity in a dense space
+
+![Six iterations of the Set Limit Price screen showing bid/ask spread evolution](/portfolio/robinhood/slides/slide-33.png)
+
+My early explorations moved away from the "natural pricing" scheme toward showing the bid/ask spread directly. The goal was to convey this information to a customer on the go — without overwhelming, annoying, or misinforming them.
+
+![Three versions of the tooltip modal content](/portfolio/robinhood/slides/slide-35.png)
+
+*The core messages: your limit price impacts whether your order executes, and this market data can help you set an intentional price.*
+
+As we added educational content to the modal, density multiplied. We had to ask ourselves: what's the responsibility of this experience? How much educating can we expect a limit order flow to do?
+
+Our consensus: enough to limit risk, enable action, and inspire more experimentation.
+
+## Education vs. recommendation
+
+![Approved vs. unapproved tooltip content under Reg BI](/portfolio/robinhood/slides/slide-38.png)
+
+We designed an onboarding tour to introduce the bid/ask spread data — tooltips walking through bid price, ask price, lot size, and how to use the data. We used card sorting tests with look-alike users to determine the sequence.
+
+The compliance line here is nuanced: education vs. recommendation. "Consider selling" is directive — under Reg BI, anything resembling a recommendation triggers best-interest obligations. The approved version is purely definitional. From a content design perspective, it's beautifully neutral. It lets the user make their own informed decision.
+
+In regulated fintech, one of our jobs is to make users *capable* of good decisions — not to make decisions for them.
+
+## Tone as substance and sound
+
+![Tone of voice framework: substance and sound](/portfolio/robinhood/slides/slide-39.png)
+
+I think of tone as two elements: *substance* (what we say and its conceptual impact) and *sound* (how units of language actually feel). When these come together, we can modulate tone to complement and empower our content.
+
+![Terms of art analysis with 'execute' example](/portfolio/robinhood/slides/slide-40.png)
+
+A term of art like *execute* — full of glottal stops, conceptually dense, associated with unpleasant things — might seem like it doesn't belong in a friendly trading app. But customers need to understand what it means to navigate equities trading. My rationale: the domain expertise it imparts outweighs the friction. Sometimes a hard word earns its place.
+
+## What shipped
+
+![Full shipped 24 Hour Market V1 flow](/portfolio/robinhood/slides/slide-41.png)
+
+The V1 flow shipped with a discovery card, the revised limit order experience, bid/ask spread data, and the onboarding tour. I also served as co-implementation lead on Robinhood's content committee, which meant everything we learned from 24 Hour Market — patterns for displaying market data, guidance on future tenses, when to use natural pricing vs. bid/ask spread, and approved terms of art — got codified as standards and guidelines for the broader team.

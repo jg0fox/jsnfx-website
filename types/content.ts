@@ -105,6 +105,7 @@ export interface PortfolioFrontmatter {
   heroImage?: string;
   order?: number;
   published?: boolean;
+  listed?: boolean;
 }
 
 export interface ProjectFrontmatter {

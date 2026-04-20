@@ -47,6 +47,12 @@ export async function getPortfolioItems(): Promise<PortfolioMeta[]> {
       continue;
     }
 
+    // Skip unlisted items (listed === false)
+    // These are accessible by direct URL but hidden from the portfolio index
+    if (frontmatter.listed === false) {
+      continue;
+    }
+
     items.push({
       slug: frontmatter.slug || slug,
       title: frontmatter.title,
@@ -220,10 +226,36 @@ export async function getAdjacentPortfolioItems(currentSlug: string): Promise<{
 
 /**
  * Get all portfolio slugs for static generation
+ * Includes unlisted items (so they get built) but excludes unpublished ones
  */
 export async function getAllPortfolioSlugs(): Promise<string[]> {
-  const items = await getPortfolioItems();
-  return items.map((item) => item.slug);
+  const portfolioDir = path.join(contentDirectory, "portfolio");
+
+  if (!fs.existsSync(portfolioDir)) {
+    return [];
+  }
+
+  const slugs = fs.readdirSync(portfolioDir).filter((name) => {
+    const itemPath = path.join(portfolioDir, name);
+    return fs.statSync(itemPath).isDirectory();
+  });
+
+  const result: string[] = [];
+
+  for (const slug of slugs) {
+    const filePath = path.join(portfolioDir, slug, "index.mdx");
+    if (!fs.existsSync(filePath)) continue;
+
+    const fileContents = fs.readFileSync(filePath, "utf8");
+    const { data } = matter(fileContents);
+    const frontmatter = data as PortfolioFrontmatter;
+
+    if (frontmatter.published === false) continue;
+
+    result.push(frontmatter.slug || slug);
+  }
+
+  return result;
 }
 
 /**

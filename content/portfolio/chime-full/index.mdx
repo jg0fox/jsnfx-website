@@ -1,0 +1,102 @@
+---
+title: Peer-to-peer payments at Chime
+slug: chime-full
+description: >-
+  A content-friendly experiment with winning results — proving that specificity
+  doesn't always equate to comprehension.
+category: Fintech
+company: Chime
+date: '2022-12-15'
+role: Lead Content Designer
+timeline: 3 months
+tools:
+  - Figma
+  - A/B Testing
+  - Behavioral Design
+  - Content Systems
+featured: false
+listed: false
+thumbnail: "/portfolio/chime/slides/slide-98.png"
+heroImage: "/portfolio/chime/slides/slide-98.png"
+order: 2
+---
+
+## Helping people make financial progress
+
+One of the things I loved about working at Chime was the deep focus on our members — people who, like everyone else, want and need to make financial progress in their lives. Beyond saving money and making ends meet between paychecks, they need to do things like improve their credit score so they can qualify to rent an apartment or buy a car. At Chime, our goal was to help members cope with and thrive under the weight of difficult financial systems.
+
+We couldn't do that without bringing them into Chime and introducing them to Chime's tools for financial progress — which leads us to Pay Anyone.
+
+## The friction before the feature
+
+![The original interstitial screens in the Pay Anyone flow](/portfolio/chime/slides/slide-83.png)
+
+A small team (with no content designer) had been working on a growth project to improve peer-to-peer payment metrics. They'd identified a moment of friction in the payment send/request flow: two interstitial screens that sat between a member tapping "Pay Anyone" and actually arriving at the Pay Anyone feature.
+
+These screens were designed to address a real problem — Chime members had such a codified mental model of how P2P payment systems worked that they didn't quite believe they could send or request money from anyone. And even if they did believe it, they had concerns about what the experience looked like from the recipient's side.
+
+The content on those screens had issues: inconsistent punctuation, inconsistent terminology ("request" vs. "receive," "claim" vs. "cash out"), and button text that might not match user intent.
+
+## Expected interaction cost
+
+![Behavioral design framework showing expected utility minus expected interaction cost](/portfolio/chime/slides/slide-84.png)
+
+My growth and behavioral design instincts perked up immediately. There was clearly an overwhelming expected interaction cost — members would feel less motivated to take action upon landing at the Pay Anyone screen, regardless of how simple or intuitive the screen itself was.
+
+After noting my initial reactions, I had questions: Why are we focusing on this moment? How does someone land on this screen and what comes next? What do we want to happen next?
+
+## Going deeper
+
+![Cross-functional discovery process and initial explorations](/portfolio/chime/slides/slide-85.png)
+
+This wasn't something I could resolve in a single office hours session. I validated that the work was worth prioritizing, gave my manager an overview, and met with cross-functional partners to agree on what we might de-prioritize. We happened to have a project in a holding pattern pending research results, which gave us a window of about three weeks to build this out as an A/B test using production as the control.
+
+![Cross-functional feedback gathered through Slack and internal reviews](/portfolio/chime/slides/slide-89.png)
+
+I shared the existing content broadly and asked stakeholders for signal on how they felt about the words. The pattern that emerged: people wanted more concise copy with specific clarifications. This told me we probably didn't have a clearly formalized core message — we weren't sure exactly what we wanted to convey and why.
+
+## Twenty versions of a heading
+
+![Eight iterations on the existing content model exploring different framings](/portfolio/chime/slides/slide-90.png)
+
+We explored over 20 versions of the heading alone. Two discussion points stood out from all that iteration.
+
+![Style and tone analysis of negative qualifier construction](/portfolio/chime/slides/slide-92.png)
+
+The first was a negative qualifier. "People who don't use Chime" distinguishes groups fairly well, but it also feels exclusionary. Some stakeholders thought it would help members feel a sense of exclusivity — they're in the in-group. Others thought it needlessly created a division when what we were trying to accomplish was a model where anyone can pay or request from anyone, regardless of platform.
+
+![Style and tone analysis of passive voice as a deliberate choice](/portfolio/chime/slides/slide-93.png)
+
+The second was passive voice. "Paying and requesting" uses nominalization to let the actions function as nouns, focusing the sentence on what's happening rather than who's doing it. "Write in active voice" is often treated as a hard rule for UX content, but standards, patterns, and guidelines allow for the flexibility this work requires. In this case, passive voice enhanced comprehension of the core message.
+
+## Finding the right form factor
+
+![Explorations of tooltip and inline content within the Pay Anyone screen](/portfolio/chime/slides/slide-94.png)
+
+Simultaneously, I worked with my product design counterpart to identify alternative structures. We wanted to move away from occupying that interstitial space between a member's intent and their destination. We explored what was available in our design system and React component library — tooltips, inline content panels, and bottom sheets.
+
+![Bottom sheet component exploration with expanded content hierarchy](/portfolio/chime/slides/slide-95.png)
+
+![Iteration incorporating copy-to-clipboard and share tray functionality](/portfolio/chime/slides/slide-96.png)
+
+User research revealed that test subjects repeatedly expressed a need for more clarity about what the guest's experience would be like. We found components that allowed members to copy content to clipboard and open the share tray — directly addressing those concerns.
+
+## The hypothesis
+
+![Final design with hypothesis statement](/portfolio/chime/slides/slide-97.png)
+
+We believed that framing Pay Anyone as a tool that works for everyone and explaining the guest's side of the experience would result in members feeling more confident and secure in sending and requesting payments. We'd know we were right when we saw a decrease in abandonments and an increase in payments and requests.
+
+## A 16% improvement
+
+![A/B test results showing 16% improvement in member-to-guest payments](/portfolio/chime/slides/slide-98.png)
+
+We launched an A/B test with the original interstitial experience as the control. Our variant saw a **16% improvement** in member-to-guest payments and requests — more than enough to deploy to production.
+
+## Specificity is not comprehension
+
+![Comprehension vs. specificity curve showing diminishing returns](/portfolio/chime/slides/slide-99.png)
+
+Beyond the winning experiment, one of my real wins was convincing a couple of deeply invested stakeholders — the head of product and their direct report PM — that specificity doesn't always equate to comprehension. At the start of this project, they strongly felt the content should be as descriptive and specific as possible. More often than not, I would have agreed. But in this case, "Friends who aren't on Chime" — although more descriptive — created too much cognitive friction. "Everyone" set enough expectations for members to dive into the details and learn from doing.
+
+As the project wrapped, I turned our content learnings into educational resources for the broader team: a two-minute problem/solution video for leadership and an async workshop for design and cross-functional partners.
