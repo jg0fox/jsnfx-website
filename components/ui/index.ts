@@ -15,3 +15,5 @@ export { Tag } from "./Tag";
 export { StatCard } from "./StatCard";
 export { ImageWithCaption } from "./ImageWithCaption";
 export { Divider } from "./Divider";
+export { Lightbox } from "./Lightbox";
+export { LightboxImage } from "./LightboxImage";

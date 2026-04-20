@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { LightboxImage } from "@/components/ui/LightboxImage";
 import type { MDXComponents as MDXComponentsType } from "mdx/types";
 
 /**
@@ -58,22 +59,24 @@ function MDXImage({
   const imageSrc = src.startsWith("./") ? src.replace("./", "/images/") : src;
 
   return (
-    <figure className="my-8 max-w-full overflow-hidden rounded-lg border border-soft-linen-dark">
-      <div className="relative aspect-[4/3] bg-soft-linen-light">
-        <Image
-          src={imageSrc}
-          alt={alt || ""}
-          fill
-          className="object-contain p-2"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 800px"
-        />
-      </div>
-      {alt && (
-        <figcaption className="py-2 px-3 text-sm text-text-muted text-center bg-soft-linen-light border-t border-soft-linen-dark">
-          {alt}
-        </figcaption>
-      )}
-    </figure>
+    <LightboxImage src={imageSrc} alt={alt || ""}>
+      <figure className="my-8 max-w-full overflow-hidden rounded-lg border border-soft-linen-dark">
+        <div className="relative aspect-[4/3] bg-soft-linen-light">
+          <Image
+            src={imageSrc}
+            alt={alt || ""}
+            fill
+            className="object-contain p-2"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 800px"
+          />
+        </div>
+        {alt && (
+          <figcaption className="py-2 px-3 text-sm text-text-muted text-center bg-soft-linen-light border-t border-soft-linen-dark">
+            {alt}
+          </figcaption>
+        )}
+      </figure>
+    </LightboxImage>
   );
 }
 

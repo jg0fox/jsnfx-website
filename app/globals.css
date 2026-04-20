@@ -433,3 +433,9 @@ h1, h2, h3, h4, h5, h6 {
 .loading-pulse {
   animation: pulse-subtle 1.5s ease-in-out infinite;
 }
+
+/* Lightbox */
+@keyframes lightbox-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
