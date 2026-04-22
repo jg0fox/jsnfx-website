@@ -26,7 +26,7 @@ import {
   Download,
   Play,
 } from "lucide-react";
-import { ScrollFadeIn } from "./ScrollFadeIn";
+import { CalloutsProvider, RailAccordion } from "./CalloutsAccordion";
 
 export const metadata: Metadata = {
   title: "Jason Fox — Netflix",
@@ -162,23 +162,6 @@ const additionalWork = [
 ];
 
 /* ---------- Sidebar callout building blocks ---------- */
-
-function SidebarEyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-2 mb-3">
-      <span
-        className="h-px w-6"
-        style={{ backgroundColor: NETFLIX_RED, opacity: 0.5 }}
-      />
-      <span
-        className="text-[10px] font-semibold uppercase tracking-[0.18em]"
-        style={{ color: NETFLIX_RED }}
-      >
-        {children}
-      </span>
-    </div>
-  );
-}
 
 function SidebarRowGroup({ children }: { children: React.ReactNode }) {
   return (
@@ -366,9 +349,7 @@ function HybridSection({
         {children}
         {mobile}
       </div>
-      <aside className="hidden xl:block">
-        <ScrollFadeIn>{sidebar}</ScrollFadeIn>
-      </aside>
+      <aside className="hidden xl:block">{sidebar}</aside>
     </section>
   );
 }
@@ -458,103 +439,110 @@ export default function NetflixPage() {
         </div>
       </section>
 
-      {/* Hybrid section 1: experience + 3 case studies */}
-      <HybridSection
-        sidebar={
-          <div>
-            <SidebarEyebrow>Related case studies</SidebarEyebrow>
-            <SidebarRowGroup>
-              {pairedCaseStudies.map((study) => (
-                <SidebarCaseStudyRow key={study.href} {...study} />
-              ))}
-            </SidebarRowGroup>
-          </div>
-        }
-        mobile={
-          <MobilePathwayList
-            eyebrow="Related case studies"
-            items={pairedCaseStudies.map((s) => ({
-              title: s.title,
-              href: s.href,
-            }))}
-          />
-        }
-      >
-        <p>
-          For the past 2 years, I've been a Lead Content Designer on
-          Atlassian's AI Content Systems team, where I define how
-          conversational guidance, product voice, and interaction patterns
-          work together across experiences that serve millions. Before that,
-          I shipped content for fintech at Robinhood and Chime, not to
-          mention enterprise SaaS, always at the intersection of systems
-          thinking and craft. I've driven 0-1 initiatives in ambiguous spaces,
-          partnered with brand and marketing on campaigns, and built language
-          frameworks that scale across formats.
-        </p>
-      </HybridSection>
+      <CalloutsProvider>
+        {/* Hybrid section 1: experience + 3 case studies */}
+        <HybridSection
+          sidebar={
+            <RailAccordion
+              id="cases"
+              label="Related case studies"
+              count={pairedCaseStudies.length}
+            >
+              <SidebarRowGroup>
+                {pairedCaseStudies.map((study) => (
+                  <SidebarCaseStudyRow key={study.href} {...study} />
+                ))}
+              </SidebarRowGroup>
+            </RailAccordion>
+          }
+          mobile={
+            <MobilePathwayList
+              eyebrow="Related case studies"
+              items={pairedCaseStudies.map((s) => ({
+                title: s.title,
+                href: s.href,
+              }))}
+            />
+          }
+        >
+          <p>
+            For the past 2 years, I've been a Lead Content Designer on
+            Atlassian's AI Content Systems team, where I define how
+            conversational guidance, product voice, and interaction patterns
+            work together across experiences that serve millions. Before that,
+            I shipped content for fintech at Robinhood and Chime, not to
+            mention enterprise SaaS, always at the intersection of systems
+            thinking and craft. I've driven 0-1 initiatives in ambiguous
+            spaces, partnered with brand and marketing on campaigns, and built
+            language frameworks that scale across formats.
+          </p>
+        </HybridSection>
 
-      {/* Hybrid section 2: tone spectrum + featured project */}
-      <HybridSection
-        sidebar={
-          <div>
-            <SidebarEyebrow>Featured project</SidebarEyebrow>
-            <SidebarFeaturedProject />
-          </div>
-        }
-        mobile={
-          <MobilePathwayList
-            eyebrow="Featured project"
-            items={[
-              {
-                title: "Tone Spectrum Explorer",
-                href: "/projects/tone-spectrum",
-              },
-            ]}
-          />
-        }
-      >
-        <p>
-          I also spend my own time building tools for the craft I care about.
-          I built the Tone Spectrum Explorer, an interactive tool that turns
-          years of literary and linguistic knowledge about tone into something
-          teams can actually use. It lets a writer position their tone on a
-          spectrum, surfaces the linguistic devices that make that tone land,
-          detects anti-patterns, and exports a machine-readable content
-          standard. It's craft and systems in the same artifact, which is how
-          I like to work.
-        </p>
-      </HybridSection>
+        {/* Hybrid section 2: tone spectrum + featured project */}
+        <HybridSection
+          sidebar={
+            <RailAccordion id="project" label="Featured project" count={1}>
+              <SidebarFeaturedProject />
+            </RailAccordion>
+          }
+          mobile={
+            <MobilePathwayList
+              eyebrow="Featured project"
+              items={[
+                {
+                  title: "Tone Spectrum Explorer",
+                  href: "/projects/tone-spectrum",
+                },
+              ]}
+            />
+          }
+        >
+          <p>
+            I also spend my own time building tools for the craft I care
+            about. I built the Tone Spectrum Explorer, an interactive tool
+            that turns years of literary and linguistic knowledge about tone
+            into something teams can actually use. It lets a writer position
+            their tone on a spectrum, surfaces the linguistic devices that
+            make that tone land, detects anti-patterns, and exports a
+            machine-readable content standard. It's craft and systems in the
+            same artifact, which is how I like to work.
+          </p>
+        </HybridSection>
 
-      {/* Hybrid section 3: formats + 3 videos */}
-      <HybridSection
-        sidebar={
-          <div>
-            <SidebarEyebrow>From the workshop</SidebarEyebrow>
-            <SidebarRowGroup>
-              {featuredVideos.map((video) => (
-                <SidebarVideoRow key={video.id} {...video} />
-              ))}
-            </SidebarRowGroup>
-          </div>
-        }
-        mobile={
-          <MobilePathwayList
-            eyebrow="From the workshop"
-            items={featuredVideos.map((v) => ({
-              title: v.title,
-              href: "/resources#videos",
-            }))}
-          />
-        }
-      >
-        <p>
-          I can see that Netflix is thinking about new shapes now. Things like
-          livestreams, podcasts, and shorter-form entertainment, which represent
-          new moments of attention, and they'll need new language to match.
-          Listening to a daily podcast is not the same as watching a serialized
-          series.
-        </p>
-      </HybridSection>
+        {/* Hybrid section 3: formats + 3 videos */}
+        <HybridSection
+          sidebar={
+            <RailAccordion
+              id="videos"
+              label="From the workshop"
+              count={featuredVideos.length}
+            >
+              <SidebarRowGroup>
+                {featuredVideos.map((video) => (
+                  <SidebarVideoRow key={video.id} {...video} />
+                ))}
+              </SidebarRowGroup>
+            </RailAccordion>
+          }
+          mobile={
+            <MobilePathwayList
+              eyebrow="From the workshop"
+              items={featuredVideos.map((v) => ({
+                title: v.title,
+                href: "/resources#videos",
+              }))}
+            />
+          }
+        >
+          <p>
+            I can see that Netflix is thinking about new shapes now. Things
+            like livestreams, podcasts, and shorter-form entertainment, which
+            represent new moments of attention, and they'll need new language
+            to match. Listening to a daily podcast is not the same as watching
+            a serialized series.
+          </p>
+        </HybridSection>
+      </CalloutsProvider>
 
       {/* Closing — plain prose with bold highlights */}
       <section className="max-w-2xl">
