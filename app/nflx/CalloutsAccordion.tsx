@@ -87,22 +87,27 @@ export function RailAccordion({
         )}
         {showAttention ? (
           <motion.span
-            className="inline-flex"
-            style={{ transformOrigin: "center" }}
+            className="inline-flex items-center justify-center"
+            style={{
+              width: "14px",
+              height: "14px",
+              borderRadius: "9999px",
+              transformOrigin: "center",
+            }}
             animate={{
               rotate: [0, -22, 22, -16, 10, 0, 0, 0, 0, 0],
               scale: [1, 1.35, 1.4, 1.3, 1.15, 1, 1, 1, 1, 1],
-              filter: [
-                "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
-                "drop-shadow(0 0 12px rgba(229, 9, 20, 0.95))",
-                "drop-shadow(0 0 16px rgba(229, 9, 20, 1))",
-                "drop-shadow(0 0 12px rgba(229, 9, 20, 0.9))",
-                "drop-shadow(0 0 8px rgba(229, 9, 20, 0.7))",
-                "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
-                "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
-                "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
-                "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
-                "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
+              boxShadow: [
+                "0 0 0px 0px rgba(229, 9, 20, 0)",
+                "0 0 14px 4px rgba(229, 9, 20, 0.85)",
+                "0 0 20px 6px rgba(229, 9, 20, 1)",
+                "0 0 16px 5px rgba(229, 9, 20, 0.9)",
+                "0 0 10px 3px rgba(229, 9, 20, 0.6)",
+                "0 0 0px 0px rgba(229, 9, 20, 0)",
+                "0 0 0px 0px rgba(229, 9, 20, 0)",
+                "0 0 0px 0px rgba(229, 9, 20, 0)",
+                "0 0 0px 0px rgba(229, 9, 20, 0)",
+                "0 0 0px 0px rgba(229, 9, 20, 0)",
               ],
             }}
             transition={{
