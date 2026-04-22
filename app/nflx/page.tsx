@@ -24,9 +24,13 @@ import {
   ExternalLink,
   FileText,
   Download,
-  Play,
 } from "lucide-react";
 import { CalloutsProvider, RailAccordion } from "./CalloutsAccordion";
+import {
+  VideoLightboxProvider,
+  VideoSidebarRow,
+  MobileVideoList,
+} from "./VideoLightbox";
 
 export const metadata: Metadata = {
   title: "Jason Fox — Netflix",
@@ -209,50 +213,6 @@ function SidebarCaseStudyRow({
   );
 }
 
-function SidebarVideoRow({
-  title,
-  duration,
-  thumbnail,
-}: {
-  title: string;
-  duration: string;
-  thumbnail: string;
-}) {
-  return (
-    <Link
-      href="/resources#videos"
-      className="flex items-center gap-3 p-2.5 group hover:bg-soft-linen-dark/30 transition-colors"
-    >
-      <div className="relative w-[72px] aspect-video bg-soft-linen-dark rounded-sm overflow-hidden flex-shrink-0">
-        <Image
-          src={thumbnail}
-          alt=""
-          fill
-          className="object-cover"
-          sizes="72px"
-          unoptimized
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div
-            className="w-5 h-5 rounded-full flex items-center justify-center shadow-sm"
-            style={{ backgroundColor: NETFLIX_RED }}
-          >
-            <Play className="w-2.5 h-2.5 text-white fill-white ml-0.5" />
-          </div>
-        </div>
-        <span className="absolute bottom-0.5 right-0.5 bg-black/80 text-white text-[9px] leading-none px-1 py-0.5 rounded font-medium">
-          {duration}
-        </span>
-      </div>
-      <div className="flex-1 min-w-0">
-        <h4 className="text-[13px] font-semibold text-text-primary leading-snug group-hover:text-palm-leaf transition-colors line-clamp-2">
-          {title}
-        </h4>
-      </div>
-      <ArrowRight className="w-3.5 h-3.5 text-text-muted group-hover:text-palm-leaf group-hover:translate-x-0.5 transition-all flex-shrink-0" />
-    </Link>
-  );
-}
 
 function SidebarFeaturedProject() {
   return (
@@ -442,6 +402,7 @@ export default function NetflixPage() {
           </div>
         </section>
 
+        <VideoLightboxProvider>
         <CalloutsProvider>
         {/* Hybrid section 1: experience + 3 case studies */}
         <HybridSection
@@ -523,17 +484,17 @@ export default function NetflixPage() {
             >
               <SidebarRowGroup>
                 {featuredVideos.map((video) => (
-                  <SidebarVideoRow key={video.id} {...video} />
+                  <VideoSidebarRow key={video.id} {...video} />
                 ))}
               </SidebarRowGroup>
             </RailAccordion>
           }
           mobile={
-            <MobilePathwayList
+            <MobileVideoList
               eyebrow="From the workshop"
               items={featuredVideos.map((v) => ({
+                id: v.id,
                 title: v.title,
-                href: "/resources#videos",
               }))}
             />
           }
@@ -547,6 +508,7 @@ export default function NetflixPage() {
           </p>
           </HybridSection>
         </CalloutsProvider>
+        </VideoLightboxProvider>
 
         {/* Closing */}
         <section className="max-w-xl">

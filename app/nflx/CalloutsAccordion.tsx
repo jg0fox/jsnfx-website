@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
+import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -84,20 +85,48 @@ export function RailAccordion({
             {count}
           </span>
         )}
-        <span
-          className={cn(
-            "inline-flex",
-            showAttention && "chevron-attention"
-          )}
-        >
-          <ChevronDown
-            className={cn(
-              "w-3.5 h-3.5 transition-transform duration-200",
-              isOpen && "rotate-180"
-            )}
-            style={{ color: NETFLIX_RED, opacity: 0.7 }}
-          />
-        </span>
+        {showAttention ? (
+          <motion.span
+            className="inline-flex"
+            style={{ transformOrigin: "center" }}
+            animate={{
+              rotate: [-14, 14, -10, 6, 0, 0, 0, 0, 0],
+              scale: [1.05, 1.1, 1.08, 1.04, 1, 1, 1, 1, 1],
+              filter: [
+                "drop-shadow(0 0 6px rgba(229, 9, 20, 0.7))",
+                "drop-shadow(0 0 10px rgba(229, 9, 20, 0.9))",
+                "drop-shadow(0 0 8px rgba(229, 9, 20, 0.8))",
+                "drop-shadow(0 0 5px rgba(229, 9, 20, 0.6))",
+                "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
+                "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
+                "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
+                "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
+                "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
+              ],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              times: [0, 0.03, 0.06, 0.09, 0.12, 0.3, 0.6, 0.9, 1],
+            }}
+          >
+            <ChevronDown
+              className="w-3.5 h-3.5"
+              style={{ color: NETFLIX_RED, opacity: 0.85 }}
+            />
+          </motion.span>
+        ) : (
+          <span className="inline-flex">
+            <ChevronDown
+              className={cn(
+                "w-3.5 h-3.5 transition-transform duration-200",
+                isOpen && "rotate-180"
+              )}
+              style={{ color: NETFLIX_RED, opacity: 0.7 }}
+            />
+          </span>
+        )}
       </button>
 
       <div
