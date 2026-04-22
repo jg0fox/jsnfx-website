@@ -6,7 +6,7 @@ import { getPortfolioItems } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Portfolio",
   description:
-    "Content design case studies from Atlassian, Robinhood, Chime, Netflix, and Oracle.",
+    "Content design case studies from Atlassian, Robinhood, Chime, and Oracle.",
   alternates: {
     canonical: "/portfolio",
   },

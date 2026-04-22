@@ -106,11 +106,11 @@ const additionalWork = [
   {
     title: "Content design for Netflix payments",
     description:
-      "External case study crafting content hypotheses, guidelines, and Figma components for Netflix payments experiments using the 18F hypothesis framework.",
-    tags: ["Hypothesis-driven", "Figma components", "UX research"],
-    href: "/portfolio/netflix",
+      "Speculative case study crafting content hypotheses, guidelines, and Figma components for Netflix payments experiments using the 18F hypothesis framework. Not commissioned by Netflix.",
+    tags: ["Speculative", "Hypothesis-driven", "Figma components"],
+    href: "/projects/netflix",
     icon: Globe,
-    type: "portfolio" as const,
+    type: "project" as const,
   },
   {
     title: "Content Standards Checker",
