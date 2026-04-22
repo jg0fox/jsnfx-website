@@ -20,11 +20,13 @@ import {
   Briefcase,
   Hammer,
   ArrowRight,
+  ArrowUpRight,
   ExternalLink,
   FileText,
   Download,
   Play,
 } from "lucide-react";
+import { ScrollFadeIn } from "./ScrollFadeIn";
 
 export const metadata: Metadata = {
   title: "Jason Fox — Netflix",
@@ -41,25 +43,19 @@ const NETFLIX_RED = "#E50914";
 const pairedCaseStudies = [
   {
     title: "AI content systems at Atlassian",
-    blurb:
-      "Defining product voice, conversational guidance, and interaction patterns for AI experiences that serve millions.",
-    role: "Lead Content Designer, AI Content Systems",
+    hint: "Voice, guidance, and governance at scale",
     image: "/portfolio/atlassian-ai-ops/slides/slide-44.png",
     href: "/portfolio/atlassian-ai-ops-full",
   },
   {
     title: "Robinhood's 24 Hour Market",
-    blurb:
-      "Compliance-bound content design for an ambiguous, 0-to-1 trading experience. Co-led Robinhood's content committee.",
-    role: "Senior Staff Content Designer",
+    hint: "0-to-1 in a compliance-bound space",
     image: "/portfolio/robinhood/slides/slide-41.png",
     href: "/portfolio/robinhood-full",
   },
   {
     title: "Peer-to-peer payments at Chime",
-    blurb:
-      "A content experiment that lifted P2P payment completion by 16% — proof that trusting users beats adding specificity.",
-    role: "Lead Content Designer, Growth",
+    hint: "A content experiment that lifted P2P 16%",
     image: "/portfolio/chime/slides/slide-78.png",
     href: "/portfolio/chime-full",
   },
@@ -69,8 +65,6 @@ const featuredVideos = [
   {
     id: 729967797,
     title: "Finding rhythm in your tone of voice",
-    description:
-      "Modulating rhythm to match different contexts and moments.",
     duration: "2:52",
     thumbnail:
       "https://i.vimeocdn.com/video/1469113859-99bcaf7752c088586b1a4f163ea37d9b6d95a1c8da75c55fa106e0aec3795464-d_640x360",
@@ -78,8 +72,6 @@ const featuredVideos = [
   {
     id: 808762357,
     title: "Designing a celebratory tone",
-    description:
-      "Content's role in designing for celebration, delight, and pleasure.",
     duration: "2:57",
     thumbnail:
       "https://i.vimeocdn.com/video/1633707496-b1875f0d55b1805302042e8e2e4c3a369c289d5d6127f07ebfb213e558881167-d_640x360",
@@ -87,8 +79,6 @@ const featuredVideos = [
   {
     id: 700539388,
     title: "Influencing perceived value with content design",
-    description:
-      "How the language around content shapes how people receive it.",
     duration: "1:47",
     thumbnail:
       "https://i.vimeocdn.com/video/1416103259-763d5a385b33c83a9d34e27f9bb57f490575978a923d42a68d94365693d3bce6-d_640x360",
@@ -171,6 +161,179 @@ const additionalWork = [
   },
 ];
 
+/* ---------- Sidebar callout building blocks ---------- */
+
+function SidebarEyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-2 mb-4">
+      <span
+        className="h-px w-6"
+        style={{ backgroundColor: NETFLIX_RED, opacity: 0.5 }}
+      />
+      <span
+        className="text-[10px] font-semibold uppercase tracking-[0.18em]"
+        style={{ color: NETFLIX_RED }}
+      >
+        {children}
+      </span>
+    </div>
+  );
+}
+
+function SidebarCaseStudyCard({
+  title,
+  hint,
+  image,
+  href,
+}: {
+  title: string;
+  hint: string;
+  image: string;
+  href: string;
+}) {
+  return (
+    <Link href={href} className="block group">
+      <div className="flex flex-col rounded-lg border border-soft-linen-dark bg-soft-linen-light overflow-hidden hover:border-palm-leaf/50 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+        <div className="relative aspect-[16/9] bg-soft-linen-dark">
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover"
+            sizes="256px"
+          />
+        </div>
+        <div className="p-3 space-y-1">
+          <span className="inline-flex items-center gap-1 text-[10px] font-medium text-palm-leaf-3 uppercase tracking-wide">
+            <Briefcase className="w-2.5 h-2.5" />
+            Case study
+          </span>
+          <h4 className="text-sm font-display font-bold text-text-primary leading-snug group-hover:text-palm-leaf transition-colors">
+            {title}
+          </h4>
+          <p className="text-xs text-text-muted leading-snug">{hint}</p>
+          <span className="inline-flex items-center gap-1 text-xs font-medium text-palm-leaf pt-1 group-hover:gap-1.5 transition-all">
+            Read <ArrowRight className="w-3 h-3" />
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function SidebarVideoCard({
+  title,
+  duration,
+  thumbnail,
+}: {
+  title: string;
+  duration: string;
+  thumbnail: string;
+}) {
+  return (
+    <Link
+      href="/resources#videos"
+      className="block group rounded-lg overflow-hidden bg-soft-linen-light border border-soft-linen-dark hover:border-palm-leaf/50 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+    >
+      <div className="relative aspect-video bg-soft-linen-dark overflow-hidden">
+        <Image
+          src={thumbnail}
+          alt={title}
+          fill
+          className="object-cover"
+          sizes="256px"
+          unoptimized
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div
+            className="w-9 h-9 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg"
+            style={{ backgroundColor: NETFLIX_RED }}
+          >
+            <Play className="w-3.5 h-3.5 text-white fill-white ml-0.5" />
+          </div>
+        </div>
+        <span className="absolute bottom-1.5 right-1.5 bg-black/80 text-white text-[10px] px-1 py-0.5 rounded font-medium">
+          {duration}
+        </span>
+      </div>
+      <div className="p-3">
+        <h4 className="text-sm font-semibold text-text-primary line-clamp-2 group-hover:text-palm-leaf transition-colors leading-snug">
+          {title}
+        </h4>
+      </div>
+    </Link>
+  );
+}
+
+/* ---------- Mobile: compact inline pathway list ---------- */
+
+function MobilePathwayList({
+  eyebrow,
+  items,
+}: {
+  eyebrow: string;
+  items: { title: string; href: string; external?: boolean }[];
+}) {
+  return (
+    <div className="xl:hidden mt-5 rounded-lg border border-soft-linen-dark bg-soft-linen-light/60 p-4">
+      <div className="flex items-center gap-2 mb-2.5">
+        <span
+          className="h-px w-4"
+          style={{ backgroundColor: NETFLIX_RED, opacity: 0.5 }}
+        />
+        <span
+          className="text-[10px] font-semibold uppercase tracking-[0.18em]"
+          style={{ color: NETFLIX_RED }}
+        >
+          {eyebrow}
+        </span>
+      </div>
+      <ul className="divide-y divide-soft-linen-dark/60">
+        {items.map((item) => (
+          <li key={item.href}>
+            <Link
+              href={item.href}
+              className="flex items-center justify-between gap-3 py-2.5 group"
+              {...(item.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              <span className="text-sm text-text-primary group-hover:text-palm-leaf transition-colors">
+                {item.title}
+              </span>
+              <ArrowUpRight className="w-4 h-4 text-text-muted group-hover:text-palm-leaf group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/* ---------- Hybrid section wrapper ---------- */
+
+function HybridSection({
+  children,
+  sidebar,
+  mobile,
+}: {
+  children: React.ReactNode;
+  sidebar: React.ReactNode;
+  mobile: React.ReactNode;
+}) {
+  return (
+    <section className="xl:grid xl:grid-cols-[minmax(0,36rem)_18rem] xl:gap-10 xl:items-start">
+      <div className="text-text-secondary leading-relaxed space-y-5">
+        {children}
+        {mobile}
+      </div>
+      <aside className="hidden xl:block">
+        <ScrollFadeIn>{sidebar}</ScrollFadeIn>
+      </aside>
+    </section>
+  );
+}
+
 export default function NetflixPage() {
   return (
     <article className="space-y-16">
@@ -185,18 +348,15 @@ export default function NetflixPage() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-          <div
-            className="font-black tracking-tight leading-none select-none"
-            style={{
-              color: NETFLIX_RED,
-              fontFamily:
-                "'Helvetica Neue', Helvetica, Arial, sans-serif",
-              fontSize: "2.75rem",
-              letterSpacing: "-0.05em",
-            }}
-            aria-label="Netflix"
-          >
-            NETFLIX
+          <div className="relative w-40 h-10 flex-shrink-0">
+            <Image
+              src="/images/netflix-logo.svg"
+              alt="Netflix"
+              fill
+              className="object-contain object-left"
+              priority
+              unoptimized
+            />
           </div>
           <div>
             <h1 className="text-2xl lg:text-3xl font-display font-bold text-text-primary">
@@ -229,7 +389,7 @@ export default function NetflixPage() {
 
       <Divider />
 
-      {/* Cover letter — opening (standalone, editorial) */}
+      {/* Cover letter — opening (no sidebar) */}
       <section className="max-w-2xl">
         <div className="space-y-5 text-text-secondary leading-relaxed">
           <p className="text-xl font-display font-bold text-text-primary">
@@ -259,246 +419,150 @@ export default function NetflixPage() {
         </div>
       </section>
 
-      {/* Experience paragraph + 3 paired case studies */}
-      <section className="space-y-8">
-        <div className="max-w-2xl space-y-5 text-text-secondary leading-relaxed">
-          <p>
-            For the past 2 years, I've been a Lead Content Designer on
-            Atlassian's AI Content Systems team, where I define how
-            conversational guidance, product voice, and interaction patterns
-            work together across experiences that serve millions. Before that,
-            I shipped content for fintech at Robinhood and Chime, not to
-            mention enterprise SaaS, always at the intersection of systems
-            thinking and craft. I've driven 0-1 initiatives in ambiguous
-            spaces, partnered with brand and marketing on campaigns, and built
-            language frameworks that scale across formats.
-          </p>
-        </div>
-
-        {/* Editorial eyebrow */}
-        <div className="flex items-center gap-3 max-w-2xl">
-          <span
-            className="h-px flex-1"
-            style={{ backgroundColor: NETFLIX_RED, opacity: 0.35 }}
+      {/* Hybrid section 1: experience + 3 case studies */}
+      <HybridSection
+        sidebar={
+          <div>
+            <SidebarEyebrow>Related case studies</SidebarEyebrow>
+            <div className="space-y-3">
+              {pairedCaseStudies.map((study) => (
+                <SidebarCaseStudyCard key={study.href} {...study} />
+              ))}
+            </div>
+          </div>
+        }
+        mobile={
+          <MobilePathwayList
+            eyebrow="Related case studies"
+            items={pairedCaseStudies.map((s) => ({
+              title: s.title,
+              href: s.href,
+            }))}
           />
-          <span
-            className="text-xs font-semibold uppercase tracking-[0.18em]"
-            style={{ color: NETFLIX_RED }}
-          >
-            Three case studies from that work
-          </span>
-          <span
-            className="h-px flex-1"
-            style={{ backgroundColor: NETFLIX_RED, opacity: 0.35 }}
-          />
-        </div>
+        }
+      >
+        <p>
+          For the past 2 years, I've been a Lead Content Designer on
+          Atlassian's AI Content Systems team, where I define how
+          conversational guidance, product voice, and interaction patterns
+          work together across experiences that serve millions. Before that,
+          I shipped content for fintech at Robinhood and Chime, not to
+          mention enterprise SaaS, always at the intersection of systems
+          thinking and craft. I've driven 0-1 initiatives in ambiguous spaces,
+          partnered with brand and marketing on campaigns, and built language
+          frameworks that scale across formats.
+        </p>
+      </HybridSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {pairedCaseStudies.map((study) => (
-            <Link key={study.href} href={study.href} className="block group">
-              <div className="h-full flex flex-col rounded-lg border border-soft-linen-dark bg-soft-linen-light overflow-hidden hover:border-palm-leaf/50 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
-                <div className="relative aspect-video bg-soft-linen-dark">
+      {/* Hybrid section 2: tone spectrum + featured project */}
+      <HybridSection
+        sidebar={
+          <div>
+            <SidebarEyebrow>Featured project</SidebarEyebrow>
+            <Link href="/projects/tone-spectrum" className="block group">
+              <div className="rounded-lg border border-soft-linen-dark bg-soft-linen-light overflow-hidden hover:border-palm-leaf/50 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+                <div className="relative aspect-[16/10] bg-soft-linen-dark">
                   <Image
-                    src={study.image}
-                    alt={study.title}
+                    src="/projects/tone-spectrum/tone-spectrum-explorer-interface.png"
+                    alt="Tone Spectrum Explorer"
                     fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover object-left-top"
+                    sizes="288px"
                   />
                 </div>
-                <div className="flex-1 flex flex-col p-4 space-y-2">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-palm-leaf-3">
-                    <Briefcase className="w-3 h-3" />
-                    Case study
+                <div className="p-3 space-y-1.5">
+                  <span className="inline-flex items-center gap-1 text-[10px] font-medium text-bronze-spice uppercase tracking-wide">
+                    <Hammer className="w-2.5 h-2.5" />
+                    Side project
                   </span>
-                  <h3 className="font-display font-bold text-text-primary leading-tight group-hover:text-palm-leaf transition-colors">
-                    {study.title}
-                  </h3>
-                  <p className="text-xs text-text-muted">{study.role}</p>
-                  <p className="text-sm text-text-secondary leading-relaxed flex-1">
-                    {study.blurb}
+                  <h4 className="text-sm font-display font-bold text-text-primary leading-snug group-hover:text-palm-leaf transition-colors">
+                    Tone Spectrum Explorer
+                  </h4>
+                  <p className="text-xs text-text-muted leading-snug">
+                    50+ linguistic devices, 5 tone spectrums, exportable
+                    standards.
                   </p>
-                  <span className="inline-flex items-center gap-1 text-sm font-medium text-palm-leaf group-hover:gap-2 transition-all pt-1">
-                    Read case study <ArrowRight className="w-4 h-4" />
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-palm-leaf pt-1 group-hover:gap-1.5 transition-all">
+                    Explore <ArrowRight className="w-3 h-3" />
                   </span>
                 </div>
               </div>
             </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Tone Spectrum paragraph + prominent pathway */}
-      <section className="space-y-8">
-        <div className="max-w-2xl space-y-5 text-text-secondary leading-relaxed">
-          <p>
-            I also spend my own time building tools for the craft I care about.
-            I built the Tone Spectrum Explorer, an interactive tool that turns
-            years of literary and linguistic knowledge about tone into
-            something teams can actually use. It lets a writer position their
-            tone on a spectrum, surfaces the linguistic devices that make that
-            tone land, detects anti-patterns, and exports a machine-readable
-            content standard. It's craft and systems in the same artifact,
-            which is how I like to work.
-          </p>
-        </div>
-
-        <Link href="/projects/tone-spectrum" className="block group">
-          <div className="relative overflow-hidden rounded-xl border border-soft-linen-dark bg-gradient-to-br from-soft-linen-light to-soft-linen hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
-              <div className="relative lg:col-span-3 aspect-[16/10] lg:aspect-auto lg:min-h-[320px] bg-soft-linen-dark">
-                <Image
-                  src="/projects/tone-spectrum/tone-spectrum-explorer-interface.png"
-                  alt="Tone Spectrum Explorer interface"
-                  fill
-                  className="object-cover object-left-top"
-                  sizes="(max-width: 1024px) 100vw, 60vw"
-                />
-              </div>
-              <div className="lg:col-span-2 p-6 lg:p-8 flex flex-col justify-center space-y-4">
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-bronze-spice">
-                  <Hammer className="w-3 h-3" />
-                  Featured project
-                </span>
-                <h3 className="text-2xl font-display font-bold text-text-primary leading-tight group-hover:text-palm-leaf transition-colors">
-                  Tone Spectrum Explorer
-                </h3>
-                <p className="text-sm text-text-secondary leading-relaxed">
-                  50+ linguistic devices across 5 tone spectrums. Detects
-                  anti-patterns. Exports a machine-readable content standard.
-                  A working artifact of how I think about tone.
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  <Tag size="sm">AI + linguistics</Tag>
-                  <Tag size="sm">Voice &amp; tone</Tag>
-                  <Tag size="sm">Standards generation</Tag>
-                </div>
-                <span className="inline-flex items-center gap-1.5 text-sm font-medium text-palm-leaf group-hover:gap-2.5 transition-all pt-1">
-                  Explore the tool <ArrowRight className="w-4 h-4" />
-                </span>
-              </div>
-            </div>
           </div>
-        </Link>
-      </section>
-
-      {/* Formats paragraph + 3 videos */}
-      <section className="space-y-8">
-        <div className="max-w-2xl space-y-5 text-text-secondary leading-relaxed">
-          <p>
-            I can see that Netflix is thinking about new shapes now. Things
-            like livestreams, podcasts, and shorter-form entertainment, which
-            represent new moments of attention, and they'll need new language
-            to match. Listening to a daily podcast is not the same as watching
-            a serialized series.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3 max-w-2xl">
-          <span
-            className="h-px flex-1"
-            style={{ backgroundColor: NETFLIX_RED, opacity: 0.35 }}
+        }
+        mobile={
+          <MobilePathwayList
+            eyebrow="Featured project"
+            items={[
+              {
+                title: "Tone Spectrum Explorer",
+                href: "/projects/tone-spectrum",
+              },
+            ]}
           />
-          <span
-            className="text-xs font-semibold uppercase tracking-[0.18em]"
-            style={{ color: NETFLIX_RED }}
-          >
-            From my workshop on tone and format
-          </span>
-          <span
-            className="h-px flex-1"
-            style={{ backgroundColor: NETFLIX_RED, opacity: 0.35 }}
+        }
+      >
+        <p>
+          I also spend my own time building tools for the craft I care about.
+          I built the Tone Spectrum Explorer, an interactive tool that turns
+          years of literary and linguistic knowledge about tone into something
+          teams can actually use. It lets a writer position their tone on a
+          spectrum, surfaces the linguistic devices that make that tone land,
+          detects anti-patterns, and exports a machine-readable content
+          standard. It's craft and systems in the same artifact, which is how
+          I like to work.
+        </p>
+      </HybridSection>
+
+      {/* Hybrid section 3: formats + 3 videos */}
+      <HybridSection
+        sidebar={
+          <div>
+            <SidebarEyebrow>From the workshop</SidebarEyebrow>
+            <div className="space-y-3">
+              {featuredVideos.map((video) => (
+                <SidebarVideoCard key={video.id} {...video} />
+              ))}
+            </div>
+          </div>
+        }
+        mobile={
+          <MobilePathwayList
+            eyebrow="From the workshop"
+            items={featuredVideos.map((v) => ({
+              title: v.title,
+              href: "/resources#videos",
+            }))}
           />
-        </div>
+        }
+      >
+        <p>
+          I can see that Netflix is thinking about new shapes now. Things like
+          livestreams, podcasts, and shorter-form entertainment, which represent
+          new moments of attention, and they'll need new language to match.
+          Listening to a daily podcast is not the same as watching a serialized
+          series.
+        </p>
+      </HybridSection>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {featuredVideos.map((video) => (
-            <Link
-              key={video.id}
-              href="/resources#videos"
-              className="group block rounded-lg overflow-hidden bg-soft-linen-light border border-soft-linen-dark hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
-            >
-              <div className="relative aspect-video bg-soft-linen-dark overflow-hidden">
-                <Image
-                  src={video.thumbnail}
-                  alt={video.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  unoptimized
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg"
-                    style={{ backgroundColor: NETFLIX_RED }}
-                  >
-                    <Play className="w-5 h-5 text-white fill-white ml-0.5" />
-                  </div>
-                </div>
-                <span className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-1.5 py-0.5 rounded font-medium">
-                  {video.duration}
-                </span>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-text-primary line-clamp-2 group-hover:text-palm-leaf transition-colors">
-                  {video.title}
-                </h3>
-                <p className="mt-1 text-sm text-text-muted line-clamp-2">
-                  {video.description}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Questions: pullquote + two-column */}
-      <section className="space-y-10">
-        <blockquote
-          className="relative pl-6 lg:pl-8 max-w-3xl"
-          style={{ borderLeft: `3px solid ${NETFLIX_RED}` }}
-        >
-          <p className="text-2xl lg:text-3xl font-display font-bold text-text-primary leading-[1.25]">
-            A six-minute viewing moment is not the same as a Sunday evening.
-          </p>
-        </blockquote>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
-          <div className="space-y-3">
-            <div
-              className="text-5xl font-display font-black leading-none"
-              style={{ color: NETFLIX_RED, opacity: 0.85 }}
-              aria-hidden="true"
-            >
-              ?
-            </div>
-            <p className="text-lg lg:text-xl font-display font-semibold text-text-primary leading-snug">
-              How do we respect the content habits people already have while
-              inviting them into something different?
-            </p>
-          </div>
-          <div className="space-y-3">
-            <div
-              className="text-5xl font-display font-black leading-none"
-              style={{ color: NETFLIX_RED, opacity: 0.85 }}
-              aria-hidden="true"
-            >
-              ?
-            </div>
-            <p className="text-lg lg:text-xl font-display font-semibold text-text-primary leading-snug">
-              How do we keep discovery feeling generous when the catalog
-              stretches across formats that don't map cleanly onto each other?
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Closing */}
+      {/* Closing — plain prose with bold highlights */}
       <section className="max-w-2xl">
         <div className="space-y-5 text-text-secondary leading-relaxed">
           <p>
-            These are exactly the ambiguous, systems-level questions I've spent
-            my career getting better at answering.
+            A <strong className="text-text-primary">six-minute viewing moment</strong>{" "}
+            is not the same as a{" "}
+            <strong className="text-text-primary">Sunday evening</strong>. How
+            do we respect the content habits people already have while inviting
+            them into something different? How do we keep{" "}
+            <strong className="text-text-primary">
+              discovery feeling generous
+            </strong>{" "}
+            when the catalog stretches across formats that don't map cleanly
+            onto each other? These are exactly the{" "}
+            <strong className="text-text-primary">
+              ambiguous, systems-level questions
+            </strong>{" "}
+            I've spent my career getting better at answering.
           </p>
 
           <p>I'd love to help answer them at Netflix.</p>
