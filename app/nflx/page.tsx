@@ -385,8 +385,8 @@ export default function NetflixPage() {
               working through, stories she didn't get to finish, or the last
               things she was trying to make sense of. It's a little sad, but
               it's also kind of heartening. I think this is something special
-              Netflix does, even when it doesn't know it. It gives people the
-              stories they use to make sense of being alive.
+              Netflix does, even when it doesn't know it. In a small but meaningful
+              way, it gives people a space to make some sense of being alive.
             </p>
 
             <p className="text-lg leading-relaxed">
