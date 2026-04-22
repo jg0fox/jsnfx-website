@@ -409,37 +409,40 @@ export default function NetflixPage() {
 
       <Divider />
 
-      {/* Cover letter — opening (no sidebar) */}
-      <section className="max-w-2xl">
-        <div className="space-y-5 text-text-secondary leading-relaxed">
-          <p className="text-xl font-display font-bold text-text-primary">
-            Hi Netflix team,
-          </p>
+      {/* Cover letter block — consistent paragraph spacing throughout */}
+      <div className="space-y-5">
+        {/* Opening (no sidebar) */}
+        <section className="max-w-xl">
+          <div className="space-y-5 text-text-secondary leading-relaxed">
+            <p className="text-xl font-display font-bold text-text-primary">
+              Hi Netflix team,
+            </p>
 
-          <p className="text-xl leading-relaxed">
-            My mom's name is still on our Netflix home screen. She died 13 years
-            ago. I've never logged back into her profile. I think about what's
-            there sometimes. A snapshot of shows she was working through,
-            stories she didn't get to finish, or the last things she was trying
-            to make sense of. It's a little sad, but it's also kind of
-            heartening. I think this is something special Netflix does, even
-            when it doesn't know it. It gives people the stories they use to
-            make sense of being alive.
-          </p>
+            <p className="text-xl leading-relaxed">
+              My mom's name is still on our Netflix home screen. She died 13
+              years ago. I've never logged back into her profile. I think
+              about what's there sometimes. A snapshot of shows she was
+              working through, stories she didn't get to finish, or the last
+              things she was trying to make sense of. It's a little sad, but
+              it's also kind of heartening. I think this is something special
+              Netflix does, even when it doesn't know it. It gives people the
+              stories they use to make sense of being alive.
+            </p>
 
-          <p className="text-lg leading-relaxed">
-            I suppose that's part of why I'm here. The itch that brought me to
-            this application is the desire to design for moments when people
-            want to feel something. Trust and clarity are tablestakes, and I've
-            built my career on them. But I've honestly never designed for people
-            who want to feel thrilled, contemplative, wrecked-in-a-good-way, or
-            finally-understood. Those are deep emotional territories, and
-            they're where I want to work right now.
-          </p>
-        </div>
-      </section>
+            <p className="text-lg leading-relaxed">
+              I suppose that's part of why I'm here. The itch that brought me
+              to this application is the desire to design for moments when
+              people want to feel something. Trust and clarity are
+              tablestakes, and I've built my career on them. But I've honestly
+              never designed for people who want to feel thrilled,
+              contemplative, wrecked-in-a-good-way, or finally-understood.
+              Those are deep emotional territories, and they're where I want
+              to work right now.
+            </p>
+          </div>
+        </section>
 
-      <CalloutsProvider>
+        <CalloutsProvider>
         {/* Hybrid section 1: experience + 3 case studies */}
         <HybridSection
           sidebar={
@@ -542,38 +545,32 @@ export default function NetflixPage() {
             to match. Listening to a daily podcast is not the same as watching
             a serialized series.
           </p>
-        </HybridSection>
-      </CalloutsProvider>
+          </HybridSection>
+        </CalloutsProvider>
 
-      {/* Closing — plain prose with bold highlights */}
-      <section className="max-w-2xl">
-        <div className="space-y-5 text-lg text-text-secondary leading-relaxed">
-          <p>
-            A <strong className="text-text-primary">six-minute viewing moment</strong>{" "}
-            is not the same as a{" "}
-            <strong className="text-text-primary">Sunday evening</strong>. How
-            do we respect the content habits people already have while inviting
-            them into something different? How do we keep{" "}
-            <strong className="text-text-primary">
-              discovery feeling generous
-            </strong>{" "}
-            when the catalog stretches across formats that don't map cleanly
-            onto each other? These are exactly the{" "}
-            <strong className="text-text-primary">
-              ambiguous, systems-level questions
-            </strong>{" "}
-            I've spent my career getting better at answering.
-          </p>
+        {/* Closing */}
+        <section className="max-w-xl">
+          <div className="space-y-5 text-lg text-text-secondary leading-relaxed">
+            <p>
+              A six-minute viewing moment is not the same as a Sunday evening.
+              How do we respect the content habits people already have while
+              inviting them into something different? How do we keep discovery
+              feeling generous when the catalog stretches across formats that
+              don't map cleanly onto each other? These are exactly the
+              ambiguous, systems-level questions I've spent my career getting
+              better at answering.
+            </p>
 
-          <p>I'd love to help answer them at Netflix.</p>
+            <p>I'd love to help answer them at Netflix.</p>
 
-          <p>
-            Thanks for your time,
-            <br />
-            <span className="font-medium text-text-primary">Jason Fox</span>
-          </p>
-        </div>
-      </section>
+            <p>
+              Thanks for your time,
+              <br />
+              <span className="font-medium text-text-primary">Jason Fox</span>
+            </p>
+          </div>
+        </section>
+      </div>
 
       <Divider />
 

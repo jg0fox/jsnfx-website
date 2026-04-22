@@ -89,7 +89,7 @@ export function RailAccordion({
         )}
         <span
           className={cn(
-            "ml-auto inline-flex",
+            "inline-flex",
             showAttention && "chevron-attention"
           )}
         >
