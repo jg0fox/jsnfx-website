@@ -442,28 +442,31 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Netflix page: subtle attention nudge for the first rail-accordion chevron */
 @keyframes chevron-attention {
-  0%, 12%, 100% {
-    transform: rotate(0);
-    filter: drop-shadow(0 0 0 transparent);
+  0% {
+    transform: rotate(-14deg) scale(1.05);
+    filter: drop-shadow(0 0 6px rgba(229, 9, 20, 0.7));
   }
   3% {
-    transform: rotate(-10deg);
-    filter: drop-shadow(0 0 3px rgba(229, 9, 20, 0.5));
+    transform: rotate(14deg) scale(1.1);
+    filter: drop-shadow(0 0 10px rgba(229, 9, 20, 0.9));
   }
   6% {
-    transform: rotate(10deg);
-    filter: drop-shadow(0 0 5px rgba(229, 9, 20, 0.65));
+    transform: rotate(-10deg) scale(1.08);
+    filter: drop-shadow(0 0 8px rgba(229, 9, 20, 0.8));
   }
   9% {
-    transform: rotate(-5deg);
-    filter: drop-shadow(0 0 3px rgba(229, 9, 20, 0.4));
+    transform: rotate(6deg) scale(1.04);
+    filter: drop-shadow(0 0 5px rgba(229, 9, 20, 0.6));
+  }
+  12%, 100% {
+    transform: rotate(0) scale(1);
+    filter: drop-shadow(0 0 0 transparent);
   }
 }
 
 .chevron-attention {
   animation: chevron-attention 5s ease-in-out infinite;
   transform-origin: center;
-  will-change: transform, filter;
 }
 
 @media (prefers-reduced-motion: reduce) {

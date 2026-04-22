@@ -59,9 +59,6 @@ export function RailAccordion({
       <button
         type="button"
         onClick={handleToggle}
-        onMouseEnter={() => {
-          if (attention && !interacted) setInteracted(true);
-        }}
         aria-expanded={isOpen}
         aria-controls={contentId}
         className="group flex items-center gap-2 w-full text-left py-1.5 cursor-pointer"
