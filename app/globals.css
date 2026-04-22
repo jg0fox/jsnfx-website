@@ -439,3 +439,35 @@ h1, h2, h3, h4, h5, h6 {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* Netflix page: subtle attention nudge for the first rail-accordion chevron */
+@keyframes chevron-attention {
+  0%, 12%, 100% {
+    transform: rotate(0);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  3% {
+    transform: rotate(-10deg);
+    filter: drop-shadow(0 0 3px rgba(229, 9, 20, 0.5));
+  }
+  6% {
+    transform: rotate(10deg);
+    filter: drop-shadow(0 0 5px rgba(229, 9, 20, 0.65));
+  }
+  9% {
+    transform: rotate(-5deg);
+    filter: drop-shadow(0 0 3px rgba(229, 9, 20, 0.4));
+  }
+}
+
+.chevron-attention {
+  animation: chevron-attention 5s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform, filter;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron-attention {
+    animation: none;
+  }
+}

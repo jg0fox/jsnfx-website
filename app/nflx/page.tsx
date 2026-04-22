@@ -447,6 +447,7 @@ export default function NetflixPage() {
               id="cases"
               label="Related case studies"
               count={pairedCaseStudies.length}
+              attention
             >
               <SidebarRowGroup>
                 {pairedCaseStudies.map((study) => (

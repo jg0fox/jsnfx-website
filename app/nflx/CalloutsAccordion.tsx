@@ -32,6 +32,7 @@ interface RailAccordionProps {
   id: string;
   label: string;
   count?: number;
+  attention?: boolean;
   children: React.ReactNode;
 }
 
@@ -39,17 +40,28 @@ export function RailAccordion({
   id,
   label,
   count,
+  attention = false,
   children,
 }: RailAccordionProps) {
   const { openId, toggle } = useContext(CalloutsContext);
   const isOpen = openId === id;
+  const [interacted, setInteracted] = useState(false);
   const contentId = `callout-${id}`;
+  const showAttention = attention && !interacted && !isOpen;
+
+  const handleToggle = () => {
+    if (!interacted) setInteracted(true);
+    toggle(id);
+  };
 
   return (
     <div>
       <button
         type="button"
-        onClick={() => toggle(id)}
+        onClick={handleToggle}
+        onMouseEnter={() => {
+          if (attention && !interacted) setInteracted(true);
+        }}
         aria-expanded={isOpen}
         aria-controls={contentId}
         className="group flex items-center gap-2 w-full text-left py-1.5 cursor-pointer"
@@ -75,13 +87,20 @@ export function RailAccordion({
             {count}
           </span>
         )}
-        <ChevronDown
+        <span
           className={cn(
-            "w-3.5 h-3.5 ml-auto transition-transform duration-200",
-            isOpen && "rotate-180"
+            "ml-auto inline-flex",
+            showAttention && "chevron-attention"
           )}
-          style={{ color: NETFLIX_RED, opacity: 0.7 }}
-        />
+        >
+          <ChevronDown
+            className={cn(
+              "w-3.5 h-3.5 transition-transform duration-200",
+              isOpen && "rotate-180"
+            )}
+            style={{ color: NETFLIX_RED, opacity: 0.7 }}
+          />
+        </span>
       </button>
 
       <div
