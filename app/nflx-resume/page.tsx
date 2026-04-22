@@ -106,9 +106,9 @@ const skills = [
 
 export default function NetflixResumePage() {
   return (
-    <article className="max-w-3xl">
+    <article className="max-w-3xl resume-print-article">
       {/* Breadcrumbs */}
-      <nav className="flex items-center gap-3 text-sm text-text-muted mb-8">
+      <nav className="flex items-center gap-3 text-sm text-text-muted mb-8 print:hidden">
         <Link href="/" className="hover:text-palm-leaf transition-colors">
           Jason Fox
         </Link>
@@ -135,7 +135,7 @@ export default function NetflixResumePage() {
           <a
             href="/jason-fox-resume.pdf"
             download
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-soft-linen-light border border-soft-linen-dark text-text-secondary hover:border-palm-leaf hover:text-palm-leaf transition-colors flex-shrink-0"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-soft-linen-light border border-soft-linen-dark text-text-secondary hover:border-palm-leaf hover:text-palm-leaf transition-colors flex-shrink-0 print:hidden"
           >
             <Download className="w-4 h-4" />
             Download PDF

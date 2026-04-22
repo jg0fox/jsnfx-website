@@ -474,3 +474,66 @@ h1, h2, h3, h4, h5, h6 {
     animation: none;
   }
 }
+
+/* ===========================================
+   Print styles (primarily for /nflx-resume PDF export)
+   =========================================== */
+
+@media print {
+  @page {
+    size: letter;
+    margin: 0.5in;
+  }
+
+  html, body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Hide site chrome */
+  body > aside,
+  body > header,
+  body > nav,
+  body > .skip-link,
+  body > a.skip-link,
+  main > footer,
+  .skip-link,
+  footer {
+    display: none !important;
+  }
+
+  /* Reset main content to full width, no padding */
+  main {
+    margin-left: 0 !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+  }
+
+  main > div {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+
+  /* Tighten resume-specific spacing */
+  .resume-print-article {
+    max-width: none !important;
+  }
+
+  .resume-print-article h1,
+  .resume-print-article h2,
+  .resume-print-article h3 {
+    color: #000000 !important;
+  }
+
+  .resume-print-article p,
+  .resume-print-article li,
+  .resume-print-article span,
+  .resume-print-article a {
+    color: #333333 !important;
+  }
+
+  /* Avoid awkward page breaks inside job entries */
+  .resume-print-article section > div > div {
+    break-inside: avoid;
+  }
+}
