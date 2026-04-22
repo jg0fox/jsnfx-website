@@ -90,13 +90,14 @@ export function RailAccordion({
             className="inline-flex"
             style={{ transformOrigin: "center" }}
             animate={{
-              rotate: [-14, 14, -10, 6, 0, 0, 0, 0, 0],
-              scale: [1.05, 1.1, 1.08, 1.04, 1, 1, 1, 1, 1],
+              rotate: [0, -22, 22, -16, 10, 0, 0, 0, 0, 0],
+              scale: [1, 1.35, 1.4, 1.3, 1.15, 1, 1, 1, 1, 1],
               filter: [
-                "drop-shadow(0 0 6px rgba(229, 9, 20, 0.7))",
-                "drop-shadow(0 0 10px rgba(229, 9, 20, 0.9))",
-                "drop-shadow(0 0 8px rgba(229, 9, 20, 0.8))",
-                "drop-shadow(0 0 5px rgba(229, 9, 20, 0.6))",
+                "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
+                "drop-shadow(0 0 12px rgba(229, 9, 20, 0.95))",
+                "drop-shadow(0 0 16px rgba(229, 9, 20, 1))",
+                "drop-shadow(0 0 12px rgba(229, 9, 20, 0.9))",
+                "drop-shadow(0 0 8px rgba(229, 9, 20, 0.7))",
                 "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
                 "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
                 "drop-shadow(0 0 0px rgba(229, 9, 20, 0))",
@@ -108,7 +109,7 @@ export function RailAccordion({
               duration: 5,
               repeat: Infinity,
               ease: "easeInOut",
-              times: [0, 0.03, 0.06, 0.09, 0.12, 0.3, 0.6, 0.9, 1],
+              times: [0, 0.025, 0.05, 0.08, 0.11, 0.15, 0.3, 0.6, 0.9, 1],
             }}
           >
             <ChevronDown
