@@ -378,7 +378,7 @@ export default function NetflixPage() {
               Hi Netflix team,
             </p>
 
-            <p className="text-xl leading-relaxed">
+            <p className="text-lg leading-relaxed">
               My mom's name is still on our Netflix home screen. She died 13
               years ago. I've never logged back into her profile, though I
               think about what's there sometimes. A snapshot of shows she was
