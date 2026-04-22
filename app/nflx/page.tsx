@@ -420,8 +420,8 @@ export default function NetflixPage() {
 
             <p className="text-xl leading-relaxed">
               My mom's name is still on our Netflix home screen. She died 13
-              years ago. I've never logged back into her profile. I think
-              about what's there sometimes. A snapshot of shows she was
+              years ago. I've never logged back into her profile, though I
+              think about what's there sometimes. A snapshot of shows she was
               working through, stories she didn't get to finish, or the last
               things she was trying to make sense of. It's a little sad, but
               it's also kind of heartening. I think this is something special
