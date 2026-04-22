@@ -95,16 +95,16 @@ export function RailAccordion({
               transformOrigin: "center",
             }}
             animate={{
-              rotate: [0, -22, 22, -16, 10, 0, 0, 0, 0, 0],
-              scale: [1, 1.35, 1.4, 1.3, 1.15, 1, 1, 1, 1, 1],
+              rotate: [0, 0, -22, 22, -16, 8, 0, 0, 0, 0],
+              scale: [1, 1.15, 1.4, 1.45, 1.35, 1.2, 1.05, 1, 1, 1],
               boxShadow: [
                 "0 0 0px 0px rgba(229, 9, 20, 0)",
-                "0 0 14px 4px rgba(229, 9, 20, 0.85)",
-                "0 0 20px 6px rgba(229, 9, 20, 1)",
-                "0 0 16px 5px rgba(229, 9, 20, 0.9)",
-                "0 0 10px 3px rgba(229, 9, 20, 0.6)",
-                "0 0 0px 0px rgba(229, 9, 20, 0)",
-                "0 0 0px 0px rgba(229, 9, 20, 0)",
+                "0 0 16px 5px rgba(229, 9, 20, 0.85)",
+                "0 0 30px 11px rgba(229, 9, 20, 1)",
+                "0 0 34px 13px rgba(229, 9, 20, 1)",
+                "0 0 30px 11px rgba(229, 9, 20, 0.95)",
+                "0 0 22px 8px rgba(229, 9, 20, 0.75)",
+                "0 0 12px 4px rgba(229, 9, 20, 0.4)",
                 "0 0 0px 0px rgba(229, 9, 20, 0)",
                 "0 0 0px 0px rgba(229, 9, 20, 0)",
                 "0 0 0px 0px rgba(229, 9, 20, 0)",
@@ -114,7 +114,7 @@ export function RailAccordion({
               duration: 5,
               repeat: Infinity,
               ease: "easeInOut",
-              times: [0, 0.025, 0.05, 0.08, 0.11, 0.15, 0.3, 0.6, 0.9, 1],
+              times: [0, 0.02, 0.05, 0.08, 0.12, 0.18, 0.26, 0.35, 0.7, 1],
             }}
           >
             <ChevronDown
