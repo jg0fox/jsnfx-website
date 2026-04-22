@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { PageHeader } from "@/components/layout";
 import { Divider } from "@/components/ui";
-import { Download, FileText, Presentation, BookOpen, Code, MessageSquare } from "lucide-react";
+import { Download, FileText, BookOpen, MessageSquare } from "lucide-react";
 
 export const dynamic = "force-static";
 
@@ -16,12 +16,6 @@ export const metadata: Metadata = {
 };
 
 const studentMaterials = [
-  {
-    title: "Workshop slides",
-    description: "The full slide deck used during the session.",
-    href: "/workshop/workshop-slides.html",
-    icon: Presentation,
-  },
   {
     title: "Cheat sheet",
     description: "Quick reference for key concepts and commands.",
@@ -43,18 +37,6 @@ const studentMaterials = [
 ];
 
 const artifactFiles = [
-  {
-    title: "Content testing tool (API version)",
-    description: "Interactive tool that connects to the Claude API.",
-    href: "/workshop/content-testing-tool-api.html",
-    icon: Code,
-  },
-  {
-    title: "Content testing tool (static version)",
-    description: "Standalone version that works without an API key.",
-    href: "/workshop/content-testing-tool-static.html",
-    icon: Code,
-  },
   {
     title: "System prompt",
     description: "The system prompt powering the content testing tool.",
@@ -111,7 +93,7 @@ export default function AIWorkshopPage() {
     <>
       <PageHeader
         title="AI workshop materials"
-        description="Download the slides, reference materials, and project files from the workshop. Everything you need to keep building on your own."
+        description="Download the reference materials and project files from the workshop. Everything you need to keep building on your own."
       />
 
       {/* Student materials */}
