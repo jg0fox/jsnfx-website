@@ -143,9 +143,12 @@ export default function NetflixResumePage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-3 mt-3 text-sm text-text-muted">
-          <Link href="/" className="hover:text-palm-leaf transition-colors">
-            jsnfx.com
-          </Link>
+          <a
+            href="https://jsnfx.com/nflx"
+            className="hover:text-palm-leaf transition-colors"
+          >
+            jsnfx.com/nflx
+          </a>
           <span>·</span>
           <span>jasongfox@gmail.com</span>
           <span>·</span>
