@@ -8,11 +8,6 @@ const nextConfig: NextConfig = {
         destination: "/projects/netflix",
         permanent: true,
       },
-      {
-        source: "/AI-workshop",
-        destination: "/ai-workshop",
-        permanent: true,
-      },
     ];
   },
 };
