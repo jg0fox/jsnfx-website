@@ -6,14 +6,9 @@ import { cn } from "@/lib/utils";
 interface ScrollFadeInProps {
   children: React.ReactNode;
   className?: string;
-  delay?: number;
 }
 
-export function ScrollFadeIn({
-  children,
-  className,
-  delay = 0,
-}: ScrollFadeInProps) {
+export function ScrollFadeIn({ children, className }: ScrollFadeInProps) {
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -30,14 +25,16 @@ export function ScrollFadeIn({
       return;
     }
 
+    // Intersection zone: middle ~60% of viewport. The callout fades in as it
+    // enters that band and fades out once the user scrolls past it.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
+        setVisible(entry.isIntersecting);
       },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+      {
+        threshold: 0,
+        rootMargin: "-15% 0px -25% 0px",
+      }
     );
 
     observer.observe(node);
@@ -48,11 +45,10 @@ export function ScrollFadeIn({
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-700 ease-out",
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
+        "transition-opacity duration-500 ease-out",
+        visible ? "opacity-100" : "opacity-0",
         className
       )}
-      style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
     </div>

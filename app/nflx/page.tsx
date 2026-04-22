@@ -165,7 +165,7 @@ const additionalWork = [
 
 function SidebarEyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-2 mb-4">
+    <div className="flex items-center gap-2 mb-3">
       <span
         className="h-px w-6"
         style={{ backgroundColor: NETFLIX_RED, opacity: 0.5 }}
@@ -180,7 +180,15 @@ function SidebarEyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-function SidebarCaseStudyCard({
+function SidebarRowGroup({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="rounded-lg border border-soft-linen-dark bg-soft-linen-light overflow-hidden divide-y divide-soft-linen-dark/60">
+      {children}
+    </div>
+  );
+}
+
+function SidebarCaseStudyRow({
   title,
   hint,
   image,
@@ -192,36 +200,33 @@ function SidebarCaseStudyCard({
   href: string;
 }) {
   return (
-    <Link href={href} className="block group">
-      <div className="flex flex-col rounded-lg border border-soft-linen-dark bg-soft-linen-light overflow-hidden hover:border-palm-leaf/50 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
-        <div className="relative aspect-[16/9] bg-soft-linen-dark">
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="object-cover"
-            sizes="256px"
-          />
-        </div>
-        <div className="p-3 space-y-1">
-          <span className="inline-flex items-center gap-1 text-[10px] font-medium text-palm-leaf-3 uppercase tracking-wide">
-            <Briefcase className="w-2.5 h-2.5" />
-            Case study
-          </span>
-          <h4 className="text-sm font-display font-bold text-text-primary leading-snug group-hover:text-palm-leaf transition-colors">
-            {title}
-          </h4>
-          <p className="text-xs text-text-muted leading-snug">{hint}</p>
-          <span className="inline-flex items-center gap-1 text-xs font-medium text-palm-leaf pt-1 group-hover:gap-1.5 transition-all">
-            Read <ArrowRight className="w-3 h-3" />
-          </span>
-        </div>
+    <Link
+      href={href}
+      className="flex items-center gap-3 p-2.5 group hover:bg-soft-linen-dark/30 transition-colors"
+    >
+      <div className="relative w-[72px] aspect-video bg-soft-linen-dark rounded-sm overflow-hidden flex-shrink-0">
+        <Image
+          src={image}
+          alt=""
+          fill
+          className="object-cover"
+          sizes="72px"
+        />
       </div>
+      <div className="flex-1 min-w-0">
+        <h4 className="text-[13px] font-display font-bold text-text-primary leading-snug group-hover:text-palm-leaf transition-colors line-clamp-2">
+          {title}
+        </h4>
+        <p className="text-[11px] text-text-muted leading-snug mt-0.5 line-clamp-1">
+          {hint}
+        </p>
+      </div>
+      <ArrowRight className="w-3.5 h-3.5 text-text-muted group-hover:text-palm-leaf group-hover:translate-x-0.5 transition-all flex-shrink-0" />
     </Link>
   );
 }
 
-function SidebarVideoCard({
+function SidebarVideoRow({
   title,
   duration,
   thumbnail,
@@ -233,33 +238,67 @@ function SidebarVideoCard({
   return (
     <Link
       href="/resources#videos"
-      className="block group rounded-lg overflow-hidden bg-soft-linen-light border border-soft-linen-dark hover:border-palm-leaf/50 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+      className="flex items-center gap-3 p-2.5 group hover:bg-soft-linen-dark/30 transition-colors"
     >
-      <div className="relative aspect-video bg-soft-linen-dark overflow-hidden">
+      <div className="relative w-[72px] aspect-video bg-soft-linen-dark rounded-sm overflow-hidden flex-shrink-0">
         <Image
           src={thumbnail}
-          alt={title}
+          alt=""
           fill
           className="object-cover"
-          sizes="256px"
+          sizes="72px"
           unoptimized
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <div
-            className="w-9 h-9 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg"
+            className="w-5 h-5 rounded-full flex items-center justify-center shadow-sm"
             style={{ backgroundColor: NETFLIX_RED }}
           >
-            <Play className="w-3.5 h-3.5 text-white fill-white ml-0.5" />
+            <Play className="w-2.5 h-2.5 text-white fill-white ml-0.5" />
           </div>
         </div>
-        <span className="absolute bottom-1.5 right-1.5 bg-black/80 text-white text-[10px] px-1 py-0.5 rounded font-medium">
+        <span className="absolute bottom-0.5 right-0.5 bg-black/80 text-white text-[9px] leading-none px-1 py-0.5 rounded font-medium">
           {duration}
         </span>
       </div>
-      <div className="p-3">
-        <h4 className="text-sm font-semibold text-text-primary line-clamp-2 group-hover:text-palm-leaf transition-colors leading-snug">
+      <div className="flex-1 min-w-0">
+        <h4 className="text-[13px] font-semibold text-text-primary leading-snug group-hover:text-palm-leaf transition-colors line-clamp-2">
           {title}
         </h4>
+      </div>
+      <ArrowRight className="w-3.5 h-3.5 text-text-muted group-hover:text-palm-leaf group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+    </Link>
+  );
+}
+
+function SidebarFeaturedProject() {
+  return (
+    <Link href="/projects/tone-spectrum" className="block group">
+      <div className="rounded-lg border border-soft-linen-dark bg-soft-linen-light overflow-hidden hover:border-palm-leaf/50 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
+        <div className="relative aspect-[16/9] bg-soft-linen-dark">
+          <Image
+            src="/projects/tone-spectrum/tone-spectrum-explorer-interface.png"
+            alt=""
+            fill
+            className="object-cover object-left-top"
+            sizes="288px"
+          />
+        </div>
+        <div className="p-3 space-y-1">
+          <span className="inline-flex items-center gap-1 text-[10px] font-medium text-bronze-spice uppercase tracking-wide">
+            <Hammer className="w-2.5 h-2.5" />
+            Side project
+          </span>
+          <h4 className="text-sm font-display font-bold text-text-primary leading-snug group-hover:text-palm-leaf transition-colors">
+            Tone Spectrum Explorer
+          </h4>
+          <p className="text-xs text-text-muted leading-snug">
+            50+ linguistic devices, 5 tone spectrums, exportable standards.
+          </p>
+          <span className="inline-flex items-center gap-1 text-xs font-medium text-palm-leaf pt-0.5 group-hover:gap-1.5 transition-all">
+            Explore <ArrowRight className="w-3 h-3" />
+          </span>
+        </div>
       </div>
     </Link>
   );
@@ -323,7 +362,7 @@ function HybridSection({
 }) {
   return (
     <section className="xl:grid xl:grid-cols-[minmax(0,36rem)_18rem] xl:gap-10 xl:items-start">
-      <div className="text-text-secondary leading-relaxed space-y-5">
+      <div className="text-lg text-text-secondary leading-relaxed space-y-5">
         {children}
         {mobile}
       </div>
@@ -396,7 +435,7 @@ export default function NetflixPage() {
             Hi Netflix team,
           </p>
 
-          <p className="text-lg leading-relaxed">
+          <p className="text-xl leading-relaxed">
             My mom's name is still on our Netflix home screen. She died 13 years
             ago. I've never logged back into her profile. I think about what's
             there sometimes. A snapshot of shows she was working through,
@@ -407,7 +446,7 @@ export default function NetflixPage() {
             make sense of being alive.
           </p>
 
-          <p>
+          <p className="text-lg leading-relaxed">
             I suppose that's part of why I'm here. The itch that brought me to
             this application is the desire to design for moments when people
             want to feel something. Trust and clarity are tablestakes, and I've
@@ -424,11 +463,11 @@ export default function NetflixPage() {
         sidebar={
           <div>
             <SidebarEyebrow>Related case studies</SidebarEyebrow>
-            <div className="space-y-3">
+            <SidebarRowGroup>
               {pairedCaseStudies.map((study) => (
-                <SidebarCaseStudyCard key={study.href} {...study} />
+                <SidebarCaseStudyRow key={study.href} {...study} />
               ))}
-            </div>
+            </SidebarRowGroup>
           </div>
         }
         mobile={
@@ -459,35 +498,7 @@ export default function NetflixPage() {
         sidebar={
           <div>
             <SidebarEyebrow>Featured project</SidebarEyebrow>
-            <Link href="/projects/tone-spectrum" className="block group">
-              <div className="rounded-lg border border-soft-linen-dark bg-soft-linen-light overflow-hidden hover:border-palm-leaf/50 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
-                <div className="relative aspect-[16/10] bg-soft-linen-dark">
-                  <Image
-                    src="/projects/tone-spectrum/tone-spectrum-explorer-interface.png"
-                    alt="Tone Spectrum Explorer"
-                    fill
-                    className="object-cover object-left-top"
-                    sizes="288px"
-                  />
-                </div>
-                <div className="p-3 space-y-1.5">
-                  <span className="inline-flex items-center gap-1 text-[10px] font-medium text-bronze-spice uppercase tracking-wide">
-                    <Hammer className="w-2.5 h-2.5" />
-                    Side project
-                  </span>
-                  <h4 className="text-sm font-display font-bold text-text-primary leading-snug group-hover:text-palm-leaf transition-colors">
-                    Tone Spectrum Explorer
-                  </h4>
-                  <p className="text-xs text-text-muted leading-snug">
-                    50+ linguistic devices, 5 tone spectrums, exportable
-                    standards.
-                  </p>
-                  <span className="inline-flex items-center gap-1 text-xs font-medium text-palm-leaf pt-1 group-hover:gap-1.5 transition-all">
-                    Explore <ArrowRight className="w-3 h-3" />
-                  </span>
-                </div>
-              </div>
-            </Link>
+            <SidebarFeaturedProject />
           </div>
         }
         mobile={
@@ -519,11 +530,11 @@ export default function NetflixPage() {
         sidebar={
           <div>
             <SidebarEyebrow>From the workshop</SidebarEyebrow>
-            <div className="space-y-3">
+            <SidebarRowGroup>
               {featuredVideos.map((video) => (
-                <SidebarVideoCard key={video.id} {...video} />
+                <SidebarVideoRow key={video.id} {...video} />
               ))}
-            </div>
+            </SidebarRowGroup>
           </div>
         }
         mobile={
@@ -547,7 +558,7 @@ export default function NetflixPage() {
 
       {/* Closing — plain prose with bold highlights */}
       <section className="max-w-2xl">
-        <div className="space-y-5 text-text-secondary leading-relaxed">
+        <div className="space-y-5 text-lg text-text-secondary leading-relaxed">
           <p>
             A <strong className="text-text-primary">six-minute viewing moment</strong>{" "}
             is not the same as a{" "}
