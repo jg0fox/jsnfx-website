@@ -1,9 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+VARIANT="${1:-nflx}"
+
+case "$VARIANT" in
+  nflx)
+    PAGE="nflx-resume"
+    OUT="public/jason-fox-resume.pdf"
+    ;;
+  figma)
+    PAGE="figma-resume"
+    OUT="public/jason-fox-resume-figma.pdf"
+    ;;
+  *)
+    echo "Unknown variant: $VARIANT (use 'nflx' or 'figma')" >&2
+    exit 1
+    ;;
+esac
+
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-URL="http://localhost:3000/nflx-resume"
-OUT="public/jason-fox-resume.pdf"
+URL="http://localhost:3000/$PAGE"
 PORT=3000
 
 if [ ! -x "$CHROME" ]; then

@@ -133,7 +133,7 @@ export default function FigmaResumePage() {
             </p>
           </div>
           <a
-            href="/jason-fox-resume.pdf"
+            href="/jason-fox-resume-figma.pdf"
             download
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-soft-linen-light border border-soft-linen-dark text-text-secondary hover:border-palm-leaf hover:text-palm-leaf transition-colors flex-shrink-0 print:hidden"
           >

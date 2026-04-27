@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "resume:pdf": "./scripts/generate-resume-pdf.sh"
+    "resume:pdf": "./scripts/generate-resume-pdf.sh",
+    "resume:pdf:figma": "./scripts/generate-resume-pdf.sh figma"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",
