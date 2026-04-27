@@ -339,7 +339,7 @@ export default function FigmaPage() {
           </div>
           <div>
             <h1 className="text-2xl lg:text-3xl font-display font-bold text-text-primary">
-              UX writer
+              UX Writer, AI
             </h1>
             <p className="text-text-secondary mt-1 flex flex-wrap items-center gap-3">
               <span>Application from Jason Fox</span>
