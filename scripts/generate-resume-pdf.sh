@@ -35,7 +35,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-if curl -s -o /dev/null -w "%{http_code}" "http://localhost:$PORT" | grep -qE "^[23]"; then
+if curl -s -o /dev/null -w "%{http_code}" "$URL" | grep -qE "^[23]"; then
   echo "Using existing dev server on port $PORT"
 else
   echo "Starting Next.js dev server..."
