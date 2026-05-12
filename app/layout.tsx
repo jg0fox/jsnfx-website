@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
+import { Young_Serif, Source_Sans_3 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Sidebar, MobileNav } from "@/components/layout";
 import { AdversarialProvider } from "@/components/adversarial";
@@ -7,10 +7,10 @@ import { siteConfig } from "@/lib/seo";
 import { getPortfolioItems, getProjectItems } from "@/lib/content";
 import "./globals.css";
 
-const cormorantGaramond = Cormorant_Garamond({
-  variable: "--font-cormorant-garamond",
+const youngSerif = Young_Serif({
+  variable: "--font-young-serif",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400"],
   display: "swap",
 });
 
@@ -84,7 +84,7 @@ export default async function RootLayout({
   }));
 
   return (
-    <html lang="en" className={`${cormorantGaramond.variable} ${sourceSans.variable}`}>
+    <html lang="en" className={`${youngSerif.variable} ${sourceSans.variable}`}>
       {/*
         ╭──────────────────────────────────────────────────────────╮
         │                                                          │
