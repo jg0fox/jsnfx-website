@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Source_Sans_3 } from "next/font/google";
+import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Sidebar, MobileNav } from "@/components/layout";
 import { AdversarialProvider } from "@/components/adversarial";
@@ -7,9 +7,10 @@ import { siteConfig } from "@/lib/seo";
 import { getPortfolioItems, getProjectItems } from "@/lib/content";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-cormorant-garamond",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -83,7 +84,7 @@ export default async function RootLayout({
   }));
 
   return (
-    <html lang="en" className={`${fraunces.variable} ${sourceSans.variable}`}>
+    <html lang="en" className={`${cormorantGaramond.variable} ${sourceSans.variable}`}>
       {/*
         ╭──────────────────────────────────────────────────────────╮
         │                                                          │

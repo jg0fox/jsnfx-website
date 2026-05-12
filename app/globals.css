@@ -51,7 +51,7 @@
   --color-text-muted: var(--text-muted);
 
   /* Fonts */
-  --font-display: var(--font-fraunces);
+  --font-display: var(--font-cormorant-garamond);
   --font-sans: var(--font-source-sans);
 }
 
@@ -82,7 +82,7 @@ body {
 
 /* Typography defaults */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-fraunces), Georgia, serif;
+  font-family: var(--font-cormorant-garamond), Georgia, serif;
   color: var(--text-primary);
   font-weight: 700;
 }
