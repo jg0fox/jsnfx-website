@@ -200,7 +200,7 @@ export default function FigmaPage() {
       <section className="max-w-3xl">
         <div className="space-y-5 text-text-secondary leading-relaxed">
           <p className="text-xl font-display font-bold text-text-primary">
-            Hi there,
+            Hi Figma,
           </p>
 
           <p>
@@ -221,14 +221,35 @@ export default function FigmaPage() {
             Over the last 2 years, I've found myself focused on AI content
             systems for internal tooling and developer teams. I've written the
             context, built the systems, managed the integrations, and influenced
-            the stakeholders. Throughout it all, I have learned that content
-            systems can be any team's superpower.
+            the stakeholders.
           </p>
 
           <p>
-            And it's a never-ending process of discovery. I value every
-            opportunity I have to improve my contributions by analyzing the
-            performance of my content and my content systems.
+            In one of my recent efforts, I wrangled 250+ content design
+            standards and built them into an AI content system. This involved:
+          </p>
+
+          <ol className="list-decimal space-y-1.5 pl-6 marker:text-text-muted marker:font-medium">
+            <li>Auditing and tagging every standard with governance metadata</li>
+            <li>Defining a new information architecture for the entire corpus</li>
+            <li>Building a Bitbucket repository as our context storage</li>
+            <li>
+              Building an MCP server and ensuring it had the capability to serve
+              the metadata-enriched standards
+            </li>
+            <li>
+              Designing system prompt components, like a metadata decision
+              matrix, so tools can retrieve the right standard efficiently
+            </li>
+            <li>Building the pipeline to our AI tooling</li>
+            <li>
+              Finally, measuring the impact of that work on our AI performance
+            </li>
+          </ol>
+
+          <p>
+            I don't have this work in my portfolio yet, but I'd love to put
+            together a presentation for you.
           </p>
 
           <p>
