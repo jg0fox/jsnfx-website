@@ -6,7 +6,7 @@ import { Download, ExternalLink } from "lucide-react";
 export const metadata: Metadata = {
   title: "Resume — Jason Fox",
   description:
-    "Content designer with 10+ years of experience in voice, tone, AI content systems, and content governance.",
+    "Content worker with 10+ years of experience in AI content systems, information architecture, and content governance.",
   robots: {
     index: false,
     follow: false,
@@ -19,8 +19,9 @@ const experience = [
     role: "Lead Content Designer, AI Content Systems",
     dates: "Mar 2024 – Present",
     bullets: [
-      "Defining how conversational guidance, product voice, and interaction patterns work together across AI experiences that serve millions",
-      "Building evaluation frameworks, governance architecture, and model-assisted workflows for content quality at scale",
+      "Supporting teams with AI content systems that reduce time-on-task",
+      "Running content governance and evaluation frameworks that safeguard quality and measure AI performance impact",
+      "Leading restructure and optimization programs for Atlassian developer content",
     ],
   },
   {
@@ -28,7 +29,7 @@ const experience = [
     role: "Instructor",
     dates: "Apr 2022 – Present",
     bullets: [
-      "Designing and running workshops on voice and tone, content systems, and Figma skills for working content designers",
+      "Designing and running workshops for AI content systems, voice and tone development, and Figma skills",
     ],
   },
   {
@@ -36,8 +37,8 @@ const experience = [
     role: "Sr. Staff Content Designer, Equities",
     dates: "Dec 2022 – Sep 2023",
     bullets: [
-      "Led content design for 0-to-1 initiatives in ambiguous, compliance-bound space",
-      "Co-led Robinhood's content committee, codifying patterns for market data, terminology, and tone",
+      "Focused on bringing peace of mind to our customers while making improvements to metrics like funded accounts, MAU, assets under custody, and ARPU",
+      "Served as implementation lead in Robinhood's content governance council",
     ],
   },
   {
@@ -45,8 +46,7 @@ const experience = [
     role: "Lead Content Designer, Growth",
     dates: "Apr 2021 – Dec 2022",
     bullets: [
-      "Helped found Chime's content design team, establishing systems, standards, and a culture of craft",
-      "Ran a content experiment that lifted peer-to-peer payment completion by 16%",
+      "Helped the founding content design team establish content systems and standards, build a culture of empowerment and education, and optimize peer-to-peer payment experiences",
     ],
   },
   {
@@ -54,8 +54,9 @@ const experience = [
     role: "Senior Growth Content Designer",
     dates: "Jan 2020 – Apr 2021",
     bullets: [
-      "Led content-first product onboarding across Confluence and Jira",
+      "Created a content-based foundation for the growth of Confluence and Jira",
       "Established an internal growth content design curriculum",
+      "Led content-first product onboarding experiences",
     ],
   },
   {
@@ -63,8 +64,8 @@ const experience = [
     role: "Principal UX Writer & Conversation Designer",
     dates: "Aug 2018 – Jan 2020",
     bullets: [
-      "Distilled voice and tone from 5 core products into design resources through auditing, research, and voice mapping",
-      "Led UX writing and conversation design across core products",
+      "Created messaging frameworks for core audiences: IC, management, executives, and beyond",
+      "Led UX writing and content initiatives across core products",
     ],
   },
   {
@@ -72,7 +73,7 @@ const experience = [
     role: "UX Research Analyst and Writer",
     dates: "Dec 2017 – Aug 2018",
     bullets: [
-      "Translated large-scale e-commerce usability research into articles, reports, and benchmark databases",
+      "Conducted and translated large-scale e-commerce usability research data into UX articles, reports, and benchmark databases",
     ],
   },
   {
@@ -80,28 +81,31 @@ const experience = [
     role: "UX Writer and Copywriter",
     dates: "Nov 2015 – Dec 2016",
     bullets: [
-      "Helped found Havenly's content team, creating standards, systems, and metrics for growth",
+      "Helped to found Havenly's content team, creating standards, systems, and metrics for growth",
     ],
   },
   {
     company: "Self-employed",
     role: "Freelance UX Content Worker",
     dates: "2012 – Dec 2017",
-    bullets: [],
+    bullets: [
+      "Worked with companies like Verizon, Havenly, Beyond Meat, Guilded, and Vinyl Me, Please",
+    ],
   },
 ];
 
 const skills = [
-  "Voice & tone development",
   "AI fluency",
-  "Content experimentation",
-  "Figma prototyping",
+  "MCP building and maintenance",
+  "Notion and Zendesk proficient",
   "Research & data analysis",
+  "Accessibility & inclusivity",
   "Content governance",
+  "Context layer management",
   "Feature naming",
   "Information architecture",
   "Stakeholder management",
-  "Mentorship",
+  "Product strategy",
 ];
 
 export default function FigmaResumePage() {
@@ -128,8 +132,8 @@ export default function FigmaResumePage() {
               Jason Fox
             </h1>
             <p className="text-lg text-text-secondary mt-1">
-              Content designer with 10+ years working on voice, tone, and
-              systems
+              Content worker with 10+ years and ~50 million tokens of
+              experience
             </p>
           </div>
           <a
@@ -164,9 +168,9 @@ export default function FigmaResumePage() {
         </div>
 
         <p className="mt-4 text-text-secondary italic">
-          A systems thinker who stays hands-on. I care about craft, build the
-          tools I want my teams to use, and am as comfortable in a terminal
-          as I am in a text editor.
+          I get excited by content systems, am obsessed with information
+          architecture, and I'm as comfortable in a terminal as I am in a text
+          editor.
         </p>
       </header>
 
