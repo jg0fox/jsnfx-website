@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>12 · Scheduling</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden;
+    font-family: ui-sans-serif, -apple-system, system-ui, sans-serif; }
+  canvas { display: block; touch-action: none; cursor: grab; }
+  canvas.dragging { cursor: grabbing; }
+  #dock { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 9px;
+    pointer-events: none; user-select: none; }
+  #amb { display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 11px 22px; border-radius: 16px; min-width: 240px;
+    background: rgba(18,18,24,0.55); border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+  .l1 { color: rgba(255,255,255,0.94); font-size: 15px; font-weight: 600;
+        letter-spacing: 0.01em; font-variant-numeric: tabular-nums; }
+  .l2 { font-size: 12px; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; min-height: 15px; transition: color .18s; }
+  .l2.range { color: rgba(255,255,255,0.4); }
+  .l2.hover { color: rgba(150,200,255,0.9); }
+  .l2.sel   { color: rgba(255,255,255,0.9); }
+  #hint { font: 11px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+          color: rgba(255,255,255,0.24); letter-spacing: 0.03em; }
+  #hint b { color: rgba(255,255,255,0.4); font-weight: 500; }
+
+  /* Today button */
+  #today { position: fixed; left: 18px; bottom: 16px; display: flex; align-items: center; gap: 6px;
+    padding: 8px 13px; border-radius: 11px; cursor: pointer; font-size: 12px; font-weight: 500;
+    color: rgba(255,255,255,0.8); background: rgba(24,24,30,0.6); border: 1px solid rgba(255,255,255,0.13);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); user-select: none;
+    transition: border-color .15s, color .15s; }
+  #today:hover { color: #fff; border-color: rgba(255,255,255,0.35); }
+
+  /* Selection panel */
+  #panel { position: fixed; right: 18px; top: 50%; transform: translate(0, -50%);
+    width: 268px; max-height: 74vh; display: flex; flex-direction: column;
+    background: rgba(18,18,24,0.62); border: 1px solid rgba(255,255,255,0.13); border-radius: 18px;
+    backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.55); overflow: hidden;
+    transition: opacity .24s ease, transform .24s ease; }
+  #panel.hidden { opacity: 0; transform: translate(16px, -50%); pointer-events: none; }
+  .phead { display: flex; align-items: center; justify-content: space-between;
+    padding: 15px 17px 11px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .phead .ttl { font-size: 14px; font-weight: 600; color: #fff; }
+  .phead .ttl small { color: rgba(255,255,255,0.45); font-weight: 400; font-size: 12px; margin-left: 5px; }
+  #clear { background: none; border: none; color: rgba(255,255,255,0.45); font-size: 12px; cursor: pointer; padding: 3px 5px; }
+  #clear:hover { color: rgba(255,255,255,0.85); }
+  #plist { overflow-y: auto; padding: 6px 15px 10px; flex: 1; }
+  .pday { padding: 9px 0 4px; }
+  .pdate { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.82); margin-bottom: 7px; }
+  .pchips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .chip { font: 11px ui-monospace, Menlo, monospace; color: rgba(180,225,255,0.95);
+    background: rgba(90,160,220,0.16); border: 1px solid rgba(140,200,255,0.28); border-radius: 999px;
+    padding: 3px 9px; cursor: pointer; }
+  .chip:hover { background: rgba(200,80,80,0.22); border-color: rgba(255,150,150,0.4); color: #fff; }
+  .pfoot { padding: 12px 15px 15px; border-top: 1px solid rgba(255,255,255,0.08); }
+  #create { width: 100%; padding: 11px; border-radius: 11px; border: none; cursor: pointer;
+    font-size: 14px; font-weight: 600; color: #05121f; background: linear-gradient(180deg,#bfe4ff,#8ec8ff);
+    transition: filter .15s; }
+  #create:hover { filter: brightness(1.08); }
+
+  #toast { position: fixed; left: 50%; top: 26px; transform: translate(-50%, -14px);
+    padding: 9px 18px; border-radius: 11px; font-size: 13px; color: #fff;
+    background: rgba(30,40,55,0.85); border: 1px solid rgba(150,200,255,0.3);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none; }
+  #toast.show { opacity: 1; transform: translate(-50%, 0); }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div id="dock">
+  <div id="amb"><div class="l1" id="amb1">—</div><div class="l2 range" id="amb2">—</div></div>
+  <div id="hint"><b>12 · Scheduling</b> — drag scrub · ⌘+scroll zoom · click a star · shift-drag to lasso · <b>T</b> today · <span id="fps">–</span></div>
+</div>
+<div id="today">◎ Today</div>
+<div id="panel" class="hidden">
+  <div class="phead"><div class="ttl">Selected <small id="pcount">0</small></div><button id="clear">Clear</button></div>
+  <div id="plist"></div>
+  <div class="pfoot"><button id="create">Create</button></div>
+</div>
+<div id="toast"></div>
+<script>
+(() => {
+  const WD  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const MONTHS = ['January','February','March','April','May','June','July',
+                  'August','September','October','November','December'];
+  const mod = (n, m) => ((n % m) + m) % m;
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+  const smooth = (x) => { x = clamp(x, 0, 1); return x * x * (3 - 2 * x); };
+  const fmtHour = (h) => `${(h % 12) || 12} ${h < 12 ? 'AM' : 'PM'}`;
+  const dayArc = (h) => 0.5 - 0.5 * Math.cos((h / 24) * 6.2832);
+
+  const MS_DAY = 86400000, EPOCH = new Date(1970, 0, 1).getTime();
+  const dayIndexOf = (d) => Math.round((d.getTime() - EPOCH) / MS_DAY);
+  const dateOfDay = (idx) => new Date(EPOCH + Math.floor(idx) * MS_DAY + MS_DAY / 2);
+  const _now = new Date();
+  const TODAY = new Date(_now.getFullYear(), _now.getMonth(), _now.getDate());
+  const TODAY_DAY = dayIndexOf(TODAY), TODAY_Y = TODAY.getFullYear(), TODAY_M = TODAY.getMonth();
+
+  const CFG = {
+    ppdMin: 0.02, ppdMax: 2600, zoomSens: 0.0016,
+    nightMin: 0.5, sizeSkew: 2.4,
+    friction: 0.945, stopBelow: 0.02, velSmoothing: 0.6,
+    focusEase: 0.09, hitRadius: 20,
+    lens: true, lensVignette: 0.32,
+  };
+
+  const canvas = document.getElementById('sky');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const fpsEl = document.getElementById('fps');
+  const amb1 = document.getElementById('amb1'), amb2 = document.getElementById('amb2');
+
+  let W = 0, H = 0, dpr = 1, LAND_PPD = 100, hphMax = 80, lensR = 240;
+  let ppd = 100, camDay = TODAY_DAY + 0.5, camHour = 13, vDay = 0, vHour = 0;
+  let DEFAULT_DAY = TODAY_DAY + 0.5, DEFAULT_HOUR = 13;
+
+  function initFrame() {
+    // lens frames 5 days (Mon–Fri) × 12 hours (7 AM–7 PM)
+    const fill = 0.9;
+    LAND_PPD = (2 * lensR * fill) / 5;
+    hphMax = (2 * lensR * fill) / 12;
+    const dow = TODAY.getDay();        // 0 Sun … 6 Sat
+    let monday = TODAY_DAY - ((dow + 6) % 7);
+    if (dow === 0 || dow === 6) monday += 7;   // weekend → jump to the upcoming work week
+    DEFAULT_DAY = monday + 2 + 0.5;   // Wednesday, centered → Mon–Fri in view
+    DEFAULT_HOUR = 13;                // 1 PM centers 7 AM–7 PM
+    ppd = LAND_PPD; camDay = DEFAULT_DAY; camHour = DEFAULT_HOUR;
+  }
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const first = (W === 0);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    lensR = clamp(Math.min(W, H) * 0.34, 210, 380);
+    if (first) initFrame();
+  }
+  window.addEventListener('resize', resize); resize();
+
+  const sxOf = (dayIdx) => (dayIdx - camDay) * ppd + W / 2;
+  const hphOf = (p) => clamp(hphMax * Math.pow(p / LAND_PPD, 0.45), 12, hphMax * 1.02);
+  function edge(x, y) {
+    const ex = (x - W / 2) / (W * 0.64), ey = (y - H / 2) / (H * 0.7);
+    return clamp(1 - (ex * ex + ey * ey) * 0.9, 0.3, 1);
+  }
+  function seedFor(a, b, c) {
+    let h = (a * 374761393 + b * 668265263 + c * 2246822519) | 0;
+    h = Math.imul(h ^ (h >>> 13), 1274126177);
+    return (h ^ (h >>> 16)) >>> 0;
+  }
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function dayNightColor(hour, a) {
+    const b = dayArc(hour);
+    return `rgba(${Math.round(lerp(165,255,b))},${Math.round(lerp(190,252,b))},${Math.round(lerp(255,238,b))},${a})`;
+  }
+  function seasonColor(m, a) {
+    const w = 0.5 + 0.5 * Math.cos(((m - 6) / 12) * 6.2832);
+    return `rgba(${Math.round(lerp(180,255,w))},${Math.round(lerp(202,244,w))},${Math.round(lerp(255,224,w))},${a})`;
+  }
+  const GOLD = (a) => `rgba(255,214,150,${a})`;
+  const SEL = (a) => `rgba(140,215,255,${a})`;
+  const SEL_RING = 'rgba(160,222,255,0.9)';
+  const dot = (x, y, r, s) => { ctx.fillStyle = s; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill(); };
+  const ringAt = (x, y, r, s) => { ctx.strokeStyle = s; ctx.lineWidth = 1.25; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.stroke(); };
+
+  // per-frame collections
+  let hits = [], lensLabels = [], lensCols = new Map();
+  function pushHit(x, y, text, cd, ch) { if (x > -20 && x < W + 20 && y > -20 && y < H + 20) hits.push({ x, y, text, cd, ch }); }
+  const inLens = (x, y) => CFG.lens && Math.hypot(x - W / 2, y - H / 2) <= lensR - 6;
+
+  // ── HOURS: dense 2D field of day-columns × hours ────────────────────────────
+  function drawHours(alpha, dom) {
+    if (alpha < 0.03) return;
+    const hph = hphOf(ppd);
+    const dl = Math.floor(camDay - (W / 2) / ppd) - 1, dr = Math.ceil(camDay + (W / 2) / ppd) + 1;
+    const hb = Math.floor(camHour - (H / 2) / hph) - 1, ht = Math.ceil(camHour + (H / 2) / hph) + 1;
+    const sizeK = clamp(hph / hphMax, 0.45, 1.15);
+    const drawThread = ppd > 26;
+    for (let d = dl; d <= dr; d++) {
+      const X0 = sxOf(d + 0.5);
+      if (X0 < -40 || X0 > W + 40) continue;
+      const date = dateOfDay(d), wd = date.getDay(), today = (d === TODAY_DAY);
+      if (today) {
+        const w = Math.min(ppd, 260) * 0.5;
+        const g = ctx.createLinearGradient(X0 - w, 0, X0 + w, 0);
+        g.addColorStop(0, 'rgba(255,220,170,0)'); g.addColorStop(0.5, `rgba(255,220,170,${0.11 * alpha})`); g.addColorStop(1, 'rgba(255,220,170,0)');
+        ctx.fillStyle = g; ctx.fillRect(X0 - w, 0, 2 * w, H);
+      }
+      if (drawThread) {
+        ctx.strokeStyle = today ? `rgba(255,225,180,${0.34 * alpha})`
+          : (wd === 0 || wd === 6) ? `rgba(150,170,210,${0.07 * alpha})` : `rgba(210,220,245,${0.13 * alpha})`;
+        ctx.lineWidth = 1; ctx.beginPath();
+        for (let hh = hb, first = true; hh <= ht; hh++) {
+          const hour = mod(hh, 24), rnd = mulberry32(seedFor(d, hour, 7));
+          const jx = (rnd() - 0.5) * Math.min(ppd, 90) * 0.14;
+          const X = X0 + jx, Y = H / 2 - (hh - camHour) * hph;
+          if (first) { ctx.moveTo(X, Y); first = false; } else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+      }
+      for (let hh = hb; hh <= ht; hh++) {
+        const hour = mod(hh, 24), rnd = mulberry32(seedFor(d, hour, 7));
+        const jx = (rnd() - 0.5) * Math.min(ppd, 90) * 0.14;
+        const t = Math.pow(rnd(), CFG.sizeSkew);
+        const X = X0 + jx, Y = H / 2 - (hh - camHour) * hph;
+        if (X < -12 || X > W + 12 || Y < -12 || Y > H + 12) continue;
+        const a = alpha * (0.5 + 0.5 * t) * (CFG.nightMin + (1 - CFG.nightMin) * dayArc(hour)) * edge(X, Y);
+        const rr = (1.3 + t * 2.5) * sizeK;
+        if (isSel(d, hour)) { dot(X, Y, rr * 1.15, SEL(Math.min(1, a * 1.7 + 0.25))); ringAt(X, Y, rr + 4, SEL_RING); }
+        else dot(X, Y, rr, dayNightColor(hour, a));
+        if (dom) pushHit(X, Y, `${WD[wd]}, ${MON[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} · ${fmtHour(hour)}`, d + 0.5, hour);
+        if (dom && inLens(X, Y)) { lensLabels.push({ x: X, y: Y, text: fmtHour(hour) }); lensCols.set(d, date); }
+      }
+    }
+  }
+
+  // ── coarse units: one star per unit, scattered across full height (a field) ──
+  function drawScatter(alpha, dom, iter) {
+    if (alpha < 0.03) return;
+    iter((cd, seed, colorFn, text, curGold, sizeMul) => {
+      const rnd = mulberry32(seed);
+      const t = Math.pow(rnd(), CFG.sizeSkew);
+      const X = sxOf(cd), Y = H / 2 + (rnd() - 0.5) * H * 0.66;
+      if (X < -12 || X > W + 12) return null;
+      const a = alpha * (0.55 + 0.45 * t) * edge(X, Y);
+      dot(X, Y, (1.7 + t * 2.2) * (sizeMul || 1) * (0.75 + 0.25 * alpha), curGold ? GOLD(a) : colorFn(a, t));
+      if (dom) pushHit(X, Y, text, cd, null);
+      if (dom && inLens(X, Y)) lensLabels.push({ x: X, y: Y, text });
+      return { X, Y, t };
+    });
+  }
+
+  function drawDays(alpha, dom) {
+    drawScatter(alpha, dom, (place) => {
+      const dl = Math.floor(camDay - (W / 2) / ppd) - 1, dr = Math.ceil(camDay + (W / 2) / ppd) + 1;
+      if (dr - dl > 4000) return;
+      for (let d = dl; d <= dr; d++) {
+        const date = dateOfDay(d), wknd = (date.getDay() === 0 || date.getDay() === 6);
+        const rp = place(d + 0.5, seedFor(d, 0, 11), (a) => wknd ? `rgba(190,205,240,${a * 0.85})` : `rgba(236,240,255,${a})`,
+          `${WD[date.getDay()]}, ${MON[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`, d === TODAY_DAY, 1);
+        if (rp && dayCount.has(d)) ringAt(rp.X, rp.Y, 9, SEL_RING);
+      }
+    });
+  }
+  function drawMonths(alpha, dom) {
+    drawScatter(alpha, dom, (place) => {
+      const dl = Math.floor(camDay - (W / 2) / ppd) - 40, dr = Math.ceil(camDay + (W / 2) / ppd) + 40;
+      let am0 = (() => { const d = dateOfDay(dl); return d.getFullYear() * 12 + d.getMonth() - 1; })();
+      let am1 = (() => { const d = dateOfDay(dr); return d.getFullYear() * 12 + d.getMonth() + 1; })();
+      if (am1 - am0 > 3000) return;
+      for (let am = am0; am <= am1; am++) {
+        const y = Math.floor(am / 12), m = mod(am, 12), cd = dayIndexOf(new Date(y, m, 15));
+        place(cd, seedFor(am, 0, 17), (a) => seasonColor(m, a), `${MONTHS[m]} ${y}`, (y === TODAY_Y && m === TODAY_M), 1.05);
+      }
+    });
+  }
+  function drawYears(alpha, dom, decAmt) {
+    if (alpha < 0.03) return;
+    const dl = Math.floor(camDay - (W / 2) / ppd) - 400, dr = Math.ceil(camDay + (W / 2) / ppd) + 400;
+    const yL = dateOfDay(dl).getFullYear() - 1, yR = dateOfDay(dr).getFullYear() + 1;
+    if (yR - yL > 3000) return;
+    const pos = (Y) => {
+      const cd = dayIndexOf(new Date(Y, 6, 2)), rnd = mulberry32(seedFor(Y, 0, 19));
+      const t = Math.pow(rnd(), CFG.sizeSkew);
+      return { X: sxOf(cd), Y: H / 2 + (rnd() - 0.5) * (H * 0.28 + H * 0.34 * decAmt), t, cd };
+    };
+    if (decAmt > 0.01) {
+      ctx.strokeStyle = `rgba(150,180,240,${0.4 * decAmt * alpha})`; ctx.lineWidth = 1;
+      for (let Y = yL; Y <= yR; Y++) {
+        if (Math.floor((Y - 1) / 10) !== Math.floor(Y / 10)) continue;
+        const a = pos(Y - 1), b = pos(Y);
+        ctx.beginPath(); ctx.moveTo(a.X, a.Y); ctx.lineTo(b.X, b.Y); ctx.stroke();
+      }
+    }
+    for (let Y = yL; Y <= yR; Y++) {
+      const p = pos(Y);
+      if (p.X < -12 || p.X > W + 12) continue;
+      const a = alpha * (0.55 + 0.45 * p.t) * edge(p.X, p.Y);
+      dot(p.X, p.Y, (1.7 + p.t * 2.3) * (0.75 + 0.25 * alpha), Y === TODAY_Y ? GOLD(a) : `rgba(228,234,255,${a})`);
+      if (dom) pushHit(p.X, p.Y, `${Y}`, p.cd, null);
+      if (dom && inLens(p.X, p.Y)) lensLabels.push({ x: p.X, y: p.Y, text: `${Y}` });
+    }
+  }
+
+  // ── lens overlay ─────────────────────────────────────────────────────────────
+  function drawLens(domName) {
+    const cx = W / 2, cy = H / 2;
+    if (CFG.lensVignette > 0) {
+      const g = ctx.createRadialGradient(cx, cy, lensR * 0.72, cx, cy, Math.max(W, H) * 0.72);
+      g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, `rgba(0,0,0,${CFG.lensVignette})`);
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    }
+    ctx.strokeStyle = 'rgba(255,255,255,0.16)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(cx, cy, lensR, 0, 6.2832); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+    ctx.beginPath(); ctx.moveTo(cx - 6, cy); ctx.lineTo(cx + 6, cy); ctx.moveTo(cx, cy - 6); ctx.lineTo(cx, cy + 6); ctx.stroke();
+
+    const c = dateOfDay(camDay);
+    let cap;
+    if (domName === 'hours' || domName === 'days') cap = `${MONTHS[c.getMonth()]} ${c.getFullYear()}`;
+    else if (domName === 'months') cap = `${c.getFullYear()}`;
+    else cap = `${Math.floor(c.getFullYear() / 10) * 10}s`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '600 13px ui-sans-serif, system-ui, sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.fillText(cap, cx, cy - lensR - 12);
+
+    // hours: day-column headers along the top rim
+    if (domName === 'hours') {
+      ctx.font = '11px ui-monospace, Menlo, monospace';
+      for (const [d, date] of lensCols) {
+        const colX = sxOf(d + 0.5), dx = colX - cx;
+        if (Math.abs(dx) > lensR - 14) continue;
+        const yIn = Math.sqrt(Math.max(0, lensR * lensR - dx * dx));
+        ctx.fillStyle = d === TODAY_DAY ? 'rgba(255,225,180,0.95)' : 'rgba(255,255,255,0.7)';
+        ctx.fillText(`${WD[date.getDay()]} ${date.getDate()}`, colX, cy - yIn + 15);
+      }
+    }
+    // per-star labels
+    ctx.textAlign = 'left'; ctx.font = '10px ui-monospace, Menlo, monospace';
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    for (const L of lensLabels) ctx.fillText(L.text, L.x + 6, L.y + 0.5);
+  }
+
+  // ── navigation (fly / home) ──────────────────────────────────────────────────
+  const nav = { on: false, day: 0, hour: 6, useH: false, ppd: 0, useP: false };
+  function flyTo(day, ppdT, hour) {
+    nav.on = true; nav.day = day; nav.ppd = ppdT; nav.useP = ppdT != null;
+    nav.useH = hour != null; nav.hour = hour != null ? hour : camHour; vDay = 0; vHour = 0;
+  }
+  const goHome = () => flyTo(DEFAULT_DAY, LAND_PPD, DEFAULT_HOUR);
+
+  // ── selection state + right panel ─────────────────────────────────────────────
+  const selection = new Set();     // "day_hour"
+  const dayCount = new Map();       // day → # selected hours (for coarse markers)
+  const kOf = (d, h) => d + '_' + h;
+  const isSel = (d, h) => selection.has(kOf(d, h));
+  function addSel(d, h) { const k = kOf(d, h); if (!selection.has(k)) { selection.add(k); dayCount.set(d, (dayCount.get(d) || 0) + 1); } }
+  function delSel(d, h) { if (selection.delete(kOf(d, h))) { const c = (dayCount.get(d) || 1) - 1; c <= 0 ? dayCount.delete(d) : dayCount.set(d, c); } }
+  function toggleSel(d, h) { isSel(d, h) ? delSel(d, h) : addSel(d, h); refreshPanel(); }
+  function clearSel() { selection.clear(); dayCount.clear(); refreshPanel(); }
+
+  const panel = document.getElementById('panel'), plist = document.getElementById('plist'),
+        pcount = document.getElementById('pcount'), toastEl = document.getElementById('toast');
+  function refreshPanel() {
+    const keys = [...selection];
+    if (!keys.length) { panel.classList.add('hidden'); return; }
+    panel.classList.remove('hidden'); pcount.textContent = keys.length;
+    const byDay = new Map();
+    for (const k of keys) { const i = k.indexOf('_'), d = +k.slice(0, i), h = +k.slice(i + 1); if (!byDay.has(d)) byDay.set(d, []); byDay.get(d).push(h); }
+    let html = '';
+    for (const d of [...byDay.keys()].sort((a, b) => a - b)) {
+      const date = dateOfDay(d);
+      html += `<div class="pday"><div class="pdate">${WD[date.getDay()]}, ${MON[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}</div><div class="pchips">`;
+      for (const h of byDay.get(d).sort((a, b) => a - b)) html += `<button class="chip" data-d="${d}" data-h="${h}">${fmtHour(h)}</button>`;
+      html += '</div></div>';
+    }
+    plist.innerHTML = html;
+  }
+  let toastTimer = 0;
+  function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1900); }
+
+  document.getElementById('today').addEventListener('click', goHome);
+  document.getElementById('clear').addEventListener('click', clearSel);
+  document.getElementById('create').addEventListener('click', () => { const n = selection.size; if (!n) return; toast(`Created ${n} time${n > 1 ? 's' : ''}`); clearSel(); });
+  plist.addEventListener('click', (e) => { const c = e.target.closest('.chip'); if (c) { delSel(+c.dataset.d, +c.dataset.h); refreshPanel(); } });
+  window.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT') return;
+    if (e.key === 't' || e.key === 'T') goHome();
+    else if (e.key === 'Escape') clearSel();
+  });
+
+  let ring = null, hoverCand = null;
+  let mouseX = -1, mouseY = -1, mouseIn = false;
+  const marq = { on: false, x0: 0, y0: 0, x1: 0, y1: 0 };
+  const pickNearest = (px, py) => { let b = null, bd = CFG.hitRadius; for (const s of hits) { const d = Math.hypot(s.x - px, s.y - py); if (d < bd) { bd = d; b = s; } } return b; };
+
+  function applyMarquee() {
+    const xL = Math.min(marq.x0, marq.x1), xR = Math.max(marq.x0, marq.x1);
+    const yT = Math.min(marq.y0, marq.y1), yB = Math.max(marq.y0, marq.y1);
+    if (xR - xL < 4 && yB - yT < 4) { const s = pickNearest(marq.x1, marq.y1); if (s && s.ch != null) toggleSel(Math.floor(s.cd), s.ch); return; }
+    const hph = hphOf(ppd);
+    const dA = Math.ceil((camDay + (xL - W / 2) / ppd) - 0.5), dB = Math.floor((camDay + (xR - W / 2) / ppd) - 0.5);
+    const hHigh = camHour + (H / 2 - yT) / hph, hLow = camHour + (H / 2 - yB) / hph;
+    const hA = Math.floor(hLow), hB = Math.ceil(hHigh), allHrs = (hB - hA) >= 24;
+    let added = 0;
+    for (let d = dA; d <= dB && added < 900; d++) {
+      if (allHrs) { for (let h = 0; h < 24; h++) { addSel(d, h); added++; } }
+      else for (let hh = hA; hh <= hB && added < 900; hh++) { addSel(d, mod(hh, 24)); added++; }
+    }
+    refreshPanel();
+  }
+
+  function draw(now) {
+    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+    hits = []; lensLabels = []; lensCols.clear();
+
+    const aHours = smooth((ppd - 7) / (16 - 7));
+    const aDays  = clamp(smooth((ppd - 1.2) / 1.8) - smooth((ppd - 9) / 7), 0, 1);
+    const aMonths = clamp(smooth((ppd - 0.12) / 0.18) - smooth((ppd - 1.1) / 1.1), 0, 1);
+    const aYears = clamp(1 - smooth((ppd - 0.13) / 0.17), 0, 1);
+    const decAmt = smooth((0.45 - ppd) / (0.45 - 0.05));
+    const layers = [['hours', aHours], ['days', aDays], ['months', aMonths], ['years', aYears]];
+    const domName = layers.slice().sort((a, b) => b[1] - a[1])[0][0];
+
+    drawYears(aYears, domName === 'years', decAmt);
+    drawMonths(aMonths, domName === 'months');
+    drawDays(aDays, domName === 'days');
+    drawHours(aHours, domName === 'hours');
+
+    hoverCand = (mouseIn && !dragging && !marq.on) ? pickNearest(mouseX, mouseY) : null;
+    if (CFG.lens) drawLens(domName);
+
+    if (marq.on) {
+      const x = Math.min(marq.x0, marq.x1), y = Math.min(marq.y0, marq.y1);
+      const w = Math.abs(marq.x1 - marq.x0), h = Math.abs(marq.y1 - marq.y0);
+      ctx.fillStyle = 'rgba(140,210,255,0.08)'; ctx.fillRect(x, y, w, h);
+      ctx.strokeStyle = 'rgba(150,220,255,0.7)'; ctx.lineWidth = 1; ctx.strokeRect(x, y, w, h);
+    }
+    if (hoverCand) {
+      ctx.strokeStyle = 'rgba(150,200,255,0.9)'; ctx.lineWidth = 1.25;
+      ctx.beginPath(); ctx.arc(hoverCand.x, hoverCand.y, 12, 0, 6.2832); ctx.stroke();
+      canvas.style.cursor = 'pointer';
+    } else if (!dragging) canvas.style.cursor = 'grab';
+    if (ring) {
+      const e = (now - ring.start) / 700;
+      if (e >= 1) ring = null;
+      else {
+        const X = sxOf(ring.cd), Y = ring.ch != null ? H / 2 - (ring.ch - camHour) * hphOf(ppd) : ring.sy;
+        ctx.strokeStyle = `rgba(255,255,255,${(1 - e) * 0.55})`; ctx.lineWidth = 1.25;
+        ctx.beginPath(); ctx.arc(X, Y, 8 + e * 42, 0, 6.2832); ctx.stroke();
+      }
+    }
+    return domName;
+  }
+
+  let lastL1 = '', lastL2 = '', lastCls = '';
+  function updateReadout(domName) {
+    const c = dateOfDay(camDay);
+    let l1;
+    if (domName === 'hours') l1 = `${WD[c.getDay()]}, ${MON[c.getMonth()]} ${c.getDate()}, ${c.getFullYear()} · ${fmtHour(mod(Math.round(camHour), 24))}`;
+    else if (domName === 'days') l1 = `${WD[c.getDay()]}, ${MON[c.getMonth()]} ${c.getDate()}, ${c.getFullYear()}`;
+    else if (domName === 'months') l1 = `${MONTHS[c.getMonth()]} ${c.getFullYear()}`;
+    else l1 = `${Math.floor(c.getFullYear() / 10) * 10}s`;
+    let l2, cls;
+    if (hoverCand) { l2 = hoverCand.text; cls = 'l2 hover'; }
+    else {
+      const across = W / ppd;
+      let s;
+      if (across < 2.5) s = 'a day across';
+      else if (across < 20) s = `${Math.round(across)} days across`;
+      else if (across < 130) s = `${Math.round(across / 7)} weeks across`;
+      else if (across < 1100) s = `${Math.round(across / 30.4)} months across`;
+      else if (across < 20000) s = `${Math.round(across / 365)} years across`;
+      else s = `${Math.round(across / 3652)} decades across`;
+      l2 = s; cls = 'l2 range';
+    }
+    if (l1 !== lastL1) { amb1.textContent = l1; lastL1 = l1; }
+    if (l2 !== lastL2) { amb2.textContent = l2; lastL2 = l2; }
+    if (cls !== lastCls) { amb2.className = cls; lastCls = cls; }
+  }
+
+  let dragging = false, lastX = 0, lastY = 0, downX = 0, downY = 0;
+  canvas.addEventListener('pointerdown', (e) => {
+    nav.on = false; mouseX = e.clientX; mouseY = e.clientY; mouseIn = true;
+    downX = e.clientX; downY = e.clientY; canvas.setPointerCapture(e.pointerId);
+    if (e.shiftKey) { marq.on = true; marq.x0 = marq.x1 = e.clientX; marq.y0 = marq.y1 = e.clientY; return; }
+    dragging = true; canvas.classList.add('dragging');
+    vDay = 0; vHour = 0; lastX = e.clientX; lastY = e.clientY;
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    mouseX = e.clientX; mouseY = e.clientY; mouseIn = true;
+    if (marq.on) { marq.x1 = e.clientX; marq.y1 = e.clientY; return; }
+    if (!dragging) return;
+    const hph = hphOf(ppd), ddx = e.clientX - lastX, ddy = e.clientY - lastY;
+    lastX = e.clientX; lastY = e.clientY;
+    camDay -= ddx / ppd; camHour += ddy / hph;
+    vDay = CFG.velSmoothing * vDay + (1 - CFG.velSmoothing) * (-ddx / ppd);
+    vHour = CFG.velSmoothing * vHour + (1 - CFG.velSmoothing) * (ddy / hph);
+  });
+  canvas.addEventListener('pointerup', (e) => {
+    if (marq.on) { marq.on = false; applyMarquee(); return; }
+    dragging = false; canvas.classList.remove('dragging');
+    if (Math.hypot(e.clientX - downX, e.clientY - downY) < 5) {
+      const s = pickNearest(e.clientX, e.clientY);
+      if (s) {
+        if (s.ch != null) { toggleSel(Math.floor(s.cd), s.ch); ring = { cd: s.cd, ch: s.ch, sy: s.y, start: performance.now() }; }
+        else flyTo(s.cd, LAND_PPD, 8);      // drill into a coarse unit to pick hours
+      }
+    }
+  });
+  canvas.addEventListener('pointercancel', () => { dragging = false; marq.on = false; canvas.classList.remove('dragging'); });
+  canvas.addEventListener('pointerleave', () => { mouseIn = false; });
+  canvas.addEventListener('wheel', (e) => {
+    e.preventDefault(); nav.on = false;
+    if (e.metaKey || e.ctrlKey) {
+      const hph0 = hphOf(ppd);
+      const dayU = camDay + (mouseX - W / 2) / ppd;
+      const hourU = camHour + (H / 2 - mouseY) / hph0;
+      ppd = clamp(ppd * Math.exp(-e.deltaY * CFG.zoomSens), CFG.ppdMin, CFG.ppdMax);
+      const hph1 = hphOf(ppd);
+      camDay = dayU - (mouseX - W / 2) / ppd;
+      camHour = hourU - (H / 2 - mouseY) / hph1;
+    } else {
+      const hph = hphOf(ppd);
+      camDay += e.deltaX / ppd; camHour -= e.deltaY / hph; vDay = 0; vHour = 0;
+    }
+  }, { passive: false });
+
+  let lastT = performance.now();
+  function frame(t) {
+    const dt = Math.min((t - lastT) / 16.6667, 3); lastT = t;
+    if (nav.on) {
+      camDay += (nav.day - camDay) * CFG.focusEase * dt;
+      if (nav.useH) camHour += (nav.hour - camHour) * CFG.focusEase * dt;
+      if (nav.useP) { const lp = Math.log(ppd); ppd = Math.exp(lp + (Math.log(nav.ppd) - lp) * CFG.focusEase * dt); }
+      const doneD = Math.abs(nav.day - camDay) < 0.01, doneP = !nav.useP || Math.abs(Math.log(ppd / nav.ppd)) < 0.01;
+      if (doneD && doneP) { camDay = nav.day; if (nav.useP) ppd = nav.ppd; if (nav.useH) camHour = nav.hour; nav.on = false; }
+    } else if (!dragging) {
+      camDay += vDay * dt; camHour += vHour * dt;
+      const decay = Math.pow(CFG.friction, dt); vDay *= decay; vHour *= decay;
+      if (Math.abs(vDay) < CFG.stopBelow / ppd) vDay = 0;
+      if (Math.abs(vHour) < CFG.stopBelow) vHour = 0;
+    }
+    const domName = draw(t); updateReadout(domName);
+    fpsEl._a = (fpsEl._a || 0) + 1000 / Math.max(t - (fpsEl._p || t), 1);
+    fpsEl._n = (fpsEl._n || 0) + 1; fpsEl._p = t;
+    if (fpsEl._n >= 30) { fpsEl.textContent = Math.round(fpsEl._a / fpsEl._n) + ' fps'; fpsEl._a = 0; fpsEl._n = 0; }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

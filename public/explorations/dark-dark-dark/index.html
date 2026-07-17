@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dark Dark Dark · Star Scrub experiments</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; min-height: 100%; background: #000; color: #fff; }
+  body {
+    font: 15px/1.6 ui-sans-serif, -apple-system, system-ui, sans-serif;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 12vh 24px 24px;
+  }
+  h1 { font-size: 20px; font-weight: 500; letter-spacing: 0.02em; margin: 0 0 4px; }
+  .sub { color: rgba(255,255,255,0.45); margin: 0 0 32px; font-size: 13px; text-align: center; max-width: 440px; }
+  ul { list-style: none; padding: 0; margin: 0; width: 100%; max-width: 440px; }
+  li { margin: 0 0 10px; }
+  a.card {
+    display: block; text-decoration: none; color: #fff;
+    border: 1px solid rgba(255,255,255,0.14); border-radius: 10px;
+    padding: 14px 16px; transition: border-color .15s, background .15s;
+  }
+  a.card:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.03); }
+  .name { font-weight: 500; }
+  .desc { color: rgba(255,255,255,0.45); font-size: 13px; margin-top: 2px; }
+  .back { color: rgba(255,255,255,0.4); font-size: 13px; margin-top: 28px; text-decoration: none; }
+  .back:hover { color: rgba(255,255,255,0.7); }
+</style>
+</head>
+<body>
+  <h1>Dark Dark Dark · Star Scrub</h1>
+  <p class="sub">Interaction experiments — reimagining date selection as navigating a field of stars. A curated selection.</p>
+  <ul>
+    <li><a class="card" href="experiments/03-ztravel-focus.html">
+      <div class="name">Z-Travel + Focus</div>
+      <div class="desc">True perspective. Drag to pan, ⌘+scroll to fly forward/back through depth, click a star to travel to it.</div>
+    </a></li>
+    <li><a class="card" href="experiments/05-real-calendar.html">
+      <div class="name">Real Calendar</div>
+      <div class="desc">Anchored to real dates. Depth cues (dimming, tint, glow) + hover preview + a live wayfinding readout.</div>
+    </a></li>
+    <li><a class="card" href="experiments/09-lens-hud.html">
+      <div class="name">Lens HUD</div>
+      <div class="desc">A central focal circle. Stars stay wild outside it; inside, the calendar reveals itself — hour labels, day headers, month + year.</div>
+    </a></li>
+    <li><a class="card" href="experiments/11-zoom-lens.html">
+      <div class="name">Zoom + Lens</div>
+      <div class="desc">Dense hours-field + lens, navigated by anisotropic ⌘+zoom over a continuous timeline. Coarsens to months, years, decades at the extreme.</div>
+    </a></li>
+    <li><a class="card" href="experiments/12-scheduling.html">
+      <div class="name">Scheduling</div>
+      <div class="desc">The scheduling interface. Click stars to select hours, shift-drag to lasso a block, review in the side panel, and Create. T returns to today.</div>
+    </a></li>
+    <li><a class="card" href="experiments/13-mobile-flip.html">
+      <div class="name">Mobile Flip</div>
+      <div class="desc">Touch-first. Flip the card to toggle Browse ⇄ Select. Best in a narrow / device-emulated window.</div>
+    </a></li>
+  </ul>
+  <a class="back" href="/projects/dark-dark-dark">← Back to the case study</a>
+</body>
+</html>

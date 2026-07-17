@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>09 · Lens HUD</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden;
+    font-family: ui-sans-serif, -apple-system, system-ui, sans-serif; }
+  canvas { display: block; touch-action: none; cursor: grab; }
+  canvas.dragging { cursor: grabbing; }
+  #dock { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 9px;
+    pointer-events: none; user-select: none; }
+  #amb { display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 11px 22px; border-radius: 16px; min-width: 220px;
+    background: rgba(18,18,24,0.55); border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+  .l1 { color: rgba(255,255,255,0.94); font-size: 15px; font-weight: 600;
+        letter-spacing: 0.01em; font-variant-numeric: tabular-nums; }
+  .l2 { font-size: 12px; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; min-height: 15px; transition: color .18s; }
+  .l2.range { color: rgba(255,255,255,0.4); }
+  .l2.hover { color: rgba(150,200,255,0.9); }
+  .l2.sel   { color: rgba(255,255,255,0.9); }
+  #hint { font: 11px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+          color: rgba(255,255,255,0.24); letter-spacing: 0.03em; }
+  #hint b { color: rgba(255,255,255,0.4); font-weight: 500; }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div id="dock">
+  <div id="amb"><div class="l1" id="amb1">—</div><div class="l2 range" id="amb2">—</div></div>
+  <div id="hint"><b>09 · Lens HUD</b> — drag to scrub · ⌘+scroll to travel months · click a star in the lens · <span id="fps">–</span></div>
+</div>
+<script>
+(() => {
+  const WD  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const MONTHS = ['January','February','March','April','May','June','July',
+                  'August','September','October','November','December'];
+  const mod = (n, m) => ((n % m) + m) % m;
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const fmtHour = (h) => `${(h % 12) || 12} ${h < 12 ? 'AM' : 'PM'}`;
+  const dayArc = (h) => 0.5 - 0.5 * Math.cos((h / 24) * 6.2832);
+
+  // real "today", stripped to midnight
+  const _n = new Date();
+  const TODAY = new Date(_n.getFullYear(), _n.getMonth(), _n.getDate());
+  const BASE_ABS = TODAY.getFullYear() * 12 + TODAY.getMonth();
+  const ymOf = (absM) => ({ y: Math.floor(absM / 12), m: mod(absM, 12) });
+  const daysInMonth = (y, m) => new Date(y, m + 1, 0).getDate();
+  const weekday = (y, m, d) => new Date(y, m, d).getDay();
+
+  const CFG = {
+    F: 820, spacing: 300, near: 120, far: 1900, fade: 260, nearFade: 70, Z0: 620, refDz: 620,
+    daysVisible: 14, hoursVisible: 12, centerHour: 6,
+    jitter: 0.14, sizeSkew: 2.4,
+    depthPow: 1.6, coolAmount: 0.85, inactiveDim: 0.4, haloMin: 1.6, nightMin: 0.5,
+    thread: true,
+    lens: true, lensVignette: 0.34,   // focal HUD
+    friction: 0.945, stopBelow: 0.02, velSmoothing: 0.6,
+    wheelScale: 1.0, zSpeed: 1.15, focusEase: 0.09, hitRadius: 18,
+  };
+
+  const canvas = document.getElementById('sky');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const fpsEl = document.getElementById('fps');
+  const amb1 = document.getElementById('amb1'), amb2 = document.getElementById('amb2');
+  const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+  const refScale = CFG.F / CFG.refDz;
+
+  let W = 0, H = 0, dpr = 1, colW = 80, rowH = 60, lensR = 170;
+  const cam = { x: 0, y: 0, z: 0, vx: 0, vy: 0 };
+
+  function initFrame() {
+    colW = (W / CFG.daysVisible) / refScale;
+    rowH = (H / CFG.hoursVisible) / refScale;
+    cam.x = ((TODAY.getDate() - 1) + 0.5) * colW;
+    cam.y = (-CFG.centerHour + 0.5) * rowH;
+  }
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const first = (W === 0);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    lensR = clamp(Math.min(W, H) * 0.22, 130, 220);
+    if (first) initFrame();
+  }
+  window.addEventListener('resize', resize); resize();
+
+  const sheetZ = (i) => CFG.Z0 + i * CFG.spacing;
+  let curSheet = 0;
+
+  function seedFor(cx, cy, cz) {
+    let h = (cx * 374761393 + cy * 668265263 + cz * 2246822519) | 0;
+    h = Math.imul(h ^ (h >>> 13), 1274126177);
+    return (h ^ (h >>> 16)) >>> 0;
+  }
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function cellPos(gx, gy, dayNum, hour, absM) {
+    const rnd = mulberry32(seedFor(dayNum, hour, absM));
+    const jx = (rnd() - 0.5) * colW * CFG.jitter, jy = (rnd() - 0.5) * rowH * CFG.jitter;
+    const t = Math.pow(rnd(), CFG.sizeSkew);
+    return { wx: (gx + 0.5) * colW + jx, wy: (gy + 0.5) * rowH + jy, t };
+  }
+
+  // visit(sx, sy, r, a, tintDf, active, hour, wx, wy, i, absM, dayNum, gx)
+  function project(visit) {
+    const cx = W / 2, cy = H / 2;
+    const iMin = Math.ceil((cam.z + CFG.near - CFG.Z0) / CFG.spacing);
+    const iMax = Math.floor((cam.z + CFG.far - CFG.Z0) / CFG.spacing);
+    for (let i = iMax; i >= iMin; i--) {
+      const dz = sheetZ(i) - cam.z;
+      if (dz < CFG.near || dz > CFG.far) continue;
+      const scale = CFG.F / dz;
+      const edge = clamp((CFG.far - dz) / CFG.fade, 0, 1) * clamp((dz - CFG.near) / CFG.nearFade, 0, 1);
+      if (edge <= 0) continue;
+      const df = clamp((dz - CFG.near) / (CFG.far - CFG.near), 0, 1);
+      const depthDim = Math.pow(1 - df, CFG.depthPow);
+      const active = (i === curSheet);
+      const bright = active ? 1 : depthDim * CFG.inactiveDim;
+      const tintDf = active ? 0 : df;
+      const rk = scale / refScale;
+      const absM = BASE_ABS + i;
+      const { y, m } = ymOf(absM);
+      const dim = daysInMonth(y, m);
+      const halfW = (W / 2) / scale + colW, halfH = (H / 2) / scale + rowH;
+      const g0x = Math.floor((cam.x - halfW) / colW), g1x = Math.floor((cam.x + halfW) / colW);
+      const g0y = Math.floor((cam.y - halfH) / rowH), g1y = Math.floor((cam.y + halfH) / rowH);
+      for (let gx = g0x; gx <= g1x; gx++) {
+        const dayNum = mod(gx, dim) + 1;
+        for (let gy = g0y; gy <= g1y; gy++) {
+          const hour = mod(-gy, 24);
+          const p = cellPos(gx, gy, dayNum, hour, absM);
+          const sx = (p.wx - cam.x) * scale + cx, sy = (p.wy - cam.y) * scale + cy;
+          if (sx < -16 || sx > W + 16 || sy < -16 || sy > H + 16) continue;
+          const r = clamp((1.3 + p.t * 2.6) * rk, 0.5, 11) * (active ? 1.1 : 1);
+          const a = (0.5 + 0.5 * p.t) * bright * edge;
+          visit(sx, sy, r, a, tintDf, active, hour, p.wx, p.wy, i, absM, dayNum, gx);
+        }
+      }
+    }
+  }
+
+  function inactiveColor(df, a) {
+    const cool = CFG.coolAmount * df;
+    return `rgba(${Math.round(255 - cool * 105)},${Math.round(255 - cool * 78)},255,${a})`;
+  }
+  function dayNightColor(hour, a) {
+    const b = dayArc(hour);
+    return `rgba(${Math.round(lerp(165,255,b))},${Math.round(lerp(190,252,b))},${Math.round(lerp(255,238,b))},${a})`;
+  }
+
+  function drawStructure() {
+    const i = curSheet, dz = sheetZ(i) - cam.z;
+    if (dz < CFG.near || dz > CFG.far) return;
+    const scale = CFG.F / dz, cx = W / 2, cy = H / 2;
+    const absM = BASE_ABS + i, { y, m } = ymOf(absM), dim = daysInMonth(y, m);
+    const halfW = (W / 2) / scale + colW, halfH = (H / 2) / scale + rowH;
+    const g0x = Math.floor((cam.x - halfW) / colW), g1x = Math.floor((cam.x + halfW) / colW);
+    const g0y = Math.floor((cam.y - halfH) / rowH), g1y = Math.floor((cam.y + halfH) / rowH);
+    if (absM === BASE_ABS) {
+      for (let gx = g0x; gx <= g1x; gx++) {
+        if (mod(gx, dim) + 1 !== TODAY.getDate()) continue;
+        const colX = ((gx + 0.5) * colW - cam.x) * scale + cx, w = colW * scale * 0.7;
+        const g = ctx.createLinearGradient(colX - w, 0, colX + w, 0);
+        g.addColorStop(0, 'rgba(255,220,170,0)'); g.addColorStop(0.5, 'rgba(255,220,170,0.10)'); g.addColorStop(1, 'rgba(255,220,170,0)');
+        ctx.fillStyle = g; ctx.fillRect(colX - w, 0, 2 * w, H);
+      }
+    }
+    if (CFG.thread) {
+      ctx.lineWidth = 1;
+      for (let gx = g0x; gx <= g1x; gx++) {
+        const dayNum = mod(gx, dim) + 1, wd = weekday(y, m, dayNum);
+        const weekend = (wd === 0 || wd === 6), isToday = (absM === BASE_ABS && dayNum === TODAY.getDate());
+        ctx.strokeStyle = isToday ? 'rgba(255,225,180,0.34)' : weekend ? 'rgba(150,170,210,0.07)' : 'rgba(210,220,245,0.13)';
+        ctx.beginPath();
+        for (let gy = g0y, first = true; gy <= g1y; gy++) {
+          const hour = mod(-gy, 24), p = cellPos(gx, gy, dayNum, hour, absM);
+          const sx = (p.wx - cam.x) * scale + cx, sy = (p.wy - cam.y) * scale + cy;
+          if (first) { ctx.moveTo(sx, sy); first = false; } else ctx.lineTo(sx, sy);
+        }
+        ctx.stroke();
+      }
+    }
+  }
+
+  let focusing = false; const focusT = { x: 0, y: 0, z: 0 };
+  let selected = null, ring = null, hoverCand = null;
+  let mouseX = -1, mouseY = -1, mouseIn = false;
+
+  function pick(px, py) {
+    let best = null;
+    project((sx, sy, r, a, tintDf, active, hour, wx, wy, i, absM, dayNum) => {
+      if (!active || a < 0.06) return;
+      const d = Math.hypot(sx - px, sy - py);
+      if (d > CFG.hitRadius) return;
+      if (!best || d < best.d) best = { sx, sy, wx, wy, i, absM, dayNum, hour, d };
+    });
+    return best;
+  }
+  function selectStar(s) {
+    selected = { wx: s.wx, wy: s.wy, i: s.i, absM: s.absM, dayNum: s.dayNum, hour: s.hour };
+    focusT.x = s.wx; focusT.y = s.wy; focusT.z = sheetZ(s.i) - CFG.refDz;
+    focusing = true; cam.vx = 0; cam.vy = 0;
+    ring = { wx: s.wx, wy: s.wy, i: s.i, start: performance.now() };
+  }
+  function dateLabel(absM, dayNum, hour) {
+    const { y, m } = ymOf(absM);
+    return `${WD[weekday(y, m, dayNum)]}, ${MON[m]} ${dayNum}, ${y} · ${fmtHour(hour)}`;
+  }
+
+  function draw(now) {
+    const cx = W / 2, cy = H / 2;
+    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+    drawStructure();
+    hoverCand = null;
+    const canHover = mouseIn && !dragging;
+    const labels = [];                     // stars inside the lens
+    const cols = new Map();                // gx → true (day columns in lens)
+
+    project((sx, sy, r, a, tintDf, active, hour, wx, wy, i, absM, dayNum, gx) => {
+      let col, aa = a;
+      if (active) { aa = a * (CFG.nightMin + (1 - CFG.nightMin) * dayArc(hour)); col = dayNightColor(hour, aa); }
+      else col = inactiveColor(tintDf, aa);
+      if (active && r >= CFG.haloMin) {
+        const g = ctx.createRadialGradient(sx, sy, 0, sx, sy, r * 4.2);
+        g.addColorStop(0, dayNightColor(hour, aa * 0.5)); g.addColorStop(1, dayNightColor(hour, 0));
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(sx, sy, r * 4.2, 0, 6.2832); ctx.fill();
+      }
+      ctx.fillStyle = col;
+      ctx.beginPath(); ctx.arc(sx, sy, r, 0, 6.2832); ctx.fill();
+      if (canHover && active) {
+        const d = Math.hypot(sx - mouseX, sy - mouseY);
+        if (d <= CFG.hitRadius && (!hoverCand || d < hoverCand.d)) hoverCand = { sx, sy, d, absM, dayNum, hour };
+      }
+      if (CFG.lens && active) {
+        const dl = Math.hypot(sx - cx, sy - cy);
+        if (dl <= lensR - 6) { labels.push({ sx, sy, hour }); cols.set(gx, dayNum); }
+      }
+    });
+
+    if (CFG.lens) drawLens(labels, cols);
+
+    if (selected) {
+      const dz = sheetZ(selected.i) - cam.z;
+      if (dz > CFG.near && dz < CFG.far) {
+        const scale = CFG.F / dz;
+        const sx = (selected.wx - cam.x) * scale + cx, sy = (selected.wy - cam.y) * scale + cy;
+        ctx.strokeStyle = 'rgba(255,255,255,0.4)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(sx, sy, 14, 0, 6.2832); ctx.stroke();
+      }
+    }
+    if (hoverCand) {
+      ctx.strokeStyle = 'rgba(150,200,255,0.9)'; ctx.lineWidth = 1.25;
+      ctx.beginPath(); ctx.arc(hoverCand.sx, hoverCand.sy, 12, 0, 6.2832); ctx.stroke();
+      canvas.style.cursor = 'pointer';
+    } else if (!dragging) { canvas.style.cursor = 'grab'; }
+    if (ring) {
+      const dz = sheetZ(ring.i) - cam.z, e = (now - ring.start) / 700;
+      if (e >= 1 || dz < CFG.near) ring = null;
+      else {
+        const scale = CFG.F / dz;
+        const sx = (ring.wx - cam.x) * scale + cx, sy = (ring.wy - cam.y) * scale + cy;
+        ctx.strokeStyle = `rgba(255,255,255,${(1 - e) * 0.55})`; ctx.lineWidth = 1.25;
+        ctx.beginPath(); ctx.arc(sx, sy, 8 + e * 42, 0, 6.2832); ctx.stroke();
+      }
+    }
+  }
+
+  function drawLens(labels, cols) {
+    const cx = W / 2, cy = H / 2;
+    // vignette: darken the wild field outside the lens
+    if (CFG.lensVignette > 0) {
+      const g = ctx.createRadialGradient(cx, cy, lensR * 0.75, cx, cy, Math.max(W, H) * 0.7);
+      g.addColorStop(0, 'rgba(0,0,0,0)');
+      g.addColorStop(1, `rgba(0,0,0,${CFG.lensVignette})`);
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    }
+    // ring
+    ctx.strokeStyle = 'rgba(255,255,255,0.16)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(cx, cy, lensR, 0, 6.2832); ctx.stroke();
+    // center crosshair
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+    ctx.beginPath(); ctx.moveTo(cx - 6, cy); ctx.lineTo(cx + 6, cy);
+    ctx.moveTo(cx, cy - 6); ctx.lineTo(cx, cy + 6); ctx.stroke();
+
+    const dz = sheetZ(curSheet) - cam.z, scale = CFG.F / dz;
+    const { y, m } = ymOf(BASE_ABS + curSheet);
+    const dim = daysInMonth(y, m);
+    // month + year caption above the lens
+    ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = '600 13px ui-sans-serif, system-ui, sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.fillText(`${MONTHS[m]} ${y}`, cx, cy - lensR - 12);
+    // day-column headers inside the top of the lens
+    ctx.font = '11px ui-monospace, Menlo, monospace';
+    for (const [gx, dayNum] of cols) {
+      const colX = ((gx + 0.5) * colW - cam.x) * scale + cx;
+      if (Math.abs(colX - cx) > lensR - 14) continue;
+      const dx = colX - cx, yInset = Math.sqrt(Math.max(0, lensR * lensR - dx * dx));
+      const wd = weekday(y, m, dayNum);
+      const isToday = (BASE_ABS + curSheet === BASE_ABS && dayNum === TODAY.getDate());
+      ctx.fillStyle = isToday ? 'rgba(255,225,180,0.95)' : 'rgba(255,255,255,0.7)';
+      ctx.fillText(`${WD[wd]} ${dayNum}`, colX, cy - yInset + 15);
+    }
+    // per-star hour labels
+    ctx.textAlign = 'left'; ctx.font = '10px ui-monospace, Menlo, monospace';
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    for (const L of labels) ctx.fillText(fmtHour(L.hour), L.sx + 6, L.sy + 0.5);
+  }
+
+  let lastL1 = '', lastL2 = '', lastCls = '';
+  function updateReadout() {
+    const { y, m } = ymOf(BASE_ABS + curSheet);
+    const l1 = `${MONTHS[m]} ${y}`;
+    let l2, cls;
+    if (hoverCand) { l2 = dateLabel(hoverCand.absM, hoverCand.dayNum, hoverCand.hour); cls = 'l2 hover'; }
+    else if (selected) { l2 = dateLabel(selected.absM, selected.dayNum, selected.hour); cls = 'l2 sel'; }
+    else {
+      const dim = daysInMonth(y, m);
+      const halfCols = (W / 2) / refScale / colW, halfRows = (H / 2) / refScale / rowH;
+      const cCol = cam.x / colW - 0.5, cRow = cam.y / rowH - 0.5;
+      const dayTxt = (2 * halfCols >= dim) ? 'all days'
+        : `days ${mod(Math.round(cCol - halfCols), dim) + 1}–${mod(Math.round(cCol + halfCols), dim) + 1}`;
+      const h1 = mod(-Math.round(cRow - halfRows), 24), h2 = mod(-Math.round(cRow + halfRows), 24);
+      const hrTxt = (2 * halfRows >= 24) ? 'all hours' : `${fmtHour(h2)}–${fmtHour(h1)}`;
+      l2 = `${dayTxt} · ${hrTxt}`; cls = 'l2 range';
+    }
+    if (l1 !== lastL1) { amb1.textContent = l1; lastL1 = l1; }
+    if (l2 !== lastL2) { amb2.textContent = l2; lastL2 = l2; }
+    if (cls !== lastCls) { amb2.className = cls; lastCls = cls; }
+  }
+
+  let dragging = false, lastX = 0, lastY = 0, downX = 0, downY = 0;
+  canvas.addEventListener('pointerdown', (e) => {
+    dragging = true; focusing = false; canvas.classList.add('dragging');
+    cam.vx = 0; cam.vy = 0; lastX = e.clientX; lastY = e.clientY; downX = e.clientX; downY = e.clientY;
+    mouseX = e.clientX; mouseY = e.clientY; mouseIn = true; canvas.setPointerCapture(e.pointerId);
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    mouseX = e.clientX; mouseY = e.clientY; mouseIn = true;
+    if (!dragging) return;
+    const dx = (e.clientX - lastX) / refScale, dy = (e.clientY - lastY) / refScale;
+    lastX = e.clientX; lastY = e.clientY;
+    cam.x -= dx; cam.y -= dy;
+    cam.vx = CFG.velSmoothing * cam.vx + (1 - CFG.velSmoothing) * -dx;
+    cam.vy = CFG.velSmoothing * cam.vy + (1 - CFG.velSmoothing) * -dy;
+  });
+  canvas.addEventListener('pointerup', (e) => {
+    dragging = false; canvas.classList.remove('dragging');
+    if (Math.hypot(e.clientX - downX, e.clientY - downY) < 5) { const s = pick(e.clientX, e.clientY); if (s) selectStar(s); }
+  });
+  canvas.addEventListener('pointercancel', () => { dragging = false; canvas.classList.remove('dragging'); });
+  canvas.addEventListener('pointerleave', () => { mouseIn = false; });
+  canvas.addEventListener('wheel', (e) => {
+    e.preventDefault(); focusing = false;
+    if (e.metaKey || e.ctrlKey) { cam.z -= e.deltaY * CFG.zSpeed; }
+    else { cam.x += (e.deltaX * CFG.wheelScale) / refScale; cam.y += (e.deltaY * CFG.wheelScale) / refScale; cam.vx = 0; cam.vy = 0; }
+  }, { passive: false });
+
+  let lastT = performance.now();
+  function frame(t) {
+    const dt = Math.min((t - lastT) / 16.6667, 3); lastT = t;
+    if (focusing) {
+      cam.x += (focusT.x - cam.x) * CFG.focusEase * dt;
+      cam.y += (focusT.y - cam.y) * CFG.focusEase * dt;
+      cam.z += (focusT.z - cam.z) * CFG.focusEase * dt;
+      if (Math.abs(focusT.x - cam.x) + Math.abs(focusT.y - cam.y) + Math.abs(focusT.z - cam.z) < 0.5) {
+        cam.x = focusT.x; cam.y = focusT.y; cam.z = focusT.z; focusing = false;
+      }
+    } else if (!dragging) {
+      cam.x += cam.vx * dt; cam.y += cam.vy * dt;
+      const decay = Math.pow(CFG.friction, dt);
+      cam.vx *= decay; cam.vy *= decay;
+      if (Math.abs(cam.vx) < CFG.stopBelow) cam.vx = 0;
+      if (Math.abs(cam.vy) < CFG.stopBelow) cam.vy = 0;
+    }
+    curSheet = Math.round(cam.z / CFG.spacing);
+    draw(t); updateReadout();
+    fpsEl._a = (fpsEl._a || 0) + 1000 / Math.max(t - (fpsEl._p || t), 1);
+    fpsEl._n = (fpsEl._n || 0) + 1; fpsEl._p = t;
+    if (fpsEl._n >= 30) { fpsEl.textContent = Math.round(fpsEl._a / fpsEl._n) + ' fps'; fpsEl._a = 0; fpsEl._n = 0; }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
