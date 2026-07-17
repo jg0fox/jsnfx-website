@@ -41,11 +41,11 @@ const featuredWork = [
     eyebrow: "Featured project",
     title: "Tone Spectrum Explorer",
     description:
-      "A framework that turns subjective, hard-to-pin-down ideas about tone into a shared system teams can actually use — translating experience principles into a reusable, machine-readable standard.",
+      "A framework that turns subjective, hard-to-pin-down ideas about tone into a system that educates people to hone their tone. My goal here was to translate experience principles into a reusable, machine-readable standard.",
     highlights: [
       "Translates fuzzy experience principles into a concrete, reusable framework",
-      "Position tone on 5 spectrums; surfaces the devices that make it land and flags anti-patterns",
-      "Systems thinking and creative craft in one artifact — 50+ linguistic devices catalogued",
+      "Position tone on 5 spectrums with the dimensions required to modulate",
+      "Systems thinking and creative craft in one artifact with 50+ linguistic devices catalogued",
     ],
     meta: "Interactive tool · Self-directed",
     image: "/projects/tone-spectrum/tone-spectrum-explorer-interface.png",
@@ -57,11 +57,11 @@ const featuredWork = [
     eyebrow: "Featured project",
     title: "Dark Dark Dark",
     description:
-      "A single-use scheduler that reimagines date selection as navigating a field of stars — reframing a mundane task with a little persuasion, enticement, and delight.",
+      "A single-use scheduler that reimagines date selection as navigating a field of stars. Because, why not reframe a mundane task with a little persuasion, enticement, and delight.",
     highlights: [
-      "Built on the rock-solid mental model of calendars — well-defined enough to leave room to experiment",
-      "A lens resolves the familiar calendar out of a wild star field; you schedule by clicking and lassoing stars",
-      "The same instinct behind visualizing research insights: compel and entertain, don't just show the data",
+      "Built on the rock-solid mental model of calendars, well-defined enough to leave room to experiment",
+      "A lens resolves the familiar calendar out of a wild star field",
+      "Compel and entertain, don't just show the data",
     ],
     meta: "Live at drkdrkdrk.com · Self-directed",
     image: "/projects/dark-dark-dark/lens-hud.png",
@@ -100,7 +100,7 @@ const additionalWork = [
   {
     title: "Robinhood's 24 Hour Market",
     description:
-      "Drove 0-to-1 content strategy in an ambiguous, compliance-bound space — aligning product, legal, and design, and codifying shared patterns for market data, terminology, and tone.",
+      "Drove 0-to-1 content strategy in an ambiguous, compliance-bound space, aligning product, legal, and design, and codifying shared patterns for market data, terminology, and tone.",
     tags: ["Cross-functional", "0-to-1", "Systems"],
     href: "/portfolio/robinhood-full",
     icon: Scale,
@@ -109,7 +109,7 @@ const additionalWork = [
   {
     title: "New admin experiences at Atlassian",
     description:
-      "Led content design for Jira and Confluence admin onboarding — narrative arcs, content models, and a hypothesis-driven approach that improved retention at the 2-week mark.",
+      "Led content design for Jira and Confluence admin onboarding, with narrative arcs, content models, and a hypothesis-driven approach that improved retention at the 2-week mark.",
     tags: ["Content strategy", "Onboarding", "Growth"],
     href: "/portfolio/atlassian",
     icon: Layers,
@@ -136,7 +136,7 @@ const additionalWork = [
   {
     title: "Peer-to-peer payments at Chime",
     description:
-      "Led a content experiment that improved peer-to-peer payments by 16%. Proved that simplifying language outperformed adding specificity — a lesson in trusting users.",
+      "Led a content experiment that improved peer-to-peer payments by 16%. Proved that simplifying language outperformed adding specificity, a lesson in trusting users.",
     tags: ["A/B testing", "Comprehension", "User research"],
     href: "/portfolio/chime",
     icon: Scale,
@@ -290,45 +290,37 @@ export default function NetflixPage() {
           </p>
 
           <p>
-            Yet whether I'm leading workshops to chart a team's content systems
-            and strategies or defining a new information architecture on a
-            legacy knowledge base, I never lose sight of my goals to simplify,
-            share, and learn.
+            But the thread through all of it is my belief that the right cue at
+            the right moment gives people the confidence to choose, and maybe
+            even feel a bit of excitement. I really appreciate being able to
+            create the artwork, the words, and the framing that turn a
+            potentially sprawling experience into something that evokes a "yes,
+            that."
           </p>
 
           <p>
-            Over the last 2 years, I've found myself focused on AI content
-            systems for internal tooling and developer teams. I've written the
-            context, built the systems, managed the integrations, and influenced
-            the stakeholders.
+            For the past two years I've been building the systems behind that
+            kind of quality at Atlassian. In one recent effort I took 250+
+            content design standards, tagged each with governance metadata,
+            defined a new information architecture for the whole corpus, served
+            it through a system our AI tooling could actually use, and then
+            measured the impact on performance. Along the way I used that
+            metadata to create knowledge graphs, site maps, and prototypes to
+            bring my stakeholders along with me.
           </p>
 
           <p>
-            In one of my recent efforts, I wrangled 250+ content design
-            standards and built them into an AI content system. This involved:
+            I also build for the joy of it. In Dark Dark Dark, a little
+            scheduler I made, I reimagined date selection as flying through a
+            field of stars. People hold such a rock-solid mental model of a
+            calendar that I wanted to see if I could find room to make a mundane
+            task feel like wonder. Education through entertainment is something
+            that floats my boat.
           </p>
 
-          <ol className="list-decimal space-y-1.5 pl-6 marker:text-text-muted marker:font-medium">
-            <li>Auditing and tagging every standard with governance metadata</li>
-            <li>Defining a new information architecture for the entire corpus</li>
-            <li>Building a Bitbucket repository as our context storage</li>
-            <li>
-              Building an MCP server and ensuring it had the capability to serve
-              the metadata-enriched standards
-            </li>
-            <li>
-              Designing system prompt components, like a metadata decision
-              matrix, so tools can retrieve the right standard efficiently
-            </li>
-            <li>Building the pipeline to our AI tooling</li>
-            <li>
-              Finally, measuring the impact of that work on our AI performance
-            </li>
-          </ol>
-
           <p>
-            I don't have this work in my portfolio yet, but I'd love to put
-            together a presentation for you.
+            I'd love to put together a short presentation and walk you through
+            how I'd approach evidence strategy at Netflix.
           </p>
 
           <p>
@@ -449,7 +441,7 @@ export default function NetflixPage() {
         <p className="text-text-secondary mb-6 max-w-md mx-auto">
           I'd love to discuss how systems thinking, research-driven frameworks,
           and AI-fluent workflows can help CUE XD move evidence strategy
-          upstream — shaping how members make confident choices across a global
+          upstream, shaping how members make confident choices across a global
           catalog.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
