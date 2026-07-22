@@ -12,8 +12,12 @@ case "$VARIANT" in
     PAGE="figma-resume"
     OUT="public/jason-fox-resume-figma.pdf"
     ;;
+  netflix)
+    PAGE="netflix-resume"
+    OUT="public/jason-fox-resume-netflix.pdf"
+    ;;
   *)
-    echo "Unknown variant: $VARIANT (use 'nflx' or 'figma')" >&2
+    echo "Unknown variant: $VARIANT (use 'nflx', 'figma', or 'netflix')" >&2
     exit 1
     ;;
 esac
