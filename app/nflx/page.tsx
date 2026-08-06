@@ -151,15 +151,6 @@ const additionalWork = [
     icon: BrainCircuit,
     type: "portfolio" as const,
   },
-  {
-    title: "jsnfx.com redesign",
-    description:
-      "Built this portfolio site with Next.js and MDX, including an LLM-powered crawler that migrated 12 pages and 87 images from Webflow with contextual filenames.",
-    tags: ["Next.js", "Claude API", "Content migration"],
-    href: "/projects/jsnfx-website",
-    icon: Hammer,
-    type: "project" as const,
-  },
 ];
 
 function FeaturedCard({ study }: { study: (typeof featuredWork)[number] }) {

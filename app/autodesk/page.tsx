@@ -122,15 +122,6 @@ const additionalWork = [
     type: "project" as const,
   },
   {
-    title: "jsnfx.com redesign",
-    description:
-      "Built this portfolio site with Next.js and MDX, including an LLM-powered crawler that migrated 12 pages and 87 images from Webflow with contextual filenames.",
-    tags: ["Next.js", "Claude API", "Content migration"],
-    href: "/projects/jsnfx-website",
-    icon: Hammer,
-    type: "project" as const,
-  },
-  {
     title: "Refining Oracle's voice and tone",
     description:
       "Distilled voice and tone from 5 of Oracle's core products into actionable design resources through content auditing, user research, and voice mapping.",
