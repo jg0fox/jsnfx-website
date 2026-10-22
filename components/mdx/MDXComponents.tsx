@@ -81,6 +81,92 @@ function MDXImage({
 }
 
 /**
+ * Image at its natural aspect ratio (MDXImage forces 4:3).
+ * `scroll` keeps very tall images (full-page screenshots) in a fixed-height
+ * frame that scrolls internally instead of stretching the page.
+ */
+function Figure({
+  src,
+  alt,
+  width,
+  height,
+  caption,
+  scroll = false,
+}: {
+  src: string;
+  alt: string;
+  // Strings in MDX: next-mdx-remote strips JS expressions like {800}
+  width: number | string;
+  height: number | string;
+  caption?: string;
+  scroll?: boolean;
+}) {
+  const image = (
+    <Image
+      src={src}
+      alt={alt}
+      width={Number(width)}
+      height={Number(height)}
+      className="w-full h-auto"
+      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 800px"
+    />
+  );
+
+  const figcaption = caption && (
+    <figcaption className="py-2 px-3 text-sm text-text-muted text-center bg-soft-linen-light border-t border-soft-linen-dark">
+      {caption}
+    </figcaption>
+  );
+
+  if (scroll) {
+    return (
+      <figure className="my-8 max-w-full overflow-hidden rounded-lg border border-soft-linen-dark bg-soft-linen-light">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label={`${alt} (scrollable)`}
+          className="max-h-[70vh] overflow-y-auto overscroll-contain focus:outline-none focus-visible:ring-2 focus-visible:ring-palm-leaf focus-visible:ring-inset"
+        >
+          {image}
+        </div>
+        {figcaption}
+      </figure>
+    );
+  }
+
+  return (
+    <LightboxImage src={src} alt={alt}>
+      <figure className="my-8 max-w-full overflow-hidden rounded-lg border border-soft-linen-dark bg-soft-linen-light">
+        {image}
+        {figcaption}
+      </figure>
+    </LightboxImage>
+  );
+}
+
+/**
+ * Responsive grid for sets of related images
+ */
+function ImageGrid({
+  children,
+  cols = 2,
+}: {
+  children: React.ReactNode;
+  cols?: 2 | 3 | "2" | "3";
+}) {
+  return (
+    <div
+      className={cn(
+        "my-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 [&_figure]:my-0",
+        Number(cols) === 3 && "lg:grid-cols-3"
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+/**
  * Custom link component
  */
 function MDXLink({
@@ -348,4 +434,6 @@ export const MDXComponents: MDXComponentsType = {
   // Custom components that can be used in MDX
   Callout,
   Video,
+  Figure,
+  ImageGrid,
 };

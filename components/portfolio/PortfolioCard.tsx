@@ -44,7 +44,9 @@ export function PortfolioCard({
         />
         {/* Category overlay */}
         <div className="absolute top-3 left-3">
-          <Tag size="sm">{category}</Tag>
+          <Tag size="sm" className="bg-soft-linen-light border-soft-linen-dark shadow-sm">
+            {category}
+          </Tag>
         </div>
       </div>
 
