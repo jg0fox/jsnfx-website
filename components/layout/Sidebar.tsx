@@ -49,9 +49,7 @@ function NavItem({ href, label, icon, isActive, children }: NavItemProps) {
         className={cn(
           "flex items-center rounded-lg transition-colors duration-200",
           "hover:bg-soft-linen-dark/50",
-          (isActive || isChildActive) && "bg-soft-linen-dark/70 font-medium",
-          (isActive || isChildActive) &&
-            "border-l-3 border-palm-leaf -ml-[3px] pl-[3px]"
+          (isActive || isChildActive) && "bg-soft-linen-dark/70 font-medium"
         )}
       >
         <Link
