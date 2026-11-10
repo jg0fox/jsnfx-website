@@ -28,7 +28,7 @@ import {
 export const metadata: Metadata = {
   title: "Jason Fox — Autodesk",
   description:
-    "Cover letter and relevant work for the Content and Conversational Designer role at Autodesk.",
+    "Cover letter and relevant work for the Senior Principal Content Strategist role at Autodesk.",
   robots: {
     index: false,
     follow: false,
@@ -160,7 +160,7 @@ export default function AutodeskPage() {
           </div>
           <div>
             <h1 className="text-2xl lg:text-3xl font-display font-bold text-text-primary">
-              Content and conversational designer
+              Senior Principal Content Strategist
             </h1>
             <p className="text-text-secondary mt-1 flex flex-wrap items-center gap-3">
               <span>Application from Jason Fox</span>
