@@ -106,7 +106,7 @@ export default function ResumePage() {
   return (
     <article className="max-w-3xl">
       {/* Breadcrumbs */}
-      <nav className="flex items-center gap-3 text-sm text-text-muted mb-8">
+      <nav className="flex items-center gap-3 text-sm text-text-muted mb-8 print:hidden">
         <Link href="/" className="hover:text-palm-leaf transition-colors">
           Jason Fox
         </Link>
@@ -131,9 +131,9 @@ export default function ResumePage() {
             </p>
           </div>
           <a
-            href="/jason-fox-resume.pdf"
+            href="/jason-fox-resume-autodesk.pdf"
             download
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-soft-linen-light border border-soft-linen-dark text-text-secondary hover:border-palm-leaf hover:text-palm-leaf transition-colors flex-shrink-0"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-soft-linen-light border border-soft-linen-dark text-text-secondary hover:border-palm-leaf hover:text-palm-leaf transition-colors flex-shrink-0 print:hidden"
           >
             <Download className="w-4 h-4" />
             Download PDF
@@ -141,12 +141,12 @@ export default function ResumePage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-3 mt-3 text-sm text-text-muted">
-          <Link
-            href="/"
+          <a
+            href="https://jsnfx.com/autodesk"
             className="hover:text-palm-leaf transition-colors"
           >
-            jsnfx.com
-          </Link>
+            jsnfx.com/autodesk
+          </a>
           <span>·</span>
           <span>jasongfox@gmail.com</span>
           <span>·</span>

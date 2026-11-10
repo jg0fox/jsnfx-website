@@ -20,8 +20,12 @@ case "$VARIANT" in
     PAGE="servicenow-resume"
     OUT="public/jason-fox-resume-servicenow.pdf"
     ;;
+  autodesk)
+    PAGE="autodesk-resume"
+    OUT="public/jason-fox-resume-autodesk.pdf"
+    ;;
   *)
-    echo "Unknown variant: $VARIANT (use 'nflx', 'figma', 'netflix', or 'servicenow')" >&2
+    echo "Unknown variant: $VARIANT (use 'nflx', 'figma', 'netflix', 'servicenow', or 'autodesk')" >&2
     exit 1
     ;;
 esac

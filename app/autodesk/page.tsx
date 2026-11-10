@@ -174,7 +174,7 @@ export default function AutodeskPage() {
                 </Link>
                 <span className="text-soft-linen-dark">|</span>
                 <a
-                  href="/jason-fox-resume.pdf"
+                  href="/jason-fox-resume-autodesk.pdf"
                   download
                   className="inline-flex items-center gap-1 text-xs font-medium text-palm-leaf hover:text-palm-leaf-3 transition-colors"
                 >
