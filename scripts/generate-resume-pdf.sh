@@ -24,8 +24,12 @@ case "$VARIANT" in
     PAGE="autodesk-resume"
     OUT="public/jason-fox-resume-autodesk.pdf"
     ;;
+  anthropic)
+    PAGE="anthropic-resume"
+    OUT="public/jason-fox-resume-anthropic.pdf"
+    ;;
   *)
-    echo "Unknown variant: $VARIANT (use 'nflx', 'figma', 'netflix', 'servicenow', or 'autodesk')" >&2
+    echo "Unknown variant: $VARIANT (use 'nflx', 'figma', 'netflix', 'servicenow', 'autodesk', or 'anthropic')" >&2
     exit 1
     ;;
 esac
